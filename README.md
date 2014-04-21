@@ -1,4 +1,4 @@
-AR
+Android work folder
 ==
 
-AR Project
+Android Project
