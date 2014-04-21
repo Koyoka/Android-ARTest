@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:padding="10dip" >
+    <ImageView 
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tasklist_task_off"
+        android:id="@+id/imgTaskStatusView"/>
+    <ImageView 
+        android:visibility="gone"
+		android:layout_toRightOf="@id/imgTaskStatusView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tasklist_taskdesc_1"/>
+	
+	<TextView 
+	    android:layout_marginRight="4dip"
+	    android:textStyle="bold"
+	    android:visibility="gone"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:id="@+id/txtTaskScoreView"
+	    android:textColor="@color/list_taskgame_item_score_color"
+	    android:textSize="@dimen/list_taskgame_item_score_size"
+	    android:text="+20"/>
+
+    <TextView 
+        android:id="@+id/txtTaskDescView"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/imgTaskStatusView"
+        android:layout_toLeftOf="@id/txtTaskScoreView"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/activity_tasklist_taskdesc_size"
+        android:text="111"/>
+</RelativeLayout>

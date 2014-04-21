@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/common_background"
+    tools:context=".cmobile.acty.MainTaskActivity" >
+
+    <Button 
+        android:id="@+id/btnTaskListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dip"
+        android:layout_marginRight="10dip"
+        android:background="@drawable/maintask_list_button"/>
+    <ImageView 
+        android:id="@+id/imgTaskListCountView"
+        android:layout_alignLeft="@id/btnTaskListView"
+        android:layout_below="@id/btnTaskListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/maintask_list_count"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/maintask_logo" />
+
+        <LinearLayout
+            android:layout_marginTop="20dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/maintask_girl" />
+            <!-- <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/maintask_desc" /> -->
+            <ScrollView 
+                android:padding="5dip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <LinearLayout
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:gravity="top|center_horizontal"
+	                android:orientation="vertical" >
+                
+	                <TextView
+	                    android:layout_gravity="left"
+	                    android:id="@+id/txtTaskTitleView"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="古老的羊皮卷"
+	                    android:textSize="@dimen/activity_maintask_tasktitle_size"
+	                    android:textStyle="bold" />
+	                <TextView
+                    android:id="@+id/txtTaskDescView"
+                    android:layout_width="@dimen/activity_maintask_taskdesc_width"
+                    android:layout_height="wrap_content"
+                    android:text="古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老古老的羊皮卷古老的羊皮卷古老的羊皮卷古老"
+                    android:textSize="@dimen/activity_maintask_taskdesc_size" />
+                </LinearLayout>
+                
+            </ScrollView>
+
+        </LinearLayout>
+
+    <Button 
+   	    android:id="@+id/btnGoView"
+   	    android:layout_margin="20dip"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:background="@drawable/maintask_button"/>
+    </LinearLayout>
+    
+
+</RelativeLayout>

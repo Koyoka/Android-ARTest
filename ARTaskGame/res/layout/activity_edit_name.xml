@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/editname_background" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+    <ImageView 
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/editname_logo"/>
+    <EditText 
+        android:id="@+id/txtUserNameView"
+        android:hint="@string/activity_launch_editUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:background="@drawable/editname_textbox"/>    
+        
+	<Button 
+	    android:layout_margin="20dip"
+   	    android:id="@+id/btnReadyView"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:background="@drawable/editname_button"/>
+   	
+    
+    </LinearLayout>
+</RelativeLayout>

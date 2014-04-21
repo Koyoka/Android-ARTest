@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+     <TextView 
+        android:text="@string/activity_launch_ready"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <ImageView 
+        android:contentDescription="launch"
+        android:layout_margin="20dip"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/launch_2"/>
+    <EditText 
+        android:id="@+id/txtUserNameView"
+        android:hint="@string/activity_launch_editUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>    
+        
+   	<Button 
+   	    android:layout_margin="20dip"
+   	    android:id="@+id/btnReadyView"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:text="@string/activity_launch_btn_ready"/>
+    
+    </LinearLayout>
+
+</RelativeLayout>
