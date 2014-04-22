@@ -13,7 +13,44 @@ import android.database.Cursor;
 
 public class DBCtrl {
 	
-
+	public static String getTaskCount(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		dbMng.open();
+		Cursor cursor = dbMng.query(
+				TblTaskDetail.DBName,
+				new String[]{"COUNT(*) AS [Totle]"}, 
+				cdt);
+		dbMng.close();
+		
+		String count = "";
+		if(cursor.moveToFirst()){
+			count = DBMng.GetDataString(cursor, "Totle");
+		}
+		return count;
+	}
+	
+	public static String getTaskFinishCount(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = TblTaskDetail.Col_Finish + " = '" + TblTaskDetail.FINISH_YES + "'";
+		
+		dbMng.open();
+		Cursor cursor = dbMng.query(
+				TblTaskDetail.DBName,
+				new String[]{"COUNT(*) AS [Totle]"}, 
+				cdt);
+		dbMng.close();
+		
+		String count = "";
+		if(cursor.moveToFirst()){
+			count = DBMng.GetDataString(cursor, "Totle");
+		}
+		return count;
+	}
+	
 	public static boolean finishTask(Context c,String taskId){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		String cdt =  "id = '" + taskId+"'";

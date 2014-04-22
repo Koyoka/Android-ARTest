@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yrkj.artaskgame.R;
@@ -29,7 +30,7 @@ OnClickListener{
 	MainTaskActivity mActy = null;
 	
 	private Button mBtnTaskListView = null;
-	private ImageView mImgTaskListCountView = null;
+	private LinearLayout mImgTaskListCountView = null;
 	private TextView mTxtTaskTitleView = null;
 	private TextView mTxtTaskDescView = null;
 	private Button mBtnGoView = null;
@@ -54,6 +55,7 @@ OnClickListener{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		loadTaskCount();
 	}
 	
 	@Override
@@ -87,6 +89,7 @@ OnClickListener{
 
 	private void initData() {
 		// TODO Auto-generated method stub
+		
 		Intent intent = getIntent();
 		if(intent != null)
 			mSelectTaskId = intent.getStringExtra(TaskListActivity.INTENT_KEY_SELECTTASK);
@@ -98,7 +101,7 @@ OnClickListener{
 		mImgTotleTenCountView = (ImageView) findViewById(R.id.imgTotleTenCountView);
 		mImgTotleBitsCountView = (ImageView) findViewById(R.id.imgTotleBitsCountView);
 		
-		mImgTaskListCountView = (ImageView) findViewById(R.id.imgTaskListCountView);
+		mImgTaskListCountView = (LinearLayout) findViewById(R.id.imgTaskListCountView);
 		mBtnTaskListView = (Button) findViewById(R.id.btnTaskListView);
 		
 		if(SysMng.hasBeenFinishFirstTask()){
@@ -158,8 +161,23 @@ OnClickListener{
 	}
 	
 	private void loadTaskCount(){
+		
+		String s = DBCtrl.getTaskCount(this);
+//		ToastUtil.show(this, s);
+		
+		String ss = DBCtrl.getTaskFinishCount(this);
+		
 		int finishCount = 0;
 		int totleCount = 0;
+		
+		try {
+			finishCount = Integer.parseInt(ss, 10);
+			totleCount = Integer.parseInt(s, 10);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+//		ToastUtil.show(this, totleCount + " " + finishCount);
 		setCurrentCount(finishCount,totleCount);
 	}
 	
@@ -171,7 +189,6 @@ OnClickListener{
 			mImgTotleTenCountView.setVisibility(View.GONE);
 		}
 		setCountView(curCount,mImgCurrentCountView);
-		
 		
 		int bitsNum = totle%10;
 		int tenNum = totle - bitsNum;

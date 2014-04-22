@@ -62,13 +62,13 @@
                 android:id="@+id/btnGoView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/confirmtask_button_go" />
+                android:background="@drawable/btn_go_x" />
 
             <Button
                 android:id="@+id/btnHelpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/confirmtask_button_help" />
+                android:background="@drawable/btn_help_x" />
         </LinearLayout>
     </LinearLayout>
 

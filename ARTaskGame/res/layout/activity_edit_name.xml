@@ -28,7 +28,7 @@
    	    android:id="@+id/btnReadyView"
    	    android:layout_width="wrap_content"
    	    android:layout_height="wrap_content"
-   	    android:background="@drawable/editname_button"/>
+   	    android:background="@drawable/btn_ready_x"/>
    	
     
     </LinearLayout>

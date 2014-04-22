@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@drawable/taskend_button_go" />
+            android:background="@drawable/btn_go_x" />
     </LinearLayout>
 
 </RelativeLayout>

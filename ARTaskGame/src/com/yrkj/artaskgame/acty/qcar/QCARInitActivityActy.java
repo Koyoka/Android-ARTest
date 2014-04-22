@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -42,6 +43,11 @@ import com.yrkj.util.log.ToastUtil;
 
 public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInterface{
 	final String TAG = "com.yrkj.artaskgame.acty.qcar.QCARInitActivity";
+	
+	int curWelcomeGrilID = 0;
+	int time = 800;
+	
+	ImageView mImgWelcomeGrilView;
 	
 	// Focus mode constants:
     private static final int FOCUS_MODE_NORMAL = 0;
@@ -66,7 +72,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     static final int HIDE_LOADING_DIALOG = 0;
     static final int SHOW_LOADING_DIALOG = 1;
     
-    private View mLoadingDialogContainer;
+//    private View mLoadingDialogContainer;
     
     // Our OpenGL view:
     public QCARSampleGLView mGlView;
@@ -152,12 +158,12 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
             
             if (msg.what == SHOW_LOADING_DIALOG)
             {
-                imageTargets.mLoadingDialogContainer
-                    .setVisibility(View.VISIBLE);
+//                imageTargets.mLoadingDialogContainer
+//                    .setVisibility(View.VISIBLE);
                 
             } else if (msg.what == HIDE_LOADING_DIALOG)
             {
-                imageTargets.mLoadingDialogContainer.setVisibility(View.GONE);
+//                imageTargets.mLoadingDialogContainer.setVisibility(View.GONE);
             }
         }
     }
@@ -620,9 +626,18 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                 // Native post initialization:
                 onQCARInitializedNative();
                 
-                goActy();
+//                goActy();
                 
-                
+                new Handler(){
+        			@Override
+        			public void handleMessage(Message msg) {
+        				// TODO Auto-generated method stub
+        				super.handleMessage(msg);
+        				if(msg.what == 1){
+        					goActy();
+        				}
+        			}
+        		}.sendEmptyMessageDelayed(1, 2000);
 //                // Activate the renderer:
 //                mRenderer.mIsActive = true;
 //                
@@ -719,15 +734,18 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
 //        mGlView.setRenderer(mRenderer);
         
         LayoutInflater inflater = LayoutInflater.from(this);
-        mUILayout = (RelativeLayout) inflater.inflate(R.layout.camera_overlay,
-            null, false);
+//        mUILayout = (RelativeLayout) inflater.inflate(R.layout.camera_overlay,
+//            null, false);
+        mUILayout = (RelativeLayout) inflater.inflate(R.layout.activity_launch,
+        		null, false);
         
         mUILayout.setVisibility(View.VISIBLE);
-        mUILayout.setBackgroundColor(Color.BLACK);
-        
+//        mUILayout.setBackgroundColor(Color.BLACK);
+        mImgWelcomeGrilView = (ImageView) mUILayout
+        		.findViewById(R.id.imgWelcomeGrilView);
         // Gets a reference to the loading dialog
-        mLoadingDialogContainer = mUILayout
-            .findViewById(R.id.loading_indicator);
+//        mLoadingDialogContainer = mUILayout
+//            .findViewById(R.id.loading_indicator);
         
         // Shows the loading indicator at start
         loadingDialogHandler.sendEmptyMessage(SHOW_LOADING_DIALOG);
@@ -735,7 +753,26 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         // Adds the inflated layout to the view
         addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
             LayoutParams.MATCH_PARENT));
-        
+        animImageGirl();
+    }
+    
+    private void animImageGirl(){
+    	curWelcomeGrilID = R.drawable.welcome_girl_2;
+		mImgWelcomeGrilView.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(curWelcomeGrilID == R.drawable.welcome_girl_2){
+					curWelcomeGrilID = R.drawable.welcome_girl_1;
+				}else{
+					curWelcomeGrilID = R.drawable.welcome_girl_2;
+					
+				}
+				mImgWelcomeGrilView.setImageResource(curWelcomeGrilID);
+				
+				mImgWelcomeGrilView.postDelayed(this,time);
+			}
+		}, time);
     }
     
     /** Returns the number of registered textures. */

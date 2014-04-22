@@ -5,35 +5,60 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageView;
 
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.acty.qcar.QCARInitActivityActy;
-import com.yrkj.artaskgame.base.SysMng;
-import com.yrkj.util.log.ToastUtil;
 
 public class LaunchLiuActivity extends Activity {
 	
 	final String TAG = "com.yrkj.artaskgame.cmobile.acty.LaunchLiuActivity";
 	LaunchLiuActivity mActy = null;
 	
+	int curWelcomeGrilID = 0;
+	int time = 800;
+	
+	ImageView mImgWelcomeGrilView;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_launch);
-		mActy = this;
-		initData();
-		initActy();
-		loadData();
+		goActy();
+		
+//		setContentView(R.layout.activity_launch);
+//		mActy = this;
+//		initData();
+//		initActy();
+//		loadData();
 	}
 
 	private void initData(){
 	}
 
 	private void initActy(){
+		mImgWelcomeGrilView = (ImageView) findViewById(R.id.imgWelcomeGrilView);
 	}
 	
+	
+	
 	private void loadData(){
+		curWelcomeGrilID = R.drawable.welcome_girl_2;
+		mImgWelcomeGrilView.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(curWelcomeGrilID == R.drawable.welcome_girl_2){
+					curWelcomeGrilID = R.drawable.welcome_girl_1;
+				}else{
+					curWelcomeGrilID = R.drawable.welcome_girl_2;
+					
+				}
+				mImgWelcomeGrilView.setImageResource(curWelcomeGrilID);
+				
+				mImgWelcomeGrilView.postDelayed(this,time);
+			}
+		}, time);
 		
 		new Handler(){
 			@Override
