@@ -36,6 +36,10 @@ OnClickListener{
 	
 	private String mSelectTaskId = "";
 	
+	private ImageView mImgCurrentCountView;
+	private ImageView mImgTotleTenCountView;
+	private ImageView mImgTotleBitsCountView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,6 +48,12 @@ OnClickListener{
 		initData();
 		initActy();
 		loadData();
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 	}
 	
 	@Override
@@ -83,6 +93,11 @@ OnClickListener{
 	}
 
 	private void initActy() {
+		
+		mImgCurrentCountView = (ImageView) findViewById(R.id.imgCurrentCountView);
+		mImgTotleTenCountView = (ImageView) findViewById(R.id.imgTotleTenCountView);
+		mImgTotleBitsCountView = (ImageView) findViewById(R.id.imgTotleBitsCountView);
+		
 		mImgTaskListCountView = (ImageView) findViewById(R.id.imgTaskListCountView);
 		mBtnTaskListView = (Button) findViewById(R.id.btnTaskListView);
 		
@@ -140,6 +155,68 @@ OnClickListener{
 	private void goActy(Class<?> cls){
 		Intent intent = new Intent(this, cls);
 		this.startActivity(intent);
+	}
+	
+	private void loadTaskCount(){
+		int finishCount = 0;
+		int totleCount = 0;
+		setCurrentCount(finishCount,totleCount);
+	}
+	
+	
+	private void setCurrentCount(int curCount,int totle){
+		if(totle >=10){
+			mImgTotleTenCountView.setVisibility(View.VISIBLE);
+		}else{
+			mImgTotleTenCountView.setVisibility(View.GONE);
+		}
+		setCountView(curCount,mImgCurrentCountView);
+		
+		
+		int bitsNum = totle%10;
+		int tenNum = totle - bitsNum;
+		setCountView(tenNum,mImgTotleTenCountView);
+		setCountView(bitsNum,mImgTotleBitsCountView);
+	}
+	
+	private void setCountView(int num,ImageView v){
+		int resourceId = 0;
+		switch (num) {
+		case 0:
+			resourceId = R.drawable.num_0;
+			break;
+		case 1:
+			resourceId = R.drawable.num_1;
+			break;
+		case 2:
+			resourceId = R.drawable.num_2;
+			break;
+		case 3:
+			resourceId = R.drawable.num_3;
+			break;
+		case 4:
+			resourceId = R.drawable.num_4;
+			break;
+		case 5:
+			resourceId = R.drawable.num_5;
+			break;
+		case 6:
+			resourceId = R.drawable.num_6;
+			break;
+		case 7:
+			resourceId = R.drawable.num_7;
+			break;
+		case 8:
+			resourceId = R.drawable.num_8;
+			break;
+		case 9:
+			resourceId = R.drawable.num_9;
+			break;
+		default:
+			resourceId = R.drawable.num_1;
+			break;
+		}
+		v.setImageResource(resourceId);
 	}
 	
 }
