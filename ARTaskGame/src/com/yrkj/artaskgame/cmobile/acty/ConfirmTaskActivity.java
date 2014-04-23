@@ -69,7 +69,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	private void loadData() {
 		TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.biz_currentTaskId);
 		mTxtTaskTitleView.setText(item.TaskTitle);
-		mTxtTaskDescView.setText(item.TaskDesc);
+		mTxtTaskDescView.setText(item.TaskContent);
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ public class DBCtrl {
 		DBCondition cdt = new DBCondition();
 		dbMng.open();
 		Cursor cursor = dbMng.query(
-				TblTaskDetail.DBName,
+				TblTaskDetail.TblName,
 				new String[]{"COUNT(*) AS [Totle]"}, 
 				cdt);
 		dbMng.close();
@@ -39,7 +39,7 @@ public class DBCtrl {
 		
 		dbMng.open();
 		Cursor cursor = dbMng.query(
-				TblTaskDetail.DBName,
+				TblTaskDetail.TblName,
 				new String[]{"COUNT(*) AS [Totle]"}, 
 				cdt);
 		dbMng.close();
@@ -59,7 +59,7 @@ public class DBCtrl {
 		
 		boolean result = false;
 		dbMng.open();
-		result = dbMng.update(TblTaskDetail.DBName, values, cdt);
+		result = dbMng.update(TblTaskDetail.TblName, values, cdt);
 		dbMng.close();
 		
 		return result;
@@ -72,13 +72,15 @@ public class DBCtrl {
 		DBCondition cdt = new DBCondition();
 		cdt.Selection = TblTaskDetail.Col_Id + " = '" + taskId + "'";
 		
-		Cursor cursor = dbMng.query(TblTaskDetail.DBName, 
+		Cursor cursor = dbMng.query(TblTaskDetail.TblName, 
 				new String[]{
 				TblTaskDetail.Col_Id,
 				TblTaskDetail.Col_TaskTitle,
 				TblTaskDetail.Col_TaskDesc,
+				TblTaskDetail.Col_TaskContent,
 				TblTaskDetail.Col_Finish,
 				TblTaskDetail.Col_Score,
+				TblTaskDetail.Col_ImgName,
 				TblTaskDetail.Col_TargetId
 				}, cdt);
 		dbMng.close();
@@ -89,8 +91,10 @@ public class DBCtrl {
 			item.Id = DBMng.GetDataString(cursor, TblTaskDetail.Col_Id);
 			item.TaskTitle = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskTitle);
 			item.TaskDesc = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskDesc);
+			item.TaskContent = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskContent);
 			item.Finish = DBMng.GetDataString(cursor, TblTaskDetail.Col_Finish);
 			item.Score = DBMng.GetDataString(cursor, TblTaskDetail.Col_Score);
+			item.ImgName = DBMng.GetDataString(cursor, TblTaskDetail.Col_ImgName);
 			item.TargetId = DBMng.GetDataString(cursor, TblTaskDetail.Col_TargetId);
 			
 		}
@@ -109,13 +113,15 @@ public class DBCtrl {
 //		cdt.OrderBy = TblTaskDetail.Col_Id;
 //		cdt.Limit = "1";
 		
-		Cursor cursor = dbMng.query(TblTaskDetail.DBName, 
+		Cursor cursor = dbMng.query(TblTaskDetail.TblName, 
 				new String[]{
 				TblTaskDetail.Col_Id,
 				TblTaskDetail.Col_TaskTitle,
 				TblTaskDetail.Col_TaskDesc,
+				TblTaskDetail.Col_TaskContent,
 				TblTaskDetail.Col_Finish,
 				TblTaskDetail.Col_Score,
+				TblTaskDetail.Col_ImgName,
 				TblTaskDetail.Col_TargetId
 				}, cdt);
 		dbMng.close();
@@ -126,8 +132,10 @@ public class DBCtrl {
 			item.Id = DBMng.GetDataString(cursor, TblTaskDetail.Col_Id);
 			item.TaskTitle = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskTitle);
 			item.TaskDesc = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskDesc);
+			item.TaskContent = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskContent);
 			item.Finish = DBMng.GetDataString(cursor, TblTaskDetail.Col_Finish);
 			item.Score = DBMng.GetDataString(cursor, TblTaskDetail.Col_Score);
+			item.ImgName = DBMng.GetDataString(cursor, TblTaskDetail.Col_ImgName);
 			item.TargetId = DBMng.GetDataString(cursor, TblTaskDetail.Col_TargetId);
 		}
 		return item;
@@ -138,13 +146,15 @@ public class DBCtrl {
 		
 //		String[] columns = { "moodid","moodcontent","phiz" };
 		dbMng.open();
-		Cursor cursor = dbMng.query(TblTaskDetail.DBName, 
+		Cursor cursor = dbMng.query(TblTaskDetail.TblName, 
 				new String[]{
 				TblTaskDetail.Col_Id,
 				TblTaskDetail.Col_TaskTitle,
 				TblTaskDetail.Col_TaskDesc,
+				TblTaskDetail.Col_TaskContent,
 				TblTaskDetail.Col_Finish,
 				TblTaskDetail.Col_Score,
+				TblTaskDetail.Col_ImgName,
 				TblTaskDetail.Col_TargetId
 				}, null);
 		dbMng.close();
@@ -156,8 +166,10 @@ public class DBCtrl {
 				item.Id = DBMng.GetDataString(cursor, TblTaskDetail.Col_Id);
 				item.TaskTitle = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskTitle);
 				item.TaskDesc = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskDesc);
+				item.TaskContent = DBMng.GetDataString(cursor, TblTaskDetail.Col_TaskContent);
 				item.Finish = DBMng.GetDataString(cursor, TblTaskDetail.Col_Finish);
 				item.Score = DBMng.GetDataString(cursor, TblTaskDetail.Col_Score);
+				item.ImgName = DBMng.GetDataString(cursor, TblTaskDetail.Col_ImgName);
 				item.TargetId = DBMng.GetDataString(cursor, TblTaskDetail.Col_TargetId);
 				itemList.add(item);
 			} while (cursor.moveToNext());

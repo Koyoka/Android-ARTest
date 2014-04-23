@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.acty.qcar.ARCameraActivity;
-import com.yrkj.artaskgame.acty.qcar.QCARInitActivityActy;
 import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
+import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.log.ToastUtil;
@@ -26,6 +26,7 @@ OnClickListener{
 
 	final String TAG = "com.yrkj.artaskgame.cmobile.acty.MainTaskActivity";
 	public final static String INTENT_KEY_CLOSEAPP = "closeApp";
+	private final String taskImgAssetsFolderName = "TaskImage";
 	
 	MainTaskActivity mActy = null;
 	
@@ -40,6 +41,7 @@ OnClickListener{
 	private ImageView mImgCurrentCountView;
 	private ImageView mImgTotleTenCountView;
 	private ImageView mImgTotleBitsCountView;
+	private ImageView mImgTaskLogView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ OnClickListener{
 		mImgCurrentCountView = (ImageView) findViewById(R.id.imgCurrentCountView);
 		mImgTotleTenCountView = (ImageView) findViewById(R.id.imgTotleTenCountView);
 		mImgTotleBitsCountView = (ImageView) findViewById(R.id.imgTotleBitsCountView);
+		mImgTaskLogView = (ImageView) findViewById(R.id.imgTaskLogView);
 		
 		mImgTaskListCountView = (LinearLayout) findViewById(R.id.imgTaskListCountView);
 		mBtnTaskListView = (Button) findViewById(R.id.btnTaskListView);
@@ -131,7 +134,12 @@ OnClickListener{
 			mTxtTaskTitleView.setText(item.TaskTitle);
 			mTxtTaskDescView.setText(item.TaskDesc);
 			SysMng.biz_currentTaskId = item.Id;
-//			ToastUtil.show(this, DBCtrl.finishTask(this, item.Id) + " " + item.Id + " " +item.Finish) ;
+			
+			if(item.ImgName != null && !item.ImgName.isEmpty()){
+				mImgTaskLogView.setImageBitmap(
+						BitmapHelper.getImageFromAssetsFile(this, taskImgAssetsFolderName + "/"+item.ImgName)
+						);
+			}
 		}
 	}
 
@@ -163,8 +171,6 @@ OnClickListener{
 	private void loadTaskCount(){
 		
 		String s = DBCtrl.getTaskCount(this);
-//		ToastUtil.show(this, s);
-		
 		String ss = DBCtrl.getTaskFinishCount(this);
 		
 		int finishCount = 0;
@@ -176,8 +182,6 @@ OnClickListener{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		
-//		ToastUtil.show(this, totleCount + " " + finishCount);
 		setCurrentCount(finishCount,totleCount);
 	}
 	

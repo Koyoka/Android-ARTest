@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
-import com.yrkj.util.log.ToastUtil;
 
 public class TaskListActivity extends Activity implements
 OnClickListener,
@@ -93,12 +92,6 @@ OnItemClickListener{
 		this.startActivity(intent);
 	}
 
-	private void fooAddDS(boolean isFinish,String desc){
-//		TaskData d = new TaskData();
-//		d.TaskFinish = isFinish;
-//		d.TaskDesc = desc;
-//		mDataSource.add(d);
-	}
 	
 	private View listGetView(int position, View convertView, ViewGroup parent,
 			LayoutInflater inflater) {
@@ -136,11 +129,11 @@ OnItemClickListener{
 	private TaskGameListDataAdapter mDataAdapter = null;
 	class TaskGameListDataAdapter extends BaseAdapter {
 
-		private Context mContext;
+//		private Context mContext;
 		private LayoutInflater mInflater;
 		
 		public TaskGameListDataAdapter(Context context) {
-			mContext = context;
+//			mContext = context;
 			mInflater = LayoutInflater.from(context);
 		}
 		

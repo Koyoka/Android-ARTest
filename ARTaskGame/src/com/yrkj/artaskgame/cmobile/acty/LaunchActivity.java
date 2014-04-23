@@ -1,18 +1,7 @@
 package com.yrkj.artaskgame.cmobile.acty;
 
-import java.util.ArrayList;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-
-import com.yrkj.artaskgame.R;
 
 public class LaunchActivity extends Activity{
 	

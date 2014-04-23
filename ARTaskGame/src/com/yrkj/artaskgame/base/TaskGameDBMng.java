@@ -33,7 +33,8 @@ public class TaskGameDBMng extends DBMng {
 	@Override
 	protected int getDBVersion() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 3;
+//		return 2;
 //		return 1;
 	}
 
