@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
+import com.yrkj.util.log.ToastUtil;
 
 public class TaskListActivity extends Activity implements
 OnClickListener,
@@ -85,7 +86,10 @@ OnItemClickListener{
 		int position = index - mListView.getHeaderViewsCount();
 //		String taskDesc =  this.mDataSource.get(position).TaskDesc;
 //		ToastUtil.show(mActy, "current task: "+taskDesc);
-		
+		if(this.mDataSource.get(position).Finish != null && this.mDataSource.get(position).Finish.equals(TblTaskDetail.FINISH_YES)){
+			ToastUtil.show(this, "当前任务已完成。");
+			return;
+		}
 		Intent intent = new Intent(this, MainTaskActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.putExtra(INTENT_KEY_SELECTTASK, this.mDataSource.get(position).Id);
