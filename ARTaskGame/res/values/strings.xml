@@ -28,7 +28,7 @@
     
     <string name="activity_launch_welcome">欢迎使用我！</string>
     <string name="activity_launch_ready">准备好了吗？</string>
-    <string name="activity_launch_editUserName">．请输入您的名字</string>
+    <string name="activity_launch_editUserName">请输入您的名字</string>
     <string name="activity_launch_btn_ready">Ready</string>
     <string name="activity_maintask_desc">您需要找到一个线索</string>
     <string name="activity_maintask_btn_go">GO</string>
