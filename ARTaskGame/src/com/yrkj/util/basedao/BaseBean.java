@@ -3,8 +3,8 @@ package com.yrkj.util.basedao;
 import android.text.TextUtils;
 
 public abstract class BaseBean {
-//	protected String report_type = "";
-//	protected String report_text = "";
+	protected String report_type = "";
+	protected String report_text = "";
 	
 	protected boolean checkJson(String json){
 		if(TextUtils.isEmpty(json) || json.toUpperCase().equals("NULL") || json.toUpperCase().equals("[NULL]")){

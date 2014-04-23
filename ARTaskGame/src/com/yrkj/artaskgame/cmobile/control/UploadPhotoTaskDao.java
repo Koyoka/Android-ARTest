@@ -29,30 +29,27 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
     }
 
     public UploadPhotoTaskDao addPostParams(
-            String token,
-            String userid,
-            String business_id,
-            String gzip_type,
-            String decode_type,
-            String updatekey,
-            String updatevalue
-            ){
-        mReqPostValues = new HttpRequestValue();
-        mReqPostValues.Add("token", token);
+    		String method,
+    		String taskname,
+    		String taskid,
+    		String username,
+    		String userid
+    		){
+    	mReqPostValues = new HttpRequestValue();
+        mReqPostValues.Add("method", method);
+        mReqPostValues.Add("taskname", taskname);
+        mReqPostValues.Add("taskid", taskid);
+        mReqPostValues.Add("username", username);
         mReqPostValues.Add("userid", userid);
-        mReqPostValues.Add("business_id", business_id);
-        mReqPostValues.Add("gzip_type", gzip_type);
-        mReqPostValues.Add("decode_type", decode_type);
-        mReqPostValues.Add("updatekey", updatekey);
-        mReqPostValues.Add("updatevalue", updatevalue);
-        return this;
+    	return this;
     }
+    
 
     public UploadPhotoTaskDao addFileParams(
-            InputFileObj imgfile
+            InputFileObj imgvalue
     ){
         mReqFileValues = new HttpRequestValue();
-        mReqFileValues.AddFile("imgfile", imgfile);
+        mReqFileValues.AddFile("imgvalue", imgvalue);
         return this;
     }
 
@@ -122,10 +119,8 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
         try {
             
             TaskDaoResult taskResult = new TaskDaoResult();
-            String resultStr = "123123";//doHttp();
+            String resultStr = doHttp();
             
-            //HttpMng.GetHttpClientHelper()
-                    //.GetRequest(mURLPath, mReqValues.GetValus());
             if(TextUtils.isEmpty(resultStr) || resultStr.toUpperCase().equals("NULL")){
                 taskResult.IsSuccess = false;
                 taskResult.ErrMsg = COMM_ERRMSG;
@@ -133,17 +128,16 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
             }
 
             ResponseHeaderBean ResponseHeaderBeanObj 
-            	= null;
-//            	= doBeanSon(new ResponseHeaderBeanSON(),
-//                    new JSONObject(resultStr));
+//            	= null;
+            	= doBeanSon(new ResponseHeaderBeanSON(),
+                    new JSONObject(resultStr));
             
-//            String reportText = ResponseHeaderBeanObj.checkBeanIsSuccess();
-//            if(reportText != null){
-//                taskResult.IsSuccess = false;
-//                taskResult.ErrMsg = reportText;
-//                return taskResult;
-//            }
-            
+            String reportText = ResponseHeaderBeanObj.checkBeanIsSuccess();
+            if(reportText != null){
+                taskResult.IsSuccess = false;
+                taskResult.ErrMsg = reportText;
+                return taskResult;
+            }
             
             taskResult.IsSuccess = true;
             taskResult.ErrMsg = resultStr;
@@ -193,42 +187,30 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
         public ResponseHeaderBean Bean = null;
     }
     
-    
-    
     public class ResponseHeaderBean extends BaseBean  {
      
-//        public static final String tokenColumnName = "token";
-//        public static final String business_idColumnName = "business_id";
-//        public static final String report_typeColumnName = "report_type";
-//        public static final String report_textColumnName = "report_text";
-//        public static final String gzip_typeColumnName = "gzip_type";
-//        public static final String decode_typeColumnName = "decode_type";
-//        public static final String useridColumnName = "userid";
-//        public static final String bodyColumnName = "body";
-//     
-//        public String ORGJosnData = "";
-//        
-//        public String token = "";
-//        public String business_id = "";
-//        public String report_type = "";
-//        public String report_text = "";
-//        public String gzip_type = "";
-//        public String decode_type = "";
-//        public String userid = "";
-//        public String body = "";
-//        public SubmitResultBean bodyObj = null;
+    	public static final String successColumnName = "success";
+    	public static final String errormessageColumnName = "errormessage";
+    	public static final String bodyColumnName = "body";
+    	
         
+        public String success = "";
+        public String errormessage = "";
+        public String body = "";
+        public SubmitResultBean bodyObj = null;
+        
+        public String ORGJosnData = "";
         
         public void createChildBean() throws Exception{
-//            if(checkJson(body)){
-//                bodyObj = doBeanSon(new SubmitResultBeanSON(),
-//                        new JSONObject(body));
-//            }
+            if(checkJson(body)){
+                bodyObj = doBeanSon(new SubmitResultBeanSON(),
+                        new JSONObject(body));
+            }
         }
         public String checkBeanIsSuccess(){
-//            if(report_type.equals("-1")){
-//                return report_text;
-//            }
+            if(success.equals("-1")){
+                return errormessage;
+            }
             return null;
         }
         
@@ -268,49 +250,47 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
 
         public ResponseHeaderBean convertJsonToBean(JSONObject jsonObj ) throws Exception{
             ResponseHeaderBean tempData = new ResponseHeaderBean();
-
-//            tempData.token = jsonObj.getString(tempData.tokenColumnName);
-//            tempData.business_id = jsonObj.getString(tempData.business_idColumnName);
-//            tempData.report_type = jsonObj.getString(tempData.report_typeColumnName);
-//            tempData.report_text = jsonObj.getString(tempData.report_textColumnName);
-//            tempData.gzip_type = jsonObj.getString(tempData.gzip_typeColumnName);
-//            tempData.decode_type = jsonObj.getString(tempData.decode_typeColumnName);
-//            tempData.userid = jsonObj.getString(tempData.useridColumnName);
-//            tempData.body = jsonObj.getString(tempData.bodyColumnName);
-//            tempData.ORGJosnData = jsonObj.toString();
+            tempData.success = jsonObj.getString(tempData.successColumnName);
+            tempData.errormessage = jsonObj.getString(tempData.errormessageColumnName);
+            tempData.body = jsonObj.getString(tempData.bodyColumnName);
+            tempData.ORGJosnData = jsonObj.toString();
             tempData.createChildBean();
             return tempData;
         }
-        
     }
+    
     
     public class SubmitResultBean extends BaseBean  {
      
-        public static final String report_typeColumnName = "report_type";
-        public static final String report_textColumnName = "report_text";
-     
+//        public static final String report_typeColumnName = "report_type";
+//        public static final String report_textColumnName = "report_text";
+        
+        public static final String statusColumnName = "status";
+        public static final String statusmessageColumnName = "statusmessage";
+        
         public String ORGJosnData = "";
         
-        public String report_type = "";
-        public String report_text = "";
+        public String status = "";
+        public String statusmessage = "";
         public void createChildBean() throws Exception{
         }
-        public String checkBeanIsSuccess(){
-            if(report_type.equals("-1")){
-                return report_text;
-            }
-            return null;
-        }
+        
+//        public String checkBeanIsSuccess(){
+//            if(report_type.equals("-1")){
+//                return report_text;
+//            }
+//            return null;
+//        }
         
         @Override
         public String getData(String path) {
-            if(false){}
-            else if(getBeanFiledPath(path,report_typeColumnName)){
-                return report_type;
-            }
-            else if(getBeanFiledPath(path,report_textColumnName)){
-                return report_text;
-            }
+//            if(false){}
+//            else if(getBeanFiledPath(path,report_typeColumnName)){
+//                return report_type;
+//            }
+//            else if(getBeanFiledPath(path,report_textColumnName)){
+//                return report_text;
+//            }
             
             return "";
         }
@@ -321,8 +301,8 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
         public SubmitResultBean convertJsonToBean(JSONObject jsonObj ) throws Exception{
             SubmitResultBean tempData = new SubmitResultBean();
 
-            tempData.report_type = jsonObj.getString(tempData.report_typeColumnName);
-            tempData.report_text = jsonObj.getString(tempData.report_textColumnName);
+            tempData.status = jsonObj.getString(tempData.statusColumnName);
+            tempData.statusmessage = jsonObj.getString(tempData.statusmessageColumnName);
             tempData.ORGJosnData = jsonObj.toString();
             tempData.createChildBean();
             return tempData;

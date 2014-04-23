@@ -18,6 +18,7 @@ import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
 import com.yrkj.artaskgame.cmobile.control.UploadPhotoTaskDao;
 import com.yrkj.artaskgame.cmobile.control.UploadPhotoTaskDao.ResponseHeaderBean;
+import com.yrkj.config.SysConfig;
 import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.bitmap.MediaHelper;
 import com.yrkj.util.dialog.DialogHelper;
@@ -54,7 +55,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	}
 	
 	private void initData() {
-		mUploadPhotoTaskDao = new UploadPhotoTaskDao("YRCRM/Service/ZSTXInterface.aspx");
+		mUploadPhotoTaskDao = new UploadPhotoTaskDao(SysConfig.DEFAULT_INTERFACE_NAME);
 		mUploadPhotoTaskDao.setTask(this, this);
 	}
 
@@ -122,9 +123,16 @@ UploadPhotoTaskDao.PreTaskListener{
     			InputFileObj fileObj = new InputFileObj(new File(imgPath).getName(), 
     					BitmapHelper.Bitmap2IS(mBitmap));
     			
+    			TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.biz_currentTaskId);
     			
-    			
-    			mUploadPhotoTaskDao.addFileParams(fileObj).runTask();
+    			mUploadPhotoTaskDao
+    			.addPostParams(
+    					"submitTask", 
+    					item.TaskTitle, 
+    					item.Id, 
+    					SysMng.sys_UserName, 
+    					SysMng.sys_DriverId)
+    			.addFileParams(fileObj).runTask();
 //    			mUpdateMyInfoDetailTaskDao
 //    					.addPostParams(
 //							BaseApplication.mToken,
@@ -176,7 +184,7 @@ UploadPhotoTaskDao.PreTaskListener{
 			
 			this.finish();
 		}
-		ToastUtil.show(this, "Done! " + errMsg);
+//		ToastUtil.show(this, "Done! " + errMsg);
 		
 		isUploading = false;
 	}
