@@ -130,7 +130,8 @@ UploadPhotoTaskDao.PreTaskListener{
     					"submitTask", 
     					item.TaskTitle, 
     					item.Id, 
-    					SysMng.sys_UserName, 
+//    					SysMng.sys_UserName,
+    					SysMng.getUserName(),
     					SysMng.sys_DriverId)
     			.addFileParams(fileObj).runTask();
 //    			mUpdateMyInfoDetailTaskDao

@@ -515,7 +515,7 @@ public class ARCameraActivity extends Activity {
     	}
     }
     
-    public void findTarget(String s){
+    public synchronized void findTarget(String s){
     	ToastUtil.show(this, s);
     	
     	TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.biz_currentTaskId);

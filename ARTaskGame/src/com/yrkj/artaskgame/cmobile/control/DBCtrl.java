@@ -111,6 +111,8 @@ public class DBCtrl {
 			item.TargetId = DBMng.GetDataString(cursor, TblTaskDetail.Col_TargetId);
 			
 		}
+		
+		cursor.close();
 		return item;
 	}
 	
@@ -151,6 +153,7 @@ public class DBCtrl {
 			item.ImgName = DBMng.GetDataString(cursor, TblTaskDetail.Col_ImgName);
 			item.TargetId = DBMng.GetDataString(cursor, TblTaskDetail.Col_TargetId);
 		}
+		cursor.close();
 		return item;
 	}
 	
@@ -187,7 +190,7 @@ public class DBCtrl {
 				itemList.add(item);
 			} while (cursor.moveToNext());
 		}
-		
+		cursor.close();
 		return itemList;
 	}
 }

@@ -210,7 +210,12 @@ Java_com_yrkj_artaskgame_acty_qcar_QCARInitActivity_loadTrackerData(JNIEnv *, jo
     }
 
     // Load the data sets:
-    if (!dataSetStonesAndChips->load("StonesAndChips.xml", QCAR::DataSet::STORAGE_APPRESOURCE))
+//    if (!dataSetStonesAndChips->load("StonesAndChips.xml", QCAR::DataSet::STORAGE_APPRESOURCE))
+//    {
+//        LOG("Failed to load data set.");
+//        return 0;
+//    }
+    if (!dataSetStonesAndChips->load("cmTSXZ.xml", QCAR::DataSet::STORAGE_APPRESOURCE))
     {
         LOG("Failed to load data set.");
         return 0;

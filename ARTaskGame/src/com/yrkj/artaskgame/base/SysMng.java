@@ -77,6 +77,11 @@ public class SysMng {
 		}
 		return true;
 	}
+	public static String getUserName(){
+		String defineUserName = mPrefs.getString(PREF_KEY_USERNAME, "");
+		return defineUserName;
+	}
+	
 	
 	public static void finishFirstTask(){
 		SharedPreferences.Editor editor = mPrefs.edit();
