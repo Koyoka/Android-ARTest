@@ -17,7 +17,7 @@
     <application
         android:name="com.yrkj.artaskgame.base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ar_launcher"
         android:label="@string/app_name"
         android:theme="@style/SampleAppsTheme" >
         <activity
