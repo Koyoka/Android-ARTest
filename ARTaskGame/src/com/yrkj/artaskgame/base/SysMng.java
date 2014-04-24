@@ -5,9 +5,11 @@ import java.util.Date;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationListener;
 
+import com.yrkj.artaskgame.acty.qcar.QCARInitActivityActy;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
@@ -33,8 +35,6 @@ public class SysMng {
 	public static double sys_Longitude = 0;
 	
 	public static String sys_UserName = "userName";
-	public static boolean sys_firstTask = false;
-	public static boolean sys_closeApp = false;
 //	public static boolean sys_hasBeenTracking = false;
 //	private static BaiduLocationHelper mDBLoaction;
 	
@@ -48,6 +48,21 @@ public class SysMng {
 	public static void OnInit(){
 		
 //		mDBLoaction.start();
+	}
+	
+	public static void closeApp(Context c){
+		Intent intent = new Intent(c,QCARInitActivityActy.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.putExtra(QCARInitActivityActy.INTENT_KEY_CLOSEAPP, true);
+		c.startActivity(intent);
+	}
+	
+	public static void reInit(){
+		SharedPreferences.Editor editor = mPrefs.edit();
+		editor.putString(PREF_KEY_USERNAME, "");
+		editor.putBoolean(PREF_KEY_FIRSTTASK, false);
+		editor.commit();
+		biz_currentTaskId = "";
 	}
 	
 	public static void setUserName(String userName){

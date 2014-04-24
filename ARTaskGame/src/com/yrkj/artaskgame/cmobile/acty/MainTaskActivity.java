@@ -79,8 +79,9 @@ OnClickListener{
 //						Intent intent = new Intent(mActy,QCARInitActivityActy.class);
 //						intent.putExtra(INTENT_KEY_CLOSEAPP, true);
 //						mActy.startActivity(intent);
-						SysMng.sys_closeApp = true;
-						mActy.finish();
+//						SysMng.sys_closeApp = true;
+						SysMng.closeApp(mActy);
+//						mActy.finish();
 					}
 				}
 			});

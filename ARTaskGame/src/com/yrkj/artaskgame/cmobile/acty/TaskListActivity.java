@@ -15,12 +15,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.yrkj.artaskgame.R;
+import com.yrkj.artaskgame.acty.qcar.QCARInitActivityActy;
+import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
+import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.log.ToastUtil;
 
 public class TaskListActivity extends Activity implements
@@ -34,6 +39,7 @@ OnItemClickListener{
 	
 	private ListView mListView;
 	private Button mBtnBackView;
+	private LinearLayout mBtnReInitView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,9 @@ OnItemClickListener{
 	}
 
 	private void initActy() {
+		mBtnReInitView = (LinearLayout) findViewById(R.id.btnReInitView);
+		mBtnReInitView.setOnClickListener(this);
+		
 		mBtnBackView = (Button) findViewById(R.id.btnBackView);
 		mBtnBackView.setOnClickListener(this);
 		
@@ -73,13 +82,44 @@ OnItemClickListener{
 		case R.id.btnBackView:
 			this.finish();
 			break;
-
+		case R.id.btnReInitView:
+			reInit();
+			break;
 		default:
 			break;
 		}
 	}
 	
-	
+	private void reInit(){
+		
+		DialogHelper.createConfirmDialog(TaskListActivity.this,"确认初始化退出？",new ConfirmDialogListener(){
+
+			@Override
+			public void onClickListener(boolean result) {
+				// TODO Auto-generated method stub
+						if (result) {
+
+							boolean re = false;
+							re = DBCtrl.reInitDB(mActy);
+							if (result) {
+								SysMng.reInit();
+							}
+
+							SysMng.closeApp(mActy);
+						}
+			}
+			
+		});
+		
+		
+//		SysMng.sys_closeApp = true;
+//		Intent intent = new Intent(this,QCARInitActivityActy.class);
+//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivity(intent);
+//		this.finish();
+		
+		
+	}
 	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {

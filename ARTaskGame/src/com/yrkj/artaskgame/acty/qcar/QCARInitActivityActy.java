@@ -44,6 +44,8 @@ import com.yrkj.util.log.ToastUtil;
 public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInterface{
 	final String TAG = "com.yrkj.artaskgame.acty.qcar.QCARInitActivity";
 	
+	public static final String INTENT_KEY_CLOSEAPP = "closeApp";
+	
 	int curWelcomeGrilID = 0;
 	int time = 800;
 	
@@ -380,9 +382,16 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     {
         DebugLog.LOGD("onResume");
         super.onResume();
-        if(SysMng.sys_closeApp){
+        
+        Intent intent = this.getIntent();
+        if(intent != null && intent.getBooleanExtra(INTENT_KEY_CLOSEAPP, false)){
         	this.finish();
         }
+        
+//        ToastUtil.show(this, "onresume == " + SysMng.sys_closeApp);
+//        if(SysMng.sys_closeApp){
+//        	this.finish();
+//        }
         if(true)
         	return;
         
@@ -536,7 +545,8 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         }
         
         System.gc();
-        SysMng.sys_closeApp = false;
+//        SysMng.sys_closeApp = false;
+//        ToastUtil.show(this, "onDestroy == " + SysMng.sys_closeApp);
     }
     
     /**

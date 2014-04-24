@@ -50,8 +50,9 @@ OnClickListener{
 					// TODO Auto-generated method stub
 					
 					if(result){
-						SysMng.sys_closeApp = true;
-						mActy.finish();
+//						SysMng.sys_closeApp = true;
+						SysMng.closeApp(mActy);
+//						mActy.finish();
 					}
 				}
 			});

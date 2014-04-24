@@ -13,6 +13,19 @@ import android.database.Cursor;
 
 public class DBCtrl {
 	
+	public static boolean reInitDB(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		ContentValues values = new ContentValues();
+		values.put(TblTaskDetail.Col_Finish, "0");
+		
+		boolean result = false;
+		dbMng.open();
+		result = dbMng.update(TblTaskDetail.TblName, values, null);
+		dbMng.close();
+		
+		return result;
+	}
+	
 	public static String getTaskCount(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		

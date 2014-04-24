@@ -16,6 +16,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/tasklist_back_button"/>
+	
+	<LinearLayout
+	    android:id="@+id/btnReInitView"
+	    android:layout_width="50dip"
+	    android:layout_height="50dip"
+	    android:orientation="horizontal"
+	    android:layout_alignTop="@id/btnBackView"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    ></LinearLayout>
+	
     <ListView
         android:layout_above="@id/btnBackView"
         android:id="@+id/lstView"
