@@ -174,6 +174,10 @@ UploadPhotoTaskDao.PreTaskListener{
 	public void UpdateMyInfoDetailTaskDao_onPostTask(int taskId,
 			boolean isSuccess, String errMsg, ResponseHeaderBean result) {
 		DialogHelper.getProgressDialogInstance().close();
+		
+		if(mBitmap != null && !mBitmap.isRecycled()){
+			mBitmap.recycle();
+		}
 		if(isSuccess){
 			SysMng.finishFirstTask();
 			DBCtrl.finishTask(this, SysMng.biz_currentTaskId);
