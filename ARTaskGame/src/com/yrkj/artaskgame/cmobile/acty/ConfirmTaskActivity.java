@@ -72,7 +72,7 @@ UploadPhotoTaskDao.PreTaskListener{
 
 	private void loadData() {
 		TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
-		ToastUtil.show(this, "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
+//		ToastUtil.show(this, "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
 		DebugTrace.Print("Eleven", "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
 		//		if(item != null){
 			mTxtTaskTitleView.setText(item.TaskTitle);
@@ -83,11 +83,11 @@ UploadPhotoTaskDao.PreTaskListener{
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if(isUploading){
-				return false;
-			}
-		}
+//		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			if(isUploading){
+//				return false;
+//			}
+//		}
 		
 		return super.onKeyDown(keyCode, event);
 	}
@@ -131,7 +131,12 @@ UploadPhotoTaskDao.PreTaskListener{
     					BitmapHelper.Bitmap2IS(mBitmap));
     			
     			TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
-    			
+    			DebugTrace.Print("Eleven", 
+    					"item.TaskTitle["+item.TaskTitle+"] "
+    					+"item.Id["+item.Id+"] "
+    					+"SysMng.getUserName()["+SysMng.getUserName()+"] "
+    					+"SysMng.getDriverId()["+SysMng.getDriverId()+"] "
+    					);
     			mUploadPhotoTaskDao
     			.addPostParams(
     					"submitTask", 
@@ -181,7 +186,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	public void UpdateMyInfoDetailTaskDao_onPostTask(int taskId,
 			boolean isSuccess, String errMsg, ResponseHeaderBean result) {
 		DialogHelper.getProgressDialogInstance().close();
-		
+		DebugTrace.Print("Eleven", "isSuccess["+isSuccess+"] -- errMsg["+errMsg+"]");
 		if(mBitmap != null && !mBitmap.isRecycled()){
 			mBitmap.recycle();
 		}
