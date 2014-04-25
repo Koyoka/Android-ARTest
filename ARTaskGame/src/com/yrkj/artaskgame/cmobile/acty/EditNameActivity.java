@@ -11,12 +11,19 @@ import android.widget.TextView;
 
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.base.SysMng;
+import com.yrkj.artaskgame.cmobile.control.CheckUserTaskDao;
+import com.yrkj.artaskgame.cmobile.control.CheckUserTaskDao.ResponseHeaderBean;
+import com.yrkj.config.SysConfig;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
+import com.yrkj.util.http.HttpRequestValue;
 import com.yrkj.util.log.ToastUtil;
 
 public class EditNameActivity extends Activity implements
-OnClickListener{
+OnClickListener,
+CheckUserTaskDao.PostTaskListener,
+CheckUserTaskDao.PreTaskListener
+{
 
 	final String TAG = "com.yrkj.artaskgame.cmobile.acty.EditNameActivity";
 	EditNameActivity mActy = null;
@@ -24,6 +31,7 @@ OnClickListener{
 	private Button mBtnReadyView = null;
 	private TextView mTxtUserNameView = null;
 	
+	private CheckUserTaskDao mCheckUserTaskDao = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +71,8 @@ OnClickListener{
 
 	private void initData() {
 		// TODO Auto-generated method stub
-		
+		mCheckUserTaskDao = new CheckUserTaskDao(SysConfig.DEFAULT_INTERFACE_NAME);
+		mCheckUserTaskDao.setTask(this, this);
 	}
 
 	private void initActy() {
@@ -94,12 +103,49 @@ OnClickListener{
 		if(defineUserName.length() == 0){
 			ToastUtil.show(mActy, "请输入您的名字");
 		}else{
+			doNetValidUserName();
+		}
+	}
+	
+	private void doNetValidUserName(){
+		String defineUserName =  mTxtUserNameView.getText().toString();
+		mCheckUserTaskDao
+			.addPostParams("checkUser",
+				defineUserName, 
+				SysMng.sys_DriverId)
+			.runTask();	
+	}
+
+	@Override
+	public HttpRequestValue UpdateMyInfoDetailTaskDao_onPreTask(int taskId) {
+		// TODO Auto-generated method stub
+		DialogHelper.getProgressDialogInstance().show(this, "数据提交中");
+		return null;
+	}
+
+	@Override
+	public void UpdateMyInfoDetailTaskDao_onPostTask(int taskId,
+			boolean isSuccess, String errMsg, ResponseHeaderBean result) {
+		// TODO Auto-generated method stub
+		DialogHelper.getProgressDialogInstance().close();
+		
+		if(!isSuccess){
+			ToastUtil.show(this, errMsg);
+			return;
+		}
+		
+		if(result.bodyObj.status.equals("1")){
+			String defineUserName =  mTxtUserNameView.getText().toString();
 			SysMng.setUserName(defineUserName);
-			
 			Intent intent = new Intent(this, MainTaskActivity.class);
 			this.startActivity(intent);
 			this.finish();
+		}else{
+			ToastUtil.show(this, result.bodyObj.statusmessage);
 		}
+		
+		
+		
 	}
 	
 

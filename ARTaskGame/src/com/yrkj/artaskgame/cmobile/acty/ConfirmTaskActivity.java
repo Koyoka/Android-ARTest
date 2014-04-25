@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.base.SysMng;
@@ -184,7 +185,10 @@ UploadPhotoTaskDao.PreTaskListener{
 			this.startActivity(intent);
 			
 			this.finish();
+		}else{
+			ToastUtil.show(this, errMsg);
 		}
+			
 //		ToastUtil.show(this, "Done! " + errMsg);
 		
 		isUploading = false;

@@ -2,16 +2,16 @@
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
     <ImageTarget name="012_b1" size="400.000000 400.000000" />
-    <ImageTarget name="011_b1" size="400.000000 400.000000" />
-    <ImageTarget name="010_b1" size="400.000000 400.000000" />
-    <ImageTarget name="009_b1" size="400.000000 629.116577" />
-    <ImageTarget name="008_b1" size="400.000000 629.116577" />
-    <ImageTarget name="007_b1" size="400.000000 629.116577" />
-    <ImageTarget name="006_b1" size="400.000000 629.116577" />
-    <ImageTarget name="005_b1" size="400.000000 629.116577" />
-    <ImageTarget name="004_b1" size="400.000000 629.116577" />
-    <ImageTarget name="003_b1" size="400.000000 629.116577" />
-    <ImageTarget name="002_b1" size="400.000000 629.116577" />
+    <ImageTarget name="009_b1" size="400.000000 628.930847" />
     <ImageTarget name="001_b0" size="400.000000 280.000000" />
+    <ImageTarget name="005_b1" size="400.000000 628.930847" />
+    <ImageTarget name="008_b1" size="400.000000 628.930847" />
+    <ImageTarget name="006_b1" size="400.000000 628.930847" />
+    <ImageTarget name="007_b1" size="400.000000 628.930847" />
+    <ImageTarget name="011_b1" size="400.000000 400.000000" />
+    <ImageTarget name="003_b1" size="400.000000 628.930847" />
+    <ImageTarget name="004_b1" size="400.000000 628.930847" />
+    <ImageTarget name="010_b1" size="400.000000 400.000000" />
+    <ImageTarget name="002_b1" size="400.000000 628.930847" />
   </Tracking>
 </QCARConfig>

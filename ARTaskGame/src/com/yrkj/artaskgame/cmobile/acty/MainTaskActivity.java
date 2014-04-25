@@ -57,7 +57,13 @@ OnClickListener{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		loadTaskCount();
+		if(checkFinishAllTask()){
+			Intent intent = new Intent(this, FinishActivity.class);
+			startActivity(intent);
+			this.finish();
+		}else{
+			loadTaskCount();
+		}
 	}
 	
 	@Override
@@ -186,7 +192,6 @@ OnClickListener{
 		setCurrentCount(finishCount,totleCount);
 	}
 	
-	
 	private void setCurrentCount(int curCount,int totle){
 		if(totle >=10){
 			mImgTotleTenCountView.setVisibility(View.VISIBLE);
@@ -239,6 +244,14 @@ OnClickListener{
 			break;
 		}
 		v.setImageResource(resourceId);
+	}
+	
+	private boolean checkFinishAllTask(){
+		String count = DBCtrl.getTaskUnFinishCount(this);
+		if(count.equals("0")){
+			return true;
+		}
+		return false;
 	}
 	
 }

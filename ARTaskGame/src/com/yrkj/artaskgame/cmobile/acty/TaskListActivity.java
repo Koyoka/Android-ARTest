@@ -40,6 +40,9 @@ OnItemClickListener{
 	private ListView mListView;
 	private Button mBtnBackView;
 	private LinearLayout mBtnReInitView;
+	private TextView mTxtTotleScoreView;
+	
+	private String mTotleScore = "0";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ OnItemClickListener{
 	}
 
 	private void initActy() {
+		mTxtTotleScoreView = (TextView) findViewById(R.id.txtTotleScoreView);
+		
 		mBtnReInitView = (LinearLayout) findViewById(R.id.btnReInitView);
 		mBtnReInitView.setOnClickListener(this);
 		
@@ -72,6 +77,11 @@ OnItemClickListener{
 	}
 
 	private void loadData() {
+		
+		mTotleScore = DBCtrl.getScoreTotle(this);
+		mTxtTotleScoreView.setText(mTotleScore.equals("")?0+"":mTotleScore);
+		
+		
 		mDataSource = DBCtrl.getAllTaskList(this);
 		mDataAdapter.notifyDataSetChanged();
 	}

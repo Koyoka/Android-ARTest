@@ -19,13 +19,30 @@
 	
 	<LinearLayout
 	    android:id="@+id/btnReInitView"
-	    android:layout_width="50dip"
+	    android:layout_width="wrap_content"
 	    android:layout_height="50dip"
 	    android:orientation="horizontal"
 	    android:layout_alignTop="@id/btnBackView"
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
-	    ></LinearLayout>
+	    android:gravity="center_vertical"
+	    >
+	    
+	    	<TextView 
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:textStyle="bold"
+	    	    android:textSize="@dimen/list_taskgame_item_score_size"
+	    	    android:text="积分:"/>
+	    	<TextView 
+	    	    android:id="@+id/txtTotleScoreView"
+	    	    android:layout_marginLeft="5dip"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+				android:textColor="@color/list_taskgame_item_score_color"
+				android:textSize="@dimen/list_taskgame_item_score_size"
+	    	    android:text="9999"/>
+	</LinearLayout>
 	
     <ListView
         android:layout_above="@id/btnBackView"

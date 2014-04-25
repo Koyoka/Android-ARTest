@@ -13,6 +13,25 @@ import android.database.Cursor;
 
 public class DBCtrl {
 	
+	public static String getScoreTotle(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = TblTaskDetail.Col_Finish + "='"+TblTaskDetail.FINISH_YES+"'";
+		dbMng.open();
+		Cursor cursor = dbMng.query(
+				TblTaskDetail.TblName,
+				new String[]{"SUM(score) AS Totle"}, 
+				cdt);
+		dbMng.close();
+		
+		String count = "";
+		if(cursor.moveToFirst()){
+			count = DBMng.GetDataString(cursor, "Totle");
+		}
+		return count;
+	}
+	
 	public static boolean reInitDB(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		ContentValues values = new ContentValues();
@@ -44,6 +63,27 @@ public class DBCtrl {
 		return count;
 	}
 	
+	
+	
+	public static String getTaskUnFinishCount(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = TblTaskDetail.Col_Finish + " = '" + TblTaskDetail.FINISH_NO + "'";
+		
+		dbMng.open();
+		Cursor cursor = dbMng.query(
+				TblTaskDetail.TblName,
+				new String[]{"COUNT(*) AS [Totle]"}, 
+				cdt);
+		dbMng.close();
+		
+		String count = "";
+		if(cursor.moveToFirst()){
+			count = DBMng.GetDataString(cursor, "Totle");
+		}
+		return count;
+	}
 	public static String getTaskFinishCount(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		
