@@ -29,6 +29,7 @@ public class DBCtrl {
 		if(cursor.moveToFirst()){
 			count = DBMng.GetDataString(cursor, "Totle");
 		}
+		cursor.close();
 		return count;
 	}
 	
@@ -60,6 +61,7 @@ public class DBCtrl {
 		if(cursor.moveToFirst()){
 			count = DBMng.GetDataString(cursor, "Totle");
 		}
+		cursor.close();
 		return count;
 	}
 	
@@ -69,7 +71,7 @@ public class DBCtrl {
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		
 		DBCondition cdt = new DBCondition();
-		cdt.Selection = TblTaskDetail.Col_Finish + " = '" + TblTaskDetail.FINISH_NO + "'";
+		cdt.Selection = TblTaskDetail.Col_Finish + "='" + TblTaskDetail.FINISH_NO + "'";
 		
 		dbMng.open();
 		Cursor cursor = dbMng.query(
@@ -82,13 +84,14 @@ public class DBCtrl {
 		if(cursor.moveToFirst()){
 			count = DBMng.GetDataString(cursor, "Totle");
 		}
+		cursor.close();
 		return count;
 	}
 	public static String getTaskFinishCount(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		
 		DBCondition cdt = new DBCondition();
-		cdt.Selection = TblTaskDetail.Col_Finish + " = '" + TblTaskDetail.FINISH_YES + "'";
+		cdt.Selection = TblTaskDetail.Col_Finish + "='" + TblTaskDetail.FINISH_YES + "'";
 		
 		dbMng.open();
 		Cursor cursor = dbMng.query(
@@ -101,6 +104,7 @@ public class DBCtrl {
 		if(cursor.moveToFirst()){
 			count = DBMng.GetDataString(cursor, "Totle");
 		}
+		cursor.close();
 		return count;
 	}
 	
@@ -123,7 +127,7 @@ public class DBCtrl {
 		
 		dbMng.open();
 		DBCondition cdt = new DBCondition();
-		cdt.Selection = TblTaskDetail.Col_Id + " = '" + taskId + "'";
+		cdt.Selection = TblTaskDetail.Col_Id + "='" + taskId + "'";
 		
 		Cursor cursor = dbMng.query(TblTaskDetail.TblName, 
 				new String[]{

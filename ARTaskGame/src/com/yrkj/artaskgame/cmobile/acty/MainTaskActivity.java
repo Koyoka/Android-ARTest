@@ -38,6 +38,7 @@ OnClickListener{
 	
 	private String mSelectTaskId = "";
 	
+	private ImageView mImgCurrentTenCountView;
 	private ImageView mImgCurrentCountView;
 	private ImageView mImgTotleTenCountView;
 	private ImageView mImgTotleBitsCountView;
@@ -105,7 +106,7 @@ OnClickListener{
 	}
 
 	private void initActy() {
-		
+		mImgCurrentTenCountView = (ImageView) findViewById(R.id.imgCurrentTenCountView);
 		mImgCurrentCountView = (ImageView) findViewById(R.id.imgCurrentCountView);
 		mImgTotleTenCountView = (ImageView) findViewById(R.id.imgTotleTenCountView);
 		mImgTotleBitsCountView = (ImageView) findViewById(R.id.imgTotleBitsCountView);
@@ -140,7 +141,8 @@ OnClickListener{
 		if(item != null){
 			mTxtTaskTitleView.setText(item.TaskTitle);
 			mTxtTaskDescView.setText(item.TaskDesc);
-			SysMng.biz_currentTaskId = item.Id;
+//			SysMng.biz_currentTaskId = item.Id;
+			SysMng.setCurrentId(item.Id);
 			
 			if(item.ImgName != null && !item.ImgName.isEmpty()){
 				mImgTaskLogView.setImageBitmap(
@@ -158,7 +160,7 @@ OnClickListener{
 			goActy(TaskListActivity.class);
 			break;
 		case R.id.btnGoView:
-			if(SysMng.biz_currentTaskId != null && !SysMng.biz_currentTaskId.isEmpty()){
+			if(SysMng.getCurrentId() != null && !SysMng.getCurrentId().isEmpty()){
 				goActy(ARCameraActivity.class);
 //				goActy(ConfirmTaskActivity.class);
 			}else{
@@ -193,12 +195,24 @@ OnClickListener{
 	}
 	
 	private void setCurrentCount(int curCount,int totle){
+		if(curCount >= 10){
+			mImgCurrentTenCountView.setVisibility(View.VISIBLE);
+		}else{
+			mImgCurrentTenCountView.setVisibility(View.GONE);
+			
+		}
+		int bitsNum1 = curCount%10;
+		int tenNum1 = curCount - bitsNum1;
+		setCountView(tenNum1,mImgCurrentTenCountView);
+		setCountView(bitsNum1,mImgCurrentCountView);
+		
+		
 		if(totle >=10){
 			mImgTotleTenCountView.setVisibility(View.VISIBLE);
 		}else{
 			mImgTotleTenCountView.setVisibility(View.GONE);
 		}
-		setCountView(curCount,mImgCurrentCountView);
+		
 		
 		int bitsNum = totle%10;
 		int tenNum = totle - bitsNum;

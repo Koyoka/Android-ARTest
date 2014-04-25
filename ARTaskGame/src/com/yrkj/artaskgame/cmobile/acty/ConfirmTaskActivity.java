@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.qualcomm.ar.pl.DebugLog;
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
@@ -25,6 +26,7 @@ import com.yrkj.util.bitmap.MediaHelper;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.http.HttpRequestValue;
 import com.yrkj.util.http.InputFileObj;
+import com.yrkj.util.log.DebugTrace;
 import com.yrkj.util.log.ToastUtil;
 import com.yrkj.util.ui.layout.CommDialogSelectphotoView;
 
@@ -69,9 +71,13 @@ UploadPhotoTaskDao.PreTaskListener{
 	}
 
 	private void loadData() {
-		TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.biz_currentTaskId);
-		mTxtTaskTitleView.setText(item.TaskTitle);
-		mTxtTaskDescView.setText(item.TaskContent);
+		TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
+		ToastUtil.show(this, "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
+		DebugTrace.Print("Eleven", "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
+		//		if(item != null){
+			mTxtTaskTitleView.setText(item.TaskTitle);
+			mTxtTaskDescView.setText(item.TaskContent);
+//		}
 	}
 	
 	@Override
@@ -124,7 +130,7 @@ UploadPhotoTaskDao.PreTaskListener{
     			InputFileObj fileObj = new InputFileObj(new File(imgPath).getName(), 
     					BitmapHelper.Bitmap2IS(mBitmap));
     			
-    			TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.biz_currentTaskId);
+    			TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
     			
     			mUploadPhotoTaskDao
     			.addPostParams(
@@ -133,7 +139,8 @@ UploadPhotoTaskDao.PreTaskListener{
     					item.Id, 
 //    					SysMng.sys_UserName,
     					SysMng.getUserName(),
-    					SysMng.sys_DriverId)
+    					SysMng.getDriverId())
+//    					SysMng.sys_DriverId)
     			.addFileParams(fileObj).runTask();
 //    			mUpdateMyInfoDetailTaskDao
 //    					.addPostParams(
@@ -180,12 +187,13 @@ UploadPhotoTaskDao.PreTaskListener{
 		}
 		if(isSuccess){
 			SysMng.finishFirstTask();
-			DBCtrl.finishTask(this, SysMng.biz_currentTaskId);
+			DBCtrl.finishTask(this, SysMng.getCurrentId());
 			
 //			goActy(EndTaskActivity.class);
 			Intent intent = new Intent(this, EndTaskActivity.class);
-			intent.putExtra(EndTaskActivity.INTENT_KEY_TASKID, SysMng.biz_currentTaskId);
-			SysMng.biz_currentTaskId = "";
+			intent.putExtra(EndTaskActivity.INTENT_KEY_TASKID, SysMng.getCurrentId());
+//			SysMng.biz_currentTaskId = "";
+			SysMng.clearCurrentId();
 			this.startActivity(intent);
 			
 			this.finish();

@@ -24,6 +24,7 @@ public class SysMng {
 	private final static String PREF_KEY_DRIVERID = "driverId";
 	private final static String PREF_KEY_USERNAME = "userName";
 	private final static String PREF_KEY_FIRSTTASK = "firstTask";
+	private final static String PREF_KEY_CURRENTID = "currentTaskId";
 	
 	private static SharedPreferences mPrefs;
 	public static Boolean sys_firstBoot = true;
@@ -38,7 +39,7 @@ public class SysMng {
 //	public static boolean sys_hasBeenTracking = false;
 //	private static BaiduLocationHelper mDBLoaction;
 	
-	public static String biz_currentTaskId = "";
+//	public static String biz_currentTaskId1 = "";
 	
 	public static void OnDeInit(){
 		
@@ -58,50 +59,76 @@ public class SysMng {
 	}
 	
 	public static void reInit(){
-		SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences.Editor editor = getPrefs().edit();
 		editor.putString(PREF_KEY_USERNAME, "");
 		editor.putBoolean(PREF_KEY_FIRSTTASK, false);
+		editor.putString(PREF_KEY_CURRENTID, "");
 		editor.commit();
-		biz_currentTaskId = "";
+//		clearCurrentId();
+	}
+	
+	public static void setCurrentId(String id){
+		SharedPreferences.Editor editor = getPrefs().edit();
+		editor.putString(PREF_KEY_CURRENTID, id);
+		editor.commit();
+	}
+	public static String getCurrentId(){
+		return getPrefs().getString(PREF_KEY_CURRENTID, "");
+	}
+	public static void clearCurrentId(){
+		SharedPreferences.Editor editor = getPrefs().edit();
+		editor.putString(PREF_KEY_CURRENTID, "");
+		editor.commit();
 	}
 	
 	public static void setUserName(String userName){
-		SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences.Editor editor = getPrefs().edit();
 		editor.putString(PREF_KEY_USERNAME, userName);
 		editor.commit();
 	}
 	public static boolean hasSaveUserName(){
-		String defineUserName = mPrefs.getString(PREF_KEY_USERNAME, "");
+		String defineUserName = getPrefs().getString(PREF_KEY_USERNAME, "");
 		if(defineUserName.equals("")){
 			return false;
 		}
 		return true;
 	}
 	public static String getUserName(){
-		String defineUserName = mPrefs.getString(PREF_KEY_USERNAME, "");
+		String defineUserName = getPrefs().getString(PREF_KEY_USERNAME, "");
 		return defineUserName;
 	}
 	
 	
 	public static void finishFirstTask(){
-		SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences.Editor editor = getPrefs().edit();
 		editor.putBoolean(PREF_KEY_FIRSTTASK, true);
 		editor.commit();
 		
 	}
 	public static boolean hasBeenFinishFirstTask(){
 		boolean bl = false;
-		bl = mPrefs.getBoolean(PREF_KEY_FIRSTTASK, false);
+		bl = getPrefs().getBoolean(PREF_KEY_FIRSTTASK, false);
 		return bl;
+	}
+	
+	private static SharedPreferences getPrefs(){
+		if(mPrefs == null){
+			mPrefs = BaseApplication.getInstance().getSharedPreferences(PREF_NAME, Application.MODE_PRIVATE);
+		}
+		return mPrefs;
+	}
+	
+	public static String getDriverId(){
+		return getPrefs().getString(PREF_KEY_DRIVERID, "");
 	}
 	
 	
 	public static void Launch(Context c){
 		mPrefs = BaseApplication.getInstance().getSharedPreferences(PREF_NAME, Application.MODE_PRIVATE);
 		
-		sys_firstBoot = mPrefs.getBoolean(PREF_KEY_FISTERBOOT, true);
+		sys_firstBoot = getPrefs().getBoolean(PREF_KEY_FISTERBOOT, true);
 		
-		sys_DriverId = mPrefs.getString(PREF_KEY_DRIVERID, "");
+		sys_DriverId = getPrefs().getString(PREF_KEY_DRIVERID, "");
 		DebugLog.LOG("sys_DriverId = " + sys_DriverId + " sys_firstBoot = " + sys_firstBoot);
 		if(sys_DriverId.isEmpty()){
 			setDriverId(c);
@@ -130,14 +157,14 @@ public class SysMng {
 	}
 	
 	public static void HasBeenFirstBoot(){
-		SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences.Editor editor = getPrefs().edit();
 		editor.putBoolean(PREF_KEY_FISTERBOOT, false);
 		editor.commit();
 	}
 	
 	public static void setDriverId(Context c){
 		sys_DriverId = SysHelper.getDeviceUuid(c).toString();
-		SharedPreferences.Editor editor = mPrefs.edit();
+		SharedPreferences.Editor editor = getPrefs().edit();
 		editor.putString(PREF_KEY_DRIVERID, sys_DriverId);
 		editor.commit();
 	}
