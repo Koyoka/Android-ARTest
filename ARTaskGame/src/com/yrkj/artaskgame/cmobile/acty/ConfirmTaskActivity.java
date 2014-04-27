@@ -40,6 +40,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	ConfirmTaskActivity mActy = null;
 	
 	private Button mBtnGoView = null;
+	private Button mBtnHelpView = null;
 	
 	private TextView mTxtTaskTitleView = null;
 	private TextView mTxtTaskDescView = null;
@@ -68,6 +69,9 @@ UploadPhotoTaskDao.PreTaskListener{
 		
 		mBtnGoView = (Button) findViewById(R.id.btnGoView);
 		mBtnGoView.setOnClickListener(this);
+		
+		mBtnHelpView = (Button) findViewById(R.id.btnHelpView);
+		mBtnHelpView.setOnClickListener(this);
 	}
 
 	private void loadData() {
@@ -101,6 +105,9 @@ UploadPhotoTaskDao.PreTaskListener{
 //			this.finish();
 			
 			DialogHelper.createSelectPhotoDialog(ConfirmTaskActivity.this, ConfirmTaskActivity.this);
+			break;
+		case R.id.btnHelpView:
+			DialogHelper.createTextDialog(ConfirmTaskActivity.this,"帮助","您需要按照任务要求，使用相机拍照或选择准备好的照片上传至服务器来完成任务。");
 			break;
 		case CommDialogSelectphotoView.BtnOpenCameraViewId:
 			MediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/);

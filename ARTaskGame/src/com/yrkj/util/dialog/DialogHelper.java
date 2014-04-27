@@ -5,6 +5,7 @@ import com.yrkj.util.ui.layout.CommDialogSelectphotoView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -75,14 +76,58 @@ public class DialogHelper {
 		dialog.show();
 	}
 	
+	public static void createTextDialog(final Activity acty,String title,String message){
+		new AlertDialog.Builder(acty)
+			.setTitle(title)
+	      .setMessage(message)
+	      .show();
+	}
+	
+	private static void userSelectPhotoDialog(final Activity acty,final OnClickListener l){
+		final Dialog d = new Dialog(acty, R.style.UserDialog);
+		d.setContentView(R.layout.comm_dialog_selectphoto_view);
+		d.show();
+		
+		OnClickListener clickL = new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				d.dismiss();
+				if(l!=null){
+					l.onClick(v);
+				}
+			}
+		};
+		d.findViewById(CommDialogSelectphotoView.BtnOpenCameraViewId).setOnClickListener(clickL);
+		d.findViewById(CommDialogSelectphotoView.BtnOpenPhotoAlbumViewId).setOnClickListener(clickL);
+		d.findViewById(CommDialogSelectphotoView.BtnCancelDialogViewId).setOnClickListener(clickL);
+		
+//		LayoutInflater factory = LayoutInflater.from(acty);
+//		final View textEntryView = factory.inflate(
+//				R.layout.comm_dialog_selectphoto_view, null);
+//		CommDialogSelectphotoView mCommDialogSelectphotoView = new CommDialogSelectphotoView(textEntryView);
+//		mCommDialogSelectphotoView.getBtnCancelDialogView().setOnClickListener(clickL);
+//		mCommDialogSelectphotoView.getBtnOpenCameraView().setOnClickListener(clickL);
+//		mCommDialogSelectphotoView.getBtnOpenPhotoAlbumView().setOnClickListener(clickL);
+	}
+	
 	public static void createSelectPhotoDialog(final Activity acty,final OnClickListener l) {
-
+		userSelectPhotoDialog(acty,l);
+		if(true){
+			return;
+		}
 		LayoutInflater factory = LayoutInflater.from(acty);
 		final View textEntryView = factory.inflate(
 				R.layout.comm_dialog_selectphoto_view, null);
 
+		
+		
+		
 		final AlertDialog dialog = new AlertDialog.Builder(acty).setTitle("Ñ¡ÔñÉÏ´«Í¼Æ¬")
+				
 				.setView(textEntryView).create();
+		
 		dialog.show();
 		WindowManager windowManager = acty.getWindowManager();
 		Display display = windowManager.getDefaultDisplay();
