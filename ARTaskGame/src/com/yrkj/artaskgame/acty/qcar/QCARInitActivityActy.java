@@ -328,7 +328,20 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         mScreenHeight = metrics.heightPixels;
     }
     
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+    	// TODO Auto-generated method stub
+    	super.onSaveInstanceState(outState);
+    	DebugTrace.Print("ElevenQCAR", "我被干掉了");
+    }
     
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    	// TODO Auto-generated method stub
+    	super.onRestoreInstanceState(savedInstanceState);
+    	
+    	DebugTrace.Print("ElevenQCAR", "我被重建了");
+    }
     
     /**
      * Called when the activity first starts or the user navigates back to an

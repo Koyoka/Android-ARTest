@@ -2,22 +2,12 @@ package com.yrkj.artaskgame.acty.qcar;
 
 import java.lang.ref.WeakReference;
 
-import com.qualcomm.QCAR.QCAR;
-import com.yrkj.artaskgame.R;
-import com.yrkj.artaskgame.acty.qcar.SampleAppMenu.SampleAppMenu;
-import com.yrkj.artaskgame.base.SysMng;
-import com.yrkj.artaskgame.cmobile.acty.ConfirmTaskActivity;
-import com.yrkj.artaskgame.cmobile.control.DBCtrl;
-import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
-import com.yrkj.util.log.DebugLog;
-import com.yrkj.util.log.ToastUtil;
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,12 +15,20 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
+
+import com.qualcomm.QCAR.QCAR;
+import com.yrkj.artaskgame.R;
+import com.yrkj.artaskgame.base.SysMng;
+import com.yrkj.artaskgame.cmobile.acty.ConfirmTaskActivity;
+import com.yrkj.artaskgame.cmobile.control.DBCtrl;
+import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
+import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DebugTrace;
 
 public class ARCameraActivity extends Activity {
 	
@@ -333,27 +331,38 @@ public class ARCameraActivity extends Activity {
 		
 		final View target = lineView;
         final View targetParent = (View) target.getParent();
+        final Context c = this;
+        targetParent.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+			
+			@Override
+			public void onGlobalLayout() {
+				// TODO Auto-generated method stub
+				targetParent.getViewTreeObserver().removeGlobalOnLayoutListener(this); 
+				int height = targetParent.getHeight();
+				Animation a 
+				= new TranslateAnimation(0.0f,0.0f, 
+						0.0f,
+						height
+						);
+//				DebugTrace.Print("ElevenQCAR","height ["+height+"] ");
+		        a.setDuration(800);
+		        a.setStartOffset(300);
+		        a.setRepeatMode(Animation.RESTART);
+		        a.setRepeatCount(Animation.INFINITE);
+		        
+		        a.setInterpolator(AnimationUtils.loadInterpolator(c,
+		                android.R.anim.accelerate_interpolator));
+		        target.startAnimation(a);
+			}
+		});
         
-        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        targetParent.measure(w, h);
-        int width =targetParent.getMeasuredWidth();
-        int height =targetParent.getMeasuredHeight();
+//        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+//        targetParent.measure(w, h);
+//        int width =targetParent.getMeasuredWidth();
+//        int height =targetParent.getMeasuredHeight();
 		
-		Animation a 
-		= new TranslateAnimation(0.0f,0.0f, 
-				0.0f,
-				height
-				);
 		
-        a.setDuration(800);
-        a.setStartOffset(300);
-        a.setRepeatMode(Animation.RESTART);
-        a.setRepeatCount(Animation.INFINITE);
-        
-        a.setInterpolator(AnimationUtils.loadInterpolator(this,
-                android.R.anim.accelerate_interpolator));
-        target.startAnimation(a);
 	}
 	
 	

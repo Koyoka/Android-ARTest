@@ -15,9 +15,9 @@
     <dimen name="text_dot_size">22dip</dimen>
     
     <dimen name="activity_maintask_main_1_width_height">90dip</dimen>
-	<dimen name="activity_maintask_tasktitle_size">16dip</dimen>
+	<dimen name="activity_maintask_tasktitle_size">18dip</dimen>
 	<dimen name="activity_maintask_taskdesc_width">150dip</dimen>
-	<dimen name="activity_maintask_taskdesc_size">12dip</dimen>
+	<dimen name="activity_maintask_taskdesc_size">15dip</dimen>
 	
     
 	<dimen name="activity_tasklist_taskdesc_size">20dip</dimen>
