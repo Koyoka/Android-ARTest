@@ -48,6 +48,8 @@ UploadPhotoTaskDao.PreTaskListener{
 	private Bitmap mBitmap;
 	private UploadPhotoTaskDao mUploadPhotoTaskDao = null;
 	
+	private String mSavePath = "";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,6 +61,8 @@ UploadPhotoTaskDao.PreTaskListener{
 	}
 	
 	private void initData() {
+		mSavePath = MediaHelper.getSavePath();
+		
 		mUploadPhotoTaskDao = new UploadPhotoTaskDao(SysConfig.DEFAULT_INTERFACE_NAME);
 		mUploadPhotoTaskDao.setTask(this, this);
 	}
@@ -110,23 +114,36 @@ UploadPhotoTaskDao.PreTaskListener{
 			DialogHelper.createTextDialog(ConfirmTaskActivity.this,"帮助","您需要按照任务要求，使用相机拍照或选择准备好的照片上传至服务器来完成任务。");
 			break;
 		case CommDialogSelectphotoView.BtnOpenCameraViewId:
-			MediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/);
+//			curType = MediaHelper.MEDIA_IMG_CAMERA;
+//			MediaHelper.getMedia_Camera(this, photoFile);
+//			mMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/);
+//			MediaHelper.getInstance().setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/);
+			MediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
 			break;
 		case CommDialogSelectphotoView.BtnOpenPhotoAlbumViewId:
-			MediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_PHOTO /*| MediaHelper.MEDIA_IMG_CROP*/);
+//			curType = MediaHelper.MEDIA_IMG_PHOTO;
+//			mMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_PHOTO /*| MediaHelper.MEDIA_IMG_CROP*/);
+//			MediaHelper.getInstance().setMedia(this,MediaHelper.MEDIA_IMG_PHOTO /*| MediaHelper.MEDIA_IMG_CROP*/);
+			MediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_PHOTO /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
 			break;
 		default:
 			break;
 		}
 	}
-	
+	File photoFile;
+	int curType = 0;
+//	MediaHelper mMediaHelper = null;
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if(resultCode == RESULT_OK){
     		
-    		String imgPath = MediaHelper.getMedioResultPath(data);
+//			String imgPath = mMediaHelper.getMedioResultPath(data);
+//			String imgPath = MediaHelper.getMedioResultPath(this,data,requestCode,mSavePath);
+			String imgPath = MediaHelper.getMedioResultPath(this,data,requestCode,mSavePath);
+//    		String imgPath = MediaHelper.getMedioResultPath(this,data,curType,photoFile);
+//    		String imgPath = MediaHelper.getInstance().getMedioResultPath(data);
     		if(imgPath != null && imgPath.length() != 0){
     			
     			if(mBitmap != null && !mBitmap.isRecycled()){
@@ -170,6 +187,8 @@ UploadPhotoTaskDao.PreTaskListener{
     			
     			
     		}else{
+    			DebugTrace.Print("Eleven","imgPath ["+imgPath+"]");
+    			ToastUtil.show(this, "imgPath ["+imgPath+"]");
     		}
     	}
 		
@@ -193,7 +212,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	public void UpdateMyInfoDetailTaskDao_onPostTask(int taskId,
 			boolean isSuccess, String errMsg, ResponseHeaderBean result) {
 		DialogHelper.getProgressDialogInstance().close();
-		DebugTrace.Print("Eleven", "isSuccess["+isSuccess+"] -- errMsg["+errMsg+"]");
+//		DebugTrace.Print("Eleven", "isSuccess["+isSuccess+"] -- errMsg["+errMsg+"]");
 		if(mBitmap != null && !mBitmap.isRecycled()){
 			mBitmap.recycle();
 		}

@@ -1,6 +1,7 @@
 package com.yrkj.artaskgame.base;
 
 
+
 import android.app.Application;
 
 public class BaseApplication extends Application {
@@ -10,6 +11,7 @@ public class BaseApplication extends Application {
 	public static BaseApplication getInstance(){
 		return mApplication;
 	}
+	
 	
 	@Override
 	public void onCreate() {

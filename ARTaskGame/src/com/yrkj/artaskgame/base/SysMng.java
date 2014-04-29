@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.location.LocationListener;
 
 import com.yrkj.artaskgame.acty.qcar.QCARInitActivityActy;
+import com.yrkj.artaskgame.cmobile.acty.LaunchLiuActivity;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
@@ -52,9 +53,10 @@ public class SysMng {
 	}
 	
 	public static void closeApp(Context c){
-		Intent intent = new Intent(c,QCARInitActivityActy.class);
+		Intent intent = new Intent(c,LaunchLiuActivity.class);
+//		Intent intent = new Intent(c,QCARInitActivityActy.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra(QCARInitActivityActy.INTENT_KEY_CLOSEAPP, true);
+		intent.putExtra(LaunchLiuActivity.INTENT_KEY_CLOSEAPP, true);
 		c.startActivity(intent);
 	}
 	

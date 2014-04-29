@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import com.yrkj.util.log.DebugTrace;
 import com.yrkj.util.log.ToastUtil;
 
 import android.app.Activity;
@@ -24,6 +25,10 @@ import android.provider.MediaStore.Images.Media;
 
 public class MediaHelper {
 	
+	final static String TAG = "MediaHelper";
+//	final static String INTENT_KEY_MEDIA_TYEP = "currentMediaType";
+	final static String INTENT_KEY_MEDIA_PHOTOFILEPATH = "photoFilePath";
+	
 	public static final int MEDIA_IMG_PHOTO = 3;
 	public static final int MEDIA_IMG_CAMERA = 5;
 	public static final int MEDIA_IMG_CROP = 48;
@@ -33,21 +38,24 @@ public class MediaHelper {
 	private static final int BIT_LOW = 7;
 	private static final int BIT_HIGH = 56;
 	
-	private static Activity mCurActy;
-	private static int curMediaType;
-	private static File mCurrentPhotoFile;
+	private static Activity mCurActy1;
+	private static int curMediaType1;
+	private static File mCurrentPhotoFile1;
 	private static final File PHOTO_DIR = 
 			new File(Environment.getExternalStorageDirectory() + "/DCIM/Camera");//图片的存储目录
 	
-	public static void setMedia(Activity acty,int mediaType) {
-		mCurActy = acty;
-		curMediaType = mediaType;
-		switch (curMediaType&BIT_LOW) {
+	
+	
+	
+	public static void setMedia(Activity acty,int mediaType,String path) {
+//		mCurActy = acty;
+//		curMediaType = mediaType;
+		switch (mediaType&BIT_LOW) {
 		case MEDIA_IMG_PHOTO:
-			getMedia_Photo();
+			getMedia_Photo(acty);
 			break;
 		case MEDIA_IMG_CAMERA:
-			getMedia_Camera();
+			getMedia_Camera(acty,path);
 			break;
 		default:
 			break;
@@ -55,16 +63,16 @@ public class MediaHelper {
 
 	}
 	
-	private static void getMedia_Photo(){
+	private static void getMedia_Photo(Activity acty){
 		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 		intent.setType("image/*");
 		intent.putExtra("return-data", true);
 		
-		mCurActy.startActivityForResult(Intent.createChooser(intent, "请选择"), MEDIA_IMG_PHOTO);
+		acty.startActivityForResult(Intent.createChooser(intent, "请选择"), MEDIA_IMG_PHOTO);
 	}
 	
-	private static void getMedia_Camera(){
+	private static void getMedia_Camera(Activity acty,String path){
 //		DebugTrace.Print("open camera------------");
 //		mCurrentPhotoFile = null;
 		if (Environment.getExternalStorageState().equals(
@@ -72,19 +80,26 @@ public class MediaHelper {
 			PHOTO_DIR.mkdir();
 			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-			mCurrentPhotoFile = new File(PHOTO_DIR, getSaveImageFileName()); // 用当前时间给取得的图片命名
+//			mCurrentPhotoFile = new File(PHOTO_DIR, getSaveImageFileName()); // 用当前时间给取得的图片命名
+//			intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//					Uri.fromFile(mCurrentPhotoFile));
+			File f = new File(path); // 用当前时间给取得的图片命名
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(mCurrentPhotoFile));
+					Uri.fromFile(f));
 
-			mCurActy.startActivityForResult(intent, MEDIA_IMG_CROP);
+//			intent.putExtra(INTENT_KEY_MEDIA_PHOTOFILEPATH, f.getPath());
+//			DebugTrace.Print(TAG, "INTENT_KEY_MEDIA_PHOTOFILEPATH ["+ f.getPath()+"]");
+			
+//			mCurActy.startActivityForResult(intent, MEDIA_IMG_CROP);
+			acty.startActivityForResult(intent, MEDIA_IMG_CAMERA);
 		} else {
 //			MessageBox.getInstance(mCurActy).Show("请插入SD卡");
-			ToastUtil.show(mCurActy, "请插入SD卡");
+			ToastUtil.show(acty, "请插入SD卡");
 		}
 
 	}
 	
-	private static void getMedia_CropImage(Uri photoUri) {  
+	private static void getMedia_CropImage(Activity mCurActy,Uri photoUri,String savePath) {  
 		if (Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
 			PHOTO_DIR.mkdir();
@@ -96,10 +111,20 @@ public class MediaHelper {
 			intent.putExtra("outputX", 80);
 			intent.putExtra("outputY", 80);
 			intent.putExtra("return-data", false);
-			mCurrentPhotoFile = new File(PHOTO_DIR, getSaveImageFileName());
+//			mCurrentPhotoFile = new File(PHOTO_DIR, getSaveImageFileName());
+//			intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//					Uri.fromFile(mCurrentPhotoFile));
+			File f;
+			if(savePath == null){
+				ToastUtil.show(mCurActy,"save path is null");
+				return;
+			}else{
+				f = new File(savePath);
+			}
 			intent.putExtra(MediaStore.EXTRA_OUTPUT,
-					Uri.fromFile(mCurrentPhotoFile));
-			
+					Uri.fromFile(f));
+//			intent.putExtra(INTENT_KEY_MEDIA_PHOTOFILEPATH, f.getPath());
+//			intent.putExtra(INTENT_KEY_MEDIA_TYEP, MEDIA_IMG_CAMERA);
 			/*
 			 *crop	String	发送裁剪信号
 				aspectX	int	X方向上的比例
@@ -113,21 +138,25 @@ public class MediaHelper {
 				MediaStore.EXTRA_OUTPUT ("output")	URI	将URI指向相应的file:///.
 			 * */
 
-			curMediaType = MEDIA_IMG_CAMERA;
+//			curMediaType = MEDIA_IMG_CAMERA;
 			mCurActy.startActivityForResult(intent, MEDIA_IMG_CAMERA);
 		} else {
 			ToastUtil.show(mCurActy, "请插入SD卡");
 		}
 	}
 	
-	public static String getMedioResultPath(Intent data){
+	public static String getMedioResultPath(Activity mCurActy,Intent data,int resultCode,String savePath){
+		
+		int curMediaType = resultCode;
+//		String savePath = data.getStringExtra(INTENT_KEY_MEDIA_PHOTOFILEPATH);
 		
 		Uri uri = null;
 		String imgPath = null;
+		DebugTrace.Print(TAG, "-1. curMediaType["+curMediaType+"] BIT_LOW["+BIT_LOW+"] savePath["+savePath+"]");
 		
 		switch (curMediaType&BIT_LOW) {
 		case MediaHelper.MEDIA_IMG_CAMERA:
-			uri = Uri.fromFile(mCurrentPhotoFile);
+			uri = Uri.fromFile(new File(savePath));
 //			DebugTrace.Print("3,---------"+mCurrentPhotoFile);
 //			DebugTrace.Print("4,---------"+uri);
 			if(uri != null){
@@ -138,7 +167,7 @@ public class MediaHelper {
 					galleryAddPic(mCurActy, imgPath);
 				}
 			}
-			mCurrentPhotoFile = null;
+//			mCurrentPhotoFile = null;
 			break;
 		case MediaHelper.MEDIA_IMG_PHOTO:
 			if(data != null){
@@ -146,27 +175,41 @@ public class MediaHelper {
 //				DebugTrace.Print("2.------" + data.getExtras());
 				uri = data.getData();
 				if(uri == null){
+					DebugTrace.Print(TAG, "0. uri == null");
 					break;
 				}
-    			Cursor c = mCurActy.managedQuery(uri, null, null, null, null);
+//    			Cursor c = mCurActy.managedQuery(uri, null, null, null, null);
+    			
+    			String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+    			Cursor c = mCurActy.getContentResolver().query(uri,
+    					                    filePathColumn, null, null, null);
+
 //    			c = mCurActy.getContentResolver().query(uri, null, null, null, null);
 //    			c.close();
 //    			new android.content.CursorLoader(mCurActy).;
     			
     			if(c==null){
     				imgPath = uri.getPath();
+    				DebugTrace.Print(TAG, "1. c == null");
     			}else if(c.moveToFirst()  && c.getCount() == 1){
-    				int dataColIndex = c.getColumnIndexOrThrow(Media.DATA);
+    				int dataColIndex = c.getColumnIndexOrThrow(filePathColumn[0]);
     				imgPath = c.getString(dataColIndex);
-    				
+    				DebugTrace.Print(TAG, "2. c.moveToFirst()  && c.getCount() == 1 imgPath["+imgPath+"]");
 //    				uri = Uri.fromFile(new File(imgPath));
 //    				MessageBox.getInstance(mCurActy).Show(" waring:Cursor is not null check code.");
     			}else{
+    				DebugTrace.Print(TAG, "3. imgPath is null");
     				//nothing
     			}
+    			c.close();
+			}else{
+				
+				DebugTrace.Print(TAG, "4. data is null");
 			}
 			break;
 		default:
+			DebugTrace.Print(TAG, "getMedioResultPath is default");
 			break;
 		}
 		
@@ -174,7 +217,7 @@ public class MediaHelper {
 				== MEDIA_IMG_CROP){
 //			MessageBox.getInstance(mCurActy).Show("curMediaType & AND_HIGH");
 			if(uri!=null){
-				getMedia_CropImage(uri);
+				getMedia_CropImage(mCurActy,uri,savePath);
 			}
 			
 			return "";
@@ -217,7 +260,10 @@ public class MediaHelper {
 	    return savePhotoFileName;
 	}
 	
-	
+	public static String getSavePath(){
+		File f = new File(PHOTO_DIR, getSaveImageFileName()); // 用当前时间给取得的图片命名
+		return f.getPath();
+	}
 	
 
 	
@@ -245,33 +291,3 @@ public class MediaHelper {
 	
 }
 
-/*    		switch (requestCode) {
-    		case MediaUtil.MEDIA_IMG_CAMERA:
-				uri = MediaUtil.getCurrentPhotoFileUri();
-    			if(uri == null){
-    				//nothing
-    			}else{
-    				imgPath = uri.getPath();
-    				MediaUtil.galleryAddPic(getBaseContext(), imgPath);
-    			}
-    			break;
-    		case MediaUtil.MEDIA_IMG_PHOTO:
-    			if(data != null){
-    				uri = data.getData();
-	    			Cursor c = managedQuery(uri, null, null, null, null);
-	    			if(c==null){
-	    				imgPath = uri.getPath();
-	    			}else if(c.moveToFirst()  && c.getCount() == 1){
-	    				int dataColIndex = c.getColumnIndexOrThrow(Media.DATA);
-	    				imgPath = c.getString(dataColIndex);
-	    			}else{
-	    				//nothing
-	    			}
-    			}
-    			break;
-    			
-    		default:
-    			break;
-    		}
-    		
-*/

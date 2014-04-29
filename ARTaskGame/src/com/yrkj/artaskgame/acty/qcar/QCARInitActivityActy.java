@@ -39,12 +39,13 @@ import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.acty.EditNameActivity;
 import com.yrkj.artaskgame.cmobile.acty.MainTaskActivity;
 import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DebugTrace;
 import com.yrkj.util.log.ToastUtil;
 
 public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInterface{
 	final String TAG = "com.yrkj.artaskgame.acty.qcar.QCARInitActivity";
 	
-	public static final String INTENT_KEY_CLOSEAPP = "closeApp";
+	
 	
 	int curWelcomeGrilID = 0;
 	int time = 800;
@@ -328,6 +329,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     }
     
     
+    
     /**
      * Called when the activity first starts or the user navigates back to an
      * activity.
@@ -336,6 +338,12 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     {
         DebugLog.LOGD("onCreate");
         super.onCreate(savedInstanceState);
+//        if(QCARInitActivity.isReClear()){
+//        	
+//        	return;
+//        }
+        DebugTrace.Print("ElevenQCAR", "开始初始化。。。");
+        
 //        setContentView(R.layout.activity_launch);
         // Load any sample specific textures:
         mTextures = new Vector<Texture>();
@@ -383,10 +391,10 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         DebugLog.LOGD("onResume");
         super.onResume();
         
-        Intent intent = this.getIntent();
-        if(intent != null && intent.getBooleanExtra(INTENT_KEY_CLOSEAPP, false)){
-        	this.finish();
-        }
+//        Intent intent = this.getIntent();
+//        if(intent != null && intent.getBooleanExtra(INTENT_KEY_CLOSEAPP, false)){
+//        	this.finish();
+//        }
         
 //        ToastUtil.show(this, "onresume == " + SysMng.sys_closeApp);
 //        if(SysMng.sys_closeApp){
@@ -506,6 +514,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     {
         DebugLog.LOGD("onDestroy");
         super.onDestroy();
+        DebugTrace.Print("ElevenQCAR","我被回收了。。。！！");
         
         // Cancel potentially running tasks
         if (mInitVuforiaTask != null
@@ -732,9 +741,9 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
 //        initApplicationNative(mScreenWidth, mScreenHeight);
         
         // Create OpenGL ES view:
-        int depthSize = 16;
-        int stencilSize = 0;
-        boolean translucent = QCAR.requiresAlpha();
+//        int depthSize = 16;
+//        int stencilSize = 0;
+//        boolean translucent = QCAR.requiresAlpha();
         
 //        mGlView = new QCARSampleGLView(this);
 //        mGlView.init(translucent, depthSize, stencilSize);

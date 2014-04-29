@@ -20,11 +20,17 @@ public class LaunchLiuActivity extends Activity {
 	
 	ImageView mImgWelcomeGrilView;
 	
-	
+	public static final String INTENT_KEY_CLOSEAPP = "closeApp";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		goActy();
+		 Intent intent = this.getIntent();
+	      if(intent != null && intent.getBooleanExtra(INTENT_KEY_CLOSEAPP, false)){
+	      	this.finish();
+	      	return;
+	      }else{
+	    	  goActy();
+	      }
 		
 //		setContentView(R.layout.activity_launch);
 //		mActy = this;
@@ -32,51 +38,20 @@ public class LaunchLiuActivity extends Activity {
 //		initActy();
 //		loadData();
 	}
-
-	private void initData(){
-	}
-
-	private void initActy(){
-		mImgWelcomeGrilView = (ImageView) findViewById(R.id.imgWelcomeGrilView);
-	}
 	
-	
-	
-	private void loadData(){
-		curWelcomeGrilID = R.drawable.welcome_girl_2;
-		mImgWelcomeGrilView.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if(curWelcomeGrilID == R.drawable.welcome_girl_2){
-					curWelcomeGrilID = R.drawable.welcome_girl_1;
-				}else{
-					curWelcomeGrilID = R.drawable.welcome_girl_2;
-					
-				}
-				mImgWelcomeGrilView.setImageResource(curWelcomeGrilID);
-				
-				mImgWelcomeGrilView.postDelayed(this,time);
-			}
-		}, time);
+	@Override
+	protected void onRestart() {
+		// TODO Auto-generated method stub
+		super.onRestart();
 		
-		new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				// TODO Auto-generated method stub
-				super.handleMessage(msg);
-				if(msg.what == 1){
-					goActy();
-				}
-			}
-		}.sendEmptyMessageDelayed(1, 2000);
+     
 	}
-	
+
 	private void goActy(){
 		Intent intent;
 		intent = new Intent(this, QCARInitActivityActy.class);
 		this.startActivity(intent);
-		this.finish();
+//		this.finish();
 		
 //		if (SysMng.hasSaveUserName()) {
 //			intent = new Intent(this, MainTaskActivity.class);

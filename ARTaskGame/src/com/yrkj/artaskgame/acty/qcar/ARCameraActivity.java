@@ -54,10 +54,13 @@ public class ARCameraActivity extends Activity {
     public int mAppStatus = APPSTATUS_UNINITED;
     private boolean mContAutofocus = false;
     boolean mIsDroidDevice = false;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		
 		storeScreenDimensions();
 //		initApplicationAR();
 //		initend();

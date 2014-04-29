@@ -2,14 +2,16 @@ package com.yrkj.artaskgame.acty.qcar;
 
 import java.util.Vector;
 
+import com.yrkj.artaskgame.base.BaseApplication;
 import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DebugTrace;
 
 public class QCARInitActivity  {
     // Contextual Menu Options for Camera Flash - Autofocus
 	
 	private Vector<Texture> mTextures;
 	public void setTextures(Vector<Texture> t){
-		mTextures = t;
+			mTextures = t;
 	}
 	public int getTextureCount()
     {
@@ -27,10 +29,19 @@ public class QCARInitActivity  {
 	
 	private static QCARInitActivity mQCARInitActivity = null;
 	public static QCARInitActivity getInstance(){
+//		return BaseApplication.getInstance().mQCAR;
 		if(mQCARInitActivity == null){
+			DebugTrace.Print("ElevenQCAR","mQCARInitActivity == null");
 			mQCARInitActivity = new QCARInitActivity();
 		}
 		return mQCARInitActivity;
+	}
+	
+	public static boolean isReClear1(){
+		if(mQCARInitActivity == null){
+			return true;
+		}
+		return false;
 	}
 	
 	private static final String NATIVE_LIB_SAMPLE = "ImageTargetsNative";
