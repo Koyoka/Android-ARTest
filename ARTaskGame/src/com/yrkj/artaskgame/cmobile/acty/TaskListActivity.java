@@ -106,7 +106,6 @@ OnItemClickListener{
 
 			@Override
 			public void onClickListener(boolean result) {
-				// TODO Auto-generated method stub
 						if (result) {
 
 							boolean re = false;
@@ -131,19 +130,36 @@ OnItemClickListener{
 		
 	}
 	
+	private boolean checkFinishAllTask(){
+		String count = DBCtrl.getTaskUnFinishCount(this);
+		if(count.equals("0")){
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
 		int position = index - mListView.getHeaderViewsCount();
 //		String taskDesc =  this.mDataSource.get(position).TaskDesc;
 //		ToastUtil.show(mActy, "current task: "+taskDesc);
 		if(this.mDataSource.get(position).Finish != null && this.mDataSource.get(position).Finish.equals(TblTaskDetail.FINISH_YES)){
-			ToastUtil.show(this, "当前任务已完成。");
-			return;
+			if(checkFinishAllTask()){
+				Intent intent = new Intent(this, FinishMainTaskActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra(INTENT_KEY_SELECTTASK, this.mDataSource.get(position).Id);
+				this.startActivity(intent);
+				this.finish();
+			}else{
+				ToastUtil.show(this, "当前任务已完成。");
+			}
+		}else{
+			
+			Intent intent = new Intent(this, MainTaskActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra(INTENT_KEY_SELECTTASK, this.mDataSource.get(position).Id);
+			this.startActivity(intent);
 		}
-		Intent intent = new Intent(this, MainTaskActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		intent.putExtra(INTENT_KEY_SELECTTASK, this.mDataSource.get(position).Id);
-		this.startActivity(intent);
 	}
 
 	

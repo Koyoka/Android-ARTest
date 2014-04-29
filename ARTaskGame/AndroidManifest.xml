@@ -85,6 +85,9 @@
         <activity
             android:name="com.yrkj.artaskgame.cmobile.acty.FinishActivity" >
         </activity> 
+        <activity
+            android:name="com.yrkj.artaskgame.cmobile.acty.FinishMainTaskActivity" >
+        </activity> 
         
     </application>
 

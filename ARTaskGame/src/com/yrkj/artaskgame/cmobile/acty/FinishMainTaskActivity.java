@@ -21,14 +21,14 @@ import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.log.ToastUtil;
 
-public class MainTaskActivity extends Activity implements
+public class FinishMainTaskActivity extends Activity implements
 OnClickListener{
 
 	final String TAG = "com.yrkj.artaskgame.cmobile.acty.MainTaskActivity";
 	public final static String INTENT_KEY_CLOSEAPP = "closeApp";
 	private final String taskImgAssetsFolderName = "TaskImage";
 	
-	MainTaskActivity mActy = null;
+	FinishMainTaskActivity mActy = null;
 	
 	private Button mBtnTaskListView = null;
 	private LinearLayout mImgTaskListCountView = null;
@@ -57,33 +57,9 @@ OnClickListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if(checkFinishAllTask()){
-			Intent intent = new Intent(this, FinishActivity.class);
-			startActivity(intent);
-			this.finish();
-		}else{
-			loadTaskCount();
-		}
+		loadTaskCount();
 	}
 	
-	@Override
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-				&& event.getAction() == KeyEvent.ACTION_DOWN) {
-			DialogHelper.createConfirmDialog(MainTaskActivity.this, "确认退出？",new ConfirmDialogListener() {
-				
-				@Override
-				public void onClickListener(boolean result) {
-					
-					if(result){
-						SysMng.closeApp(mActy);
-					}
-				}
-			});
-			return false;
-		}
-		return super.dispatchKeyEvent(event);
-	}
 
 	private void initData() {
 		
@@ -145,13 +121,11 @@ OnClickListener{
 		switch (v.getId()) {
 		case R.id.btnTaskListView:
 			goActy(TaskListActivity.class);
+			this.finish();
 			break;
 		case R.id.btnGoView:
-			if(SysMng.getCurrentId() != null && !SysMng.getCurrentId().isEmpty()){
-				goActy(ARCameraActivity.class);
-			}else{
-				ToastUtil.show(this, "当前没有任务。");
-			}
+				goActy(TaskListActivity.class);
+				this.finish();
 			break;
 		default:
 			break;
