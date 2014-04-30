@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Version_Num">1.0.1.140430</string>
+    <string name="Version_Num">1.0.2.140430</string>
     
     
     
@@ -38,5 +38,5 @@
     
     
     <string name="activity_finish_text">太厉害了，你已经完成了本次活动的所有游戏，本次活动积分奖励将在活动结束公布时，请关注本活动网站。</string>
-    <string name="activity_finish_url">www.baidu.com</string>
+    <string name="activity_finish_url">http://121.199.17.68/tsxz/t_show.do</string>
 </resources>

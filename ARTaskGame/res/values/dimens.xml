@@ -27,6 +27,6 @@
 	<dimen name="activity_confirmtask_scrollView_height">200dip</dimen>
 	<dimen name="activity_confirmtask_taskdesc_width">200dip</dimen>
 	
-	<dimen name="activity_endtask_score_size">20dip</dimen>
+	<dimen name="activity_endtask_score_size">18dip</dimen>
 	<dimen name="list_taskgame_item_score_size">20dip</dimen>
 </resources>

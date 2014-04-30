@@ -37,6 +37,7 @@
             android:text="@string/activity_finish_text"/>
         
         <TextView 
+            android:layout_marginTop="5dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/activity_endtask_score_size"
