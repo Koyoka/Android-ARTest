@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 
 
 public abstract  class BaseTaskDao<T1, T2, T3> extends AsyncTask<T1,T2,T3> {
@@ -43,7 +43,7 @@ public abstract  class BaseTaskDao<T1, T2, T3> extends AsyncTask<T1,T2,T3> {
 			for(NameValuePair v : mReqValues.GetValus()){
 				s += v.getName()+"="+v.getValue()+"&";
 			}
-			DebugTrace.Print(s);
+			DLog.LOG(s);
 		}
 		
 		if(mReqPostValues!= null){
@@ -51,7 +51,7 @@ public abstract  class BaseTaskDao<T1, T2, T3> extends AsyncTask<T1,T2,T3> {
 			for(NameValuePair v : mReqPostValues.GetValus()){
 				s += v.getName()+"="+v.getValue()+"&";
 			}
-			DebugTrace.Print(s);
+			DLog.LOG(s);
 		}
 		
 		if(mReqPostValues != null || mReqFileValues != null){

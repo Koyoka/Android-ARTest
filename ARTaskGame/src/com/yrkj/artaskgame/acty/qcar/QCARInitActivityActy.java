@@ -38,8 +38,7 @@ import com.yrkj.artaskgame.acty.qcar.SampleAppMenu.SampleAppMenuInterface;
 import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.acty.EditNameActivity;
 import com.yrkj.artaskgame.cmobile.acty.MainTaskActivity;
-import com.yrkj.util.log.DebugLog;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInterface{
@@ -226,7 +225,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
             // initialization status:
             if (result)
             {
-                DebugLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
+                DLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
                     + "initialization successful");
                 
                 updateApplicationStatus(APPSTATUS_INIT_TRACKER);
@@ -261,7 +260,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                 }
                 
                 // Log error:
-                DebugLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
+                DLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
                     + " Exiting.");
                 
                 // Show dialog box with error message:
@@ -287,7 +286,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         
         protected void onPostExecute(Boolean result)
         {
-            DebugLog.LOGD("LoadTrackerTask::onPostExecute: execution "
+            DLog.LOGD("LoadTrackerTask::onPostExecute: execution "
                 + (result ? "successful" : "failed"));
             
             if (result)
@@ -332,7 +331,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     protected void onSaveInstanceState(Bundle outState) {
     	// TODO Auto-generated method stub
     	super.onSaveInstanceState(outState);
-    	DebugTrace.Print("ElevenQCAR", "我被干掉了");
+    	DLog.LOG("ElevenQCAR", "我被干掉了");
     }
     
     @Override
@@ -340,7 +339,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     	// TODO Auto-generated method stub
     	super.onRestoreInstanceState(savedInstanceState);
     	
-    	DebugTrace.Print("ElevenQCAR", "我被重建了");
+    	DLog.LOG("ElevenQCAR", "我被重建了");
     }
     
     /**
@@ -349,13 +348,13 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
      */
     protected void onCreate(Bundle savedInstanceState)
     {
-        DebugLog.LOGD("onCreate");
+        DLog.LOGD("onCreate");
         super.onCreate(savedInstanceState);
 //        if(QCARInitActivity.isReClear()){
 //        	
 //        	return;
 //        }
-        DebugTrace.Print("ElevenQCAR", "开始初始化。。。");
+        DLog.LOG("ElevenQCAR", "开始初始化。。。");
         
 //        setContentView(R.layout.activity_launch);
         // Load any sample specific textures:
@@ -401,7 +400,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     /** Called when the activity will start interacting with the user. */
     protected void onResume()
     {
-        DebugLog.LOGD("onResume");
+        DLog.LOGD("onResume");
         super.onResume();
         
 //        Intent intent = this.getIntent();
@@ -456,7 +455,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
             if (QCAR.isInitialized()
                 && (mAppStatus == APPSTATUS_CAMERA_RUNNING))
             {
-                DebugLog.LOGD("updateRenderView");
+                DLog.LOGD("updateRenderView");
                 
                 // Query display dimensions:
                 storeScreenDimensions();
@@ -476,7 +475,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     /** Callback for configuration changes the activity handles itself */
     public void onConfigurationChanged(Configuration config)
     {
-        DebugLog.LOGD("onConfigurationChanged");
+        DLog.LOGD("onConfigurationChanged");
         super.onConfigurationChanged(config);
         
         storeScreenDimensions();
@@ -488,7 +487,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     /** Called when the system is about to start resuming a previous activity. */
     protected void onPause()
     {
-        DebugLog.LOGD("onPause");
+        DLog.LOGD("onPause");
         super.onPause();
         if(true){
         	return;
@@ -525,9 +524,9 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
     /** The final call you receive before your activity is destroyed. */
     protected void onDestroy()
     {
-        DebugLog.LOGD("onDestroy");
+        DLog.LOGD("onDestroy");
         super.onDestroy();
-        DebugTrace.Print("ElevenQCAR","我被回收了。。。！！");
+        DLog.LOG("ElevenQCAR","我被回收了。。。！！");
         
         // Cancel potentially running tasks
         if (mInitVuforiaTask != null
@@ -608,7 +607,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     mInitVuforiaTask.execute();
                 } catch (Exception e)
                 {
-                    DebugLog.LOGE("Initializing Vuforia SDK failed");
+                    DLog.LOGE("Initializing Vuforia SDK failed");
                 }
                 break;
             
@@ -643,7 +642,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     mLoadTrackerTask.execute();
                 } catch (Exception e)
                 {
-                    DebugLog.LOGE("Loading tracking data set failed");
+                    DLog.LOGE("Loading tracking data set failed");
                 }
                 break;
             
@@ -825,15 +824,15 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         try
         {
             System.loadLibrary(nLibName);
-            DebugLog.LOGI("Native library lib" + nLibName + ".so loaded");
+            DLog.LOGI("Native library lib" + nLibName + ".so loaded");
             return true;
         } catch (UnsatisfiedLinkError ulee)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so could not be loaded");
         } catch (SecurityException se)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so was not allowed to be loaded");
         }
         
@@ -962,7 +961,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                 {
                     showToast(getString(mFlash ? R.string.menu_flash_error_off
                         : R.string.menu_flash_error_on));
-                    DebugLog
+                    DLog
                         .LOGE(getString(mFlash ? R.string.menu_flash_error_off
                             : R.string.menu_flash_error_on));
                 }
@@ -980,7 +979,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     } else
                     {
                         showToast(getString(R.string.menu_contAutofocus_error_off));
-                        DebugLog
+                        DLog
                             .LOGE(getString(R.string.menu_contAutofocus_error_off));
                     }
                 } else
@@ -993,7 +992,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     } else
                     {
                         showToast(getString(R.string.menu_contAutofocus_error_on));
-                        DebugLog
+                        DLog
                             .LOGE(getString(R.string.menu_contAutofocus_error_on));
                     }
                 }
@@ -1038,7 +1037,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     if (!result)
                     {
                         showToast("Failed to stop extended tracking target");
-                        DebugLog
+                        DLog
                             .LOGE("Failed to stop extended tracking target");
                     }
                 } else
@@ -1047,7 +1046,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
                     if (!result)
                     {
                         showToast("Failed to start extended tracking target");
-                        DebugLog
+                        DLog
                             .LOGE("Failed to start extended tracking target");
                     }
                 }

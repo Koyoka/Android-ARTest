@@ -8,9 +8,9 @@ package com.yrkj.util.log;
 import android.util.Log;
 
 
-public class DebugLog
+public class DLog
 {
-    public static final String LOGTAG = "";
+    public static final String LOGTAG = "ARTaskGame";
     
     public static final void LOG(String nMessage)
     {

@@ -27,8 +27,7 @@ import com.yrkj.artaskgame.base.SysMng;
 import com.yrkj.artaskgame.cmobile.acty.ConfirmTaskActivity;
 import com.yrkj.artaskgame.cmobile.control.DBCtrl;
 import com.yrkj.artaskgame.cmobile.control.TblTaskDetail;
-import com.yrkj.util.log.DebugLog;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 
 public class ARCameraActivity extends Activity {
 	
@@ -172,7 +171,7 @@ public class ARCameraActivity extends Activity {
                 boolean result = setFocusMode(FOCUS_MODE_CONTINUOUS_AUTO);
                 if (!result)
                 {
-                    DebugLog.LOGE("Unable to enable continuous autofocus");
+                    DLog.LOGE("Unable to enable continuous autofocus");
                     mContAutofocus = false;
                     setFocusMode(FOCUS_MODE_NORMAL);
                 } else
@@ -378,7 +377,7 @@ public class ARCameraActivity extends Activity {
             if (QCAR.isInitialized()
                 && (mAppStatus == APPSTATUS_CAMERA_RUNNING))
             {
-                DebugLog.LOGD("updateRenderView");
+                DLog.LOGD("updateRenderView");
                 
                 // Query display dimensions:
                 storeScreenDimensions();
@@ -439,7 +438,7 @@ public class ARCameraActivity extends Activity {
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-	        DebugLog.LOGD("onConfigurationChanged");
+	        DLog.LOGD("onConfigurationChanged");
 	        super.onConfigurationChanged(newConfig);
 	        storeScreenDimensions();
 	        // Invalidate screen rotation to trigger query upon next render call:

@@ -89,6 +89,7 @@ OnClickListener{
 		mTxtTaskDescView = (TextView) findViewById(R.id.txtTaskDescView);
 		
 		mBtnGoView = (Button) findViewById(R.id.btnGoView);
+		mBtnGoView.setBackgroundResource(R.drawable.btn_ok_x);
 		mBtnGoView.setOnClickListener(this);
 	}
 

@@ -1,6 +1,6 @@
 package com.yrkj.util.db;
 
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,8 +14,6 @@ public class DBHelper extends SQLiteOpenHelper{
 		super(context,  dbName, null, dbVersion);
 		mcontext = context;
 		
-		DebugLog.LOG(dbVersion + " = DB_VERSION");
-		// TODO Auto-generated constructor stub
 	}
 	public DBHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -27,7 +25,6 @@ public class DBHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-//		MessageBox.getInstance(mcontext).Show("DBHelper onCreate");
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.yrkj.util.file.FileHelper;
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -56,7 +56,7 @@ public abstract class DBMng {
 				+DB_NAME+DB_EXPNAme;
 		
 		File f = new File(destPath);
-		DebugLog.LOG("exists");
+		DLog.LOG("exists");
 		if(!f.exists() || reCreate){
 			InputStream inputStream;
 			OutputStream outputStream;
@@ -70,10 +70,10 @@ public abstract class DBMng {
 				outputStream = new FileOutputStream(destPath);
 				
 				if(!FileHelper.CopyFile(inputStream, new FileOutputStream(destPath))){
-					DebugLog.LOG("CopyFile err");
+					DLog.LOG("CopyFile err");
 					return false;
 				}
-				DebugLog.LOG(DB_NAME+DB_EXPNAme + " Creat DB Done");
+				DLog.LOG(DB_NAME+DB_EXPNAme + " Creat DB Done");
 //				MessageBox.getInstance(context).Show("Creat DB Done!!");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -81,7 +81,7 @@ public abstract class DBMng {
 				return false;
 			}
 		}else{
-			DebugLog.LOG("DBMng.getInstance");
+			DLog.LOG("DBMng.getInstance");
 			CheckDBVersion(mContext);
 		}
 		return true;

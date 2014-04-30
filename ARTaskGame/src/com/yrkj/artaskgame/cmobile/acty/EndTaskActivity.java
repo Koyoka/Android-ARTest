@@ -77,9 +77,10 @@ OnClickListener{
 	
 	
 	private void finishCurrentTask(){
-//		SysMng.finishFirstTask();
-//		DBCtrl.finishTask(this, SysMng.biz_currentTaskId);
-//		SysMng.biz_currentTaskId = "";
+		if(checkFinishAllTask()){
+			DBCtrl.openHideTask(this);
+		}
+		
 		goActy(MainTaskActivity.class,Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		
 		this.finish();
@@ -90,6 +91,14 @@ OnClickListener{
 		intent.setFlags(flags);
 		this.startActivity(intent);
 		
+	}
+	
+	private boolean checkFinishAllTask(){
+		String count = DBCtrl.getTaskUnFinishCount(this);
+		if(count.equals("0")){
+			return true;
+		}
+		return false;
 	}
 
 }

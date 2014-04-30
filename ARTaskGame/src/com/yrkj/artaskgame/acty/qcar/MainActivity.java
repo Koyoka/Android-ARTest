@@ -28,7 +28,7 @@ import android.widget.RelativeLayout;
 import com.qualcomm.QCAR.QCAR;
 import com.yrkj.artaskgame.R;
 import com.yrkj.artaskgame.base.SysMng;
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 //import com.yrkj.smoking.R;
 //import com.yrkj.smoking.ar.ImageTargetsRenderer;
 //import com.yrkj.smoking.ar.QCARSampleGLView;
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
     
     @Override
     protected void onResume() {
-		DebugLog.LOGD("onResume");
+		DLog.LOGD("onResume");
 		super.onResume();
 		
 		
@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
     
     @Override
 	protected void onPause() {
-		DebugLog.LOGD("onPause");
+		DLog.LOGD("onPause");
 		super.onPause();
 
 		
@@ -165,7 +165,7 @@ public class MainActivity extends Activity {
     
     @Override
     protected void onDestroy() {
-		DebugLog.LOGD("onDestroy");
+		DLog.LOGD("onDestroy");
 		super.onDestroy();
 		SysMng.OnDeInit();
 		// Cancel potentially running tasks
@@ -208,13 +208,13 @@ public class MainActivity extends Activity {
     private void initActy(){
     	SysMng.OnInit();
 		mTextures = new Vector<Texture>();
-		DebugLog.LOG("1.--------");
+		DLog.LOG("1.--------");
 		loadTextures();
 		
     	mVuforiaFlags = QCAR.GL_20;
         
         mGestureDetector = new GestureDetector(this, new GestureListener());
-        DebugLog.LOG("2.--------");
+        DLog.LOG("2.--------");
         updateApplicationStatus(AppStatus.APPSTATUS_INIT_APP);
         
         mIsDroidDevice = android.os.Build.MODEL.toLowerCase().startsWith(
@@ -252,7 +252,7 @@ public class MainActivity extends Activity {
 				mInitVuforiaTask = new InitVuforiaTask();
 				mInitVuforiaTask.execute();
 			} catch (Exception e) {
-				DebugLog.LOGE("Initializing Vuforia SDK failed");
+				DLog.LOGE("Initializing Vuforia SDK failed");
 			}
 			
 			break;
@@ -277,7 +277,7 @@ public class MainActivity extends Activity {
 				mLoadTrackerTask = new LoadTrackerTask();
 				mLoadTrackerTask.execute();
 			} catch (Exception e) {
-				DebugLog.LOGE("Loading tracking data set failed");
+				DLog.LOGE("Loading tracking data set failed");
 			}
 			
 			break;
@@ -323,7 +323,7 @@ public class MainActivity extends Activity {
 			// application.
 			boolean result = setFocusMode(FOCUS_MODE_CONTINUOUS_AUTO);
 			if (!result) {
-				DebugLog.LOGE("Unable to enable continuous autofocus");
+				DLog.LOGE("Unable to enable continuous autofocus");
 				mContAutofocus = false;
 				setFocusMode(FOCUS_MODE_NORMAL);
 			} else {
@@ -503,7 +503,7 @@ public class MainActivity extends Activity {
 			// Done initializing Vuforia, proceed to next application
 			// initialization status:
 			if (result) {
-				DebugLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
+				DLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
 						+ "initialization successful");
 
 				updateApplicationStatus(AppStatus.APPSTATUS_INIT_TRACKER);
@@ -531,7 +531,7 @@ public class MainActivity extends Activity {
 				}
 
 				// Log error:
-				DebugLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
+				DLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
 						+ " Exiting.");
 
 				// Show dialog box with error message:
@@ -553,7 +553,7 @@ public class MainActivity extends Activity {
 		}
 
 		protected void onPostExecute(Boolean result) {
-			DebugLog.LOGD("LoadTrackerTask::onPostExecute: execution "
+			DLog.LOGD("LoadTrackerTask::onPostExecute: execution "
 					+ (result ? "successful" : "failed"));
 
 			if (result) {
@@ -591,15 +591,15 @@ public class MainActivity extends Activity {
         try
         {
             System.loadLibrary(nLibName);
-            DebugLog.LOGI("Native library lib" + nLibName + ".so loaded");
+            DLog.LOGI("Native library lib" + nLibName + ".so loaded");
             return true;
         } catch (UnsatisfiedLinkError ulee)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so could not be loaded");
         } catch (SecurityException se)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so was not allowed to be loaded");
         }
         
@@ -648,7 +648,7 @@ public class MainActivity extends Activity {
 			// Set projection matrix if there is already a valid one:
 			if (QCAR.isInitialized()
 					&& (mAppStatus == AppStatus.APPSTATUS_CAMERA_RUNNING)) {
-				DebugLog.LOGD("updateRenderView");
+				DLog.LOGD("updateRenderView");
 
 				storeScreenDimensions();
 
@@ -664,7 +664,7 @@ public class MainActivity extends Activity {
 	private static final int TRACKING_SHOW = 2;
 	public boolean hasBeenTracking = false;
 	public void onTracking(String dataSetName){
-		DebugLog.LOG("======" + dataSetName);
+		DLog.LOG("======" + dataSetName);
 		if(!hasBeenTracking){
 			hasBeenTracking = true;
 //			loadingDialogHandler.sendEmptyMessage(TRACKING_SHOW);

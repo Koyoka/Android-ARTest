@@ -10,7 +10,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -44,8 +44,8 @@ public class QCARSampleGLView extends GLSurfaceView
         // format here, using PixelFormat.TRANSLUCENT for GL Surfaces
         // is interpreted as any 32-bit surface with alpha by SurfaceFlinger.
         
-        DebugLog.LOGI("Using OpenGL ES 2.0");
-        DebugLog.LOGI("Using " + (translucent ? "translucent" : "opaque")
+        DLog.LOGI("Using OpenGL ES 2.0");
+        DLog.LOGI("Using " + (translucent ? "translucent" : "opaque")
             + " GLView, depth buffer size: " + depth + ", stencil size: "
             + stencil);
         
@@ -78,7 +78,7 @@ public class QCARSampleGLView extends GLSurfaceView
             EGLConfig eglConfig)
         {
             EGLContext context;
-            DebugLog.LOGI("Creating OpenGL ES 2.0 context");
+            DLog.LOGI("Creating OpenGL ES 2.0 context");
             checkEglError("Before eglCreateContext", egl);
             int[] attrib_list_gl20 = { EGL_CONTEXT_CLIENT_VERSION, 2,
                     EGL10.EGL_NONE };
@@ -104,7 +104,7 @@ public class QCARSampleGLView extends GLSurfaceView
         int error;
         while ((error = egl.eglGetError()) != EGL10.EGL_SUCCESS)
         {
-            DebugLog.LOGE(String.format("%s: EGL error: 0x%x", prompt, error));
+            DLog.LOGE(String.format("%s: EGL error: 0x%x", prompt, error));
         }
     }
     

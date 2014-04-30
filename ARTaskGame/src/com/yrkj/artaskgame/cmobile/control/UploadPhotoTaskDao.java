@@ -1,5 +1,8 @@
 package com.yrkj.artaskgame.cmobile.control;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.json.JSONObject;
 
 import android.text.TextUtils;
@@ -10,6 +13,7 @@ import com.yrkj.util.basedao.BaseTaskDao;
 import com.yrkj.util.basedao.BeanSon;
 import com.yrkj.util.http.HttpRequestValue;
 import com.yrkj.util.http.InputFileObj;
+import com.yrkj.util.log.DLog;
 
 public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResult> {
 
@@ -32,6 +36,7 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
     		String method,
     		String taskname,
     		String taskid,
+    		String score,
     		String username,
     		String userid
     		){
@@ -39,6 +44,7 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
         mReqPostValues.Add("method", method);
         mReqPostValues.Add("taskname", taskname);
         mReqPostValues.Add("taskid", taskid);
+        mReqPostValues.Add("score", score);
         mReqPostValues.Add("username", username);
         mReqPostValues.Add("userid", userid);
     	return this;
@@ -176,6 +182,17 @@ public class UploadPhotoTaskDao extends BaseTaskDao<Integer, Object, TaskDaoResu
     @Override
     protected void onPostExecute(TaskDaoResult result) {
         super.onPostExecute(result);
+        if(mReqFileValues!=null){
+        	for (Map.Entry<String, InputFileObj> entry : mReqFileValues.GetFileValues().entrySet()) {
+				try {
+					entry.getValue().FileIS.close();
+					DLog.LOG("========== fileIS is close");
+				} catch (IOException e) {
+					DLog.LOG("========== fileIS is close err");
+					e.printStackTrace();
+				}
+			}
+        }
         if(postl != null){
             postl.UpdateMyInfoDetailTaskDao_onPostTask(mTaskId,result.IsSuccess,result.ErrMsg,result.Bean);
         }

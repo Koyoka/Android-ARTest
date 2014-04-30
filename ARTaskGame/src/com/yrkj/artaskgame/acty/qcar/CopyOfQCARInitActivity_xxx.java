@@ -14,7 +14,7 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.qualcomm.QCAR.QCAR;
 import com.yrkj.artaskgame.base.SysMng;
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 public class CopyOfQCARInitActivity_xxx  extends Activity{
 	final String TAG = "com.yrkj.artaskgame.acty.qcar.QCARInitActivity";
@@ -45,7 +45,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 	
 	 @Override
     protected void onDestroy() {
-		DebugLog.LOGD("onDestroy");
+		DLog.LOGD("onDestroy");
 		super.onDestroy();
 		SysMng.OnDeInit();
 		// Cancel potentially running tasks
@@ -138,7 +138,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 				mInitVuforiaTask = new InitVuforiaTask();
 				mInitVuforiaTask.execute();
 			} catch (Exception e) {
-				DebugLog.LOGE("Initializing Vuforia SDK failed");
+				DLog.LOGE("Initializing Vuforia SDK failed");
 			}
 			
 			break;
@@ -163,7 +163,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 				mLoadTrackerTask = new LoadTrackerTask();
 				mLoadTrackerTask.execute();
 			} catch (Exception e) {
-				DebugLog.LOGE("Loading tracking data set failed");
+				DLog.LOGE("Loading tracking data set failed");
 			}
 			
 			break;
@@ -273,7 +273,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 			// Done initializing Vuforia, proceed to next application
 			// initialization status:
 			if (result) {
-				DebugLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
+				DLog.LOGD("InitVuforiaTask::onPostExecute: Vuforia "
 						+ "initialization successful");
 				updateApplicationStatus(AppStatus.APPSTATUS_INIT_TRACKER);
 				
@@ -301,7 +301,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 				}
 
 				// Log error:
-				DebugLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
+				DLog.LOGE("InitVuforiaTask::onPostExecute: " + logMessage
 						+ " Exiting.");
 
 				// Show dialog box with error message:
@@ -323,7 +323,7 @@ public class CopyOfQCARInitActivity_xxx  extends Activity{
 		}
 
 		protected void onPostExecute(Boolean result) {
-			DebugLog.LOGD("LoadTrackerTask::onPostExecute: execution "
+			DLog.LOGD("LoadTrackerTask::onPostExecute: execution "
 					+ (result ? "successful" : "failed"));
 
 			if (result) {

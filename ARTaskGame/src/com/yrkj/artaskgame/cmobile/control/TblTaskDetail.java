@@ -14,6 +14,7 @@ public class TblTaskDetail {
 	
 	public static final String FINISH_YES = "1";
 	public static final String FINISH_NO = "0";
+	public static final String FINISH_HIDE = "3";
 	
 	public String Id = "";
 	public String TaskTitle = "";

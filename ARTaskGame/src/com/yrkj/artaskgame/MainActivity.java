@@ -1,6 +1,6 @@
 package com.yrkj.artaskgame;
 
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 						int height = targetParent.getHeight();
 						Animation a = new TranslateAnimation(0.0f, 0.0f, 0.0f,
 								height);
-						DebugTrace.Print("ElevenQCAR", "height [" + height
+						DLog.LOG("ElevenQCAR", "height [" + height
 								+ "] ");
 						a.setDuration(800);
 						a.setStartOffset(300);

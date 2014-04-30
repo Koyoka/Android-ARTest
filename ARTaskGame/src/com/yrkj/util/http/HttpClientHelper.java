@@ -40,7 +40,7 @@ import org.json.JSONObject;
 
 import com.yrkj.config.SysConfig;
 import com.yrkj.util.information.HttpInfor;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 
 
 //import com.lc.sm.base.BaseApplication;
@@ -74,14 +74,15 @@ public class HttpClientHelper {
 			
 			ConnManagerParams.setMaxTotalConnections(params, 50);
 			 /* 从连接池中取连接的超时时间 */
-			ConnManagerParams.setTimeout(params, 10000);
+			ConnManagerParams.setTimeout(params, 15000);
 			 /* 连接超时 */
-            HttpConnectionParams.setConnectionTimeout(params, 10000);
+            HttpConnectionParams.setConnectionTimeout(params, 15000);
             /* 请求超时 */
-            HttpConnectionParams.setSoTimeout(params, 10000);
+            HttpConnectionParams.setSoTimeout(params, 15000);
             
 			HttpProtocolParams.setContentCharset(params, CHARSET);
 			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+			
 			
 			HttpProtocolParams.setUseExpectContinue(params, true);
 		}
@@ -189,102 +190,67 @@ public class HttpClientHelper {
 		}
 	}
 	
-//	private BasicManagedEntity GetHttpFileStream1(String httpPath)
-//			throws Exception{
-//		
-//		
-//		HttpURLConnection urlConnection = null;
-//		
-//		 URL url = new URL(httpPath);
-//
-//         urlConnection = (HttpURLConnection) url
-//                 .openConnection();
-//
-//         urlConnection.setRequestMethod("GET");
-//         urlConnection.setDoOutput(false);
-//         urlConnection.setConnectTimeout(5000);
-//         urlConnection.setReadTimeout(8000);
-//         urlConnection.setRequestProperty("Connection", "Keep-Alive");
-//         urlConnection.setRequestProperty("Charset", "UTF-8");
-//         urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-//
-//         urlConnection.connect();
-//         
-//         int status = urlConnection.getResponseCode();
-//         if (status == HttpStatus.SC_OK) {
-////        	 urlConnection.getInputStream();
-////        	 urlConnection.get
-//        	 BasicManagedEntity e = null;
-//        	 return e;
-//         }
-//         return null;
-////         if (status != 200) {
-////             return false;
-////         }
-//		
-//		
-//	}
 	
-	private BasicManagedEntity GetHttpFileStream(String httpPath)
-			throws Exception{
-
-//		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
-//				URLEncodedUtils.format(qparams, CHARSET), null);
-		URI uri = new URI(httpPath);
-		HttpGet httpget = new HttpGet(uri);
-
-		HttpResponse response;
-		try {
-			response = _httpclient.execute(httpget);
-//			response = _imgHttpClient.execute(httpget);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			String s = e.getMessage();
-			if(s!=null){
-				throw new Exception(s);
-			}
-			return null;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			String s = e.getMessage();
-			if(s!=null){
-				throw new Exception(s);
-			}
-			return null;
-		}
-		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-//			InputStream is = response.getEntity().getContent();
-//			response.getEntity().get
-			BasicManagedEntity e = (BasicManagedEntity) response.getEntity();
-//			org.apache.http.conn.BasicManagedEntity ee;
-//			response.getEntity().
-			return e;
-//			return Drawable.createFromStream(is,"src");
-			
-//			ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-//	        byte[] buf = new byte[1024];  
-//	        int len = -1;  
-//	        while ((len = is.read(buf)) != -1) { 
-////	        	DebugTrace.Print("load img----- " + len + "  " +httpPath);
-//	            baos.write(buf, 0, len);  
-//	        }  
-//	        Bitmap b = MediaUtil.decodeSampledBitmapFromByte(baos.toByteArray(), 40, 40);
-//	        
-//	        if(is != null){
-//	        	is.close();
-//	        }
-//	        
-//	        if(baos != null){
-//	        	baos.close();
-//	        }
-//	        
-//	        return b;
-		}
-		return null;
-
-	}
+//	private BasicManagedEntity GetHttpFileStream(String httpPath)
+//			throws Exception{
+//
+////		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
+////				URLEncodedUtils.format(qparams, CHARSET), null);
+//		URI uri = new URI(httpPath);
+//		HttpGet httpget = new HttpGet(uri);
+//
+//		HttpResponse response;
+//		try {
+//			response = _httpclient.execute(httpget);
+////			response = _imgHttpClient.execute(httpget);
+//		} catch (ClientProtocolException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			String s = e.getMessage();
+//			if(s!=null){
+//				throw new Exception(s);
+//			}
+//			return null;
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			String s = e.getMessage();
+//			if(s!=null){
+//				throw new Exception(s);
+//			}
+//			return null;
+//		}
+//		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+////			InputStream is = response.getEntity().getContent();
+////			response.getEntity().get
+//			BasicManagedEntity e = (BasicManagedEntity) response.getEntity();
+////			org.apache.http.conn.BasicManagedEntity ee;
+////			response.getEntity().
+//			return e;
+////			return Drawable.createFromStream(is,"src");
+//			
+////			ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+////	        byte[] buf = new byte[1024];  
+////	        int len = -1;  
+////	        while ((len = is.read(buf)) != -1) { 
+//////	        	DebugTrace.Print("load img----- " + len + "  " +httpPath);
+////	            baos.write(buf, 0, len);  
+////	        }  
+////	        Bitmap b = MediaUtil.decodeSampledBitmapFromByte(baos.toByteArray(), 40, 40);
+////	        
+////	        if(is != null){
+////	        	is.close();
+////	        }
+////	        
+////	        if(baos != null){
+////	        	baos.close();
+////	        }
+////	        
+////	        return b;
+//		}
+//		return null;
+//
+//	}
 	
 	public String GetRequest(String operatorPath, List<NameValuePair> qparams)
 			throws Exception{
@@ -324,7 +290,7 @@ public class HttpClientHelper {
 			result = inStream2String(is);
 		}
 		
-		DebugTrace.Print(TAG,result);
+		DLog.LOG(TAG,result);
 		return result;
 
 	}
@@ -332,13 +298,13 @@ public class HttpClientHelper {
 			throws Exception{
 		String outResStr = GetRequest(operatorPath,qparams);
 		if(outResStr.length() == 0){
-			DebugTrace.Print(TAG,operatorPath);
+			DLog.LOG(TAG,operatorPath);
 			String s = "";
 			for(NameValuePair item : qparams){
 				s += item.getName() + "=" + item.getValue()+"&";
 				
 			}
-			DebugTrace.Print(TAG,s);
+			DLog.LOG(TAG,s);
 			throw new Exception("err:return josn is empty!");
 //			return null;
 		}else{
@@ -347,7 +313,7 @@ public class HttpClientHelper {
 				s += item.getName() + "=" + item.getValue()+"&";
 				
 			}
-			DebugTrace.Print(TAG,s);
+			DLog.LOG(TAG,s);
 		}
 		return new JSONObject(outResStr);
 	}
@@ -356,13 +322,13 @@ public class HttpClientHelper {
 		String outResStr = GetRequest(operatorPath,getValue.GetValus());
 //		DebugTrace.Print(TAG,"1.----"+outResStr);
 		if(outResStr.length() == 0){
-			DebugTrace.Print(TAG,operatorPath);
+			DLog.LOG(TAG,operatorPath);
 			String s = "";
 			for(NameValuePair item : getValue.GetValus()){
 				s += item.getName() + "=" + item.getValue()+"&";
 				
 			}
-			DebugTrace.Print(TAG,s);
+			DLog.LOG(TAG,s);
 			throw new Exception("err:return josn is empty! " + operatorPath);
 //			return null;
 		}else{
@@ -371,7 +337,7 @@ public class HttpClientHelper {
 				s += item.getName() + "=" + item.getValue()+"&";
 				
 			}
-			DebugTrace.Print(TAG,s);
+			DLog.LOG(TAG,s);
 		}
 		return new JSONObject(outResStr);
 	}
@@ -429,8 +395,6 @@ public class HttpClientHelper {
 	    	
 	    	if(fileQparams != null){
 	    		for (Map.Entry<String, InputFileObj> entry : fileQparams.entrySet()) {
-//	    			String key = entry.getKey();
-//	    			InputStream val = entry.getValue().FileIS;
 					org.apache.http.entity.mime.content.InputStreamBody isb = 
 							new InputStreamBody(
 									entry.getValue().FileIS,
@@ -438,19 +402,6 @@ public class HttpClientHelper {
 					multipartEntity.addPart(entry.getKey(), isb);
 	    		}
 	    		
-//	    		for(NameValuePair item : fileQparams){
-//	    			File f = new File(item.getValue());
-//	    			if(f.exists()){
-//	    				multipartEntity.addPart(item.getName(), 
-//		    					 new FileBody(f));
-////	    				org.apache.http.entity.mime.content.InputStreamBody is = 
-////	    						new InputStreamBody(null, "");
-////	    				multipartEntity.addPart("", contentBody)
-//	    			}else{
-//	    				throw new Exception("item.getName() file item.getValue() unExist!!!!!!!!----------");
-////	    				new Exception("item.getName() file item.getValue() unExist!!!!!!!!----------").printStackTrace();
-//	    			}
-//	    		}
 	    	}
 	    	
 	    	post.setEntity(multipartEntity);
@@ -463,7 +414,13 @@ public class HttpClientHelper {
 			result = inStream2String(is);
 		}
 		
-		DebugTrace.Print(result);
+//		if(fileQparams != null){
+//			for (Map.Entry<String, InputFileObj> entry : fileQparams.entrySet()) {
+//				entry.getValue().FileIS.close();
+//			}
+//		}
+		
+		DLog.LOG(result);
 		return result;
 		
 	}
@@ -489,119 +446,8 @@ public class HttpClientHelper {
     }  
 	
 	
-//	public String FilePostRequest1(String operatorPath,
-//			HttpRequestValue getQparams,
-//			HttpRequestValue postQparams,
-//			HttpRequestValue fileQparams)throws Exception{
-//		return httpRequest1(operatorPath,
-//				getQparams==null?null:getQparams.GetValus(),
-//				postQparams==null?null:postQparams.GetValus(),
-//				fileQparams==null?null:fileQparams.GetValus());
-//	}
-	
-//	public String httpRequest1(String operatorPath,
-//			InputStream inputStream,String fileName)throws Exception{
-//		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
-//				null, null);
-//		
-//	    HttpPost post = new HttpPost(uri);  
-//	    MultipartEntity multipartEntity = new MultipartEntity();  
-////	    FileInputStream  inStream = null;
-////	    inputStream = inStream.
-////	    new InputStreamBody()
-//	    org.apache.http.entity.mime.content.InputStreamBody isb = 
-//				new InputStreamBody(inputStream, fileName);
-//	    multipartEntity.addPart("imgfile", isb);
-//	    post.setEntity(multipartEntity);
-//	    
-//	    HttpResponse response = _httpclient.execute(post);
-//		String result = "";
-//		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-//			InputStream is = response.getEntity().getContent();
-//			result = inStream2String(is);
-//		}
-//		return result;
-//		
-//	}
 	
 	
 }
 
-//multipartEntity.addPart("PostImageFile", new FileBody(
-//new File(filePath)));
-
-//HttpEntity formEntity = new UrlEncodedFormEntity(postQparams,CHARSET); 
-//HttpEntity form1Entity = new UrlEncodedFormEntity(getQparams,CHARSET); 
-//HttpEntity f1Entity = new UriEncodeFormEntity(postQparams);
-//HttpEntity fEntity = new org.apache.http.entity.StringEntity("");
-//org.apache.http.client.entity.UrlEncodedFormEntity
-//org.apache.http.client.utils.
-//HttpEntity formEntity = new org.apache.http.entity.StringEntity(URLEncodedUtils.format(getQparams, CHARSET));
-//for(NameValuePair item : postQparams){
-//HttpEntity formEntity = new org.apache.http.entity.StringEntity(item.getName()+"="+item.getValue(), CHARSET);
-//
-//
-//post.setEntity(formEntity);  
-//}
-//HttpEntity fntity = new org.apache.http.entity.StringEntity(s, CHARSET);
-//DebugTrace.Print(TAG,formEntity.toString());
-//post.setEntity(formEntity);  
-//post.setEntity(form1Entity);  
-
-
-//public String PostRequest(String operatorPath, List<NameValuePair> getQparams,List<NameValuePair> postQparams)
-//		throws Exception{
-//			URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
-//					getQparams!= null?URLEncodedUtils.format(getQparams, CHARSET):null, null);
-//	        HttpPost post = new HttpPost(uri);  
-//	        
-//	        MultipartEntity multipartEntity = new MultipartEntity();  
-//	        if(postQparams != null){
-//	        	 for(NameValuePair item : postQparams){
-//	        		 multipartEntity.addPart(item.getName(), 
-//	        				 new StringBody(item.getValue(), Charset.forName(CHARSET)));
-//	        	 }
-//	        }
-//	        post.setEntity(multipartEntity);
-//	        
-//	        
-//	        HttpResponse response = _httpclient.execute(post);
-//			String result = "";
-//			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-//				InputStream is = response.getEntity().getContent();
-//				result = inStream2String(is);
-//			}
-//			return result;
-//		}
-//		
-
-//public String FilePostRequest(String operatorPath, List<NameValuePair> qparams, String filePath){
-//	
-//	try{
-//		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
-//				URLEncodedUtils.format(qparams, CHARSET), null);
-//        HttpClient client = new DefaultHttpClient();  
-//        HttpPost post = new HttpPost(uri);  
-//          
-//        MultipartEntity multipartEntity = new MultipartEntity();  
-//        
-//        multipartEntity.addPart("PostImageFile", new FileBody(
-//                new File(filePath)));
-//        post.setEntity(multipartEntity);  
-//        HttpResponse response = client.execute(post);  
-//        
-//        String result = "";
-//        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {  
-//            InputStream is = response.getEntity().getContent();
-//			result = inStream2String(is);
-//        }  
-//        
-//        return result;
-//	}
-//	catch(Exception e){
-//		return e.getMessage();
-//	}
-//
-//	 
-//}
 

@@ -26,7 +26,7 @@ import com.yrkj.util.bitmap.MediaHelper;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.http.HttpRequestValue;
 import com.yrkj.util.http.InputFileObj;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 import com.yrkj.util.ui.layout.CommDialogSelectphotoView;
 
@@ -81,7 +81,7 @@ UploadPhotoTaskDao.PreTaskListener{
 	private void loadData() {
 		TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
 //		ToastUtil.show(this, "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
-		DebugTrace.Print("Eleven", "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
+		DLog.LOG("Eleven", "item["+(item != null)+"] -- id["+SysMng.getCurrentId()+"]");
 		//		if(item != null){
 			mTxtTaskTitleView.setText(item.TaskTitle);
 			mTxtTaskDescView.setText(item.TaskContent);
@@ -155,7 +155,7 @@ UploadPhotoTaskDao.PreTaskListener{
     					BitmapHelper.Bitmap2IS(mBitmap));
     			
     			TblTaskDetail item = DBCtrl.getSelectTask(this, SysMng.getCurrentId());
-    			DebugTrace.Print("Eleven", 
+    			DLog.LOG("Eleven", 
     					"item.TaskTitle["+item.TaskTitle+"] "
     					+"item.Id["+item.Id+"] "
     					+"SysMng.getUserName()["+SysMng.getUserName()+"] "
@@ -166,6 +166,7 @@ UploadPhotoTaskDao.PreTaskListener{
     					"submitTask", 
     					item.TaskTitle, 
     					item.Id, 
+    					item.Score,
 //    					SysMng.sys_UserName,
     					SysMng.getUserName(),
     					SysMng.getDriverId())
@@ -187,7 +188,7 @@ UploadPhotoTaskDao.PreTaskListener{
     			
     			
     		}else{
-    			DebugTrace.Print("Eleven","imgPath ["+imgPath+"]");
+    			DLog.LOG("Eleven","imgPath ["+imgPath+"]");
     			ToastUtil.show(this, "imgPath ["+imgPath+"]");
     		}
     	}

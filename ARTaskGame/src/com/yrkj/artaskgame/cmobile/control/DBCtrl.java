@@ -12,6 +12,31 @@ import android.content.Context;
 import android.database.Cursor;
 
 public class DBCtrl {
+	public static boolean openHideTask(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		ContentValues values = new ContentValues();
+		values.put(TblTaskDetail.Col_Finish, TblTaskDetail.FINISH_NO);
+		String cdt =  TblTaskDetail.Col_Finish + "='"+TblTaskDetail.FINISH_HIDE+"'";
+		boolean result = false;
+		dbMng.open();
+		result = dbMng.update(TblTaskDetail.TblName, values, cdt);
+		dbMng.close();
+		
+		return result;
+	}
+	
+	public static boolean closeHideTask(Context c){
+		TaskGameDBMng dbMng = new TaskGameDBMng(c);
+		ContentValues values = new ContentValues();
+		values.put(TblTaskDetail.Col_Finish, TblTaskDetail.FINISH_HIDE);
+		String cdt =  TblTaskDetail.Col_Id + "=13";
+		boolean result = false;
+		dbMng.open();
+		result = dbMng.update(TblTaskDetail.TblName, values, cdt);
+		dbMng.close();
+		
+		return result;
+	}
 	
 	public static String getScoreTotle(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
@@ -43,13 +68,14 @@ public class DBCtrl {
 		result = dbMng.update(TblTaskDetail.TblName, values, null);
 		dbMng.close();
 		
-		return result;
+		return closeHideTask(c);
 	}
 	
 	public static String getTaskCount(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		
 		DBCondition cdt = new DBCondition();
+		cdt.Selection = TblTaskDetail.Col_Finish + "<>'" + TblTaskDetail.FINISH_HIDE + "'";
 		dbMng.open();
 		Cursor cursor = dbMng.query(
 				TblTaskDetail.TblName,
@@ -64,8 +90,6 @@ public class DBCtrl {
 		cursor.close();
 		return count;
 	}
-	
-	
 	
 	public static String getTaskUnFinishCount(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
@@ -112,7 +136,7 @@ public class DBCtrl {
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
 		String cdt =  "id = '" + taskId+"'";
 		ContentValues values = new ContentValues();
-		values.put(TblTaskDetail.Col_Finish, "1");
+		values.put(TblTaskDetail.Col_Finish, TblTaskDetail.FINISH_YES);
 		
 		boolean result = false;
 		dbMng.open();
@@ -166,8 +190,8 @@ public class DBCtrl {
 		
 		dbMng.open();
 		DBCondition cdt = new DBCondition();
-		cdt.Selection = "finish = '0' order by id Limit 1";
-		
+//		cdt.Selection =  "finish = '0' order by id Limit 1";
+		cdt.Selection = TblTaskDetail.Col_Finish + "='"+TblTaskDetail.FINISH_NO+"'" + " order by id Limit 1";		
 //		cdt.Selection = TblTaskDetail.Col_Finish + " = '0'";
 //		cdt.OrderBy = TblTaskDetail.Col_Id;
 //		cdt.Limit = "1";
@@ -203,7 +227,8 @@ public class DBCtrl {
 	
 	public static ArrayList<TblTaskDetail> getAllTaskList(Context c){
 		TaskGameDBMng dbMng = new TaskGameDBMng(c);
-		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = TblTaskDetail.Col_Finish + "<>'" + TblTaskDetail.FINISH_HIDE + "'";
 //		String[] columns = { "moodid","moodcontent","phiz" };
 		dbMng.open();
 		Cursor cursor = dbMng.query(TblTaskDetail.TblName, 
@@ -216,7 +241,7 @@ public class DBCtrl {
 				TblTaskDetail.Col_Score,
 				TblTaskDetail.Col_ImgName,
 				TblTaskDetail.Col_TargetId
-				}, null);
+				}, cdt);
 		dbMng.close();
 		
 		ArrayList<TblTaskDetail> itemList = new ArrayList<TblTaskDetail>();

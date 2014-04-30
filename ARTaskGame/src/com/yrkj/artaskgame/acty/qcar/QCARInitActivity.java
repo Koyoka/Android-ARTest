@@ -3,8 +3,7 @@ package com.yrkj.artaskgame.acty.qcar;
 import java.util.Vector;
 
 import com.yrkj.artaskgame.base.BaseApplication;
-import com.yrkj.util.log.DebugLog;
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 
 public class QCARInitActivity  {
     // Contextual Menu Options for Camera Flash - Autofocus
@@ -31,7 +30,7 @@ public class QCARInitActivity  {
 	public static QCARInitActivity getInstance(){
 //		return BaseApplication.getInstance().mQCAR;
 		if(mQCARInitActivity == null){
-			DebugTrace.Print("ElevenQCAR","mQCARInitActivity == null");
+			DLog.LOG("ElevenQCAR","mQCARInitActivity == null");
 			mQCARInitActivity = new QCARInitActivity();
 		}
 		return mQCARInitActivity;
@@ -77,15 +76,15 @@ public class QCARInitActivity  {
         try
         {
             System.loadLibrary(nLibName);
-            DebugLog.LOGI("Native library lib" + nLibName + ".so loaded");
+            DLog.LOGI("Native library lib" + nLibName + ".so loaded");
             return true;
         } catch (UnsatisfiedLinkError ulee)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so could not be loaded");
         } catch (SecurityException se)
         {
-            DebugLog.LOGE("The library lib" + nLibName
+            DLog.LOGE("The library lib" + nLibName
                 + ".so was not allowed to be loaded");
         }
         

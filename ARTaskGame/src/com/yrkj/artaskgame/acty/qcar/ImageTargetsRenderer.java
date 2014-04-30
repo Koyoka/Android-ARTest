@@ -11,7 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.opengl.GLSurfaceView;
 
 import com.qualcomm.QCAR.QCAR;
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 
 /** The renderer class for the ImageTargets sample. */
@@ -36,7 +36,7 @@ public class ImageTargetsRenderer implements GLSurfaceView.Renderer
     /** Called when the surface is created or recreated. */
     public void onSurfaceCreated(GL10 gl, EGLConfig config)
     {
-        DebugLog.LOGD("GLRenderer::onSurfaceCreated");
+        DLog.LOGD("GLRenderer::onSurfaceCreated");
         
         // Call native function to initialize rendering:
         initRendering();
@@ -50,7 +50,7 @@ public class ImageTargetsRenderer implements GLSurfaceView.Renderer
     /** Called when the surface changed size. */
     public void onSurfaceChanged(GL10 gl, int width, int height)
     {
-        DebugLog.LOGD("GLRenderer::onSurfaceChanged");
+        DLog.LOGD("GLRenderer::onSurfaceChanged");
         
         // Call native function to update rendering when render surface
         // parameters have changed:

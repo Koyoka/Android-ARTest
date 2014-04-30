@@ -14,7 +14,7 @@ import com.yrkj.artaskgame.cmobile.acty.LaunchLiuActivity;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.sys.SysHelper;
 
 
@@ -131,13 +131,13 @@ public class SysMng {
 		sys_firstBoot = getPrefs().getBoolean(PREF_KEY_FISTERBOOT, true);
 		
 		sys_DriverId = getPrefs().getString(PREF_KEY_DRIVERID, "");
-		DebugLog.LOG("sys_DriverId = " + sys_DriverId + " sys_firstBoot = " + sys_firstBoot);
+		DLog.LOG("sys_DriverId = " + sys_DriverId + " sys_firstBoot = " + sys_firstBoot);
 		if(sys_DriverId.isEmpty()){
 			setDriverId(c);
 		}
 		
 		if(!TaskGameDBMng.init(c,false)){
-			DebugLog.LOG("create db error");
+			DLog.LOG("create db error");
 		}else{
 			sys_DBCreated = true;
 		}

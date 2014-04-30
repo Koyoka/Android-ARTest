@@ -30,8 +30,8 @@ public class HttpMng {
 		if(mHttpCHelper == null){
 //			String host = SERVICE_HOST;
 			
-			String host = SysConfig.SERVICE_HOST;
-			mHttpCHelper = new HttpClientHelper(host,SysConfig.SERVICE_HTTP_PORT);
+//			String host = SysConfig.SERVICE_HOST;
+			mHttpCHelper = new HttpClientHelper(SysConfig.SERVICE_HOST,SysConfig.SERVICE_HTTP_PORT);
 		}
 		return mHttpCHelper;
 		

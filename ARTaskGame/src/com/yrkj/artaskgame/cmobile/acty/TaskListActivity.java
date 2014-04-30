@@ -93,7 +93,7 @@ OnItemClickListener{
 			this.finish();
 			break;
 		case R.id.btnReInitView:
-			reInit();
+//			reInit();
 			break;
 		default:
 			break;

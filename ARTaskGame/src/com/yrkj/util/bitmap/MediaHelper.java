@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import com.yrkj.util.log.DebugTrace;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 import android.app.Activity;
@@ -152,7 +152,7 @@ public class MediaHelper {
 		
 		Uri uri = null;
 		String imgPath = null;
-		DebugTrace.Print(TAG, "-1. curMediaType["+curMediaType+"] BIT_LOW["+BIT_LOW+"] savePath["+savePath+"]");
+		DLog.LOG(TAG, "-1. curMediaType["+curMediaType+"] BIT_LOW["+BIT_LOW+"] savePath["+savePath+"]");
 		
 		switch (curMediaType&BIT_LOW) {
 		case MediaHelper.MEDIA_IMG_CAMERA:
@@ -175,7 +175,7 @@ public class MediaHelper {
 //				DebugTrace.Print("2.------" + data.getExtras());
 				uri = data.getData();
 				if(uri == null){
-					DebugTrace.Print(TAG, "0. uri == null");
+					DLog.LOG(TAG, "0. uri == null");
 					break;
 				}
 //    			Cursor c = mCurActy.managedQuery(uri, null, null, null, null);
@@ -191,25 +191,25 @@ public class MediaHelper {
     			
     			if(c==null){
     				imgPath = uri.getPath();
-    				DebugTrace.Print(TAG, "1. c == null");
+    				DLog.LOG(TAG, "1. c == null");
     			}else if(c.moveToFirst()  && c.getCount() == 1){
     				int dataColIndex = c.getColumnIndexOrThrow(filePathColumn[0]);
     				imgPath = c.getString(dataColIndex);
-    				DebugTrace.Print(TAG, "2. c.moveToFirst()  && c.getCount() == 1 imgPath["+imgPath+"]");
+    				DLog.LOG(TAG, "2. c.moveToFirst()  && c.getCount() == 1 imgPath["+imgPath+"]");
 //    				uri = Uri.fromFile(new File(imgPath));
 //    				MessageBox.getInstance(mCurActy).Show(" waring:Cursor is not null check code.");
     			}else{
-    				DebugTrace.Print(TAG, "3. imgPath is null");
+    				DLog.LOG(TAG, "3. imgPath is null");
     				//nothing
     			}
     			c.close();
 			}else{
 				
-				DebugTrace.Print(TAG, "4. data is null");
+				DLog.LOG(TAG, "4. data is null");
 			}
 			break;
 		default:
-			DebugTrace.Print(TAG, "getMedioResultPath is default");
+			DLog.LOG(TAG, "getMedioResultPath is default");
 			break;
 		}
 		

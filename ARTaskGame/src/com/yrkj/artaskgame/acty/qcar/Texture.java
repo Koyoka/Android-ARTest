@@ -9,7 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.yrkj.util.log.DebugLog;
+import com.yrkj.util.log.DLog;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -77,8 +77,8 @@ public class Texture
             return texture;
         } catch (IOException e)
         {
-        	DebugLog.LOGE("Failed to log texture '" + fileName + "' from APK");
-            DebugLog.LOGI(e.getMessage());
+        	DLog.LOGE("Failed to log texture '" + fileName + "' from APK");
+            DLog.LOGI(e.getMessage());
             return null;
         }
     }
