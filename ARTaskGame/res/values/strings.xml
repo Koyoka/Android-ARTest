@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="Version_Num">1.0.1.140430</string>
+    
+    
     
     <string name="menu_back">About</string>
     <string name="menu_extended_tracking">Extended Tracking</string>

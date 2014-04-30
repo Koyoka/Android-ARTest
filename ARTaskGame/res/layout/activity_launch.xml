@@ -5,6 +5,16 @@
     android:background="@drawable/welcome_ui1"
     tools:context=".cmobile.acty.LanchActivity" >
 
+    <TextView 
+        android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:padding="4dip"
+        android:textSize="10dip"
+        android:text="@string/Version_Num"/>
+    
     <ImageView 
         android:id="@+id/imgWelcomeGrilView"
         android:layout_width="wrap_content"
