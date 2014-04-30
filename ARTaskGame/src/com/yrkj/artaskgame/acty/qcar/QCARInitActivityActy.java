@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -376,6 +377,15 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         
     }
     
+    @Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			SysMng.closeApp(this);
+			return false;
+		}
+		return super.dispatchKeyEvent(event);
+	}
     
     /**
      * We want to load specific textures from the APK, which we will later use
