@@ -381,7 +381,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
 	public boolean dispatchKeyEvent(KeyEvent event) {
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
 				&& event.getAction() == KeyEvent.ACTION_DOWN) {
-			SysMng.closeApp(this);
+//			SysMng.closeApp(this);
 			return false;
 		}
 		return super.dispatchKeyEvent(event);
@@ -576,6 +576,7 @@ public class QCARInitActivityActy  extends Activity  implements SampleAppMenuInt
         }
         
         System.gc();
+//        SysMng.closeApp(this);
 //        SysMng.sys_closeApp = false;
 //        ToastUtil.show(this, "onDestroy == " + SysMng.sys_closeApp);
     }
