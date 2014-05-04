@@ -5,8 +5,13 @@
 
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:icon="@drawable/love"
         android:title="@string/action_settings"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_save"
+        android:icon="@drawable/sun"
+        android:showAsAction="ifRoom"
+        android:title="b"/>
 
 </menu>

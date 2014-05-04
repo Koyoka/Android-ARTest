@@ -5,4 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string-array name="action_list">
+        <item>ELeven_1</item>
+        <item>Eleven_2</item>
+        <item>ELeven_3</item>
+    </string-array>
 </resources>
