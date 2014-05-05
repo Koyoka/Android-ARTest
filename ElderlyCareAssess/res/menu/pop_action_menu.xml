@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yrkj.elderlycareassess.MainActivity" >
+    <item
+        android:id="@+id/menu_save"
+        android:actionProviderClass="com.yrkj.elderlycareassess.MyActionProvider"
+        android:icon="@drawable/sun"
+        android:showAsAction="always"
+        android:title="b"/>
+</menu>

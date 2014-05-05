@@ -10,4 +10,10 @@
         <item>Eleven_2</item>
         <item>ELeven_3</item>
     </string-array>
+
+    <string name="title_activity_test_action_bar">TestActionBarActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
 </resources>
