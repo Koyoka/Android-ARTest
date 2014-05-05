@@ -1,23 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#55000000" >
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#33000000" >
 
-    <Button 
+    
+     <ImageView 
+         android:padding="4dip"
         android:id="@+id/btnActionBarBackView"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/ic_menu_back"
+        android:src="@drawable/ic_menu_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <Button 
+        android:layout_height="wrap_content"/> 
+
+    
+
+     
+    <ImageView
+        android:padding="4dip"
         android:id="@+id/btnActionBarRightView"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/small_tiles"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    
+        android:layout_height="wrap_content"
+        android:src="@drawable/small_tiles" />
 
 </RelativeLayout>

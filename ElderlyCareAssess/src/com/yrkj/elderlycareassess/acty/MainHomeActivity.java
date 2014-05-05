@@ -68,18 +68,20 @@ OnClickListener {
 	private void add(String tag,Class<Fragment> clz,Bundle args){
 		Fragment mFragment;
 		
-		mFragment = mActy.getFragmentManager().findFragmentByTag(tag);
-        if (mFragment != null && !mFragment.isDetached()) {
-            FragmentTransaction ft = mActy.getFragmentManager().beginTransaction();
-            ft.detach(mFragment);
-            ft.commit();
-        }
+//		mFragment = mActy.getFragmentManager().findFragmentByTag(tag);
+//        if (mFragment != null && !mFragment.isDetached()) {
+//            FragmentTransaction ft = mActy.getFragmentManager().beginTransaction();
+//            ft.detach(mFragment);
+//            ft.commit();
+//        }
 		
 		mFragment = Fragment.instantiate(mActy, clz.getName(), args);
 		
-		FragmentTransaction ft = mActy.getFragmentManager().beginTransaction();
-		
-		ft.add(android.R.id.content, mFragment, tag).commit();
+		getFragmentManager().
+		beginTransaction().
+		add(android.R.id.content, mFragment, tag).
+//		detach(mFragment).
+		commit();
 	}
 
 }

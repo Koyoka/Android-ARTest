@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,19 +38,37 @@ public class MainActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		
-		ViewGroup viewG = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar_cust_default, null);
+		View viewG = getLayoutInflater().inflate(R.layout.actionbar_cust_default, null);
+//		View viewG = getLayoutInflater().inflate(R.layout.action_bar_display_options_custom, null);
 		ActionBar bar = getActionBar();
+		
+		 ActionBar.LayoutParams lp = new ActionBar.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+//	        lp.gravity = Gravity.END;
+//	        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//	        lp.gravity = Gravity.END;
         bar.setCustomView(viewG,
-                new ActionBar.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));	
-        bar.setDisplayShowHomeEnabled(false);
+                lp);	
+       
+        
         bar.setDisplayShowCustomEnabled(true);
+        bar.setDisplayShowHomeEnabled(false);
+        bar.setDisplayHomeAsUpEnabled(false);
+        bar.setDisplayShowTitleEnabled(false);
+//        bar.setDisplayShowHomeEnabled(false);
+//        bar.setDisplayHomeAsUpEnabled(true);
+//        bar.setDisplayShowCustomEnabled(true);
+//        bar.setDisplayShowTitleEnabled(true);
+        
+        
+//        bar.setIcon(R.drawable.ic_menu_back);
+//        bar.setLogo(R.drawable.ic_menu_back);
         
         viewG.findViewById(R.id.btnActionBarBackView).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ToastUtil.show(mActy, "back click");
+				mActy.finish();
 			}
 		});
         
@@ -83,16 +102,24 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main, menu);
+//		getMenuInflater().inflate(R.menu.pop_action_menu, menu);  
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+//		int id = item.getItemId();
+//		if (id == R.id.action_settings) {
+//			return true;
+//		}
+		 switch (item.getItemId()) {
+	        case android.R.id.home:
+	            this.finish();
+	            break;
+//	        default:
+//	            return super.onOptionsItemSelected(item);
+	    }
+		
 		return super.onOptionsItemSelected(item);
 	}
 

@@ -21,11 +21,17 @@
     
     <style name="my_theme" parent="AppTheme">
         <!-- <item name="android:actionMenuTextColor">#FF0000</item> -->
+         <item name="android:homeAsUpIndicator">@drawable/ic_menu_back</item> 
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
+        
+        
     </style>
  
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#00000000</item>
+        <item name="android:background">#55000000</item>
+    </style>
+    <style name="MyOverflowButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">  
+       
     </style>
     
     <style name="UserDialog" parent="android:style/Theme.Dialog">
