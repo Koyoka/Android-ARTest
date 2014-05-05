@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yrkj.elderlycareassess.acty.MainHomeActivity" >
+    
+    
+     <LinearLayout
+       
+        android:layout_alignParentBottom="true"
+        android:id="@+id/layoutFootView" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/tColor1">
+        <Button 
+            android:id="@+id/btnHomeView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1"/>
+        <Button 
+            android:id="@+id/btnAssessView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2"/>
+        <Button 
+            android:id="@+id/btnReportView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3"/>
+        <Button 
+            android:id="@+id/btnSyncView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4"/>
+    </LinearLayout>
+    
+    <LinearLayout
+         android:layout_above="@id/layoutFootView"
+        android:id="@+id/layoutBodyView" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/tColor">
+        
+    </LinearLayout>
+   
+    
+</RelativeLayout>
+

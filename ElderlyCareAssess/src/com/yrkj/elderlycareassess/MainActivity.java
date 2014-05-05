@@ -2,9 +2,9 @@ package com.yrkj.elderlycareassess;
 
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +19,7 @@ import com.yrkj.util.log.ToastUtil;
 
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	MainActivity mActy;
 	
@@ -31,7 +31,8 @@ public class MainActivity extends ActionBarActivity {
 		if (savedInstanceState == null) {
 //			getSupportFragmentManager().beginTransaction()
 //			.add(arg0, arg1)
-			getSupportFragmentManager().beginTransaction()
+//			getSupportFragmentManager().beginTransaction()
+			getFragmentManager().beginTransaction()
 //					.add(R.id.container, new PlaceholderFragment())
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
@@ -40,8 +41,8 @@ public class MainActivity extends ActionBarActivity {
 		ActionBar bar = getActionBar();
         bar.setCustomView(viewG,
                 new ActionBar.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));	
-        bar.setDisplayShowCustomEnabled(true);
         bar.setDisplayShowHomeEnabled(false);
+        bar.setDisplayShowCustomEnabled(true);
         
         viewG.findViewById(R.id.btnActionBarBackView).setOnClickListener(new OnClickListener() {
 			
