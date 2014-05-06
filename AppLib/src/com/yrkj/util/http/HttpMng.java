@@ -1,6 +1,5 @@
 package com.yrkj.util.http;
 
-import com.yrkj.config.SysConfig;
 
 
 
@@ -15,10 +14,10 @@ public class HttpMng {
 	protected HttpRequestValue mReqPostValues = null;
 	protected HttpRequestValue mReqFileValues = null;
 	
-	public static String doHttp(String url,HttpRequestValue value){
+	public static String doHttp(String host,int port,String url,HttpRequestValue value){
 		
 		try {
-			return GetHttpClientHelper().GetRequest(url, value.GetValus());
+			return GetHttpClientHelper(host,port).GetRequest(url, value.GetValus());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,12 +25,12 @@ public class HttpMng {
 		return "";
 	}
 	
-	public static HttpClientHelper GetHttpClientHelper(){
+	public static HttpClientHelper GetHttpClientHelper(String host,int port){
 		if(mHttpCHelper == null){
-//			String host = SERVICE_HOST;
+			mHttpCHelper = new HttpClientHelper(host,port);
+//			mHttpCHelper = new HttpClientHelper(SysConfig.SERVICE_HOST,SysConfig.SERVICE_HTTP_PORT);
 			
-//			String host = SysConfig.SERVICE_HOST;
-			mHttpCHelper = new HttpClientHelper(SysConfig.SERVICE_HOST,SysConfig.SERVICE_HTTP_PORT);
+			
 		}
 		return mHttpCHelper;
 		

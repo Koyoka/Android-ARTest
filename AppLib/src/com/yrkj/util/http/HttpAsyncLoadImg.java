@@ -339,7 +339,8 @@ public class HttpAsyncLoadImg {
 
 			ByteArrayOutputStream baos = null;
 			for (int i = 0; i < 3; i++) {
-				baos = HttpMng.GetHttpClientHelper().getHttpFileStream2ByteOutStream(imageUrl, l);
+//				baos = HttpMng.GetHttpClientHelper().getHttpFileStream2ByteOutStream(imageUrl, l);
+				baos = HttpClientHelper.getHttpFileStream2ByteOutStream(imageUrl, l);
 				if (baos != null) {
 					break;
 				}

@@ -38,7 +38,6 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
-import com.yrkj.config.SysConfig;
 import com.yrkj.util.information.HttpInfor;
 import com.yrkj.util.log.DLog;
 
@@ -64,8 +63,8 @@ public class HttpClientHelper {
         public void pushProgress(int progress, int max);
     }
 
-	public HttpClientHelper(String host) {
-		
+	public HttpClientHelper(String host,int port) {
+		_port = port;
 		_host = host;
 //		_port = Config.SERVICE_HTTP_PORT;
 		//prepare httpclient params
@@ -97,7 +96,7 @@ public class HttpClientHelper {
 //				schemeRegistry.register(http80);
 				
 				Scheme http = new Scheme("http",
-						PlainSocketFactory.getSocketFactory(), SysConfig.SERVICE_HTTP_PORT);
+						PlainSocketFactory.getSocketFactory(), _port);
 				schemeRegistry.register(http);
 				
 				Scheme https = new Scheme("https",
@@ -116,21 +115,14 @@ public class HttpClientHelper {
 		
 	}
 	
-	public HttpClientHelper(String host,int port)  
-	{
-		this(host);
-		_port = port;	
-	}
+//	public HttpClientHelper(String host,int port)  
+//	{
+//		this(host);
+//		_port = port;	
+//	}
 	
-	public ByteArrayOutputStream getHttpFileStream2ByteOutStream(String httpPath, DownloadListener l) {
+	public static ByteArrayOutputStream getHttpFileStream2ByteOutStream(String httpPath, DownloadListener l) {
 		try {
-//			BasicManagedEntity isEntity = GetHttpFileStream(httpPath);
-//			if (isEntity == null) {
-//				return null;
-//			}
-//
-//			InputStream is = isEntity.getContent();
-//			int bytetotal = (int) isEntity.getContentLength();
 			
 			 URL url = new URL(httpPath);
 
@@ -174,7 +166,7 @@ public class HttpClientHelper {
 		}
 	}
 	
-	private void putInStream2OutStream(InputStream is,OutputStream os,int byteTotal,DownloadListener l) throws IOException{
+	private static void putInStream2OutStream(InputStream is,OutputStream os,int byteTotal,DownloadListener l) throws IOException{
 		byte[] buf = new byte[1444];
 		int len = -1;
 		int bytesum = 0;

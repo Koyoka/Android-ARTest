@@ -36,7 +36,7 @@ public abstract  class BaseTaskDao<T1, T2, T3> extends AsyncTask<T1,T2,T3> {
 		return doBack();
 	}
 	
-	protected String doHttp() throws Exception{
+	protected String doHttp(String host,int port) throws Exception{
 		
 		if(mReqValues!= null){
 			String s = "getvalue ";
@@ -55,11 +55,11 @@ public abstract  class BaseTaskDao<T1, T2, T3> extends AsyncTask<T1,T2,T3> {
 		}
 		
 		if(mReqPostValues != null || mReqFileValues != null){
-			return HttpMng.GetHttpClientHelper().
+			return HttpMng.GetHttpClientHelper(host,port).
 					FilePostRequest(mURLPath, mReqValues, mReqPostValues, mReqFileValues);
 		}else{
 		
-			return HttpMng.GetHttpClientHelper()
+			return HttpMng.GetHttpClientHelper(host,port)
 	                .GetRequest(mURLPath, mReqValues.GetValus());
 		}
 	}

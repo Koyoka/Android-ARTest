@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.yrkj.elderlycareassess.R;
+import com.yrkj.applib.R;
 import com.yrkj.util.ui.layout.CommDialogSelectphotoView;
 
 

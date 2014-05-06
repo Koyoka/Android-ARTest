@@ -4,7 +4,8 @@ import java.util.Map;
 
 import android.app.Activity;
 
-import com.yrkj.elderlycareassess.R;
+import com.yrkj.applib.R;
+
 
 
 public class CommDialogSelectphotoView extends BaseLayout{
@@ -56,17 +57,27 @@ public class CommDialogSelectphotoView extends BaseLayout{
                 int viewKey = (Integer) key;
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
-                switch (viewKey) {
-                case BtnOpenCameraViewId:
-                    setViewData(adp,getBtnOpenCameraView(),data,joinData.formatString,joinData.data);
-                    break;
-                case BtnOpenPhotoAlbumViewId:
-                    setViewData(adp,getBtnOpenPhotoAlbumView(),data,joinData.formatString,joinData.data);
-                    break;
-                case BtnCancelDialogViewId:
-                    setViewData(adp,getBtnCancelDialogView(),data,joinData.formatString,joinData.data);
-                    break;
+                if(false){}
+                else if(viewKey == BtnOpenCameraViewId){
+                	setViewData(adp,getBtnOpenCameraView(),data,joinData.formatString,joinData.data);
                 }
+                else if(viewKey == BtnOpenPhotoAlbumViewId){
+                	setViewData(adp,getBtnOpenPhotoAlbumView(),data,joinData.formatString,joinData.data);
+                }
+                else if(viewKey == BtnCancelDialogViewId){
+                	setViewData(adp,getBtnCancelDialogView(),data,joinData.formatString,joinData.data);
+                }
+//                switch (viewKey) {
+//                case BtnOpenCameraViewId:
+//                    setViewData(adp,getBtnOpenCameraView(),data,joinData.formatString,joinData.data);
+//                    break;
+//                case BtnOpenPhotoAlbumViewId:
+//                    setViewData(adp,getBtnOpenPhotoAlbumView(),data,joinData.formatString,joinData.data);
+//                    break;
+//                case BtnCancelDialogViewId:
+//                    setViewData(adp,getBtnCancelDialogView(),data,joinData.formatString,joinData.data);
+//                    break;
+//                }
             }
         }
         
@@ -78,20 +89,31 @@ public class CommDialogSelectphotoView extends BaseLayout{
                 Object val = entry.getValue();
                 int viewKey = (Integer) key;
                 String path = (String) val;
-                switch (viewKey) {
-                case BtnOpenCameraViewId:
-                    setViewData(adp,getBtnOpenCameraView(),data,"",path);
-                    break;
-                case BtnOpenPhotoAlbumViewId:
-                    setViewData(adp,getBtnOpenPhotoAlbumView(),data,"",path);
-                    break;
-                case BtnCancelDialogViewId:
-                    setViewData(adp,getBtnCancelDialogView(),data,"",path);
-                    break;
-                    
-                default:
-                    break;
+                
+                if(false){}
+                else if(viewKey == BtnOpenCameraViewId){
+                	setViewData(adp,getBtnOpenCameraView(),data,"",path);
                 }
+                else if(viewKey == BtnOpenPhotoAlbumViewId){
+                	setViewData(adp,getBtnOpenPhotoAlbumView(),data,"",path);
+                }
+                else if(viewKey == BtnCancelDialogViewId){
+                	setViewData(adp,getBtnCancelDialogView(),data,"",path);
+                }
+//              switch (viewKey) {
+//              case BtnOpenCameraViewId:
+//                  setViewData(adp,getBtnOpenCameraView(),data,"",path);
+//                  break;
+//              case BtnOpenPhotoAlbumViewId:
+//                  setViewData(adp,getBtnOpenPhotoAlbumView(),data,"",path);
+//                  break;
+//              case BtnCancelDialogViewId:
+//                  setViewData(adp,getBtnCancelDialogView(),data,"",path);
+//                  break;
+                  
+//              default:
+//                  break;
+//                }
             }
          }
     }
