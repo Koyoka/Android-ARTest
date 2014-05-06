@@ -25,6 +25,7 @@ public class MainHomeActivity extends ActionBarActivity implements
 OnClickListener, TabListener {
 	final String TAG = "com.yrkj.elderlycareassess.acty.MainHomeActivity";
 	final String SAVE_STATE_KEY_FRAGMENT = "curTag";
+	final String SAVE_STATE_KEY_TAB = "tabIndex";
 	final String TAB_TAG_TASK = "task";
 	final String TAB_TAG_DONE = "done";
 	
@@ -42,21 +43,30 @@ OnClickListener, TabListener {
 		setContentView(R.layout.activity_main_home);
 		mActy = this;
 		
+		initActy();
+		
 		if (savedInstanceState == null) {
 			add(HomeFragment.class.getName(),null);
+			
 			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == null");
 		}else{
 			add(savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT),null);
+			if(getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS){
+				getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(SAVE_STATE_KEY_TAB, 0));
+			}
 			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == " + savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT));
 		}
 		
-		initActy();
+		
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString(SAVE_STATE_KEY_FRAGMENT, mCurClass);
+		if(getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS){
+			outState.putInt(SAVE_STATE_KEY_TAB, getActionBar().getSelectedNavigationIndex());
+		}
 	}
 	
 	private void initActy(){
@@ -76,7 +86,7 @@ OnClickListener, TabListener {
 		switch (v.getId()) {
 		case R.id.btnHomeView:
 			add(HomeFragment.class.getName(),null);
-			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			
 			break;
 		case R.id.btnAssessView:
 //			add(AssessFragment.class.getName(),null);
@@ -84,7 +94,6 @@ OnClickListener, TabListener {
 			break;
 		case R.id.btnReportView:
 			add(ReportFragment.class.getName(),null);
-			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 			break;
 		default:
 			break;
@@ -113,6 +122,14 @@ OnClickListener, TabListener {
 		ft.commit();
 		
 		mCurClass = className;
+		
+		if(mCurClass.equals(AssessTaskFragment.class.getName()) 
+				|| mCurClass.equals(AssessDoneFragment.class.getName()) ){
+			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		}else{
+			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			
+		}
 	}
 	
 	private void createTabs(){
