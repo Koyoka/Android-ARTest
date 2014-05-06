@@ -1,12 +1,12 @@
 package com.yrkj.elderlycareassess.fragment;
 
-import com.yrkj.elderlycareassess.R;
-
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.yrkj.elderlycareassess.R;
 
 public class ReportFragment extends Fragment {
 	@Override

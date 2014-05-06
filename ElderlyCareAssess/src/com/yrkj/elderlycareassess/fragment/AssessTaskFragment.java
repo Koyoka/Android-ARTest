@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 
-public class HomeFragment extends Fragment {
+public class AssessTaskFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_home, container,
+		View v = inflater.inflate(R.layout.fragment_assess_task, container,
 				false);
 		return v;
 	}

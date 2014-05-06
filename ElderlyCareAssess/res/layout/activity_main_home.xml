@@ -19,36 +19,35 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1"/>
+            android:text="Home"/>
         <Button 
             android:id="@+id/btnAssessView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2"/>
+            android:text="Aes"/>
         <Button 
             android:id="@+id/btnReportView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3"/>
+            android:text="Report"/>
         <Button 
             android:id="@+id/btnSyncView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="4"/>
+            android:text="Sync"/>
     </LinearLayout>
     
-    <LinearLayout
+    <RelativeLayout
          android:layout_above="@id/layoutFootView"
         android:id="@+id/layoutBodyView" 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:background="@color/tColor">
         
-    </LinearLayout>
+    </RelativeLayout>
    
     
 </RelativeLayout>
