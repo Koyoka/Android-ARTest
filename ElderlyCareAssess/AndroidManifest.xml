@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.yrkj.elderlycareassess.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/my_theme" >
+            android:label="@string/app_name" >
 
             <!--
             <intent-filter>
@@ -52,11 +51,25 @@
             -->
         </activity>
         <activity android:name="com.yrkj.elderlycareassess.acty.MainHomeActivity" >
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>  -->
+        </activity>
+        <activity android:name="com.yrkj.elderlycareassess.acty.MainHomeNoneActionBarActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> 
+        </activity>
+        <activity android:name="com.yrkj.elderlycareassess.acty.MainAssessActivity" >
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
         </activity>
         <activity
             android:name="com.yrkj.elderlycareassess.CddMainActivity"

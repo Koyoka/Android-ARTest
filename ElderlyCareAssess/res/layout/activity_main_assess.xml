@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <RelativeLayout 
+        android:id="@+id/layoutActionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3e3e3e"
+        android:orientation="horizontal">
+        
+         <Button 
+             android:layout_alignParentRight="true"
+            android:id="@+id/btnSettingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="setting"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutBodyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#00ff00" >
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnBackView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="back" >
+        </Button>
+
+        <Button
+            android:id="@+id/btnGoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="go" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

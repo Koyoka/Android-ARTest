@@ -16,5 +16,16 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_cdd_main">CddMainActivity</string>
+    
+    
+    <string name="assess_title_new">评估信息</string>
+    <string name="assess_title_cogn">认知能力评估</string>
+    <string name="assess_title_emot">情绪行为评估</string>
+    <string name="assess_title_living">目前生活状况</string>
+    <string name="assess_title_person">个人资料</string>
+    <string name="assess_title_selfcare">生活自理能力评估</string>
+    <string name="assess_title_service">养老服务建议</string>
+    <string name="assess_title_social">社会生活环境</string>
+    <string name="assess_title_visual">视觉评估</string>
 
 </resources>

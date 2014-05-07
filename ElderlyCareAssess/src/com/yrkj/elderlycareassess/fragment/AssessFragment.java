@@ -34,7 +34,7 @@ public class AssessFragment extends Fragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if(savedInstanceState == null){
-			add(AssessTaskFragment.class.getName(),null);
+			add(AssessTaskListFragment.class.getName(),null);
 			DLog.LOG(SysMng.TAG_FRAGMENT,"AssessFragment ---- savedInstanceState == null");
 		}else{
 			DLog.LOG(SysMng.TAG_FRAGMENT,"AssessFragment ---- savedInstanceState == " + savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT));
@@ -54,10 +54,10 @@ public class AssessFragment extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAssessTaskView:
-			add(AssessTaskFragment.class.getName(),null);
+			add(AssessTaskListFragment.class.getName(),null);
 			break;
 		case R.id.btnAssessDoneView:
-			add(AssessDoneFragment.class.getName(),null);
+			add(AssessDoneListFragment.class.getName(),null);
 			break;
 		default:
 			break;

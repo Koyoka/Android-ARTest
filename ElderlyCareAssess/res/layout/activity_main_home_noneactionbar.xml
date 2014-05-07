@@ -5,6 +5,42 @@
     android:layout_height="match_parent"
     tools:context="com.yrkj.elderlycareassess.acty.MainHomeActivity" >
     
+    <RelativeLayout 
+        android:id="@+id/layoutActionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3e3e3e"
+        android:orientation="horizontal">
+        
+         <Button 
+             android:layout_alignParentRight="true"
+            android:id="@+id/btnSettingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="setting"/>
+    </RelativeLayout>
+    
+    <LinearLayout 
+        android:layout_below="@id/layoutActionBarView"
+        android:id="@+id/layoutAssessTabView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <Button 
+            android:id="@+id/btnAssessTaskView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="task"/>
+        <Button 
+            android:id="@+id/btnAssessDoneView"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="done"/>
+        
+    </LinearLayout>
     
      <LinearLayout
        
@@ -41,6 +77,7 @@
     </LinearLayout>
     
     <FrameLayout
+        android:layout_below="@id/layoutAssessTabView"
          android:layout_above="@id/layoutFootView"
         android:id="@+id/layoutBodyView" 
         android:layout_width="match_parent"
