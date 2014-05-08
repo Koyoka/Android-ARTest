@@ -5,6 +5,6 @@
     <color name="tColor2">#33B5E5</color>
     <color name="tColor1">#ffffff</color>
   
-    
+    <color name="fragment_home_text_color">#565656</color>
 	
 </resources>

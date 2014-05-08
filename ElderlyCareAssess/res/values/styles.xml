@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -7,7 +7,7 @@
     <!-- <style name="AppBaseTheme" parent="Theme.AppCompat.Light"> 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">-->
-    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light">
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
         
         <!--
         <item name="android:windowNoTitle">true</item>
@@ -19,6 +19,7 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        
          <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
@@ -43,4 +44,87 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+    
+    
+    
+    <style name="activity_theme">
+        <item name="android:background">#EBEEED</item>
+    </style>
+    
+    <style name="activity_main_home_tabs_font">
+        <item name="android:textColor">#866d2a</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    
+    
+    <!-- fragment home content header -->
+    <style name="fragment_home_layout_content">
+        <item name="android:background">@drawable/home_content_bg</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+    <style name="fragment_home_img_avatar">
+        <item name="android:background">@drawable/home_avatar_bg</item>
+    </style>
+    <style name="fragment_home_text_userinfo_name">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_52px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+    </style>
+    <style name="fragment_home_text_userinfo">
+        <item name="android:paddingTop">3dip</item>
+        <item name="android:textSize">@dimen/text_size_24px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+    </style>
+    
+    <!-- fragment home content middle-->
+    <style name="fragment_home_layout_content_donetask">
+        <item name="android:background">@drawable/home_donetask_bg</item>
+        <item name="android:padding">@dimen/padding_size_30px</item>
+    </style>
+    <style name="fragment_home_layout_content_doingtask">
+        <item name="android:background">@drawable/home_doingtask_bg</item>
+        <item name="android:padding">@dimen/padding_size_30px</item>
+    </style>
+    <style name="fragment_home_layout_content_log">
+        <item name="android:background">@drawable/home_log_bg</item>
+        <item name="android:padding">@dimen/padding_size_30px</item>
+    </style>
+    <style name="fragment_home_text_task_title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_28px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+    </style>
+    <style name="fragment_home_text_task_desc">
+        <item name="android:paddingTop">6dip</item>
+        <item name="android:textSize">@dimen/text_size_24px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+    </style>
+    
+    <!-- fragment home content foot-->
+    <style name="fragment_home_layout_content_report">
+        <item name="android:background">@drawable/home_content_bg</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingTop">20dp</item>
+    </style>
+    
+    <style name="fragment_home_text_report_title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_28px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+        <item name="android:paddingBottom">26dip</item>
+    </style>
+    <style name="fragment_home_text_report_info">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_52px</item>
+        <item name="android:textColor">#8eddcf</item>
+    </style>
+    <style name="fragment_home_text_report_caseinfo">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_36px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+    </style>
+    
+    <!-- fragment home end -->
 </resources>

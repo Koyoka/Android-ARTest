@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/activity_theme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -8,9 +9,296 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.yrkj.elderlycareassess.MainActivity$PlaceholderFragment" >
 
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentView"
+        style="@style/fragment_home_layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <ImageView
+            android:id="@+id/imgUserAvatarView"
+            style="@style/fragment_home_img_avatar"
+            android:layout_width="@dimen/fragment_home_avatar_width"
+            android:layout_height="@dimen/fragment_home_avatar_height"
+            android:layout_marginRight="25dip"
+            android:src="@drawable/msface" />
+
+        <TextView
+            android:id="@+id/txtUserNameView"
+            style="@style/fragment_home_text_userinfo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imgUserAvatarView"
+            android:layout_toRightOf="@id/imgUserAvatarView"
+            android:text="Eleven" />
+
+        <TextView
+            android:id="@+id/txtAddressView"
+            style="@style/fragment_home_text_userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtUserNameView"
+            android:layout_below="@id/txtUserNameView"
+            android:text="address" />
+
+        <TextView
+            android:id="@+id/txtOfficeView"
+            style="@style/fragment_home_text_userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtUserNameView"
+            android:layout_below="@id/txtAddressView"
+            android:text="office" />
+
+        <TextView
+            android:id="@+id/txtLastLoginDateView"
+            style="@style/fragment_home_text_userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtUserNameView"
+            android:layout_below="@id/txtOfficeView"
+            android:text="2014-05-08" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentDoneTaskView"
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutHomeContentView"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <ImageView
+            android:id="@+id/imgIconDoneTaskView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dip"
+            android:src="@drawable/icon_home_donetask" />
+
+        <TextView
+            android:id="@+id/txtDoneTaskTitleView"
+            style="@style/fragment_home_text_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imgIconDoneTaskView"
+            android:layout_toRightOf="@id/imgIconDoneTaskView"
+            android:text="donetask" />
+
+        <TextView
+            android:id="@+id/txtDoneTaskDescView"
+            style="@style/fragment_home_text_task_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtDoneTaskTitleView"
+            android:layout_below="@id/txtDoneTaskTitleView"
+            android:text="donetask xxxx" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentDoingTaskView"
+        style="@style/fragment_home_layout_content_doingtask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutHomeContentDoneTaskView"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <ImageView
+            android:id="@+id/imgIconDoingTaskView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dip"
+            android:src="@drawable/icon_home_doingtask" />
+
+        <TextView
+            android:id="@+id/txtDoingTaskTitleView"
+            style="@style/fragment_home_text_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imgIconDoingTaskView"
+            android:layout_toRightOf="@id/imgIconDoingTaskView"
+            android:text="doingtask" />
+
+        <TextView
+            android:id="@+id/txtDoingTaskDescView"
+            style="@style/fragment_home_text_task_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtDoingTaskTitleView"
+            android:layout_below="@id/txtDoingTaskTitleView"
+            android:text="doingtask xxxx" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentLogView"
+        style="@style/fragment_home_layout_content_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layoutHomeContentDoingTaskView"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <ImageView
+            android:id="@+id/imgIconLogView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dip"
+            android:src="@drawable/icon_home_log" />
+
+        <TextView
+            android:id="@+id/txtLogTitleView"
+            style="@style/fragment_home_text_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imgIconLogView"
+            android:layout_toRightOf="@id/imgIconLogView"
+            android:text="doingtask" />
+
+        <TextView
+            android:id="@+id/txtLogDescView"
+            style="@style/fragment_home_text_task_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txtLogTitleView"
+            android:layout_below="@id/txtLogTitleView"
+            android:text="doingtask xxxx" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentReportView"
+        style="@style/fragment_home_layout_content_report"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutHomeContentLogView" />
+
     <TextView
+        android:id="@+id/txtReportTitleView"
+        style="@style/fragment_home_text_report_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="home" />
+        android:layout_alignTop="@id/layoutHomeContentReportView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="24dp"
+        android:text="@string/fragment_home_report_title" />
+
+    <TextView
+        android:id="@+id/txtReportInfoView"
+        style="@style/fragment_home_text_report_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtReportTitleView"
+        android:layout_alignLeft="@id/txtReportTitleView"
+        android:text="@string/fragment_home_report_info" />
+
+    <View
+        android:id="@+id/s"
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:layout_below="@id/txtReportInfoView"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/layoutReportTotleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/s"
+        android:layout_toLeftOf="@id/s"
+        android:layout_alignLeft="@id/txtReportTitleView"
+        android:orientation="horizontal" >
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC1View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC2View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC3View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC4View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC5View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC6View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC7View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        <!--<include 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/layout_report"/>
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingTop="10dip" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dip"
+                    android:layout_weight="1"
+                    android:background="#EAFBC0" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1m" />
+        </LinearLayout> -->
+        
+        
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutReportTotleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/s"
+        android:layout_toRightOf="@id/s"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_home_text_report_caseinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_home_report_caseinfo" />
+    </LinearLayout>
 
 </RelativeLayout>

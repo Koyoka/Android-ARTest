@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<!-- 因为下面的两个LinearLayout要覆盖，就是显示的位置有重叠，所以，必须使用AbsoluteLayout,绝对布局 -->
+	<LinearLayout android:orientation="vertical" android:id="@+id/main"
+		android:layout_x="0dp" android:layout_y="0dp" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:weightSum="1">
+		<Button android:layout_width="wrap_content" android:id="@+id/show"
+			android:layout_height="wrap_content" android:text="下拉显示" />
+	</LinearLayout>
+	<LinearLayout android:orientation="vertical" android:id="@+id/selection" 
+		android:layout_x="0dp" android:layout_y="-190px" android:layout_width="fill_parent"
+		android:layout_height="200px" android:background="#ffffff">
+		<!-- 之所以用 px作单位,是因为设置控件位置的layout方法的参数就是px单位的，单位相同方便计算
+			高200,y座标-190，还有10个像素可以看到，是为了方便演示，当然，你也可以设为-200,刚好全部隐藏
+		-->
+		<Button android:layout_width="wrap_content" android:id="@+id/hidden"
+			android:layout_height="wrap_content" android:text="隐藏" />
+	</LinearLayout>
+</AbsoluteLayout>

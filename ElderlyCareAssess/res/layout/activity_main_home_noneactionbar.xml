@@ -3,21 +3,25 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yrkj.elderlycareassess.acty.MainHomeActivity" >
+    style="@style/activity_theme"
+    tools:context=".acty.MainHomeNoneActionBarActivity" >
     
     <RelativeLayout 
         android:id="@+id/layoutActionBarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3e3e3e"
+        android:background="@drawable/actionbar_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         
-         <Button 
+        
+         <ImageButton 
+             android:layout_marginRight="12dip"
              android:layout_alignParentRight="true"
             android:id="@+id/btnSettingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="setting"/>
+            android:background="@drawable/icon_actionbar_setting"/>
     </RelativeLayout>
     
     <LinearLayout 
@@ -48,32 +52,51 @@
         android:id="@+id/layoutFootView" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/tColor1">
+        android:orientation="horizontal">
         <Button 
+            style="@style/activity_main_home_tabs_font"
             android:id="@+id/btnHomeView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Home"/>
+            android:background="@drawable/btn_tabs_bg_x"
+            android:text="@string/activity_main_home_tabs_home"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg"/>
         <Button 
+            style="@style/activity_main_home_tabs_font"
             android:id="@+id/btnAssessView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aes"/>
+            android:background="@drawable/btn_tabs_bg_x"
+            android:text="@string/activity_main_home_tabs_assess"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg"/>
         <Button 
+            style="@style/activity_main_home_tabs_font"
             android:id="@+id/btnReportView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Report"/>
+            android:background="@drawable/btn_tabs_bg_x"
+            android:text="@string/activity_main_home_tabs_report"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg"/>
         <Button 
+            style="@style/activity_main_home_tabs_font"
             android:id="@+id/btnSyncView"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sync"/>
+            android:background="@drawable/btn_tabs_bg_x"
+            android:text="@string/activity_main_home_tabs_sync"/>
     </LinearLayout>
     
     <FrameLayout
@@ -81,8 +104,7 @@
          android:layout_above="@id/layoutFootView"
         android:id="@+id/layoutBodyView" 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/tColor">
+        android:layout_height="match_parent">
         
     </FrameLayout>
    

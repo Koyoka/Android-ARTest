@@ -3,6 +3,94 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yrkj.elderlycareassess.MainActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
 
+    
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/testBBBView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       
+         >
+
+        <RelativeLayout
+            android:id="@+id/testAAAView"
+            android:layout_width="match_parent"
+            android:layout_height="1800dip"
+            android:background="#00ffff" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+        </RelativeLayout>
+
+         <Button
+        android:id="@+id/testClickView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click" />
+    </FrameLayout>
+   
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        
+         >
+
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC1View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC2View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC3View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC4View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC5View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC6View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+        
+        <com.yrkj.elderlycareassess.widget.UIReportCount
+            android:id="@+id/uctrlRC7View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="10dip" />
+    </LinearLayout>
+
+</FrameLayout>
