@@ -1,113 +1,137 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    style="@style/activity_theme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/activity_theme"
     tools:context=".acty.MainHomeNoneActionBarActivity" >
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:id="@+id/layoutActionBarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/actionbar_bg"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
-        
-        
-         <ImageButton 
-             android:layout_marginRight="12dip"
-             android:layout_alignParentRight="true"
+        android:orientation="horizontal" >
+
+        <ImageButton
             android:id="@+id/btnSettingView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/icon_actionbar_setting"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dip"
+            android:background="@drawable/icon_actionbar_setting" />
     </RelativeLayout>
+
     
-    <LinearLayout 
-        android:layout_below="@id/layoutActionBarView"
+    <RadioGroup
         android:id="@+id/layoutAssessTabView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="horizontal">
-        <Button 
+        android:layout_below="@id/layoutActionBarView"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:visibility="visible" >
+
+        <RadioButton
+            android:checked="true"
+            android:button="@null"
+            android:gravity="center"
             android:id="@+id/btnAssessTaskView"
-            android:layout_weight="1"
+            style="@style/activity_main_home_assess_tabs_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="task"/>
-        <Button 
+            android:layout_weight="1"
+            android:text="@string/activity_main_home_assess_tabs_doingtask" />
+		<View 
+		    android:layout_width="5dip"
+		    android:layout_height="0dip"/>
+        <RadioButton
+            android:button="@null"
+            android:gravity="center"
             android:id="@+id/btnAssessDoneView"
-            android:layout_weight="1"
+            style="@style/activity_main_home_assess_tabs_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="done"/>
-        
-    </LinearLayout>
-    
-     <LinearLayout
-       
-        android:layout_alignParentBottom="true"
-        android:id="@+id/layoutFootView" 
+            android:layout_weight="1"
+            android:text="@string/activity_main_home_assess_tabs_donetask" />
+    </RadioGroup>
+
+    <RadioGroup
+         android:id="@+id/layoutFootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button 
-            style="@style/activity_main_home_tabs_font"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+        <RadioButton
+            android:checked="true"
+            android:button="@null"
+            android:gravity="center"
             android:id="@+id/btnHomeView"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_tabs_bg_x"
-            android:text="@string/activity_main_home_tabs_home"/>
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg"/>
-        <Button 
             style="@style/activity_main_home_tabs_font"
-            android:id="@+id/btnAssessView"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_tabs_bg_x"
-            android:text="@string/activity_main_home_tabs_assess"/>
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg"/>
-        <Button 
-            style="@style/activity_main_home_tabs_font"
-            android:id="@+id/btnReportView"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_tabs_bg_x"
-            android:text="@string/activity_main_home_tabs_report"/>
-        <ImageView 
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg"/>
-        <Button 
-            style="@style/activity_main_home_tabs_font"
-            android:id="@+id/btnSyncView"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_tabs_bg_x"
-            android:text="@string/activity_main_home_tabs_sync"/>
-    </LinearLayout>
-    
-    <FrameLayout
-        android:layout_below="@id/layoutAssessTabView"
-         android:layout_above="@id/layoutFootView"
-        android:id="@+id/layoutBodyView" 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-    </FrameLayout>
-   
-    
-</RelativeLayout>
+            android:text="@string/activity_main_home_tabs_home" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg" />
+
+        <RadioButton
+            android:button="@null"
+            android:gravity="center"
+            android:id="@+id/btnAssessView"
+            style="@style/activity_main_home_tabs_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/activity_main_home_tabs_assess" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg" />
+
+        <RadioButton
+            android:button="@null"
+            android:gravity="center"
+            android:id="@+id/btnReportView"
+            style="@style/activity_main_home_tabs_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/activity_main_home_tabs_report" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/tabs_split_bg" />
+
+        <RadioButton
+            android:button="@null"
+            android:gravity="center"
+            android:id="@+id/btnSyncView"
+            style="@style/activity_main_home_tabs_font"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/activity_main_home_tabs_sync" />
+        
+        
+
+    </RadioGroup>
+
+
+    <FrameLayout
+        android:id="@+id/layoutBodyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layoutFootView"
+        android:layout_below="@id/layoutAssessTabView" >
+    </FrameLayout>
+
+</RelativeLayout>

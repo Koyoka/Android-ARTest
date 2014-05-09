@@ -1,6 +1,7 @@
 package com.yrkj.elderlycareassess.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.util.log.DLog;
 
@@ -26,17 +28,34 @@ public class UIReportCount extends LinearLayout{
 	public UIReportCount(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mContext = context;
-		initCtrl();
+		TypedArray a = context.obtainStyledAttributes(attrs,  
+                R.styleable.UIReportCount); 
+		 
+		 initCtrl(a);
 	}
 
 	private View mCountBox = null;
 	private View mCount = null;
+//	private TextView mTitle = null;
+	private TextView mDesc = null;
 	
-	private void initCtrl(){
+	private void initCtrl(TypedArray a){
 		this.setOrientation(LinearLayout.VERTICAL);
-		
+//		{
+//			TextView v = new TextView(mContext);
+//			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//			
+//			lp.weight = 1;
+//			v.setGravity(Gravity.CENTER_HORIZONTAL);
+//			v.setText("m1");
+//			v.setBackgroundColor(Color.WHITE);
+//			this.addView(v);
+//			mTitle = v;
+//		}
 		{
-			
+			int textColor = a.getColor(R.styleable.UIReportCount_vColor,  
+					 Color.parseColor("#EAFBC0")); 
 			FrameLayout countBox = new FrameLayout(mContext);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -47,31 +66,31 @@ public class UIReportCount extends LinearLayout{
 				RelativeLayout count = new RelativeLayout(mContext);
 				FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(
 						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-//				lp1.setMargins(0, 200, 0, 0);
 				lp1.height=2000;
 				count.setLayoutParams(lp1);
-				count.setBackgroundColor(Color.parseColor("#ff00ff"));
-//				count.setBackgroundResource(R.drawable.actionbar_bg	);
+//				count.setBackgroundColor(Color.parseColor("#EAFBC0"));
+				count.setBackgroundColor(textColor);
+				count.setVisibility(View.GONE);
 				countBox.addView(count);
 				mCount = count;
 			}
 			this.addView(countBox);
 			mCountBox = countBox;
-//			mCount.setPadding(0, 100, 0, 0);
 			
 		}
 		
 		{
+			String s = a.getString(R.styleable.UIReportCount_vText); 
 			TextView v = new TextView(mContext);
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			
 			lp.weight = 1;
 			v.setGravity(Gravity.CENTER_HORIZONTAL);
-			v.setText("m1");
+			v.setText(s);
 			v.setBackgroundColor(Color.WHITE);
 			this.addView(v);
-			
+			mDesc = v;
 		}
 		getSize();
 	}
@@ -87,45 +106,44 @@ public class UIReportCount extends LinearLayout{
 				DLog.LOG(SysMng.TAG_UCTRL, "this h["+v.getHeight()+"] w["+v.getWidth()+"]");
 				DLog.LOG(SysMng.TAG_UCTRL, "mCount h["+mCountBox.getHeight()+"] w["+mCountBox.getWidth()+"]");
 				mH = mCountBox.getHeight();
-				
-				setHeight();
+				setMargin(mH-1);
+				mCount.setVisibility(View.VISIBLE);
+				setValue(mDefaultV);
+				mDefaultV = 0;
 			}
 		});
 	}
 	
-	private void setHeight(){
-//		LinearLayout.LayoutParams lp = (LayoutParams) mCount.getLayoutParams();
-//		lp.height = mH;
-//		mCount.setLayoutParams(lp);
+	private void setMargin(int h){
+		FrameLayout.LayoutParams lp1 = 
+				(android.widget.FrameLayout.LayoutParams) mCount.getLayoutParams();
+		lp1.setMargins(0, h, 0, 0);
+		mCount.setLayoutParams(lp1);
 	}
-	
 	
 	public void setData(String s){
-		
+		mDesc.setText(s);
 	}
+	public void setColor(String c){
+		mCount.setBackgroundColor(Color.parseColor(c));
+	}
+	int mDefaultV = 0;
 	public void setValue(int v){
+		if(mH == 0){
+			mDefaultV = v;
+			return;
+		}
 		
-		if(v>0&&v<100){
+		if(v>0&&v<=100){
+//			mTitle.setText();
 			float defineResult = (v/(float)100)*(float)mH;
-//			DLog.LOG(SysMng.TAG_UCTRL,"mCount.getPaddingTop() ["+mCount.getPaddingTop()+"]  defineResult ["+(int)defineResult+"] v/100["+v/100+"] v["+v+"]");
-			
-//			mCount.getPaddingTop();
-//			defineResult = 50;
-//			doAnim(mCountBox.getPaddingTop(),defineResult);
 			FrameLayout.LayoutParams lp1 = 
 					(android.widget.FrameLayout.LayoutParams) mCount.getLayoutParams();
-
 			doAnim(lp1.topMargin,defineResult);
-			
-			
 		}
-	}
-	
-	void doA(){
 		
 	}
-	Runnable run;
-	int ii = 1;
+	
 	private synchronized void doAnim(int t,final float h){
 		
 		int c = 0;
@@ -134,17 +152,17 @@ public class UIReportCount extends LinearLayout{
 		int g = mH-t>h?c:(mH-t<h?-c:0);
 		g = mH-t - (int)h;
 		
-		DLog.LOG(SysMng.TAG_UCTRL,"结束位置【"+h+"】移动距离["+g+"] 当前 位置【" + (mH-t) + "】 mH["+mH+"] h["+h+"]");
+		DLog.LOG(SysMng.TAG_UCTRL,"结束位置【"+h+"】移动距离["+g+"] 当前 位置【" 
+		+ (mH-t) + "】 mH["+mH+"] h["+h+"] r["+c+"]");
+		
 		final int r = c;
-//		final int i = 4;
-		final int tt = 1;
 		Animation a 
 		= new TranslateAnimation(0.0f,0.0f, 
 				0,
 				g
 				);
 		
-        a.setDuration(200);
+        a.setDuration(500);
         a.setStartOffset(10);
         a.setFillAfter(true);
         a.setInterpolator(AnimationUtils.loadInterpolator(mContext,
@@ -154,31 +172,23 @@ public class UIReportCount extends LinearLayout{
 			@Override
 			public void onAnimationStart(Animation animation) {
 				// TODO Auto-generated method stub
-				setHeight();
 			}
 			
 			@Override
 			public void onAnimationRepeat(Animation animation) {
 				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-				
-//				mCountBox.setPadding(0, r, 0, 0);
 				mCount.clearAnimation();
 				FrameLayout.LayoutParams lp1 = 
 						(android.widget.FrameLayout.LayoutParams) mCount.getLayoutParams();
-//				lp1.height=1000;
 				lp1.setMargins(0, r, 0, 0);
 				mCount.setLayoutParams(lp1);
-				DLog.LOG(" end ");
 			}
 		});
         mCount.startAnimation(a);
-//        mCountBox.layout(l, t, r, b)
 	}
 	
 }

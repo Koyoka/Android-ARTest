@@ -21,6 +21,8 @@
     <string name="activity_main_home_tabs_assess">评估</string>
     <string name="activity_main_home_tabs_report">统计</string>
     <string name="activity_main_home_tabs_sync">同步</string>
+    <string name="activity_main_home_assess_tabs_doingtask">评估任务</string>
+    <string name="activity_main_home_assess_tabs_donetask">已完成评估</string>
     
     
     <string name="assess_title_new">评估信息</string>

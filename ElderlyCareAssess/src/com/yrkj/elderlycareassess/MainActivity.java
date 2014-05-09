@@ -32,15 +32,16 @@ public class MainActivity extends Activity {
 	MainActivity mActy;
 	private int index = 0;;
 	
-	private void t2(final int[] i, int id){
+	private void t2(final int[] i, int id,int sId){
 		final UIReportCount v1 = 
 				(UIReportCount) findViewById(id);
+		v1.setData(getResources().getString(sId));
 				v1.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						ToastUtil.show(mActy, "aa");
+//						ToastUtil.show(mActy, "aa");
 						v1.setValue(i[index]);
 						index++;
 						if(index >= i.length){
@@ -49,15 +50,16 @@ public class MainActivity extends Activity {
 						
 					}
 				});
+				v1.setValue(i[2]);
 	}
 	private void t1(){
-		t2(new int[]{10,80,30},R.id.uctrlRC1View);
-		t2(new int[]{40,80,20},R.id.uctrlRC2View);
-		t2(new int[]{90,50,70},R.id.uctrlRC3View);
-		t2(new int[]{64,30,10},R.id.uctrlRC4View);
-		t2(new int[]{30,80,23},R.id.uctrlRC5View);
-		t2(new int[]{60,35,85},R.id.uctrlRC6View);
-		t2(new int[]{90,40,1},R.id.uctrlRC7View);
+		t2(new int[]{10,80,30},R.id.uctrlRC1View,R.string.fragment_home_report_m1);
+		t2(new int[]{40,80,20},R.id.uctrlRC2View,R.string.fragment_home_report_m2);
+		t2(new int[]{90,50,70},R.id.uctrlRC3View,R.string.fragment_home_report_m3);
+		t2(new int[]{64,30,10},R.id.uctrlRC4View,R.string.fragment_home_report_m4);
+		t2(new int[]{30,80,23},R.id.uctrlRC5View,R.string.fragment_home_report_m5);
+		t2(new int[]{60,35,85},R.id.uctrlRC6View,R.string.fragment_home_report_m6);
+		t2(new int[]{90,40,1},R.id.uctrlRC7View,R.string.fragment_home_report_m7);
 		if(true)
 			return;
 		

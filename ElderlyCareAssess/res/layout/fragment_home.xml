@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:eca="http://schemas.android.com/apk/res/com.yrkj.elderlycareassess"
     style="@style/activity_theme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.yrkj.elderlycareassess.MainActivity$PlaceholderFragment" >
-
+	
     <RelativeLayout
         android:id="@+id/layoutHomeContentView"
         style="@style/fragment_home_layout_content"
@@ -103,7 +104,7 @@
         android:layout_below="@id/layoutHomeContentDoneTaskView"
         android:layout_marginBottom="@dimen/fragment_content_line_height" >
 
-        <ImageView
+        <ImageView 
             android:id="@+id/imgIconDoingTaskView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -203,54 +204,66 @@
         android:layout_alignTop="@id/s"
         android:layout_toLeftOf="@id/s"
         android:layout_alignLeft="@id/txtReportTitleView"
+        android:paddingBottom="4dip"
         android:orientation="horizontal" >
+        
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m1"
             android:id="@+id/uctrlRC1View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
 
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m2"
+            eca:vColor="#E1F8A3"
             android:id="@+id/uctrlRC2View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m3"
             android:id="@+id/uctrlRC3View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m4"
+            eca:vColor="#E1F8A3"
             android:id="@+id/uctrlRC4View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m5"
             android:id="@+id/uctrlRC5View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m6"
+            eca:vColor="#E1F8A3"
             android:id="@+id/uctrlRC6View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         
         <com.yrkj.elderlycareassess.widget.UIReportCount
+            eca:vText="@string/fragment_home_report_m7"
             android:id="@+id/uctrlRC7View"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dip" />
+            style="@style/fragment_home_text_report_Count" />
         <!--<include 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -292,6 +305,7 @@
         android:layout_height="match_parent"
         android:layout_alignTop="@id/s"
         android:layout_toRightOf="@id/s"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -299,6 +313,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_home_report_caseinfo" />
+        
+        <TextView 
+            android:id="@+id/txtReportTotleCountView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="220sp"
+            android:textColor="#c9f15d"
+            android:text="63"/>
     </LinearLayout>
 
 </RelativeLayout>

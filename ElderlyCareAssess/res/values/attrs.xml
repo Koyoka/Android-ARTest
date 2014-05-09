@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="custom_view">
+        <attr name="custom_id" format="integer" />
+        <attr name="src" format="reference" />
+        <attr name="text" format="string" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+    </declare-styleable>
+    
+    <declare-styleable name="UIReportCount">
+        <attr name="vColor" format="color" />
+        <attr name="vText" format="string" />
+        
+    </declare-styleable>
+
+</resources>

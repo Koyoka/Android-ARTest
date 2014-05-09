@@ -10,8 +10,12 @@
     <dimen name="fragment_content_line_height">8dip</dimen>
     <dimen name="fragment_content_layout_task_padding">12dip</dimen>
 
+    <dimen name="fragment_assess_tasklist_line_height">15dip</dimen>
+    
+    
     <dimen name="padding_size_30px">12dip</dimen>
-    <dimen name="text_size_52px">31sp</dimen>
+    <dimen name="text_size_52px">34sp</dimen>
+    <dimen name="text_size_42px">28sp</dimen>
     <dimen name="text_size_36px">26sp</dimen>
     <dimen name="text_size_28px">20sp</dimen>
     <dimen name="text_size_24px">15sp</dimen>
