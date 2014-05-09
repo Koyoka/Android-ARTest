@@ -4,24 +4,61 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.layout.FragmentAssessNew;
 
-public class AssessNewFragment extends AssessBaseFragment {
+public class AssessNewFragment extends AssessBaseFragment 
+implements OnClickListener {
+	
+	
+	
+	OnBtnStratClickListener mOnBtnStratClickListener;
+	View mV;
+	FragmentAssessNew mFragmentAssessNew ;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_assess_new, container,
+		mV = inflater.inflate(R.layout.fragment_assess_new, container,
 				false);
 		
 		initFragment();
-		return v;
+		return mV;
 	}
 	
 	private void initFragment(){
 		setTitle(getResources().getString(R.string.assess_title_new));
+		mFragmentAssessNew = new FragmentAssessNew(mV);
+		mFragmentAssessNew.getBtnStratView().setOnClickListener(this);
 		
+	}
+	
+	public void setOnBtnStratClickListener(OnBtnStratClickListener l){
+		mOnBtnStratClickListener = l;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case FragmentAssessNew.BtnStratViewId:
+//			getActivity().
+			if(mOnBtnStratClickListener!=null){
+				mOnBtnStratClickListener.onBtnStratClick();
+			}
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+	
+	
+	public interface OnBtnStratClickListener{
+		public void onBtnStratClick();
 	}
 	
 }

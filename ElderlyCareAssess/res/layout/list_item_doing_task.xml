@@ -3,146 +3,149 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_content_bg"
-    android:padding="8dip">
+    android:descendantFocusability="blocksDescendants"
+    android:padding="6dip" >
 
-	<TextView 
-	    android:id="@+id/txtTaskNumView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    style="@style/fragment_assess_tasklist_text_desc"
-	    android:text="1000001"/>    
-	<TextView 
-	    android:id="@+id/txtTaskStateView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_toRightOf="@id/txtTaskNumView"
-	    style="@style/fragment_assess_tasklist_task_lib"
-	    android:text="首次评估"/>    
-	    
-	<TextView 
-	    android:id="@+id/txtTaskLastDoDateView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"
-	    style="@style/fragment_assess_tasklist_text_desc"
-	    android:text="2014-05-03"/>    
-	<TextView 
-	    android:id="@+id/txtTaskLastDoDateLibView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_toLeftOf="@id/txtTaskLastDoDateView"
-	    style="@style/fragment_assess_tasklist_task_lib"
-	    android:text="上次评估日期："/>    
-	    
-	<TextView 
-	    android:id="@+id/txtTaskEndDateView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_toLeftOf="@id/txtTaskLastDoDateLibView"
-	    style="@style/fragment_assess_tasklist_text_desc"
-	    android:text="2014-05-06"/> 
-	<TextView 
-	    android:id="@+id/txtTaskEndDateLabView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_toLeftOf="@id/txtTaskEndDateView"
-	    style="@style/fragment_assess_tasklist_task_lib"
-	    android:text="截止时间："/>    
-	    
-	
-	
-	<View 
-	    android:id="@+id/vLine"
-	    android:layout_width="0dip"
-	    android:layout_height="0dip"
-	    android:layout_marginLeft="40dip"/>
-	<TextView 
-	    android:id="@+id/txtTaskUserNameView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/txtTaskNumView"
-	    android:layout_alignLeft="@id/vLine"
-	    android:layout_marginTop="30dip"
-	    style="@style/fragment_assess_tasklist_text_Title"
-	    android:text="Eleven"/>    
-	    
-	<TextView 
-	    android:id="@+id/txtTaskSexView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_toRightOf="@id/txtTaskUserNameView"
-	    android:layout_alignTop="@id/txtTaskUserNameView"
-	    style="@style/fragment_assess_tasklist_text_Title"
-	    android:layout_marginLeft="50dip"
-	    android:text="女"/>    
-	
-	<ImageView 
-	    android:id="@+id/imgTaskUserNameIconView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignTop="@id/txtTaskUserNameView"
-	    android:layout_alignBottom="@id/txtTaskUserNameView"
-	    android:src="@drawable/icon_assess_user"/>
-	    
-	<TextView 
-	    android:id="@+id/txtTaskPhoneNumView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/txtTaskUserNameView"
-	    android:layout_alignLeft="@id/vLine"
-		android:layout_marginTop="@dimen/fragment_assess_tasklist_line_height"
-	    android:gravity="center_vertical"
-	    style="@style/fragment_assess_tasklist_text_address_phone"
-	    android:text="130000000"/>   
-	<ImageView 
-	    android:id="@+id/imgTaskPhoneIconView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/imgTaskUserNameIconView"
-	    android:layout_alignLeft="@id/imgTaskUserNameIconView"
-	    android:layout_alignRight="@id/imgTaskUserNameIconView"
-	    android:layout_alignTop="@id/txtTaskPhoneNumView"
-	    android:layout_alignBottom="@id/txtTaskPhoneNumView"
-	    android:src="@drawable/icon_assess_phone"/>
-	
-	
-	<TextView 
-	    android:id="@+id/txtTaskAddressView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/txtTaskPhoneNumView"
-	    android:layout_alignLeft="@id/vLine"
-	    android:layout_marginTop="@dimen/fragment_assess_tasklist_line_height"
-	    android:gravity="center_vertical"
-	    style="@style/fragment_assess_tasklist_text_address_phone"
-	    android:text="Address...."/> 
-	<ImageView 
-	    android:id="@+id/imgTaskAddressIconView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/imgTaskPhoneIconView"
-	    android:layout_alignLeft="@id/imgTaskUserNameIconView"
-	    android:layout_alignRight="@id/imgTaskUserNameIconView"
-	    android:layout_alignTop="@id/txtTaskAddressView"
-	    android:layout_alignBottom="@id/txtTaskAddressView"
-	    android:src="@drawable/icon_assess_address"/>
-	
-	
-	<Button 
-	    android:id="@+id/btnTaskMapView"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"
-	    android:layout_alignBottom="@id/imgTaskAddressIconView"
-	    style="@style/fragment_assess_tasklist_btn_map"
-	    android:text="导航"/>
-	
-	
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/home_content_bg"
+        android:padding="16dip" >
+
+        <TextView
+            android:id="@+id/txtTaskNumView"
+            style="@style/fragment_assess_tasklist_text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000001" />
+
+        <TextView
+            android:id="@+id/txtTaskStateView"
+            style="@style/fragment_assess_tasklist_task_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/txtTaskNumView"
+            android:text="首次评估" />
+
+        <TextView
+            android:id="@+id/txtTaskLastDoDateView"
+            style="@style/fragment_assess_tasklist_text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2014-05-03" />
+
+        <TextView
+            android:id="@+id/txtTaskLastDoDateLibView"
+            style="@style/fragment_assess_tasklist_task_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/txtTaskLastDoDateView"
+            android:text="上次评估日期：" />
+
+        <TextView
+            android:id="@+id/txtTaskEndDateView"
+            style="@style/fragment_assess_tasklist_text_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/txtTaskLastDoDateLibView"
+            android:text="2014-05-06" />
+
+        <TextView
+            android:id="@+id/txtTaskEndDateLabView"
+            style="@style/fragment_assess_tasklist_task_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/txtTaskEndDateView"
+            android:text="截止时间：" />
+
+        <View
+            android:id="@+id/vLine"
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_marginLeft="40dip" />
+
+        <TextView
+            android:id="@+id/txtTaskUserNameView"
+            style="@style/fragment_assess_tasklist_text_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/vLine"
+            android:layout_below="@id/txtTaskNumView"
+            android:layout_marginTop="30dip"
+            android:text="Eleven" />
+
+        <TextView
+            android:id="@+id/txtTaskSexView"
+            style="@style/fragment_assess_tasklist_text_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/txtTaskUserNameView"
+            android:layout_marginLeft="50dip"
+            android:layout_toRightOf="@id/txtTaskUserNameView"
+            android:text="女" />
+
+        <ImageView
+            android:id="@+id/imgTaskUserNameIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txtTaskUserNameView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/txtTaskUserNameView"
+            android:src="@drawable/icon_assess_user" />
+
+        <TextView
+            android:id="@+id/txtTaskPhoneNumView"
+            style="@style/fragment_assess_tasklist_text_address_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/vLine"
+            android:layout_below="@id/txtTaskUserNameView"
+            android:layout_marginTop="@dimen/fragment_assess_tasklist_line_height"
+            android:gravity="center_vertical"
+            android:text="130000000" />
+
+        <ImageView
+            android:id="@+id/imgTaskPhoneIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txtTaskPhoneNumView"
+            android:layout_alignLeft="@id/imgTaskUserNameIconView"
+            android:layout_alignRight="@id/imgTaskUserNameIconView"
+            android:layout_alignTop="@id/txtTaskPhoneNumView"
+            android:layout_below="@id/imgTaskUserNameIconView"
+            android:src="@drawable/icon_assess_phone" />
+
+        <TextView
+            android:id="@+id/txtTaskAddressView"
+            style="@style/fragment_assess_tasklist_text_address_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/vLine"
+            android:layout_below="@id/txtTaskPhoneNumView"
+            android:layout_marginTop="@dimen/fragment_assess_tasklist_line_height"
+            android:gravity="center_vertical"
+            android:text="Address...." />
+
+        <ImageView
+            android:id="@+id/imgTaskAddressIconView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/txtTaskAddressView"
+            android:layout_alignLeft="@id/imgTaskUserNameIconView"
+            android:layout_alignRight="@id/imgTaskUserNameIconView"
+            android:layout_alignTop="@id/txtTaskAddressView"
+            android:layout_below="@id/imgTaskPhoneIconView"
+            android:src="@drawable/icon_assess_address" />
+
+        <Button
+            android:id="@+id/btnTaskMapView"
+            style="@style/fragment_assess_tasklist_btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/imgTaskAddressIconView"
+            android:layout_alignParentRight="true"
+            android:text="导航" />
+    </RelativeLayout>
+
 </RelativeLayout>
-
-
-
-
-

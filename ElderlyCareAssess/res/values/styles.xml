@@ -2,67 +2,62 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <!-- <style name="AppBaseTheme" parent="Theme.AppCompat.Light"> 
+    <!--
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light"> 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
-    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">-->
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
-        
+    -->
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
         <!--
         <item name="android:windowNoTitle">true</item>
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-        
-         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    
     <style name="my_theme" parent="AppTheme">
+
         <!-- <item name="android:actionMenuTextColor">#FF0000</item> -->
-         <item name="android:homeAsUpIndicator">@drawable/ic_menu_back</item> 
+        <item name="android:homeAsUpIndicator">@drawable/ic_menu_back</item>
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
-        
-        
     </style>
- 
+
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#55000000</item>
     </style>
-    <style name="MyOverflowButton" parent="@android:style/Widget.Holo.ActionButton.Overflow">  
-       
-    </style>
-    
+
+    <style name="MyOverflowButton" parent="@android:style/Widget.Holo.ActionButton.Overflow"></style>
+
     <style name="UserDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
-    
-    
-    
+
     <style name="activity_theme">
         <item name="android:background">#EBEEED</item>
     </style>
-    
+
     <style name="activity_main_home_tabs_font">
         <item name="android:textColor">#866d2a</item>
         <item name="android:textSize">24sp</item>
         <item name="android:background">@drawable/btn_tabs_bg_x</item>
     </style>
-    
+
     <style name="activity_main_home_assess_tabs_font">
         <item name="android:textColor">@color/fragment_home_text_color</item>
         <item name="android:textSize">28sp</item>
         <item name="android:background">@drawable/btn_assess_tabs_bg_x</item>
     </style>
-    
+
     <!-- fragment home content header -->
     <style name="fragment_home_layout_content">
         <item name="android:background">@drawable/home_content_bg</item>
@@ -70,98 +65,127 @@
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
     </style>
+
     <style name="fragment_home_img_avatar">
         <item name="android:background">@drawable/home_avatar_bg</item>
     </style>
+
     <style name="fragment_home_text_userinfo_name">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_52px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_home_text_userinfo">
         <item name="android:paddingTop">3dip</item>
         <item name="android:textSize">@dimen/text_size_24px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
-    
-    <!-- fragment home content middle-->
+
+    <!-- fragment home content middle -->
     <style name="fragment_home_layout_content_donetask">
         <item name="android:background">@drawable/home_donetask_bg</item>
         <item name="android:padding">@dimen/padding_size_30px</item>
     </style>
+
     <style name="fragment_home_layout_content_doingtask">
         <item name="android:background">@drawable/home_doingtask_bg</item>
         <item name="android:padding">@dimen/padding_size_30px</item>
     </style>
+
     <style name="fragment_home_layout_content_log">
         <item name="android:background">@drawable/home_log_bg</item>
         <item name="android:padding">@dimen/padding_size_30px</item>
     </style>
+
     <style name="fragment_home_text_task_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_28px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_home_text_task_desc">
         <item name="android:paddingTop">6dip</item>
         <item name="android:textSize">@dimen/text_size_24px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
-    
-    <!-- fragment home content foot-->
+
+    <!-- fragment home content foot -->
     <style name="fragment_home_layout_content_report">
         <item name="android:background">@drawable/home_content_bg</item>
         <item name="android:paddingLeft">24dp</item>
         <item name="android:paddingTop">20dp</item>
     </style>
-    
+
     <style name="fragment_home_text_report_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_28px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
         <item name="android:paddingBottom">26dip</item>
     </style>
+
     <style name="fragment_home_text_report_info">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_52px</item>
         <item name="android:textColor">#8eddcf</item>
     </style>
+
     <style name="fragment_home_text_report_caseinfo">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_36px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_home_text_report_Count">
-		<item name="android:paddingRight">8dip</item>
+        <item name="android:paddingRight">8dip</item>
     </style>
     <!-- fragment home end -->
-    
+
+
     <!-- fragment assess tasklist -->
     <style name="fragment_assess_tasklist_text_desc">
-        
         <item name="android:textSize">@dimen/text_size_24px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_assess_tasklist_task_lib" parent="fragment_assess_tasklist_text_desc">
         <item name="android:paddingLeft">20dip</item>
     </style>
-    
+
     <style name="fragment_assess_tasklist_text_Title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_52px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_assess_tasklist_text_address_phone">
         <item name="android:textSize">@dimen/text_size_42px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
     </style>
+
     <style name="fragment_assess_tasklist_btn_map">
         <item name="android:textSize">@dimen/text_size_24px</item>
         <item name="android:background">@drawable/btn_assess_map_bg_x</item>
         <item name="android:paddingLeft">55dip</item>
         <item name="android:paddingRight">55dip</item>
     </style>
-    
-    
-    
+
+    <!-- fragment main assess -->
+    <style name="activity_main_assess_btn_back">
+        <item name="android:textSize">@dimen/text_size_28px</item>
+        <item name="android:textColor">@color/fragment_home_text_color</item>
+        <item name="android:background">@drawable/btn_main_assess_back_bg_x</item>
+    </style>
+
+    <style name="activity_main_assess_text_title">
+        <item name="android:textSize">@dimen/text_size_52px</item>
+        <item name="android:textColor">#866d2a</item>
+    </style>
+
+    <style name="activity_main_assess_tabs_font">
+        <item name="android:textColor">#866d2a</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:background">@drawable/btn_main_assess_tabs_bg_x</item>
+    </style>
+
 </resources>

@@ -24,6 +24,7 @@
     <string name="activity_main_home_assess_tabs_doingtask">评估任务</string>
     <string name="activity_main_home_assess_tabs_donetask">已完成评估</string>
     
+    <string name="activity_main_assess_btn_back">返回</string>
     
     <string name="assess_title_new">评估信息</string>
     <string name="assess_title_cogn">认知能力评估</string>

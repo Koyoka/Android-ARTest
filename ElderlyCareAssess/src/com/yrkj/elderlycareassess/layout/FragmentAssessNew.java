@@ -11,21 +11,28 @@ import com.yrkj.elderlycareassess.R;
 public class FragmentAssessNew extends BaseLayout{
 
     public static final int ContainerId = R.id.container;
+    public static final int BtnStratViewId = R.id.btnStratView;
 
-    protected android.widget.FrameLayout mContainer;
+    protected android.widget.RelativeLayout mContainer;
+    protected android.widget.Button mBtnStratView;
 
     protected Activity mCurActy;
 
     public FragmentAssessNew(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
     }   
 
     public FragmentAssessNew(android.view.View acty){
-        mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
     }   
-    public android.widget.FrameLayout getContainer() {
+    public android.widget.RelativeLayout getContainer() {
         return mContainer;
+    }
+    public android.widget.Button getBtnStratView() {
+        return mBtnStratView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -46,6 +53,9 @@ public class FragmentAssessNew extends BaseLayout{
                 case ContainerId:
                     setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
                     break;
+                case BtnStratViewId:
+                    setViewData(adp,getBtnStratView(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -61,6 +71,9 @@ public class FragmentAssessNew extends BaseLayout{
                 switch (viewKey) {
                 case ContainerId:
                     setViewData(adp,getContainer(),data,"",path);
+                    break;
+                case BtnStratViewId:
+                    setViewData(adp,getBtnStratView(),data,"",path);
                     break;
                     
                 default:

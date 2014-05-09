@@ -6,28 +6,32 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessCognitiveFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessEmotionalAndBehavioralFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
 import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSelfcareFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSocialLifeFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessVisualFragment;
+import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
 import com.yrkj.util.log.DLog;
 
 public class MainAssessActivity extends 
 //ActionBarActivity 
-FragmentActivity
+FragmentActivity 
+implements 
+OnClickListener, 
+OnBtnStratClickListener
 {
 
 	MainAssessActivity mActy;
@@ -45,21 +49,23 @@ FragmentActivity
 	};
 	String[] mTitleList = null;
 	
-	Button mBtnBackView;
-	Button mBtnGoView;
-
+	ActivityMainAssess mActivityMainAssess;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_assess);
 		mActy = this;
+		mActivityMainAssess = new ActivityMainAssess(this);
 		initData();
 		initActy();
 		
+		AssessNewFragment f = new AssessNewFragment();
+		f.setOnBtnStratClickListener(this);
+		f.setActy(this);
 		getSupportFragmentManager().beginTransaction()
-		.add(R.id.layoutBodyView,new AssessNewFragment(), AssessNewFragment.class.getName())
+		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
 		.commit();
-		
 	}
 	
 	@Override
@@ -75,7 +81,7 @@ FragmentActivity
 	
 	private void initData(){
 		mTitleList = new String[] {
-				"back",
+				"评估信息",
 				getResources().getString(R.string.assess_title_person),
 				getResources().getString(R.string.assess_title_living),
 				getResources().getString(R.string.assess_title_selfcare),
@@ -89,24 +95,10 @@ FragmentActivity
 
 	private void initActy() {
 		
-		mBtnGoView = (Button) findViewById(R.id.btnGoView);
 		
-		mBtnBackView = (Button) findViewById(R.id.btnBackView);
-		
-		mBtnGoView.setOnClickListener(
-				new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						addFragment();
-					}
-				});
-		mBtnBackView.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				goBack();
-			}
-		});
+		mActivityMainAssess.getBtnGoView().setOnClickListener(this);
+		mActivityMainAssess.getBtnBackView().setOnClickListener(this);
+		mActivityMainAssess.getBtnFinishView().setOnClickListener(this);
 		
 		FragmentManager fMng = getSupportFragmentManager();
 		
@@ -120,39 +112,35 @@ FragmentActivity
 		});
 	}
 	
+	
+	
 	private void setNavBtn(int index){
 		
 		DLog.LOG(SysMng.TAG_FRAGMENT, index+" = index");
+		if(index == 0){
+			mActivityMainAssess.getLayoutFootView().setVisibility(View.GONE);
+		}else{
+			mActivityMainAssess.getLayoutFootView().setVisibility(View.VISIBLE);
+		}
 		if(index+1 < mTitleList.length)
-			mBtnGoView.setText(mTitleList[index+1]);
+			mActivityMainAssess.getBtnGoView().setText(mTitleList[index+1]);
 		else
-			mBtnGoView.setText("");
+			mActivityMainAssess.getBtnGoView().setText("提交");
 		
 		if(index-1 >= 0)
-			mBtnBackView.setText(mTitleList[index-1]);
+			mActivityMainAssess.getBtnBackView().setText(mTitleList[index-1]);
 		else{
-			mBtnBackView.setText("");
+			mActivityMainAssess.getBtnBackView().setText("");
 		}
 	}
 
 	public void goBack(){
 		FragmentManager fMng = getSupportFragmentManager();
 		fMng.popBackStack();
-//		setNavBtn(fMng.getBackStackEntryCount());
-//		fMng.addOnBackStackChangedListener(new OnBackStackChangedListener() {
-//			
-//			@Override
-//			public void onBackStackChanged() {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
 	}
 	
 	public void addFragment() {
 		FragmentManager fMng = getSupportFragmentManager();
-		
-		
 		int i = fMng.getBackStackEntryCount();
 				
 		int count =		fMng.getFragments() == null?
@@ -171,13 +159,42 @@ FragmentActivity
 			return;
 		}
 		
-		Fragment mFragment = Fragment.instantiate(mActy, className, args);
+		AssessBaseFragment mFragment = (AssessBaseFragment)Fragment.instantiate(mActy, className, args);
 		FragmentTransaction ft = fMng.beginTransaction()
 		.replace(R.id.layoutBodyView, mFragment, className)
 		.addToBackStack(null);
 		ft.commit();
+		mFragment.setActy(this);
 //		setNavBtn(i);
 		
+	}
+	
+	public void setAssessTitle(String s){
+		mActivityMainAssess.getTxtMainAssessTitleView().setText(s);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case ActivityMainAssess.BtnFinishViewId:
+			finish();
+			break;
+		case ActivityMainAssess.BtnBackViewId:
+			goBack();
+			break;
+		case ActivityMainAssess.BtnGoViewId:
+			addFragment();
+			break;
+
+		default:
+			break;
+		}
+		
+	}
+
+	@Override
+	public void onBtnStratClick() {
+		addFragment();
 	}
 
 }
