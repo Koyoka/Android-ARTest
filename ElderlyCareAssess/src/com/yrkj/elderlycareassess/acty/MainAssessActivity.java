@@ -19,6 +19,7 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
 import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSelfcareFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSocialLifeFragment;
@@ -51,21 +52,44 @@ OnBtnStratClickListener
 	
 	ActivityMainAssess mActivityMainAssess;
 	
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.activity_main_assess);
+//		mActy = this;
+//		mActivityMainAssess = new ActivityMainAssess(this);
+//		initData();
+//		initActy();
+//		
+//		AssessNewFragment f = new AssessNewFragment();
+//		f.setOnBtnStratClickListener(this);
+//		f.setActy(this);
+//		getSupportFragmentManager().beginTransaction()
+//		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
+//		.commit();
+//	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_assess);
-		mActy = this;
-		mActivityMainAssess = new ActivityMainAssess(this);
-		initData();
-		initActy();
+		setContentView(R.layout.fragment_main);
 		
-		AssessNewFragment f = new AssessNewFragment();
-		f.setOnBtnStratClickListener(this);
-		f.setActy(this);
+		AssessQuestionnaireListFragment f
+		 = new AssessQuestionnaireListFragment();
 		getSupportFragmentManager().beginTransaction()
-		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
+		.add(R.id.container,f, AssessQuestionnaireListFragment.class.getName())
 		.commit();
+//		mActy = this;
+//		mActivityMainAssess = new ActivityMainAssess(this);
+//		initData();
+//		initActy();
+//		
+//		AssessNewFragment f = new AssessNewFragment();
+//		f.setOnBtnStratClickListener(this);
+//		f.setActy(this);
+//		getSupportFragmentManager().beginTransaction()
+//		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
+//		.commit();
 	}
 	
 	@Override
@@ -111,8 +135,6 @@ OnBtnStratClickListener
 			}
 		});
 	}
-	
-	
 	
 	private void setNavBtn(int index){
 		

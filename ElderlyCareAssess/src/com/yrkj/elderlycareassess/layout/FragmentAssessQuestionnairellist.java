@@ -8,24 +8,31 @@ import com.yrkj.util.ui.layout.LayoutDataAdapter;
 import com.yrkj.elderlycareassess.R;
 
 
-public class FragmentMain extends BaseLayout{
+public class FragmentAssessQuestionnairellist extends BaseLayout{
 
     public static final int ContainerId = R.id.container;
+    public static final int LayoutBodyId = R.id.layoutBody;
 
     protected android.widget.FrameLayout mContainer;
+    protected android.widget.LinearLayout mLayoutBody;
 
     protected Activity mCurActy;
 
-    public FragmentMain(Activity acty){
+    public FragmentAssessQuestionnairellist(Activity acty){
         mCurActy = acty;
         mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
     }   
 
-    public FragmentMain(android.view.View acty){
+    public FragmentAssessQuestionnairellist(android.view.View acty){
         mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
     }   
     public android.widget.FrameLayout getContainer() {
         return mContainer;
+    }
+    public android.widget.LinearLayout getLayoutBody() {
+        return mLayoutBody;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -46,6 +53,9 @@ public class FragmentMain extends BaseLayout{
                 case ContainerId:
                     setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
                     break;
+                case LayoutBodyId:
+                    setViewData(adp,getLayoutBody(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -61,6 +71,9 @@ public class FragmentMain extends BaseLayout{
                 switch (viewKey) {
                 case ContainerId:
                     setViewData(adp,getContainer(),data,"",path);
+                    break;
+                case LayoutBodyId:
+                    setViewData(adp,getLayoutBody(),data,"",path);
                     break;
                     
                 default:

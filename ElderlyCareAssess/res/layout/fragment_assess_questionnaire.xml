@@ -1,0 +1,267 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layoutQuestionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            android:id="@+id/txtQuestionTitleView"
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Title" />
+
+        <Button
+            android:id="@+id/btnQuestionShorthandView"
+            style="@style/fragment_assess_question_btn_shorthand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="速记标签" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSpecialItemView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="horizontal"
+        android:padding="@dimen/fragment_assess_questionnaire_line_padding" >
+
+        <CheckBox
+            style="@style/fragment_assess_question_btn_special_item_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_assess_questionnaire_special_item_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="xxxxx" />
+
+        <CheckBox
+            style="@style/fragment_assess_question_btn_special_item_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_assess_questionnaire_special_item_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="xxxxx" />
+
+        <CheckBox
+            style="@style/fragment_assess_question_btn_special_item_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_assess_questionnaire_special_item_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="xxxxx" />
+
+        <CheckBox
+            style="@style/fragment_assess_question_btn_special_item_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fragment_assess_questionnaire_special_item_margin"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="xxxxx" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="horizontal" >
+
+        <RadioGroup
+            android:id="@+id/layoutNormalItemView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/fragment_assess_questionnaire_line_padding" >
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:button="@null"
+                android:text="正常1" />
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:button="@null"
+                android:text="正常2" />
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:button="@null"
+                android:text="正常3" />
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+                android:button="@null"
+                android:text="正常4" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+<!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="正常" />
+
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="正常1" />
+
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="正常2" />
+
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="正常3" />
+
+            <TextView
+                style="@style/fragment_assess_question_btn_normal_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="xxxxxxxxxxxxxxxxxxxx" />
+        </LinearLayout>
+
+
+
+-->
