@@ -8,13 +8,19 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.acty.MainAssessActivity;
 import com.yrkj.elderlycareassess.layout.FragmentAssessNew;
 
 public class AssessNewFragment extends AssessBaseFragment 
 implements OnClickListener {
 	
 	
-	
+	public AssessNewFragment(MainAssessActivity a) {
+		super(a);
+		// TODO Auto-generated constructor stub
+	}
+
+
 	OnBtnStratClickListener mOnBtnStratClickListener;
 	View mV;
 	FragmentAssessNew mFragmentAssessNew ;

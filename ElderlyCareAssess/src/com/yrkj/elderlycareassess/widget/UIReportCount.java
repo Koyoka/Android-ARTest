@@ -134,11 +134,12 @@ public class UIReportCount extends LinearLayout{
 			return;
 		}
 		
-		if(v>0&&v<=100){
+		if(v>=0&&v<=100){
 //			mTitle.setText();
 			float defineResult = (v/(float)100)*(float)mH;
 			FrameLayout.LayoutParams lp1 = 
 					(android.widget.FrameLayout.LayoutParams) mCount.getLayoutParams();
+			
 			doAnim(lp1.topMargin,defineResult);
 		}
 		
@@ -147,10 +148,10 @@ public class UIReportCount extends LinearLayout{
 	private synchronized void doAnim(int t,final float h){
 		
 		int c = 0;
-		c = mH-(int)h;
-		final int cc = c;
-		int g = mH-t>h?c:(mH-t<h?-c:0);
-		g = mH-t - (int)h;
+		c = h==0?mH-1:mH-(int)h;
+//		final int cc = c;
+		int g = 0;//mH-t>h?c:(mH-t<h?-c:0);
+		g = h==0?mH-t - 1:mH-t - (int)h;
 		
 		DLog.LOG(SysMng.TAG_UCTRL,"结束位置【"+h+"】移动距离["+g+"] 当前 位置【" 
 		+ (mH-t) + "】 mH["+mH+"] h["+h+"] r["+c+"]");

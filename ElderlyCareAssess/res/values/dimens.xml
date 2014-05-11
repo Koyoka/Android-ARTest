@@ -17,7 +17,7 @@
     <dimen name="fragment_assess_questionnaire_line_top">10dip</dimen>
     <dimen name="fragment_assess_questionnaire_line_padding">10dip</dimen>
     
-    <dimen name="fragment_assess_questionnaire_special_item_margin">4dip</dimen>
+    <dimen name="fragment_assess_questionnaire_special_item_margin">6dip</dimen>
     <dimen name="fragment_assess_questionnaire_normal_item_line_height">15dip</dimen>
     
     

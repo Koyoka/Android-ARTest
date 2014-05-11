@@ -51,14 +51,13 @@ OnClickListener, TabListener {
 		
 		if (savedInstanceState == null) {
 			addFragment(HomeFragment.class.getName(),null);
-			
-			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == null");
+//			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == null");
 		}else{
 			addFragment(savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT),null);
 			if(getActionBar().getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS){
 				getActionBar().setSelectedNavigationItem(savedInstanceState.getInt(SAVE_STATE_KEY_TAB, 0));
 			}
-			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == " + savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT));
+//			DLog.LOG(SysMng.TAG_FRAGMENT,"MainHomeActivity ---- savedInstanceState == " + savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT));
 		}
 		
 		

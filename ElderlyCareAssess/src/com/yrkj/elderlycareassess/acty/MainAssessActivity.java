@@ -1,5 +1,7 @@
 package com.yrkj.elderlycareassess.acty;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,14 +14,18 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.dao.QCategoryData;
+import com.yrkj.elderlycareassess.dao.QItemData;
+import com.yrkj.elderlycareassess.dao.QItemLabData;
+import com.yrkj.elderlycareassess.dao.QSubcategoryData;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessCognitiveFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessEmotionalAndBehavioralFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
 import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSelfcareFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessSocialLifeFragment;
@@ -38,59 +44,39 @@ OnBtnStratClickListener
 	MainAssessActivity mActy;
 
 	int mCurIndex = 0;
-	String[] mFragmentList = new String[] { 
-			AssessPersonalInfoFragment.class.getName(),
-			AssessLivingFragment.class.getName(),
-			AssessSelfcareFragment.class.getName(),
-			AssessCognitiveFragment.class.getName(),
-			AssessEmotionalAndBehavioralFragment.class.getName(),
-			AssessVisualFragment.class.getName(),
-			AssessSocialLifeFragment.class.getName(),
-			AssessServiceFragment.class.getName()
-	};
+//	String[] mFragmentList = null;
 	String[] mTitleList = null;
 	
 	ActivityMainAssess mActivityMainAssess;
 	
-//	@Override
-//	protected void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_main_assess);
-//		mActy = this;
-//		mActivityMainAssess = new ActivityMainAssess(this);
-//		initData();
-//		initActy();
-//		
-//		AssessNewFragment f = new AssessNewFragment();
-//		f.setOnBtnStratClickListener(this);
-//		f.setActy(this);
-//		getSupportFragmentManager().beginTransaction()
-//		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
-//		.commit();
-//	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.fragment_main);
+		setContentView(R.layout.activity_main_assess);
+		mActy = this;
+		mActivityMainAssess = new ActivityMainAssess(this);
+		initData();
+		initActy();
 		
-		AssessQuestionnaireListFragment f
-		 = new AssessQuestionnaireListFragment();
+		AssessNewFragment f = new AssessNewFragment(this);
+		f.setOnBtnStratClickListener(this);
+		
 		getSupportFragmentManager().beginTransaction()
-		.add(R.id.container,f, AssessQuestionnaireListFragment.class.getName())
+		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
 		.commit();
-//		mActy = this;
-//		mActivityMainAssess = new ActivityMainAssess(this);
-//		initData();
-//		initActy();
-//		
-//		AssessNewFragment f = new AssessNewFragment();
-//		f.setOnBtnStratClickListener(this);
-//		f.setActy(this);
-//		getSupportFragmentManager().beginTransaction()
-//		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
-//		.commit();
 	}
+	
+//	@Override
+//	protected void onCreate(Bundle savedInstanceState) {
+//		super.onCreate(savedInstanceState);
+//		setContentView(R.layout.fragment_main);
+//		
+//		AssessQuestionnaireListFragment f
+//		 = new AssessQuestionnaireListFragment();
+//		getSupportFragmentManager().beginTransaction()
+//		.add(R.id.container,f, AssessQuestionnaireListFragment.class.getName())
+//		.commit();
+//	}
 	
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
@@ -103,23 +89,126 @@ OnBtnStratClickListener
 		return super.dispatchKeyEvent(event);
 	}
 	
+	ArrayList<AssessBaseFragment> mAssessFragmentList;
 	private void initData(){
-		mTitleList = new String[] {
-				"评估信息",
-				getResources().getString(R.string.assess_title_person),
-				getResources().getString(R.string.assess_title_living),
-				getResources().getString(R.string.assess_title_selfcare),
-				getResources().getString(R.string.assess_title_cogn),
-				getResources().getString(R.string.assess_title_emot),
-				getResources().getString(R.string.assess_title_visual),
-				getResources().getString(R.string.assess_title_social),
-				getResources().getString(R.string.assess_title_service)
-		};
+		ArrayList<AssessBaseFragment> fList = 
+				new ArrayList<AssessBaseFragment>();
+		ArrayList<String> titleList = new ArrayList<String>();
+		titleList.add("评估信息");//default first page name
+		
+		fList.add(new AssessPersonalInfoFragment(this));
+		titleList.add(getResources().getString(R.string.assess_title_person));
+		
+		fList.add(new AssessLivingFragment(this));
+		titleList.add(getResources().getString(R.string.assess_title_living));
+		
+		ArrayList<QCategoryData> qitemList = new ArrayList<QCategoryData>();
+		qitemList.add(getQcategory(1,"评估分类-1"));
+		qitemList.add(getQcategory(2,"评估分类-2"));
+		qitemList.add(getQcategory(3,"评估分类-3"));
+		qitemList.add(getQcategory(4,"评估分类-4"));
+		qitemList.add(getQcategory(5,"评估分类-5"));
+		
+		for (QCategoryData qCategoryData : qitemList) {
+			fList.add(
+					AssessQuestionnaireListFragment.getInstance(this,qCategoryData)
+					);
+			titleList.add(qCategoryData.CateName);
+		}
+		
+		mTitleList =  titleList.toArray(new String[titleList.size()]);
+		mAssessFragmentList = fList;
+		
+		
+//		mFragmentList = new String[] { 
+//				AssessPersonalInfoFragment.class.getName(),
+//				AssessLivingFragment.class.getName(),
+//				AssessSelfcareFragment.class.getName(),
+//				AssessCognitiveFragment.class.getName(),
+//				AssessEmotionalAndBehavioralFragment.class.getName(),
+//				AssessVisualFragment.class.getName(),
+//				AssessSocialLifeFragment.class.getName(),
+//				AssessServiceFragment.class.getName()
+//		};
+//		mTitleList = new String[] {
+//				"评估信息",
+//				getResources().getString(R.string.assess_title_person),
+//				getResources().getString(R.string.assess_title_living),
+//				getResources().getString(R.string.assess_title_selfcare),
+//				getResources().getString(R.string.assess_title_cogn),
+//				getResources().getString(R.string.assess_title_emot),
+//				getResources().getString(R.string.assess_title_visual),
+//				getResources().getString(R.string.assess_title_social),
+//				getResources().getString(R.string.assess_title_service)
+//		};
+		
+	}
+	
+	private QCategoryData getQcategory(int id,String name){
+		QCategoryData item = new QCategoryData();
+		item.CateId = id;
+		item.CateName = name;
+		item.SubcateList.add(getQSubcate(
+				1, name+" 评估子类-1"));
+		item.SubcateList.add(getQSubcate(
+				2, name+" 评估子类-2"));
+		item.SubcateList.add(getQSubcate(
+				3, name+" 评估子类-3"));
+		item.SubcateList.add(getQSubcate(
+				4, name+" 评估子类-4"));
+		item.SubcateList.add(getQSubcate(
+				5, name+" 评估子类-5"));
+		item.SubcateList.add(getQSubcate(
+				6, name+" 评估子类-6"));
+		
+		
+		
+		return item;
+	}
+	private QSubcategoryData getQSubcate(int id,String name){
+		QSubcategoryData item = new QSubcategoryData();
+		item.SubcateId = id;
+		item.SubcateName = name;
+		item.ItemList.add(getQItem(
+				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
+		item.ItemList.add(getQItem(
+				2,"轻度",name+"-描述-2"));
+		item.ItemList.add(getQItem(
+				3,"中度",name+"-描述-3"));
+		item.ItemList.add(getQItem(
+				4,"重度",name+"-描述-4"));
+		
+		
+		item.ItemLabList.add(getQItemLab(
+				1,"快速标签1"));
+		item.ItemLabList.add(getQItemLab(
+				2,"快速标签2"));
+		item.ItemLabList.add(getQItemLab(
+				3,"快速标签3"));
+		item.ItemLabList.add(getQItemLab(
+				4,"快速标签4"));
+		item.ItemLabList.add(getQItemLab(
+				5,"快速标签5"));
+		
+		
+		return item;
+	}
+	private QItemData getQItem(int id,String name,String desc){
+		QItemData item = new QItemData();
+		item.ItemId = id;
+		item.ItemName = name;
+		item.ItemDesc = desc;
+		return item;
+	}
+	
+	private QItemLabData getQItemLab(int id,String name){
+		QItemLabData item = new QItemLabData();
+		item.ItemLabId = id;
+		item.ItemLabName = name;
+		return item;
 	}
 
 	private void initActy() {
-		
-		
 		mActivityMainAssess.getBtnGoView().setOnClickListener(this);
 		mActivityMainAssess.getBtnBackView().setOnClickListener(this);
 		mActivityMainAssess.getBtnFinishView().setOnClickListener(this);
@@ -130,15 +219,18 @@ OnBtnStratClickListener
 			
 			@Override
 			public void onBackStackChanged() {
-				DLog.LOG(SysMng.TAG_FRAGMENT,getSupportFragmentManager().getBackStackEntryCount()+" = addOnBackStackChangedListener");
+//				DLog.LOG(SysMng.TAG_FRAGMENT,getSupportFragmentManager().getBackStackEntryCount()+" = addOnBackStackChangedListener");
 				setNavBtn(getSupportFragmentManager().getBackStackEntryCount());
 			}
 		});
+		
+		setAssessTitle(0);
 	}
 	
 	private void setNavBtn(int index){
 		
-		DLog.LOG(SysMng.TAG_FRAGMENT, index+" = index");
+		setAssessTitle(index);
+		
 		if(index == 0){
 			mActivityMainAssess.getLayoutFootView().setVisibility(View.GONE);
 		}else{
@@ -161,38 +253,58 @@ OnBtnStratClickListener
 		fMng.popBackStack();
 	}
 	
-	public void addFragment() {
+	public synchronized void addFragment() {
+		
 		FragmentManager fMng = getSupportFragmentManager();
 		int i = fMng.getBackStackEntryCount();
 				
-		int count =		fMng.getFragments() == null?
-				0 : fMng.getFragments().size();
-		DLog.LOG(SysMng.TAG_FRAGMENT, i+" "+count);
-		
-		if(i >= mFragmentList.length){
+		if(i >= mAssessFragmentList.size()){
 			return;
 		}
+		String tag = (i+1)+"";//mAssessFragmentList.get(i);
+//		DLog.LOG(SysMng.TAG_FRAGMENT, "begin "+tag
+//				+" size["+mAssessFragmentList.size()+"] haveSize["+fMng.getFragments().size()+"] index["+i+"]=================================");
 		
-		String className = mFragmentList[i];
-		Bundle args = null;
-		
-		Fragment f = fMng.findFragmentByTag(className);
-		if(f != null){
-			return;
+		Fragment lastFragment = fMng.getFragments().get(i);//fMng.findFragmentById(R.id.layoutBodyView);
+		AssessBaseFragment mFragment = mAssessFragmentList.get(i);
+		{
+			
+			if(!mFragment.isAdded() /*&& fMng.findFragmentByTag(tag) == null*/){
+				FragmentTransaction ft = fMng.beginTransaction();
+				ft.add(R.id.layoutBodyView, mFragment, tag);
+//				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+				ft.commit();
+				fMng.executePendingTransactions();
+			}
 		}
 		
-		AssessBaseFragment mFragment = (AssessBaseFragment)Fragment.instantiate(mActy, className, args);
-		FragmentTransaction ft = fMng.beginTransaction()
-		.replace(R.id.layoutBodyView, mFragment, className)
-		.addToBackStack(null);
-		ft.commit();
-		mFragment.setActy(this);
-//		setNavBtn(i);
+		if(fMng.getFragments().contains(mFragment))
+		{
+			FragmentTransaction ft = fMng.beginTransaction();
+//			ft.setCustomAnimations(R.anim.fragment_slide_left_enter,
+//		                R.anim.fragment_slide_left_exit,
+//		                R.anim.fragment_slide_right_enter,
+//		                R.anim.fragment_slide_right_exit);
+			ft.hide(lastFragment);
+//			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+			ft.show(mFragment);
+			ft.addToBackStack(null);
+//			ft.commitAllowingStateLoss();
+			ft.commit();
+			fMng.executePendingTransactions();
+			
+		}
+//		DLog.LOG(SysMng.TAG_FRAGMENT, "end "+tag+" "+ mFragment.isAdded()+ " =================================");
+		
 		
 	}
 	
-	public void setAssessTitle(String s){
-		mActivityMainAssess.getTxtMainAssessTitleView().setText(s);
+	
+	public void setAssessTitle(int i){
+		if(i<mTitleList.length){
+			String s = mTitleList[i];
+			mActivityMainAssess.getTxtMainAssessTitleView().setText(s);
+		}
 	}
 
 	@Override

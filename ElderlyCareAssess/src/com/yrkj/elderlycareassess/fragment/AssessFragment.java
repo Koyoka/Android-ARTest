@@ -35,9 +35,7 @@ public class AssessFragment extends Fragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		if(savedInstanceState == null){
 			add(AssessTaskListFragment.class.getName(),null);
-			DLog.LOG(SysMng.TAG_FRAGMENT,"AssessFragment ---- savedInstanceState == null");
 		}else{
-			DLog.LOG(SysMng.TAG_FRAGMENT,"AssessFragment ---- savedInstanceState == " + savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT));
 			add(savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT),null);
 		}
 	}

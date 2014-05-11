@@ -7,8 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.acty.MainAssessActivity;
 
 public class AssessPersonalInfoFragment extends AssessBaseFragment {
+	public AssessPersonalInfoFragment(MainAssessActivity a) {
+		super(a);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

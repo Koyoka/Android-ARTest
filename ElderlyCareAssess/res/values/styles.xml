@@ -205,7 +205,7 @@
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">24sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">6dip</item>
+        <item name="android:padding">8dip</item>
     </style>
  	<style 
  	    name="fragment_assess_question_btn_special_item_1" 
@@ -240,6 +240,7 @@
  	    parent="common_text_font_24px_homecolor" >
         <item name="android:paddingLeft">20dip</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingRight">6dip</item>
     </style>
  	<style 
  	    name="fragment_assess_question_btn_shorthand" 
