@@ -370,13 +370,13 @@ public class UIRadioGroup extends LinearLayout {
             } else if (parent == UIRadioGroup.this
                     && child instanceof ViewGroup) {
                 RadioButton btn = findRadioButton((ViewGroup) child);
-                int id = btn.getId();
-                // generates an id if it's missing
-                if (id == View.NO_ID) {
-                    id = btn.hashCode();
-                    btn.setId(id);
-                }
-                btn.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
+            	int id = btn.getId();
+            	// generates an id if it's missing
+            	if (id == View.NO_ID) {
+            		id = btn.hashCode();
+            		btn.setId(id);
+            	}
+            	btn.setOnCheckedChangeListener(mChildOnCheckedChangeListener);
             }
 
             if (mOnHierarchyChangeListener != null) {

@@ -2,6 +2,8 @@ package com.yrkj.elderlycareassess.base;
 
 
 
+import com.yrkj.util.log.DLog;
+
 import android.app.Application;
 
 public class BaseApplication extends Application {
@@ -19,6 +21,11 @@ public class BaseApplication extends Application {
 		super.onCreate();
 		
 		mApplication = this;
+		if(!ECAQuesDBMng.init(this,SysMng.IsDebug)){
+			DLog.LOG("create db error");
+		}else{
+//			sys_DBCreated = true;
+		}
 //		SysMng.Launch(this);
 	}
 	

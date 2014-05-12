@@ -1,4 +1,4 @@
-package com.yrkj.elderlycareassess.dao;
+package com.yrkj.elderlycareassess.bean;
 
 import java.util.ArrayList;
 

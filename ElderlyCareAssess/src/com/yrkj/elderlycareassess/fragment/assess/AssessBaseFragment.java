@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
-import com.yrkj.elderlycareassess.dao.QCategoryData;
+import com.yrkj.elderlycareassess.bean.QCategoryData;
 
 public class AssessBaseFragment extends Fragment {
 	

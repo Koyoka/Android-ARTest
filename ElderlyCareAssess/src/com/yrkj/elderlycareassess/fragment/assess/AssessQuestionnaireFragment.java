@@ -6,16 +6,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.dao.QItemData;
-import com.yrkj.elderlycareassess.dao.QItemLabData;
-import com.yrkj.elderlycareassess.dao.QSubcategoryData;
+import com.yrkj.elderlycareassess.bean.QItemData;
+import com.yrkj.elderlycareassess.bean.QItemTagData;
+import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnaire;
 import com.yrkj.elderlycareassess.layout.ViewQuestionItem1;
+import com.yrkj.elderlycareassess.layout.ViewQuestionItem2;
 import com.yrkj.elderlycareassess.widget.UIRadioGroup;
 import com.yrkj.elderlycareassess.widget.UIRadioGroup.OnCheckedChangeListener;
 import com.yrkj.util.log.ToastUtil;
@@ -67,6 +65,36 @@ implements OnClickListener{
 		
 	}
 	
+	private View getOnlyRadioView(LayoutInflater inflater,ViewGroup container,QItemData item){
+		View v = inflater.inflate(R.layout.view_question_item_1, container,
+				false);
+		ViewQuestionItem1 holderView = new ViewQuestionItem1(v);
+		holderView.getTxtQuestionItemView().setText(item.ItemDesc);
+		holderView.getRdoQuestionItemView().setText(item.ItemName);
+		holderView.getRdoQuestionItemView().setId(item.ItemId);
+		return v;
+	}
+	private View getOnlyCheckView(LayoutInflater inflater,ViewGroup container,QItemData item1,QItemData item2){
+		View v = inflater.inflate(R.layout.view_question_item_2, container,
+				false);
+		ViewQuestionItem2 holderView = new ViewQuestionItem2(v);
+		holderView.getRdoQuestionItem1View().setText(item1.ItemName);
+		holderView.getRdoQuestionItem1View().setId(item1.ItemId);
+		
+		if(item2 != null){
+			holderView.getRdoQuestionItem2View().setVisibility(View.VISIBLE);
+			holderView.getRdoQuestionItem2View().setText(item2.ItemName);
+			holderView.getRdoQuestionItem2View().setId(item2.ItemId);
+		}else{
+			holderView.getRdoQuestionItem2View().setVisibility(View.INVISIBLE);
+			
+		}
+//		holderView.getTxtQuestionItemView().setText(item.ItemDesc);
+//		holderView.getRdoQuestionItemView().setText(item.ItemName);
+//		holderView.getRdoQuestionItemView().setId(item.ItemId);
+		return v;
+	}
+	
 	private void addItemList(){
 		
 		mLayout.getLayoutNormalContentView().setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -82,23 +110,47 @@ implements OnClickListener{
 		ViewGroup container = mLayout.getLayoutNormalContentView();
 		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		
-		for (QItemData item : mSubcateData.ItemList) {
-			View v = inflater.inflate(R.layout.view_question_item_1, container,
-					false);
-			ViewQuestionItem1 holderView = new ViewQuestionItem1(v);
-			holderView.getTxtQuestionItemView().setText(item.ItemDesc);
-			holderView.getRdoQuestionItemView().setText(item.ItemName);
-			holderView.getRdoQuestionItemView().setId(item.ItemId);
-			mLayout.getLayoutNormalContentView().addView(v);
+//		for (QItemData item : mSubcateData.ItemList) {
+////			View v = inflater.inflate(R.layout.view_question_item_1, container,
+////					false);
+////			ViewQuestionItem1 holderView = new ViewQuestionItem1(v);
+////			holderView.getTxtQuestionItemView().setText(item.ItemDesc);
+////			holderView.getRdoQuestionItemView().setText(item.ItemName);
+////			holderView.getRdoQuestionItemView().setId(item.ItemId);
+//			View v = null;
+//			v = getOnlyRadioView(inflater,container,item);
+//			mLayout.getLayoutNormalContentView().addView(v);
+//		}
+		
+		for(int i = 0; i< mSubcateData.ItemList.size();i++){
+			
+			View v = null;
+			if(mSubcateData.UseType.equals(QSubcategoryData.USER_TYPE_ONLY_RADIO)){
+				QItemData item = mSubcateData.ItemList.get(i);
+				v = getOnlyRadioView(inflater,container,item);
+			}else if(mSubcateData.UseType.equals(QSubcategoryData.USER_TYPE_ONLY_CHECK)){
+				QItemData item1 = null;
+				item1 = mSubcateData.ItemList.get(i);
+				
+				i++;
+				QItemData item2 = null;
+				if(i<mSubcateData.ItemList.size()){
+					item2 = mSubcateData.ItemList.get(i);
+				}
+				v = getOnlyCheckView(inflater,container,item1,item2);
+			}
+			if(v!=null)
+				mLayout.getLayoutNormalContentView().addView(v);
 		}
 		
-		for (QItemLabData item : mSubcateData.ItemLabList) {
+		
+		for (QItemTagData item : mSubcateData.ItemLabList) {
 			
 			
 		}
 		
 		for(int i = 0; i < mSubcateData.ItemLabList.size(); i++){
-			QItemLabData item = mSubcateData.ItemLabList.get(i);
+			QItemTagData item = mSubcateData.ItemLabList.get(i);
 			CheckBox v = null;
 			v = (CheckBox) inflater.inflate(R.layout.view_question_special_item, container,
 					false);

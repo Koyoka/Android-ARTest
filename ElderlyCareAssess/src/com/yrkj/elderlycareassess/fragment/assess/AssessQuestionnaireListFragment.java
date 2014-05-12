@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
-import com.yrkj.elderlycareassess.dao.QCategoryData;
-import com.yrkj.elderlycareassess.dao.QSubcategoryData;
+import com.yrkj.elderlycareassess.bean.QCategoryData;
+import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnairellist;
 import com.yrkj.util.log.DLog;
 

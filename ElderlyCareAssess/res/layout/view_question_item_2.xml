@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+    android:layout_marginTop="@dimen/fragment_assess_questionnaire_normal_item_line_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <RadioButton
+        android:id="@+id/rdoQuestionItem1View"
+        style="@style/fragment_assess_question_btn_normal_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dip"
+        android:layout_weight="1"
+        android:button="@null"
+        android:text="正常1" />
+
+    <RadioButton
+        android:id="@+id/rdoQuestionItem2View"
+        style="@style/fragment_assess_question_btn_normal_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_weight="1"
+        android:button="@null"
+        android:text="正常2" />
+
+</LinearLayout>

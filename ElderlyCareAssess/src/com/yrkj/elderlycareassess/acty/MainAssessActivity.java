@@ -14,10 +14,11 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
-import com.yrkj.elderlycareassess.dao.QCategoryData;
-import com.yrkj.elderlycareassess.dao.QItemData;
-import com.yrkj.elderlycareassess.dao.QItemLabData;
-import com.yrkj.elderlycareassess.dao.QSubcategoryData;
+import com.yrkj.elderlycareassess.bean.QCategoryData;
+import com.yrkj.elderlycareassess.bean.QItemData;
+import com.yrkj.elderlycareassess.bean.QItemTagData;
+import com.yrkj.elderlycareassess.bean.QSubcategoryData;
+import com.yrkj.elderlycareassess.dao.QuesDBCtrl;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessCognitiveFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessEmotionalAndBehavioralFragment;
@@ -99,15 +100,17 @@ OnBtnStratClickListener
 		fList.add(new AssessPersonalInfoFragment(this));
 		titleList.add(getResources().getString(R.string.assess_title_person));
 		
-		fList.add(new AssessLivingFragment(this));
-		titleList.add(getResources().getString(R.string.assess_title_living));
+//		fList.add(new AssessLivingFragment(this));
+//		titleList.add(getResources().getString(R.string.assess_title_living));
 		
-		ArrayList<QCategoryData> qitemList = new ArrayList<QCategoryData>();
-		qitemList.add(getQcategory(1,"评估分类-1"));
-		qitemList.add(getQcategory(2,"评估分类-2"));
-		qitemList.add(getQcategory(3,"评估分类-3"));
-		qitemList.add(getQcategory(4,"评估分类-4"));
-		qitemList.add(getQcategory(5,"评估分类-5"));
+		ArrayList<QCategoryData> qitemList = 
+				getQCategoryList();
+//				new ArrayList<QCategoryData>();
+//		qitemList.add(getQcategory(1,"评估分类-1"));
+//		qitemList.add(getQcategory(2,"评估分类-2"));
+//		qitemList.add(getQcategory(3,"评估分类-3"));
+//		qitemList.add(getQcategory(4,"评估分类-4"));
+//		qitemList.add(getQcategory(5,"评估分类-5"));
 		
 		for (QCategoryData qCategoryData : qitemList) {
 			fList.add(
@@ -144,9 +147,35 @@ OnBtnStratClickListener
 		
 	}
 	
+	private ArrayList<QCategoryData> getQCategoryList(){
+		ArrayList<QCategoryData> qitemList
+			= QuesDBCtrl.getQCategoryList(this);
+		for (QCategoryData item : qitemList) {
+//			ArrayList<QSubcategoryData> qsubitemList = 
+			item.SubcateList = 
+					QuesDBCtrl.getQSubcategoryList(this,item.CateId);
+			for (QSubcategoryData subitem : item.SubcateList) {
+				setQSubcate(subitem);
+			}
+//			item.SubcateList.add(getQSubcate(
+//					1, name+" 评估子类-1"));
+//			item.SubcateList.add(getQSubcate(
+//					2, name+" 评估子类-2"));
+//			item.SubcateList.add(getQSubcate(
+//					3, name+" 评估子类-3"));
+//			item.SubcateList.add(getQSubcate(
+//					4, name+" 评估子类-4"));
+//			item.SubcateList.add(getQSubcate(
+//					5, name+" 评估子类-5"));
+//			item.SubcateList.add(getQSubcate(
+//					6, name+" 评估子类-6"));
+		}
+		return qitemList;
+	}
+	
 	private QCategoryData getQcategory(int id,String name){
 		QCategoryData item = new QCategoryData();
-		item.CateId = id;
+		item.CateId = id+"";
 		item.CateName = name;
 		item.SubcateList.add(getQSubcate(
 				1, name+" 评估子类-1"));
@@ -165,9 +194,38 @@ OnBtnStratClickListener
 		
 		return item;
 	}
+	private QSubcategoryData setQSubcate(QSubcategoryData item){
+//		QSubcategoryData item = new QSubcategoryData();
+//		item.SubcateId = id;
+//		item.SubcateName = name;
+		String name = item.SubcateName;
+		item.ItemList.add(getQItem(
+				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
+		item.ItemList.add(getQItem(
+				2,"轻度",name+"-描述-2"));
+		item.ItemList.add(getQItem(
+				3,"中度",name+"-描述-3"));
+		item.ItemList.add(getQItem(
+				4,"重度",name+"-描述-4"));
+		
+		
+		item.ItemLabList.add(getQItemLab(
+				1,"快速标签1"));
+		item.ItemLabList.add(getQItemLab(
+				2,"快速标签2"));
+		item.ItemLabList.add(getQItemLab(
+				3,"快速标签3"));
+		item.ItemLabList.add(getQItemLab(
+				4,"快速标签4"));
+		item.ItemLabList.add(getQItemLab(
+				5,"快速标签5"));
+		
+		
+		return item;
+	}
 	private QSubcategoryData getQSubcate(int id,String name){
 		QSubcategoryData item = new QSubcategoryData();
-		item.SubcateId = id;
+		item.SubcateId = id+"";
 		item.SubcateName = name;
 		item.ItemList.add(getQItem(
 				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
@@ -201,8 +259,8 @@ OnBtnStratClickListener
 		return item;
 	}
 	
-	private QItemLabData getQItemLab(int id,String name){
-		QItemLabData item = new QItemLabData();
+	private QItemTagData getQItemLab(int id,String name){
+		QItemTagData item = new QItemTagData();
 		item.ItemLabId = id;
 		item.ItemLabName = name;
 		return item;
