@@ -28,7 +28,7 @@ public class FragmentAssessQuestionnaire extends BaseLayout{
     protected android.widget.LinearLayout mLayoutSpecialItem2View;
     protected android.widget.LinearLayout mLayoutSpecialItem3View;
     protected android.widget.LinearLayout mLayoutSpecialItem4View;
-    protected com.yrkj.elderlycareassess.widget.UIRadioGroup mLayoutNormalContentView;
+    protected android.widget.LinearLayout mLayoutNormalContentView;
 
     protected Activity mCurActy;
 
@@ -42,7 +42,7 @@ public class FragmentAssessQuestionnaire extends BaseLayout{
         mLayoutSpecialItem2View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem2ViewId);
         mLayoutSpecialItem3View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem3ViewId);
         mLayoutSpecialItem4View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem4ViewId);
-        mLayoutNormalContentView = (com.yrkj.elderlycareassess.widget.UIRadioGroup) acty.findViewById(LayoutNormalContentViewId);
+        mLayoutNormalContentView = (android.widget.LinearLayout) acty.findViewById(LayoutNormalContentViewId);
     }   
 
     public FragmentAssessQuestionnaire(android.view.View acty){
@@ -54,7 +54,7 @@ public class FragmentAssessQuestionnaire extends BaseLayout{
         mLayoutSpecialItem2View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem2ViewId);
         mLayoutSpecialItem3View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem3ViewId);
         mLayoutSpecialItem4View = (android.widget.LinearLayout) acty.findViewById(LayoutSpecialItem4ViewId);
-        mLayoutNormalContentView = (com.yrkj.elderlycareassess.widget.UIRadioGroup) acty.findViewById(LayoutNormalContentViewId);
+        mLayoutNormalContentView = (android.widget.LinearLayout) acty.findViewById(LayoutNormalContentViewId);
     }   
     public android.widget.RelativeLayout getLayoutQuestionBarView() {
         return mLayoutQuestionBarView;
@@ -80,7 +80,7 @@ public class FragmentAssessQuestionnaire extends BaseLayout{
     public android.widget.LinearLayout getLayoutSpecialItem4View() {
         return mLayoutSpecialItem4View;
     }
-    public com.yrkj.elderlycareassess.widget.UIRadioGroup getLayoutNormalContentView() {
+    public android.widget.LinearLayout getLayoutNormalContentView() {
         return mLayoutNormalContentView;
     }
 

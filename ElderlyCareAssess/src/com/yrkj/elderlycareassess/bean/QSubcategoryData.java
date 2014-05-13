@@ -12,7 +12,9 @@ public class QSubcategoryData {
 	public static final String Col_SortIndex = "SortIndex";
 	
 	public static final String USER_TYPE_ONLY_CHECK = "OC";
+	public static final String USER_TYPE_ONLY_CHECK_NONE_DESC = "OCN";
 	public static final String USER_TYPE_ONLY_RADIO = "OR";
+	public static final String USER_TYPE_ONLY_RADIO_NONE_DESC = "ORN";
 	public static final String USER_TYPE_ONLY_SUBCATGORY = "OS";
 	public static final String USER_TYPE_ALTERNATIVE_CHECK = "AC";
 //	public static final String USER_TYPE_ONLY_CHECK = "OC";
