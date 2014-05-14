@@ -1,15 +1,19 @@
 package com.yrkj.elderlycareassess.dao;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
 
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
+import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
+import com.yrkj.elderlycareassess.bean.QItemData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.db.DBMng;
+import com.yrkj.util.log.DLog;
 
 public class QuesDBCtrl {
 
@@ -56,7 +60,7 @@ public class QuesDBCtrl {
 //				where cateid = 1);
 		
 		String subSql = "Select Subcateid From QCategoryDetail where CateId = " + cateId;
-		cdt.Selection = QSubcategoryData.Col_SubcateId + " IN("+ subSql +")";//QCategoryData.Col_IsActive + " = " + QCategoryData.ISACTIVE_YES;
+		cdt.Selection = QSubcategoryData.Col_SubcateId + " IN("+ subSql +")";
 		cdt.OrderBy = QSubcategoryData.Col_SortIndex + " ASC";
 		dbMng.open();
 		Cursor cursor = dbMng.query(QSubcategoryData.TblName, 
@@ -85,6 +89,40 @@ public class QuesDBCtrl {
 		cursor.close();
 		return itemList;
 	}
+
+	public static ArrayList<QItemData> getQItemListBySubcateId(Context c,String subcateId){
+		
+//		String sql = "Select * From [QItem] where ";
+//        sql = MessageFormat.format(sql,subcateId,QSubcategoryData.ITEM_TYPE_ITEM);//String.format(sql, subcateId,QSubcategoryData.ITEM_TYPE_ITEM);
+		
+//        DLog.LOG(SysMng.TAG_DB, sql);
+//        if(true){
+//        	return new ArrayList<QItemData>();
+//        }
+        ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		DBCondition cdt = new DBCondition();
+		String selectSql = "itemid in(Select itemid From [QSubcategoryDetail] where subcateid = {0} and itemtype = ''{1}'')";
+		cdt.Selection = MessageFormat.format(selectSql,subcateId,QSubcategoryData.ITEM_TYPE_ITEM);
+		cdt.OrderBy = QItemData.Col_SortIndex + " ASC";
+		dbMng.open();
+		Cursor cursor = dbMng.query(QItemData.TblName, 
+				QItemData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<QItemData> itemList = new ArrayList<QItemData>();
+		if(cursor.moveToFirst()){
+			do {
+
+				QItemData item = QItemData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+        
+		return itemList;
+	}
+	
+
 }
 
 

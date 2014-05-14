@@ -150,25 +150,13 @@ OnBtnStratClickListener
 	private ArrayList<QCategoryData> getQCategoryList(){
 		ArrayList<QCategoryData> qitemList
 			= QuesDBCtrl.getQCategoryList(this);
+		
 		for (QCategoryData item : qitemList) {
-//			ArrayList<QSubcategoryData> qsubitemList = 
 			item.SubcateList = 
 					QuesDBCtrl.getQSubcategoryList(this,item.CateId);
 			for (QSubcategoryData subitem : item.SubcateList) {
 				setQSubcate(subitem);
 			}
-//			item.SubcateList.add(getQSubcate(
-//					1, name+" 评估子类-1"));
-//			item.SubcateList.add(getQSubcate(
-//					2, name+" 评估子类-2"));
-//			item.SubcateList.add(getQSubcate(
-//					3, name+" 评估子类-3"));
-//			item.SubcateList.add(getQSubcate(
-//					4, name+" 评估子类-4"));
-//			item.SubcateList.add(getQSubcate(
-//					5, name+" 评估子类-5"));
-//			item.SubcateList.add(getQSubcate(
-//					6, name+" 评估子类-6"));
 		}
 		return qitemList;
 	}
@@ -195,29 +183,32 @@ OnBtnStratClickListener
 		return item;
 	}
 	private QSubcategoryData setQSubcate(QSubcategoryData item){
-//		QSubcategoryData item = new QSubcategoryData();
-//		item.SubcateId = id;
-//		item.SubcateName = name;
-		String name = item.SubcateName;
-		item.ItemList.add(getQItem(
-				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
-		item.ItemList.add(getQItem(
-				2,"轻度",name+"-描述-2"));
-		item.ItemList.add(getQItem(
-				3,"中度",name+"-描述-3"));
-		item.ItemList.add(getQItem(
-				4,"重度",name+"-描述-4"));
+
+//		if()
+//		ArrayList<QItemData> itemList =
+		item.ItemList =		
+		QuesDBCtrl.getQItemListBySubcateId(this, item.SubcateId);
+		DLog.LOG(SysMng.TAG_DB, " item.ItemList count ["+item.ItemList.size()+"]");
+//		String name = item.SubcateName;
+//		item.ItemList.add(getQItem(
+//				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
+//		item.ItemList.add(getQItem(
+//				2,"轻度",name+"-描述-2"));
+//		item.ItemList.add(getQItem(
+//				3,"中度",name+"-描述-3"));
+//		item.ItemList.add(getQItem(
+//				4,"重度",name+"-描述-4"));
 		
 		
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				1,"快速标签1"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				2,"快速标签2"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				3,"快速标签3"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				4,"快速标签4"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				5,"快速标签5"));
 		
 		
@@ -237,15 +228,15 @@ OnBtnStratClickListener
 				4,"重度",name+"-描述-4"));
 		
 		
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				1,"快速标签1"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				2,"快速标签2"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				3,"快速标签3"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				4,"快速标签4"));
-		item.ItemLabList.add(getQItemLab(
+		item.ItemTagList.add(getQItemLab(
 				5,"快速标签5"));
 		
 		
@@ -261,8 +252,8 @@ OnBtnStratClickListener
 	
 	private QItemTagData getQItemLab(int id,String name){
 		QItemTagData item = new QItemTagData();
-		item.ItemLabId = id;
-		item.ItemLabName = name;
+		item.ItemTagId = id;
+		item.ItemTagName = name;
 		return item;
 	}
 

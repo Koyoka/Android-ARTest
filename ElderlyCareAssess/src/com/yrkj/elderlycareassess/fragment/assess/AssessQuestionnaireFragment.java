@@ -162,12 +162,12 @@ implements OnClickListener{
 //		}
 		
 		
-		for(int i = 0; i < mSubcateData.ItemLabList.size(); i++){
-			QItemTagData item = mSubcateData.ItemLabList.get(i);
+		for(int i = 0; i < mSubcateData.ItemTagList.size(); i++){
+			QItemTagData item = mSubcateData.ItemTagList.get(i);
 			CheckBox v = null;
 			v = (CheckBox) inflater.inflate(R.layout.view_question_special_item, container,
 					false);
-			v.setText(item.ItemLabName);
+			v.setText(item.ItemTagName);
 			switch (i%4) {
 			case 0:
 				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);

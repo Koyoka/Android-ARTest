@@ -96,11 +96,21 @@ public abstract class DBMng {
 	}
 	
 	public static String GetDataString(Cursor cursor,String columnName){
-		
     	int columnIndex = cursor.getColumnIndex(columnName);
-//    	return columnIndex+"";
     	return cursor.getString(columnIndex);
-		
+	}
+	public static int getDataInt(Cursor cursor,String columnName){
+		int columnIndex = cursor.getColumnIndex(columnName);
+		return cursor.getInt(columnIndex);
+	}
+	public static boolean getDataBoolean(Cursor cursor,String columnName){
+		int columnIndex = cursor.getColumnIndex(columnName);
+		 
+		int defineIntData = cursor.getInt(columnIndex);
+		if(defineIntData == 1){
+			return true;
+		}
+		return false;
 	}
 	
 	public void open(){
