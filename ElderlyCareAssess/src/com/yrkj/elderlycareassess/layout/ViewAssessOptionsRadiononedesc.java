@@ -8,31 +8,24 @@ import com.yrkj.util.ui.layout.LayoutDataAdapter;
 import com.yrkj.elderlycareassess.R;
 
 
-public class FragmentAssessNew extends BaseLayout{
+public class ViewAssessOptionsRadiononedesc extends BaseLayout{
 
-    public static final int ContainerId = R.id.container;
-    public static final int BtnStratViewId = R.id.btnStratView;
+    public static final int LayoutNormalContentViewId = R.id.layoutNormalContentView;
 
-    protected android.widget.LinearLayout mContainer;
-    protected android.widget.Button mBtnStratView;
+    protected android.widget.LinearLayout mLayoutNormalContentView;
 
     protected Activity mCurActy;
 
-    public FragmentAssessNew(Activity acty){
+    public ViewAssessOptionsRadiononedesc(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+        mLayoutNormalContentView = (android.widget.LinearLayout) acty.findViewById(LayoutNormalContentViewId);
     }   
 
-    public FragmentAssessNew(android.view.View acty){
-        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+    public ViewAssessOptionsRadiononedesc(android.view.View acty){
+        mLayoutNormalContentView = (android.widget.LinearLayout) acty.findViewById(LayoutNormalContentViewId);
     }   
-    public android.widget.LinearLayout getContainer() {
-        return mContainer;
-    }
-    public android.widget.Button getBtnStratView() {
-        return mBtnStratView;
+    public android.widget.LinearLayout getLayoutNormalContentView() {
+        return mLayoutNormalContentView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -50,11 +43,8 @@ public class FragmentAssessNew extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
-                case ContainerId:
-                    setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
-                    break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,joinData.formatString,joinData.data);
+                case LayoutNormalContentViewId:
+                    setViewData(adp,getLayoutNormalContentView(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -69,11 +59,8 @@ public class FragmentAssessNew extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
-                case ContainerId:
-                    setViewData(adp,getContainer(),data,"",path);
-                    break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,"",path);
+                case LayoutNormalContentViewId:
+                    setViewData(adp,getLayoutNormalContentView(),data,"",path);
                     break;
                     
                 default:

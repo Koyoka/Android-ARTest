@@ -1,19 +1,143 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yrkj.elderlycareassess.MainActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="80dip"
     tools:ignore="MergeRootFrame" >
 
-    <TextView 
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="assess new"/>
-    <Button 
+        android:layout_marginBottom="40dip"
+        android:text="@string/fragment_assess_title"
+        android:textColor="#764714"
+        android:textSize="@dimen/text_size_72px" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item1" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item2" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item3" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item4" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item5" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item6" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item7" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        <TableRow style="@style/fragment_assess_new_line" >
+            <TextView
+                style="@style/fragment_assess_new_line_lab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_assess_new_item8" />
+            <TextView
+                style="@style/fragment_assess_new_line_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="" />
+        </TableRow>
+        
+    </TableLayout>
+
+    <Button
         android:id="@+id/btnStratView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="开始评估"/>
-</RelativeLayout>
+        android:layout_marginLeft="@dimen/activity_login_margin"
+        android:layout_marginRight="@dimen/activity_login_margin"
+        android:layout_marginTop="40dip"
+        android:background="@drawable/btn_login_bg_x"
+        android:text="开始评估"
+        android:textColor="#866d2a"
+        android:textSize="25sp" />
+
+</LinearLayout>

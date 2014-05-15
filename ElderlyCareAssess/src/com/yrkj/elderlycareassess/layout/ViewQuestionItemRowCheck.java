@@ -8,31 +8,31 @@ import com.yrkj.util.ui.layout.LayoutDataAdapter;
 import com.yrkj.elderlycareassess.R;
 
 
-public class FragmentAssessNew extends BaseLayout{
+public class ViewQuestionItemRowCheck extends BaseLayout{
 
-    public static final int ContainerId = R.id.container;
-    public static final int BtnStratViewId = R.id.btnStratView;
+    public static final int ChkQuestionItem1ViewId = R.id.chkQuestionItem1View;
+    public static final int ChkQuestionItem2ViewId = R.id.chkQuestionItem2View;
 
-    protected android.widget.LinearLayout mContainer;
-    protected android.widget.Button mBtnStratView;
+    protected android.widget.CheckBox mChkQuestionItem1View;
+    protected android.widget.CheckBox mChkQuestionItem2View;
 
     protected Activity mCurActy;
 
-    public FragmentAssessNew(Activity acty){
+    public ViewQuestionItemRowCheck(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+        mChkQuestionItem1View = (android.widget.CheckBox) acty.findViewById(ChkQuestionItem1ViewId);
+        mChkQuestionItem2View = (android.widget.CheckBox) acty.findViewById(ChkQuestionItem2ViewId);
     }   
 
-    public FragmentAssessNew(android.view.View acty){
-        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+    public ViewQuestionItemRowCheck(android.view.View acty){
+        mChkQuestionItem1View = (android.widget.CheckBox) acty.findViewById(ChkQuestionItem1ViewId);
+        mChkQuestionItem2View = (android.widget.CheckBox) acty.findViewById(ChkQuestionItem2ViewId);
     }   
-    public android.widget.LinearLayout getContainer() {
-        return mContainer;
+    public android.widget.CheckBox getChkQuestionItem1View() {
+        return mChkQuestionItem1View;
     }
-    public android.widget.Button getBtnStratView() {
-        return mBtnStratView;
+    public android.widget.CheckBox getChkQuestionItem2View() {
+        return mChkQuestionItem2View;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -50,11 +50,11 @@ public class FragmentAssessNew extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
-                case ContainerId:
-                    setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
+                case ChkQuestionItem1ViewId:
+                    setViewData(adp,getChkQuestionItem1View(),data,joinData.formatString,joinData.data);
                     break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,joinData.formatString,joinData.data);
+                case ChkQuestionItem2ViewId:
+                    setViewData(adp,getChkQuestionItem2View(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -69,11 +69,11 @@ public class FragmentAssessNew extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
-                case ContainerId:
-                    setViewData(adp,getContainer(),data,"",path);
+                case ChkQuestionItem1ViewId:
+                    setViewData(adp,getChkQuestionItem1View(),data,"",path);
                     break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,"",path);
+                case ChkQuestionItem2ViewId:
+                    setViewData(adp,getChkQuestionItem2View(),data,"",path);
                     break;
                     
                 default:

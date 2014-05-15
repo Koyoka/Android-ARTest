@@ -8,31 +8,45 @@ import com.yrkj.util.ui.layout.LayoutDataAdapter;
 import com.yrkj.elderlycareassess.R;
 
 
-public class FragmentAssessNew extends BaseLayout{
+public class ActivityLogin extends BaseLayout{
 
     public static final int ContainerId = R.id.container;
-    public static final int BtnStratViewId = R.id.btnStratView;
+    public static final int TxtUserNameViewId = R.id.txtUserNameView;
+    public static final int TxtPasswordViewId = R.id.txtPasswordView;
+    public static final int BtnLoginViewId = R.id.btnLoginView;
 
     protected android.widget.LinearLayout mContainer;
-    protected android.widget.Button mBtnStratView;
+    protected android.widget.EditText mTxtUserNameView;
+    protected android.widget.EditText mTxtPasswordView;
+    protected android.widget.Button mBtnLoginView;
 
     protected Activity mCurActy;
 
-    public FragmentAssessNew(Activity acty){
+    public ActivityLogin(Activity acty){
         mCurActy = acty;
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+        mTxtUserNameView = (android.widget.EditText) acty.findViewById(TxtUserNameViewId);
+        mTxtPasswordView = (android.widget.EditText) acty.findViewById(TxtPasswordViewId);
+        mBtnLoginView = (android.widget.Button) acty.findViewById(BtnLoginViewId);
     }   
 
-    public FragmentAssessNew(android.view.View acty){
+    public ActivityLogin(android.view.View acty){
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
-        mBtnStratView = (android.widget.Button) acty.findViewById(BtnStratViewId);
+        mTxtUserNameView = (android.widget.EditText) acty.findViewById(TxtUserNameViewId);
+        mTxtPasswordView = (android.widget.EditText) acty.findViewById(TxtPasswordViewId);
+        mBtnLoginView = (android.widget.Button) acty.findViewById(BtnLoginViewId);
     }   
     public android.widget.LinearLayout getContainer() {
         return mContainer;
     }
-    public android.widget.Button getBtnStratView() {
-        return mBtnStratView;
+    public android.widget.EditText getTxtUserNameView() {
+        return mTxtUserNameView;
+    }
+    public android.widget.EditText getTxtPasswordView() {
+        return mTxtPasswordView;
+    }
+    public android.widget.Button getBtnLoginView() {
+        return mBtnLoginView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -53,8 +67,14 @@ public class FragmentAssessNew extends BaseLayout{
                 case ContainerId:
                     setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
                     break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,joinData.formatString,joinData.data);
+                case TxtUserNameViewId:
+                    setViewData(adp,getTxtUserNameView(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtPasswordViewId:
+                    setViewData(adp,getTxtPasswordView(),data,joinData.formatString,joinData.data);
+                    break;
+                case BtnLoginViewId:
+                    setViewData(adp,getBtnLoginView(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -72,8 +92,14 @@ public class FragmentAssessNew extends BaseLayout{
                 case ContainerId:
                     setViewData(adp,getContainer(),data,"",path);
                     break;
-                case BtnStratViewId:
-                    setViewData(adp,getBtnStratView(),data,"",path);
+                case TxtUserNameViewId:
+                    setViewData(adp,getTxtUserNameView(),data,"",path);
+                    break;
+                case TxtPasswordViewId:
+                    setViewData(adp,getTxtPasswordView(),data,"",path);
+                    break;
+                case BtnLoginViewId:
+                    setViewData(adp,getBtnLoginView(),data,"",path);
                     break;
                     
                 default:

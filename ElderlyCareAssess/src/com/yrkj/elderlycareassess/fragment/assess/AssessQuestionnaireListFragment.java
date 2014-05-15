@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnairellist;
@@ -17,13 +18,13 @@ import com.yrkj.util.log.DLog;
 
 public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	
-	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d) {
-		super(a,d);
+	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d,CustomerData c) {
+		super(a,d,c);
 		// TODO Auto-generated constructor stub
 	}
 
-	public static AssessQuestionnaireListFragment getInstance(MainAssessActivity a,QCategoryData d){
-		return new AssessQuestionnaireListFragment(a,d);
+	public static AssessQuestionnaireListFragment getInstance(MainAssessActivity a,QCategoryData d,CustomerData c){
+		return new AssessQuestionnaireListFragment(a,d,c);
 	}
 	
 	View mV;

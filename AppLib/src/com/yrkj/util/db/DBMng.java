@@ -169,4 +169,21 @@ public abstract class DBMng {
 		return cursor;
 	}
 	
+	public Cursor rawQuery(String s){
+		if(!mIsOpen){
+			return null;
+		}
+		Cursor cursor = null;
+		{
+			cursor = mDB.rawQuery(s, null);
+		}
+//		else{
+//			cursor = mDB.query(true, tabName, columns,null,null,null,null,null,null);
+//		}
+		if(cursor != null){
+			boolean hasData = cursor.moveToFirst();
+		}
+		return cursor;
+	}
+	
 }

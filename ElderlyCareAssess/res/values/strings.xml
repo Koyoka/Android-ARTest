@@ -24,7 +24,44 @@
     <string name="activity_main_home_assess_tabs_doingtask">评估任务</string>
     <string name="activity_main_home_assess_tabs_donetask">已完成评估</string>
     
+    <string name="activity_login_title">上海市浦东新区老年照护等级评估</string>
     <string name="activity_main_assess_btn_back">返回</string>
+    
+    <string name="fragment_assess_title">上海市老年照护等级评估表</string>
+    <string name="fragment_assess_new_item1">申请人姓名</string>
+    <string name="fragment_assess_new_item2">区县/街镇</string>
+    <string name="fragment_assess_new_item3">评估表编号</string>
+    <string name="fragment_assess_new_item4">评估类别</string>
+    <string name="fragment_assess_new_item5">评估次数</string>
+    <string name="fragment_assess_new_item6">上次评估日期</string>
+    <string name="fragment_assess_new_item7">本次评估日期</string>
+    <string name="fragment_assess_new_item8">评估源姓名</string>
+    
+    <string name="fragment_assess_personal_item1">姓名</string>
+	<string name="fragment_assess_personal_item2">身份证号码</string>
+	<string name="fragment_assess_personal_item3">性别</string>
+	<string name="fragment_assess_personal_item4">社保卡号</string>
+	<string name="fragment_assess_personal_item5">民族</string>
+	<string name="fragment_assess_personal_item6">文化程度</string>
+	<string name="fragment_assess_personal_item7">出生年月</string>
+	<string name="fragment_assess_personal_item8">曾从事职业</string>
+	<string name="fragment_assess_personal_item9">籍贯</string>
+	<string name="fragment_assess_personal_item10">婚姻状况</string>
+	<string name="fragment_assess_personal_item11">户籍所在地</string>
+	<string name="fragment_assess_personal_item12">居住地址</string>
+	<string name="fragment_assess_personal_item13">邮编</string>
+	<string name="fragment_assess_personal_item14">邮编</string>
+	<string name="fragment_assess_personal_item15">住宅电话</string>
+	<string name="fragment_assess_personal_item16">移动电话</string>
+	<string name="fragment_assess_personal_item17">代理人姓名</string>
+	<string name="fragment_assess_personal_item18">与申请人关系</string>
+	<string name="fragment_assess_personal_item19">代理人地址</string>
+	<string name="fragment_assess_personal_item20">邮编</string>
+	<string name="fragment_assess_personal_item21">住宅电话</string>
+	<string name="fragment_assess_personal_item22">移动电话</string>
+
+    
+    
     
     <string name="assess_title_new">评估信息</string>
     <string name="assess_title_cogn">认知能力评估</string>

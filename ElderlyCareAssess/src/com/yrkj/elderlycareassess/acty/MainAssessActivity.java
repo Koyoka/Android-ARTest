@@ -14,10 +14,12 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QItemData;
 import com.yrkj.elderlycareassess.bean.QItemTagData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
+import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.QuesDBCtrl;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessCognitiveFragment;
@@ -42,24 +44,33 @@ OnClickListener,
 OnBtnStratClickListener
 {
 
+	public static final String INTENT_KEY_CUSTID = "custId";
+	
 	MainAssessActivity mActy;
 
-	int mCurIndex = 0;
-//	String[] mFragmentList = null;
-	String[] mTitleList = null;
+//	private int mCurIndex = 0;
+	private String[] mTitleList = null;
 	
-	ActivityMainAssess mActivityMainAssess;
+	private ActivityMainAssess mLayout;
+	
+	private String mCustId = null;
+	private CustomerData mCust = null;
+	private ArrayList<AssessBaseFragment> mAssessFragmentList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_assess);
 		mActy = this;
-		mActivityMainAssess = new ActivityMainAssess(this);
+		mLayout = new ActivityMainAssess(this);
+		if(getIntent()!=null){
+			mCustId = getIntent().getStringExtra(INTENT_KEY_CUSTID);
+		}
+		
 		initData();
 		initActy();
 		
-		AssessNewFragment f = new AssessNewFragment(this);
+		AssessNewFragment f = new AssessNewFragment(this,mCust);
 		f.setOnBtnStratClickListener(this);
 		
 		getSupportFragmentManager().beginTransaction()
@@ -90,14 +101,22 @@ OnBtnStratClickListener
 		return super.dispatchKeyEvent(event);
 	}
 	
-	ArrayList<AssessBaseFragment> mAssessFragmentList;
+	
 	private void initData(){
+		
+		if(mCustId != null){
+			mCust = AssessDBCtrl.getCustomerByCustId(this, mCustId);
+			DLog.LOG(SysMng.TAG_DB, "custId=" + mCustId + " mCust=" +mCust);
+			
+		}
+		
+		
 		ArrayList<AssessBaseFragment> fList = 
 				new ArrayList<AssessBaseFragment>();
 		ArrayList<String> titleList = new ArrayList<String>();
 		titleList.add("评估信息");//default first page name
 		
-		fList.add(new AssessPersonalInfoFragment(this));
+		fList.add(new AssessPersonalInfoFragment(this,mCust));
 		titleList.add(getResources().getString(R.string.assess_title_person));
 		
 //		fList.add(new AssessLivingFragment(this));
@@ -114,7 +133,7 @@ OnBtnStratClickListener
 		
 		for (QCategoryData qCategoryData : qitemList) {
 			fList.add(
-					AssessQuestionnaireListFragment.getInstance(this,qCategoryData)
+					AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust)
 					);
 			titleList.add(qCategoryData.CateName);
 		}
@@ -188,7 +207,7 @@ OnBtnStratClickListener
 //		ArrayList<QItemData> itemList =
 		item.ItemList =		
 		QuesDBCtrl.getQItemListBySubcateId(this, item.SubcateId);
-		DLog.LOG(SysMng.TAG_DB, " item.ItemList count ["+item.ItemList.size()+"]");
+//		DLog.LOG(SysMng.TAG_DB, " item.ItemList count ["+item.ItemList.size()+"]");
 //		String name = item.SubcateName;
 //		item.ItemList.add(getQItem(
 //				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
@@ -258,9 +277,9 @@ OnBtnStratClickListener
 	}
 
 	private void initActy() {
-		mActivityMainAssess.getBtnGoView().setOnClickListener(this);
-		mActivityMainAssess.getBtnBackView().setOnClickListener(this);
-		mActivityMainAssess.getBtnFinishView().setOnClickListener(this);
+		mLayout.getBtnGoView().setOnClickListener(this);
+		mLayout.getBtnBackView().setOnClickListener(this);
+		mLayout.getBtnFinishView().setOnClickListener(this);
 		
 		FragmentManager fMng = getSupportFragmentManager();
 		
@@ -281,19 +300,19 @@ OnBtnStratClickListener
 		setAssessTitle(index);
 		
 		if(index == 0){
-			mActivityMainAssess.getLayoutFootView().setVisibility(View.GONE);
+			mLayout.getLayoutFootView().setVisibility(View.GONE);
 		}else{
-			mActivityMainAssess.getLayoutFootView().setVisibility(View.VISIBLE);
+			mLayout.getLayoutFootView().setVisibility(View.VISIBLE);
 		}
 		if(index+1 < mTitleList.length)
-			mActivityMainAssess.getBtnGoView().setText(mTitleList[index+1]);
+			mLayout.getBtnGoView().setText(mTitleList[index+1]);
 		else
-			mActivityMainAssess.getBtnGoView().setText("提交");
+			mLayout.getBtnGoView().setText("提交");
 		
 		if(index-1 >= 0)
-			mActivityMainAssess.getBtnBackView().setText(mTitleList[index-1]);
+			mLayout.getBtnBackView().setText(mTitleList[index-1]);
 		else{
-			mActivityMainAssess.getBtnBackView().setText("");
+			mLayout.getBtnBackView().setText("");
 		}
 	}
 
@@ -352,7 +371,7 @@ OnBtnStratClickListener
 	public void setAssessTitle(int i){
 		if(i<mTitleList.length){
 			String s = mTitleList[i];
-			mActivityMainAssess.getTxtMainAssessTitleView().setText(s);
+			mLayout.getTxtMainAssessTitleView().setText(s);
 		}
 	}
 

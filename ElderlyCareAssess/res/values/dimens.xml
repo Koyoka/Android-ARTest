@@ -5,6 +5,8 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     
     
+    <dimen name="activity_login_margin">90dip</dimen>
+    
     <dimen name="fragment_home_avatar_height">105dp</dimen>
     <dimen name="fragment_home_avatar_width">100dp</dimen>
     <dimen name="fragment_content_line_height">8dip</dimen>
@@ -20,8 +22,10 @@
     <dimen name="fragment_assess_questionnaire_special_item_margin">6dip</dimen>
     <dimen name="fragment_assess_questionnaire_normal_item_line_height">15dip</dimen>
     
+    <dimen name="fragment_assess_personal_tabcell_margin">10dip</dimen>
     
     <dimen name="padding_size_30px">12dip</dimen>
+    <dimen name="text_size_72px">31sp</dimen>
     <dimen name="text_size_52px">30sp</dimen>
     <dimen name="text_size_44px">24sp</dimen>
     <dimen name="text_size_42px">23sp</dimen>

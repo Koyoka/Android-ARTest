@@ -7,6 +7,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar.Tab;
@@ -25,7 +26,7 @@ import com.yrkj.util.log.DLog;
 //import android.support.v7.app.ActionBar.TabListener;
 
 
-public class MainHomeActivity extends ActionBarActivity implements 
+public class MainHomeActivity extends FragmentActivity implements 
 OnClickListener, TabListener {
 	final String TAG = "com.yrkj.elderlycareassess.acty.MainHomeActivity";
 	final String SAVE_STATE_KEY_FRAGMENT = "curTag";

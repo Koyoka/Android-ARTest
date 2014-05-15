@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 
 public class AssessLivingFragment extends AssessBaseFragment {
 
-	public AssessLivingFragment(MainAssessActivity a) {
-		super(a);
+	public AssessLivingFragment(MainAssessActivity a,CustomerData c) {
+		super(a,c);
 	}
 
 	@Override

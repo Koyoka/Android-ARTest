@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 
 public class AssessBaseFragment extends Fragment {
@@ -18,14 +19,16 @@ public class AssessBaseFragment extends Fragment {
 	public AssessBaseFragment(){
 		
 	}
-	
-	public AssessBaseFragment(MainAssessActivity a){
+	protected CustomerData mCust;
+	public AssessBaseFragment(MainAssessActivity a,CustomerData c){
 		mA = a;
+		mCust = c;
 	}
 //	
-	public AssessBaseFragment(MainAssessActivity a,QCategoryData d){
+	public AssessBaseFragment(MainAssessActivity a,QCategoryData d,CustomerData c){
 		mA = a;
 		mData = d;
+		mCust = c;
 //		setTitle(d.CateName);
 	}
 

@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:eca="http://schemas.android.com/apk/res/com.yrkj.elderlycareassess"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.yrkj.elderlycareassess.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_marginTop="150dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_login_title"
+            android:textColor="#764714"
+            android:textSize="@dimen/text_size_72px" />
+
+        <EditText
+            android:id="@+id/txtUserNameView"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="170dip"
+            android:background="@drawable/txt_login_bg"
+            android:drawableLeft="@drawable/icon_username"
+            android:drawablePadding="8dip"
+            android:hint="用户名"
+            android:padding="18dip"
+            android:textColorHint="#f1f1f1" />
+
+        <EditText
+            android:id="@+id/txtPasswordView"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/txt_login_bg"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="8dip"
+            android:hint="请输入密码"
+            android:padding="18dip"
+            android:password="true"
+            android:textColorHint="#f1f1f1" />
+
+        <Button
+            android:id="@+id/btnLoginView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="40dip"
+            android:background="@drawable/btn_login_bg_x"
+            android:text="登录"
+            android:textColor="#866d2a"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</LinearLayout>

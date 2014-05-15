@@ -1,11 +1,11 @@
 package com.yrkj.elderlycareassess.acty;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 
 import com.yrkj.elderlycareassess.R;
 
-public class TempActivity extends ActionBarActivity {
+public class TempActivity extends Activity {
 
 	TempActivity mActy;
 

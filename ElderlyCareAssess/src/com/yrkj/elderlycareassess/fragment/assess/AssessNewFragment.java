@@ -9,14 +9,15 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.layout.FragmentAssessNew;
 
 public class AssessNewFragment extends AssessBaseFragment 
 implements OnClickListener {
 	
 	
-	public AssessNewFragment(MainAssessActivity a) {
-		super(a);
+	public AssessNewFragment(MainAssessActivity a,CustomerData c) {
+		super(a,c);
 		// TODO Auto-generated constructor stub
 	}
 

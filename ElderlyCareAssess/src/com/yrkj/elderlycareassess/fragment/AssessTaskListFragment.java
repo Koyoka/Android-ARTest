@@ -10,18 +10,18 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
+import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
+import com.yrkj.elderlycareassess.bean.CustomerData;
+import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.layout.ListItemDoingTask;
 
 public class AssessTaskListFragment extends ListFragment implements
@@ -38,14 +38,14 @@ public class AssessTaskListFragment extends ListFragment implements
 	private void initData() {
 		mDataSource = new ArrayList<TaskData>();
 		addData();
-		addData();
-		addData();
-		addData();
-		addData();
-		addData();
-		addData();
-		addData();
-		addData();
+//		addData();
+//		addData();
+//		addData();
+//		addData();
+//		addData();
+//		addData();
+//		addData();
+//		addData();
 
 		mTaskAdapter = new TaskAdapter(getActivity());
 
@@ -61,22 +61,38 @@ public class AssessTaskListFragment extends ListFragment implements
 	}
 
 	private void addData() {
-		TaskData item = new TaskData();
-		item.taskNum = mDataSource.size() + "00000AS";
-		item.taskState = "进行中";
-		;
-		item.taskLastDoDate = "2014-05-19";
-		;
-		item.taskEndDate = "2014-05-19";
-		item.userName = "任正";
-		;
-		item.sex = "男";
-		;
-		item.phoneNum = "1300000000";
-		;
-		item.address = "湖北省 武汉市 武昌区  XXXXXX";
-		;
-		mDataSource.add(item);
+		ArrayList<CustomerAssessTask> itemList =  AssessDBCtrl.getDoingAssessTaskList(getActivity());
+		
+		for (CustomerAssessTask itemData : itemList) {
+			TaskData item = new TaskData();
+			item.taskNum = itemData.mTask.AssessNum;//mDataSource.size() + "00000AS";
+			item.taskState = AssessTaskHeaderData.getAssessTypeDesc(itemData.mTask.AssessState);
+			item.taskLastDoDate = itemData.mTask.LastAssessDate;
+			item.taskEndDate = itemData.mTask.EndAssessDate;
+			item.userName = itemData.mCust.customername;
+			item.sex = CustomerData.getSexDesc(itemData.mCust.sex);
+			item.phoneNum = itemData.mCust.mobliephone;
+			item.address = itemData.mCust.address;
+			item.custId = itemData.mTask.CustId;
+			mDataSource.add(item);
+		}
+		
+//		TaskData item = new TaskData();
+//		item.taskNum = mDataSource.size() + "00000AS";
+//		item.taskState = "进行中";
+//		;
+//		item.taskLastDoDate = "2014-05-19";
+//		;
+//		item.taskEndDate = "2014-05-19";
+//		item.userName = "任正";
+//		;
+//		item.sex = "男";
+//		;
+//		item.phoneNum = "1300000000";
+//		;
+//		item.address = "湖北省 武汉市 武昌区  XXXXXX";
+//		;
+//		mDataSource.add(item);
 	}
 
 	private void initFragment() {
@@ -95,6 +111,7 @@ public class AssessTaskListFragment extends ListFragment implements
 		public String sex;
 		public String phoneNum;
 		public String address;
+		public String custId;
 	}
 
 	class ViewHolder {
@@ -178,6 +195,7 @@ public class AssessTaskListFragment extends ListFragment implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		Intent intent = new Intent(getActivity(), MainAssessActivity.class);
+		intent.putExtra(MainAssessActivity.INTENT_KEY_CUSTID, mDataSource.get(position).custId);
 		getActivity().startActivity(intent);
 	}
 

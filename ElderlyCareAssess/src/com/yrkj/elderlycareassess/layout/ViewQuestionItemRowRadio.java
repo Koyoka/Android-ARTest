@@ -10,22 +10,29 @@ import com.yrkj.elderlycareassess.R;
 
 public class ViewQuestionItemRowRadio extends BaseLayout{
 
-    public static final int RdoQuestionItemViewId = R.id.rdoQuestionItemView;
+    public static final int RdoQuestionItem1ViewId = R.id.rdoQuestionItem1View;
+    public static final int RdoQuestionItem2ViewId = R.id.rdoQuestionItem2View;
 
-    protected android.widget.RadioButton mRdoQuestionItemView;
+    protected android.widget.RadioButton mRdoQuestionItem1View;
+    protected android.widget.RadioButton mRdoQuestionItem2View;
 
     protected Activity mCurActy;
 
     public ViewQuestionItemRowRadio(Activity acty){
         mCurActy = acty;
-        mRdoQuestionItemView = (android.widget.RadioButton) acty.findViewById(RdoQuestionItemViewId);
+        mRdoQuestionItem1View = (android.widget.RadioButton) acty.findViewById(RdoQuestionItem1ViewId);
+        mRdoQuestionItem2View = (android.widget.RadioButton) acty.findViewById(RdoQuestionItem2ViewId);
     }   
 
     public ViewQuestionItemRowRadio(android.view.View acty){
-        mRdoQuestionItemView = (android.widget.RadioButton) acty.findViewById(RdoQuestionItemViewId);
+        mRdoQuestionItem1View = (android.widget.RadioButton) acty.findViewById(RdoQuestionItem1ViewId);
+        mRdoQuestionItem2View = (android.widget.RadioButton) acty.findViewById(RdoQuestionItem2ViewId);
     }   
-    public android.widget.RadioButton getRdoQuestionItemView() {
-        return mRdoQuestionItemView;
+    public android.widget.RadioButton getRdoQuestionItem1View() {
+        return mRdoQuestionItem1View;
+    }
+    public android.widget.RadioButton getRdoQuestionItem2View() {
+        return mRdoQuestionItem2View;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -43,8 +50,11 @@ public class ViewQuestionItemRowRadio extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
-                case RdoQuestionItemViewId:
-                    setViewData(adp,getRdoQuestionItemView(),data,joinData.formatString,joinData.data);
+                case RdoQuestionItem1ViewId:
+                    setViewData(adp,getRdoQuestionItem1View(),data,joinData.formatString,joinData.data);
+                    break;
+                case RdoQuestionItem2ViewId:
+                    setViewData(adp,getRdoQuestionItem2View(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -59,8 +69,11 @@ public class ViewQuestionItemRowRadio extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
-                case RdoQuestionItemViewId:
-                    setViewData(adp,getRdoQuestionItemView(),data,"",path);
+                case RdoQuestionItem1ViewId:
+                    setViewData(adp,getRdoQuestionItem1View(),data,"",path);
+                    break;
+                case RdoQuestionItem2ViewId:
+                    setViewData(adp,getRdoQuestionItem2View(),data,"",path);
                     break;
                     
                 default:
