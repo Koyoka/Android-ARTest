@@ -59,6 +59,9 @@
     </style>
     
     <!-- common -->
+    
+    
+   
     <style name="common_text_font_24px_homecolor">
         <item name="android:textSize">@dimen/text_size_24px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
@@ -233,7 +236,7 @@
         <item name="android:textSize">@dimen/text_size_44px</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">18dip</item>
-        <item name="android:background">@drawable/btn_normal_item_bg_x</item>
+        <item name="android:background">@drawable/btn_normal_item_1_bg_x</item>
     </style>
  	<style 
  	    name="fragment_assess_question_btn_normal_item_desc" 
@@ -259,34 +262,32 @@
  	    name="fragment_assess_new_line"  >
         <item name="android:paddingLeft">60dip</item>
         <item name="android:paddingRight">60dip</item>
-        <item name="android:paddingBottom">30dip</item>
+        <item name="android:paddingBottom">20dip</item>
     </style>
     <style 
  	    name="fragment_assess_new_line_lab"  >
         <item name="android:gravity">right|center_vertical</item>
-        <item name="android:textSize">@dimen/text_size_36px</item>
-        <item name="android:textColor">@color/fragment_home_text_color</item>
+        <item name="android:textSize">@dimen/text_size_30px</item>
+        <item name="android:textColor">#515151</item>
         <item name="android:paddingRight">30dip</item>
     </style>
     <style 
  	    name="fragment_assess_new_line_edit"  >
         <item name="android:padding">8dip</item>
         <item name="android:textSize">@dimen/text_size_36px</item>
-        <item name="android:textColor">@color/fragment_home_text_color</item>
-        <item name="android:background">@drawable/txt_login_bg</item>
+        <item name="android:textColor">#515151</item>
+        <item name="android:background">@drawable/txt_edit_bg</item>
     </style>
     
     <!-- fragment personal -->
     <style 
  	    name="fragment_assess_personal_tabrow"  >
-        <item name="android:paddingTop">10dip</item>
-        <item name="android:paddingLeft">10dip</item>
-        <item name="android:paddingRight">10dip</item>
     </style>
     <style 
  	    name="fragment_assess_personal_tabcell"  >
+        <item name="android:textColor">#515151</item>
         <item name="android:padding">0dip</item>
-        <item name="android:textSize">@dimen/text_size_36px</item>
+        <item name="android:textSize">@dimen/text_size_30px</item>
     </style>
     <style 
  	    name="fragment_assess_personal_tabcell_lab"  parent="fragment_assess_personal_tabcell" >
@@ -294,6 +295,7 @@
     <style 
  	    name="fragment_assess_personal_tabcell_edit" parent="fragment_assess_personal_tabcell" >
         <item name="android:padding">10dip</item>
+        <item name="android:background">@drawable/txt_edit_bg</item>
     </style>
     
  	

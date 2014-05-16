@@ -5,128 +5,191 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="80dip"
+    android:paddingTop="20dip"
     tools:ignore="MergeRootFrame" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dip"
         android:text="@string/fragment_assess_title"
-        android:textColor="#764714"
-        android:textSize="@dimen/text_size_72px" />
+        android:textColor="#565656"
+        android:layout_marginBottom="30dip"
+        android:textSize="@dimen/text_size_52px" />
 
-    <TableLayout
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item1" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item1" />
 
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item2" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item3" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item4" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item5" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item6" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item7" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        <TableRow style="@style/fragment_assess_new_line" >
-            <TextView
-                style="@style/fragment_assess_new_line_lab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_assess_new_item8" />
-            <TextView
-                style="@style/fragment_assess_new_line_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="" />
-        </TableRow>
-        
-    </TableLayout>
+        <TextView
+            android:id="@+id/txtAssessCustView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item2" />
+
+        <TextView
+            android:id="@+id/txtAssessAddressView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item3" />
+
+        <TextView
+            android:id="@+id/txtAssessNumView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item4" />
+
+        <TextView
+            android:id="@+id/txtAssessTypeView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item5" />
+
+        <TextView
+            android:id="@+id/txtAssessCountView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item6" />
+
+        <TextView
+            android:id="@+id/txtAssessLastDateView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item7" />
+
+        <TextView
+            android:id="@+id/txtAssessEndDateView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" /> 
+        <!-- <Button 
+            android:id="@+id/txtAssessEndDateView"
+            style="@style/fragment_assess_new_line_edit"
+            android:background="@drawable/btn_assess_map_bg_x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="时间控件"/>-->
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/fragment_assess_new_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/fragment_assess_new_line_lab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_assess_new_item8" />
+
+        <TextView
+            android:id="@+id/txtEmployNameView"
+            style="@style/fragment_assess_new_line_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnStratView"

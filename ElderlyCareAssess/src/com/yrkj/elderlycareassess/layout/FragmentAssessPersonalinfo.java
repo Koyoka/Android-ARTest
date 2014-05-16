@@ -13,7 +13,9 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     public static final int ContainerId = R.id.container;
     public static final int TxtCustomerNameViewId = R.id.txtCustomerNameView;
     public static final int TxtIdNumberViewId = R.id.txtIdNumberView;
-    public static final int TxtSexViewId = R.id.txtSexView;
+    public static final int RdoSexViewId = R.id.rdoSexView;
+    public static final int RdoSexMViewId = R.id.rdoSexMView;
+    public static final int RdoSexFViewId = R.id.rdoSexFView;
     public static final int TxtSocialSecurityViewId = R.id.txtSocialSecurityView;
     public static final int TxtEthnicViewId = R.id.txtEthnicView;
     public static final int TxtEducationViewId = R.id.txtEducationView;
@@ -34,17 +36,19 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     public static final int TxtProxyTelViewId = R.id.txtProxyTelView;
     public static final int TxtProxyPhoneViewId = R.id.txtProxyPhoneView;
 
-    protected android.widget.TableLayout mContainer;
+    protected android.widget.LinearLayout mContainer;
     protected android.widget.EditText mTxtCustomerNameView;
     protected android.widget.EditText mTxtIdNumberView;
-    protected android.widget.EditText mTxtSexView;
+    protected android.widget.RadioGroup mRdoSexView;
+    protected android.widget.RadioButton mRdoSexMView;
+    protected android.widget.RadioButton mRdoSexFView;
     protected android.widget.EditText mTxtSocialSecurityView;
-    protected android.widget.EditText mTxtEthnicView;
-    protected android.widget.EditText mTxtEducationView;
-    protected android.widget.EditText mTxtBirthdayView;
+    protected android.widget.TextView mTxtEthnicView;
+    protected android.widget.TextView mTxtEducationView;
+    protected android.widget.TextView mTxtBirthdayView;
     protected android.widget.EditText mTxtWorkView;
-    protected android.widget.EditText mTxtProvinceView;
-    protected android.widget.EditText mTxtIsMarryView;
+    protected android.widget.TextView mTxtProvinceView;
+    protected android.widget.TextView mTxtIsMarryView;
     protected android.widget.EditText mTxtHouseHoldAddrView;
     protected android.widget.EditText mTxtAddressView;
     protected android.widget.EditText mTxtHouseHoldMailView;
@@ -52,7 +56,7 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     protected android.widget.EditText mTxtTelView;
     protected android.widget.EditText mTxtMobliePhoneView;
     protected android.widget.EditText mTxtProxyNameView;
-    protected android.widget.EditText mTxtProxyRelationView;
+    protected android.widget.TextView mTxtProxyRelationView;
     protected android.widget.EditText mTxtProxyAddrView;
     protected android.widget.EditText mTxtProxyMailView;
     protected android.widget.EditText mTxtProxyTelView;
@@ -62,17 +66,19 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
 
     public FragmentAssessPersonalinfo(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.TableLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mTxtCustomerNameView = (android.widget.EditText) acty.findViewById(TxtCustomerNameViewId);
         mTxtIdNumberView = (android.widget.EditText) acty.findViewById(TxtIdNumberViewId);
-        mTxtSexView = (android.widget.EditText) acty.findViewById(TxtSexViewId);
+        mRdoSexView = (android.widget.RadioGroup) acty.findViewById(RdoSexViewId);
+        mRdoSexMView = (android.widget.RadioButton) acty.findViewById(RdoSexMViewId);
+        mRdoSexFView = (android.widget.RadioButton) acty.findViewById(RdoSexFViewId);
         mTxtSocialSecurityView = (android.widget.EditText) acty.findViewById(TxtSocialSecurityViewId);
-        mTxtEthnicView = (android.widget.EditText) acty.findViewById(TxtEthnicViewId);
-        mTxtEducationView = (android.widget.EditText) acty.findViewById(TxtEducationViewId);
-        mTxtBirthdayView = (android.widget.EditText) acty.findViewById(TxtBirthdayViewId);
+        mTxtEthnicView = (android.widget.TextView) acty.findViewById(TxtEthnicViewId);
+        mTxtEducationView = (android.widget.TextView) acty.findViewById(TxtEducationViewId);
+        mTxtBirthdayView = (android.widget.TextView) acty.findViewById(TxtBirthdayViewId);
         mTxtWorkView = (android.widget.EditText) acty.findViewById(TxtWorkViewId);
-        mTxtProvinceView = (android.widget.EditText) acty.findViewById(TxtProvinceViewId);
-        mTxtIsMarryView = (android.widget.EditText) acty.findViewById(TxtIsMarryViewId);
+        mTxtProvinceView = (android.widget.TextView) acty.findViewById(TxtProvinceViewId);
+        mTxtIsMarryView = (android.widget.TextView) acty.findViewById(TxtIsMarryViewId);
         mTxtHouseHoldAddrView = (android.widget.EditText) acty.findViewById(TxtHouseHoldAddrViewId);
         mTxtAddressView = (android.widget.EditText) acty.findViewById(TxtAddressViewId);
         mTxtHouseHoldMailView = (android.widget.EditText) acty.findViewById(TxtHouseHoldMailViewId);
@@ -80,7 +86,7 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
         mTxtTelView = (android.widget.EditText) acty.findViewById(TxtTelViewId);
         mTxtMobliePhoneView = (android.widget.EditText) acty.findViewById(TxtMobliePhoneViewId);
         mTxtProxyNameView = (android.widget.EditText) acty.findViewById(TxtProxyNameViewId);
-        mTxtProxyRelationView = (android.widget.EditText) acty.findViewById(TxtProxyRelationViewId);
+        mTxtProxyRelationView = (android.widget.TextView) acty.findViewById(TxtProxyRelationViewId);
         mTxtProxyAddrView = (android.widget.EditText) acty.findViewById(TxtProxyAddrViewId);
         mTxtProxyMailView = (android.widget.EditText) acty.findViewById(TxtProxyMailViewId);
         mTxtProxyTelView = (android.widget.EditText) acty.findViewById(TxtProxyTelViewId);
@@ -88,17 +94,19 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     }   
 
     public FragmentAssessPersonalinfo(android.view.View acty){
-        mContainer = (android.widget.TableLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mTxtCustomerNameView = (android.widget.EditText) acty.findViewById(TxtCustomerNameViewId);
         mTxtIdNumberView = (android.widget.EditText) acty.findViewById(TxtIdNumberViewId);
-        mTxtSexView = (android.widget.EditText) acty.findViewById(TxtSexViewId);
+        mRdoSexView = (android.widget.RadioGroup) acty.findViewById(RdoSexViewId);
+        mRdoSexMView = (android.widget.RadioButton) acty.findViewById(RdoSexMViewId);
+        mRdoSexFView = (android.widget.RadioButton) acty.findViewById(RdoSexFViewId);
         mTxtSocialSecurityView = (android.widget.EditText) acty.findViewById(TxtSocialSecurityViewId);
-        mTxtEthnicView = (android.widget.EditText) acty.findViewById(TxtEthnicViewId);
-        mTxtEducationView = (android.widget.EditText) acty.findViewById(TxtEducationViewId);
-        mTxtBirthdayView = (android.widget.EditText) acty.findViewById(TxtBirthdayViewId);
+        mTxtEthnicView = (android.widget.TextView) acty.findViewById(TxtEthnicViewId);
+        mTxtEducationView = (android.widget.TextView) acty.findViewById(TxtEducationViewId);
+        mTxtBirthdayView = (android.widget.TextView) acty.findViewById(TxtBirthdayViewId);
         mTxtWorkView = (android.widget.EditText) acty.findViewById(TxtWorkViewId);
-        mTxtProvinceView = (android.widget.EditText) acty.findViewById(TxtProvinceViewId);
-        mTxtIsMarryView = (android.widget.EditText) acty.findViewById(TxtIsMarryViewId);
+        mTxtProvinceView = (android.widget.TextView) acty.findViewById(TxtProvinceViewId);
+        mTxtIsMarryView = (android.widget.TextView) acty.findViewById(TxtIsMarryViewId);
         mTxtHouseHoldAddrView = (android.widget.EditText) acty.findViewById(TxtHouseHoldAddrViewId);
         mTxtAddressView = (android.widget.EditText) acty.findViewById(TxtAddressViewId);
         mTxtHouseHoldMailView = (android.widget.EditText) acty.findViewById(TxtHouseHoldMailViewId);
@@ -106,13 +114,13 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
         mTxtTelView = (android.widget.EditText) acty.findViewById(TxtTelViewId);
         mTxtMobliePhoneView = (android.widget.EditText) acty.findViewById(TxtMobliePhoneViewId);
         mTxtProxyNameView = (android.widget.EditText) acty.findViewById(TxtProxyNameViewId);
-        mTxtProxyRelationView = (android.widget.EditText) acty.findViewById(TxtProxyRelationViewId);
+        mTxtProxyRelationView = (android.widget.TextView) acty.findViewById(TxtProxyRelationViewId);
         mTxtProxyAddrView = (android.widget.EditText) acty.findViewById(TxtProxyAddrViewId);
         mTxtProxyMailView = (android.widget.EditText) acty.findViewById(TxtProxyMailViewId);
         mTxtProxyTelView = (android.widget.EditText) acty.findViewById(TxtProxyTelViewId);
         mTxtProxyPhoneView = (android.widget.EditText) acty.findViewById(TxtProxyPhoneViewId);
     }   
-    public android.widget.TableLayout getContainer() {
+    public android.widget.LinearLayout getContainer() {
         return mContainer;
     }
     public android.widget.EditText getTxtCustomerNameView() {
@@ -121,28 +129,34 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     public android.widget.EditText getTxtIdNumberView() {
         return mTxtIdNumberView;
     }
-    public android.widget.EditText getTxtSexView() {
-        return mTxtSexView;
+    public android.widget.RadioGroup getRdoSexView() {
+        return mRdoSexView;
+    }
+    public android.widget.RadioButton getRdoSexMView() {
+        return mRdoSexMView;
+    }
+    public android.widget.RadioButton getRdoSexFView() {
+        return mRdoSexFView;
     }
     public android.widget.EditText getTxtSocialSecurityView() {
         return mTxtSocialSecurityView;
     }
-    public android.widget.EditText getTxtEthnicView() {
+    public android.widget.TextView getTxtEthnicView() {
         return mTxtEthnicView;
     }
-    public android.widget.EditText getTxtEducationView() {
+    public android.widget.TextView getTxtEducationView() {
         return mTxtEducationView;
     }
-    public android.widget.EditText getTxtBirthdayView() {
+    public android.widget.TextView getTxtBirthdayView() {
         return mTxtBirthdayView;
     }
     public android.widget.EditText getTxtWorkView() {
         return mTxtWorkView;
     }
-    public android.widget.EditText getTxtProvinceView() {
+    public android.widget.TextView getTxtProvinceView() {
         return mTxtProvinceView;
     }
-    public android.widget.EditText getTxtIsMarryView() {
+    public android.widget.TextView getTxtIsMarryView() {
         return mTxtIsMarryView;
     }
     public android.widget.EditText getTxtHouseHoldAddrView() {
@@ -166,7 +180,7 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
     public android.widget.EditText getTxtProxyNameView() {
         return mTxtProxyNameView;
     }
-    public android.widget.EditText getTxtProxyRelationView() {
+    public android.widget.TextView getTxtProxyRelationView() {
         return mTxtProxyRelationView;
     }
     public android.widget.EditText getTxtProxyAddrView() {
@@ -206,8 +220,14 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
                 case TxtIdNumberViewId:
                     setViewData(adp,getTxtIdNumberView(),data,joinData.formatString,joinData.data);
                     break;
-                case TxtSexViewId:
-                    setViewData(adp,getTxtSexView(),data,joinData.formatString,joinData.data);
+                case RdoSexViewId:
+                    setViewData(adp,getRdoSexView(),data,joinData.formatString,joinData.data);
+                    break;
+                case RdoSexMViewId:
+                    setViewData(adp,getRdoSexMView(),data,joinData.formatString,joinData.data);
+                    break;
+                case RdoSexFViewId:
+                    setViewData(adp,getRdoSexFView(),data,joinData.formatString,joinData.data);
                     break;
                 case TxtSocialSecurityViewId:
                     setViewData(adp,getTxtSocialSecurityView(),data,joinData.formatString,joinData.data);
@@ -288,8 +308,14 @@ public class FragmentAssessPersonalinfo extends BaseLayout{
                 case TxtIdNumberViewId:
                     setViewData(adp,getTxtIdNumberView(),data,"",path);
                     break;
-                case TxtSexViewId:
-                    setViewData(adp,getTxtSexView(),data,"",path);
+                case RdoSexViewId:
+                    setViewData(adp,getRdoSexView(),data,"",path);
+                    break;
+                case RdoSexMViewId:
+                    setViewData(adp,getRdoSexMView(),data,"",path);
+                    break;
+                case RdoSexFViewId:
+                    setViewData(adp,getRdoSexFView(),data,"",path);
                     break;
                 case TxtSocialSecurityViewId:
                     setViewData(adp,getTxtSocialSecurityView(),data,"",path);

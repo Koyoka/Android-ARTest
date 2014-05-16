@@ -11,7 +11,18 @@ public class t {
 		sql = MessageFormat.format(sql,"aaaa","bb");
 //		sql = String.format(sql, "aaa","bb");
 		
-		System.out.println(sql);
+//		System.out.println(0&1);
+//		System.out.println(2&2);
+//		System.out.println(4&4);
+		int i = 1|0|4|8;//|15;
+		System.out.println(i);
+		System.out.println(i&1);
+		System.out.println(i&2);
+		System.out.println(i&4);
+		System.out.println(i&8);
+		
+//		System.out.println(i&7);
+//		System.out.println(i&15);
 	}
 	
 }

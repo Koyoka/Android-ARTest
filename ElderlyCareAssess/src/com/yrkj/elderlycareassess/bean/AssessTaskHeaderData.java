@@ -2,6 +2,7 @@ package com.yrkj.elderlycareassess.bean;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.yrkj.util.db.DBMng;
@@ -74,4 +75,21 @@ public class AssessTaskHeaderData {
 
 		return item;
 	}
+	
+	public static ContentValues getContentValues(AssessTaskHeaderData data){
+		ContentValues values = new ContentValues();
+		
+//		values.put(Col_Id,data.Id);
+		values.put(Col_AssessNum,data.AssessNum);
+		values.put(Col_CustId,data.CustId);
+		values.put(Col_CreateDate,data.CreateDate);
+		values.put(Col_EndAssessDate,data.EndAssessDate);
+		values.put(Col_LastAssessDate,data.LastAssessDate);
+		values.put(Col_AssessType,data.AssessType);
+		values.put(Col_AssessState,data.AssessState);
+
+		
+		return values;
+	}
+	
 }

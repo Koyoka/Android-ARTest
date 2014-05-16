@@ -41,17 +41,23 @@ extends UIAssessOptions_Base  implements OnCheckedChangeListener {
 		
 		RadioButton rv1 = mR1;
 		RadioButton rv2 = mR2;
+		ItemData item = new ItemData();
+		item.Id = id+"";
+		item.Name = name;
+		item.Desc = desc;
 		if(rv1.getVisibility() == View.INVISIBLE){
 			rv1.setText(name);
 			rv1.setId(id);
 			rv1.setVisibility(View.VISIBLE);
 			rv1.setOnCheckedChangeListener(this);
+			rv1.setTag(item);
 			mRvList.add(rv1);
 		}else if(rv2.getVisibility() == View.INVISIBLE){
 			rv2.setText(name);
 			rv2.setId(id);
 			rv2.setVisibility(View.VISIBLE);
 			rv2.setOnCheckedChangeListener(this);
+			rv2.setTag(item);
 			mRvList.add(rv2);
 //			mR1 = null;
 			mR2 = null;
@@ -60,13 +66,14 @@ extends UIAssessOptions_Base  implements OnCheckedChangeListener {
 	}
 	
 	private ArrayList<RadioButton> mRvList = new ArrayList<RadioButton>();
-	public Integer[] getSelectIds(){
+	public ItemData[] getSelectIds(){
 		for (RadioButton v : mRvList) {
 			if(v.isChecked()){
-				return new Integer[]{v.getId()};
+				ItemData item = (ItemData) v.getTag();
+				return new ItemData[]{item};
 			}
 		}
-		return null;
+		return new ItemData[0];
 	}
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

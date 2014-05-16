@@ -30,5 +30,11 @@ public abstract class UIAssessOptions_Base {
 	public abstract void add(int id, String name,String desc);
 		
 //	private ArrayList<CheckBox> mRvList = new ArrayList<CheckBox>();
-	public abstract Integer[] getSelectIds();
+	public abstract ItemData[] getSelectIds();
+	
+	public class ItemData{
+		public String Id = "";
+		public String Name = "";
+		public String Desc = "";
+	}
 }

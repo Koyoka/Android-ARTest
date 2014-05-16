@@ -35,7 +35,7 @@
     <string name="fragment_assess_new_item5">评估次数</string>
     <string name="fragment_assess_new_item6">上次评估日期</string>
     <string name="fragment_assess_new_item7">本次评估日期</string>
-    <string name="fragment_assess_new_item8">评估源姓名</string>
+    <string name="fragment_assess_new_item8">评估员姓名</string>
     
     <string name="fragment_assess_personal_item1">姓名</string>
 	<string name="fragment_assess_personal_item2">身份证号码</string>

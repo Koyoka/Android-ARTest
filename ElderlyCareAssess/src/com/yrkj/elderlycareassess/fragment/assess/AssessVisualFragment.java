@@ -1,5 +1,7 @@
 package com.yrkj.elderlycareassess.fragment.assess;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 
 public class AssessVisualFragment extends AssessBaseFragment {
 	@Override
@@ -22,5 +25,13 @@ public class AssessVisualFragment extends AssessBaseFragment {
 	
 	private void initFragment(){
 		setTitle(getResources().getString(R.string.assess_title_visual));
+	}
+
+
+
+	@Override
+	public ArrayList<AssessTaskDetailData> getSelectData() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

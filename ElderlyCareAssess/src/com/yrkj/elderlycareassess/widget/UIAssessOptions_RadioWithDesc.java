@@ -13,14 +13,16 @@ public class UIAssessOptions_RadioWithDesc extends UIAssessOptions_Base {
 //	private View mV;
 	private UIRadioGroup mUIRadioGroup;
 
-	public Integer[] getSelectIds(){
+	public ItemData[] getSelectIds(){
 		if(mUIRadioGroup
 				.getCheckedRadioButtonId() == -1){
-			return null;
+			return new ItemData[0];
 		}
 		
-		return new Integer[]{mUIRadioGroup
-				.getCheckedRadioButtonId()};
+		ItemData item = 
+		(ItemData) mUIRadioGroup.findViewById(mUIRadioGroup
+				.getCheckedRadioButtonId() ).getTag();
+		return new ItemData[]{item};
 	}
 	
 	public UIAssessOptions_RadioWithDesc(LayoutInflater inflater,
@@ -40,6 +42,12 @@ public class UIAssessOptions_RadioWithDesc extends UIAssessOptions_Base {
 		holderView.getTxtQuestionItemView().setText(desc);
 		holderView.getRdoQuestionItemView().setText(name);
 		holderView.getRdoQuestionItemView().setId(id);
+		
+		ItemData item = new ItemData();
+		item.Id = ""+id;
+		item.Name = name;
+		item.Desc = desc;
+		holderView.getRdoQuestionItemView().setTag(item);
 		mUIRadioGroup.addView(v);
 	}
 

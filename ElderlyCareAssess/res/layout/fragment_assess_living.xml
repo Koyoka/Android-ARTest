@@ -1,13 +1,446 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.yrkj.elderlycareassess.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    android:layout_height="wrap_content">
 
-    <TextView 
-        android:layout_width="wrap_content"
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    
+    <RelativeLayout
+        android:id="@+id/layoutQuestionBar1View"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="assess living"/>
-</FrameLayout>
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="经济状况" />
+
+        
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_assess_questionnaire_line_top"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="vertical"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/chkQ1Item1View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="退休金" />
+
+            <CheckBox
+                android:id="@+id/chkQ1Item2View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="子女补贴" />
+        </LinearLayout>
+    
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/chkQ1Item3View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="亲友资助" />
+
+            <CheckBox
+                android:id="@+id/chkQ1Item4View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="其他" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+    
+     <RelativeLayout
+        android:id="@+id/layoutQuestionBar2View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="居住状况" />
+
+        
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_assess_questionnaire_line_top"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="vertical"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/chkQ2Item1View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="与配偶或子女同住" />
+
+            <CheckBox
+                android:id="@+id/chkQ2Item2View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="与亲戚朋友等同住" />
+        </LinearLayout>
+    
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/chkQ2Item3View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="独自居住" />
+
+            <CheckBox
+                android:id="@+id/chkQ2Item4View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="入住养老机构" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+    <RelativeLayout
+        android:id="@+id/layoutQuestionBar3View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="居住状况" />
+
+        
+    </RelativeLayout>
+    
+    <RadioGroup
+        android:id="@+id/rdoQ3ItemView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_assess_questionnaire_line_top"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="horizontal"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip" >
+
+            <RadioButton 
+                android:id="@+id/chkQ3Item1View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="产权房" />
+
+            <RadioButton
+                android:id="@+id/chkQ3Item2View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="租凭房" />
+
+            <RadioButton
+                android:id="@+id/chkQ3Item3View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="廉租房" />
+
+            <RadioButton
+                android:id="@+id/chkQ3Item4View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="私房" />
+    </RadioGroup>
+    
+    <RelativeLayout
+        android:id="@+id/layoutQuestionBar4View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="帮助照料" />
+
+        
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_assess_questionnaire_line_top"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="vertical"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip" >
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="您有需要帮助时（包括患病时）是否得到照料："/>
+        <RadioGroup
+            android:id="@+id/rdoQ4ItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton 
+                android:id="@+id/chkQ4ItemYView"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="是" />
+
+            <RadioButton
+                android:id="@+id/chkQ4ItemNView"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="否" />
+        </RadioGroup>
+        <TextView 
+            android:id="@+id/chkQ4ItemLabView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="如是，谁帮助照料:"/>
+        <LinearLayout
+            android:id="@+id/chkQ4ItemView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/chkQ4Item1View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="子女" />
+
+            <CheckBox
+                android:id="@+id/chkQ4Item2View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="配偶" />
+            <CheckBox
+                android:id="@+id/chkQ4Item3View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="亲友" />
+
+            <CheckBox
+                android:id="@+id/chkQ4Item4View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="其他" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+    
+    <RelativeLayout
+        android:id="@+id/layoutQuestionBar5View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fragment_question_actionbar_bg"
+        android:paddingBottom="10dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
+        android:paddingTop="10dip" >
+
+        <TextView
+            style="@style/fragment_assess_question_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="就医方式" />
+
+        
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_assess_questionnaire_line_top"
+        android:layout_marginLeft="@dimen/fragment_assess_questionnaire_line_left"
+        android:layout_marginRight="@dimen/fragment_assess_questionnaire_line_right"
+        android:layout_marginTop="@dimen/fragment_assess_questionnaire_line_top"
+        android:background="@drawable/home_content_bg"
+        android:orientation="horizontal"
+        android:paddingLeft="12dip"
+        android:paddingRight="12dip" >
+        <CheckBox
+                android:id="@+id/chkQ5Item1View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="家庭病房" />
+
+            <CheckBox
+                android:id="@+id/chkQ5Item2View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="社区医院" />
+            <CheckBox
+                android:id="@+id/chkQ5Item3View"
+                style="@style/fragment_assess_question_btn_normal_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dip"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="外出就诊" />
+        
+   	</LinearLayout>
+    
+    
+    
+
+</LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yrkj.elderlycareassess.MainActivity" >
+
+    <item
+        android:id="@+id/menuIsMarry1"
+        android:title="未婚"/>
+    <item
+        android:id="@+id/menuIsMarry2"
+        android:title="已婚"/>
+    <item
+        android:id="@+id/menuIsMarry3"
+        android:title="丧偶"/>
+    <item
+        android:id="@+id/menuIsMarry4"
+        android:title="离异"/>
+
+</menu>

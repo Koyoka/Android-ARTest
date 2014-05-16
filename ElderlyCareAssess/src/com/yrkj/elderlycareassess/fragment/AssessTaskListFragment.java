@@ -74,6 +74,7 @@ public class AssessTaskListFragment extends ListFragment implements
 			item.phoneNum = itemData.mCust.mobliephone;
 			item.address = itemData.mCust.address;
 			item.custId = itemData.mTask.CustId;
+			item.assessId = itemData.mTask.Id;
 			mDataSource.add(item);
 		}
 		
@@ -112,6 +113,7 @@ public class AssessTaskListFragment extends ListFragment implements
 		public String phoneNum;
 		public String address;
 		public String custId;
+		public String assessId;
 	}
 
 	class ViewHolder {
@@ -196,6 +198,7 @@ public class AssessTaskListFragment extends ListFragment implements
 			long id) {
 		Intent intent = new Intent(getActivity(), MainAssessActivity.class);
 		intent.putExtra(MainAssessActivity.INTENT_KEY_CUSTID, mDataSource.get(position).custId);
+		intent.putExtra(MainAssessActivity.INTENT_KEY_ASSESSID,mDataSource.get(position).assessId);
 		getActivity().startActivity(intent);
 	}
 

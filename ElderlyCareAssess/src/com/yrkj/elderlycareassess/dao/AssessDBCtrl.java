@@ -2,10 +2,12 @@ package com.yrkj.elderlycareassess.dao;
 
 import java.util.ArrayList;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
@@ -15,6 +17,27 @@ import com.yrkj.util.db.DBMng;
 
 public class AssessDBCtrl {
 
+	public static AssessTaskHeaderData getAssessTaskById(Context c,String id){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskHeaderData.Col_Id+" = " + id;//QCategoryData.Col_IsActive + " = " + QCategoryData.ISACTIVE_YES;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskHeaderData.TblName, 
+				AssessTaskHeaderData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		
+		AssessTaskHeaderData item = null;
+		if(cursor.moveToFirst()){
+			item = AssessTaskHeaderData.convertDataToModule(cursor);
+		}
+		
+		return item;
+		
+	}
+	
 	public static ArrayList<CustomerAssessTask> getDoingAssessTaskList(Context c){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		
@@ -76,6 +99,42 @@ public class AssessDBCtrl {
 		return item;
 		
 	}
+	
+	public static long insertAssessTaskDetail(Context c,AssessTaskDetailData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+//		ContentValues values = new ContentValues();
+//		values.put(key, value)
+		long result = 0;
+		result = dbMng.insert(AssessTaskDetailData.TblName, 
+				AssessTaskDetailData.getContentValues(data));
+		dbMng.close();
+		return result;
+	}
+	
+	
+	public static boolean updateAssessTaskHeaderById(Context c,AssessTaskHeaderData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		String condition = AssessTaskHeaderData.Col_Id+"="+data.Id;
+		boolean result = false;
+		result = dbMng.update(AssessTaskHeaderData.TblName, 
+				AssessTaskHeaderData.getContentValues(data),condition);
+		dbMng.close();
+		return result;
+	}
+	
+	public static boolean updateCustomerById(Context c,CustomerData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		String condition = CustomerData.Col_id+"='"+data.id+"'";
+		boolean result = false;
+		result = dbMng.update(CustomerData.TblName, 
+				CustomerData.getContentValues(data),condition);
+		dbMng.close();
+		return result;
+	}
+	
 	
 //	public class CustomerAssessTask{
 //		public CustomerAssessTask getInstance(){

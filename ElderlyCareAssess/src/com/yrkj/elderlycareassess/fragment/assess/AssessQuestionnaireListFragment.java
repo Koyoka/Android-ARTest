@@ -1,5 +1,7 @@
 package com.yrkj.elderlycareassess.fragment.assess;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
@@ -31,11 +35,8 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-//		if(mV == null){
 			mV = inflater.inflate(R.layout.fragment_assess_questionnairellist, container,
 					false);
-//		}
-		
 //		initFragment();
 		return mV;
 	}
@@ -57,29 +58,45 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		
 		FragmentManager fMng = getChildFragmentManager();
 		FragmentTransaction ft = fMng.beginTransaction();
+		mFList = new AssessQuestionnaireFragment[mData.SubcateList.size()];
 		
+		int i =0;
 		for (QSubcategoryData item : mData.SubcateList) {
 			AssessQuestionnaireFragment f = new AssessQuestionnaireFragment(item);
-//			f.setQuestionTitle(item.SubcateName);
 			ft.add(FragmentAssessQuestionnairellist.LayoutBodyId, f,item.SubcateId+"");
+			mFList[i] = f;
+			i++;
 			
 		}
 		
-//		AssessQuestionnaireFragment f1 = new AssessQuestionnaireFragment();
-//		AssessQuestionnaireFragment f2 = new AssessQuestionnaireFragment();
-//		AssessQuestionnaireFragment f3 = new AssessQuestionnaireFragment();
-//		f1.setQuestionTitle("1 - question");
-//		f2.setQuestionTitle("2 - question");
-//		f3.setQuestionTitle("3 - question");
-////		if(fMng.findFragmentByTag("1") == null)
-//			ft.add(FragmentAssessQuestionnairellist.LayoutBodyId, f1,"1");
-////		if(fMng.findFragmentByTag("2") == null)
-//			ft.add(FragmentAssessQuestionnairellist.LayoutBodyId, f2,"2");
-////		if(fMng.findFragmentByTag("3") == null)
-//			ft.add(FragmentAssessQuestionnairellist.LayoutBodyId, f3,"3");
 		ft.commit();
 		
 	}
+	
+	private AssessQuestionnaireFragment[] mFList;
+	
+	public ArrayList<AssessTaskDetailData> getSelectData(){
+//		if(mData.CateName)
+		if(mFList != null){
+			ArrayList<AssessTaskDetailData> dlist = new ArrayList<AssessTaskDetailData>();
+			for (AssessQuestionnaireFragment f : mFList) {
+				
+				ArrayList<AssessTaskDetailData> itemList = //new AssessTaskDetailData();
+				f.getSelectData();
+				for (AssessTaskDetailData item : itemList) {
+					item.CateId = mData.CateId;
+					item.CateName = mData.CateName;
+					dlist.add(item);
+				}
+				
+			}
+			return dlist;
+		}
+		return null;
+//		dlist.addAll(dlist);
+	}
+	
+	
 	@Override
 	public void onDetach() {
 	    super.onDetach();

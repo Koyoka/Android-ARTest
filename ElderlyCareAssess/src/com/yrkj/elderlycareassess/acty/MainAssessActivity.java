@@ -14,25 +14,20 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
+import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
-import com.yrkj.elderlycareassess.bean.QItemData;
 import com.yrkj.elderlycareassess.bean.QItemTagData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.QuesDBCtrl;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessCognitiveFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessEmotionalAndBehavioralFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
 import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessSelfcareFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessSocialLifeFragment;
-import com.yrkj.elderlycareassess.fragment.assess.AssessVisualFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
 import com.yrkj.util.log.DLog;
 
@@ -45,6 +40,8 @@ OnBtnStratClickListener
 {
 
 	public static final String INTENT_KEY_CUSTID = "custId";
+
+	public static final String INTENT_KEY_ASSESSID = "assessId";
 	
 	MainAssessActivity mActy;
 
@@ -54,7 +51,9 @@ OnBtnStratClickListener
 	private ActivityMainAssess mLayout;
 	
 	private String mCustId = null;
+	private String mAssessId = null;
 	private CustomerData mCust = null;
+	private AssessTaskHeaderData mTask = null;
 	private ArrayList<AssessBaseFragment> mAssessFragmentList;
 	
 	@Override
@@ -65,12 +64,13 @@ OnBtnStratClickListener
 		mLayout = new ActivityMainAssess(this);
 		if(getIntent()!=null){
 			mCustId = getIntent().getStringExtra(INTENT_KEY_CUSTID);
+			mAssessId = getIntent().getStringExtra(INTENT_KEY_ASSESSID);
 		}
 		
 		initData();
 		initActy();
 		
-		AssessNewFragment f = new AssessNewFragment(this,mCust);
+		AssessNewFragment f = new AssessNewFragment(this,mCust,mTask);
 		f.setOnBtnStratClickListener(this);
 		
 		getSupportFragmentManager().beginTransaction()
@@ -78,17 +78,6 @@ OnBtnStratClickListener
 		.commit();
 	}
 	
-//	@Override
-//	protected void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.fragment_main);
-//		
-//		AssessQuestionnaireListFragment f
-//		 = new AssessQuestionnaireListFragment();
-//		getSupportFragmentManager().beginTransaction()
-//		.add(R.id.container,f, AssessQuestionnaireListFragment.class.getName())
-//		.commit();
-//	}
 	
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
@@ -107,7 +96,11 @@ OnBtnStratClickListener
 		if(mCustId != null){
 			mCust = AssessDBCtrl.getCustomerByCustId(this, mCustId);
 			DLog.LOG(SysMng.TAG_DB, "custId=" + mCustId + " mCust=" +mCust);
-			
+		}
+		
+		if(mAssessId != null){
+			mTask = AssessDBCtrl.getAssessTaskById(this,mAssessId);
+			DLog.LOG(SysMng.TAG_DB, "taskid=" + mAssessId + " mTask=" +mTask);
 		}
 		
 		
@@ -119,17 +112,13 @@ OnBtnStratClickListener
 		fList.add(new AssessPersonalInfoFragment(this,mCust));
 		titleList.add(getResources().getString(R.string.assess_title_person));
 		
-//		fList.add(new AssessLivingFragment(this));
-//		titleList.add(getResources().getString(R.string.assess_title_living));
+		 
+		fList.add(new AssessLivingFragment(this,mCust));
+		titleList.add(getResources().getString(R.string.assess_title_living));
+		
 		
 		ArrayList<QCategoryData> qitemList = 
 				getQCategoryList();
-//				new ArrayList<QCategoryData>();
-//		qitemList.add(getQcategory(1,"评估分类-1"));
-//		qitemList.add(getQcategory(2,"评估分类-2"));
-//		qitemList.add(getQcategory(3,"评估分类-3"));
-//		qitemList.add(getQcategory(4,"评估分类-4"));
-//		qitemList.add(getQcategory(5,"评估分类-5"));
 		
 		for (QCategoryData qCategoryData : qitemList) {
 			fList.add(
@@ -140,29 +129,6 @@ OnBtnStratClickListener
 		
 		mTitleList =  titleList.toArray(new String[titleList.size()]);
 		mAssessFragmentList = fList;
-		
-		
-//		mFragmentList = new String[] { 
-//				AssessPersonalInfoFragment.class.getName(),
-//				AssessLivingFragment.class.getName(),
-//				AssessSelfcareFragment.class.getName(),
-//				AssessCognitiveFragment.class.getName(),
-//				AssessEmotionalAndBehavioralFragment.class.getName(),
-//				AssessVisualFragment.class.getName(),
-//				AssessSocialLifeFragment.class.getName(),
-//				AssessServiceFragment.class.getName()
-//		};
-//		mTitleList = new String[] {
-//				"评估信息",
-//				getResources().getString(R.string.assess_title_person),
-//				getResources().getString(R.string.assess_title_living),
-//				getResources().getString(R.string.assess_title_selfcare),
-//				getResources().getString(R.string.assess_title_cogn),
-//				getResources().getString(R.string.assess_title_emot),
-//				getResources().getString(R.string.assess_title_visual),
-//				getResources().getString(R.string.assess_title_social),
-//				getResources().getString(R.string.assess_title_service)
-//		};
 		
 	}
 	
@@ -179,44 +145,10 @@ OnBtnStratClickListener
 		}
 		return qitemList;
 	}
-	
-	private QCategoryData getQcategory(int id,String name){
-		QCategoryData item = new QCategoryData();
-		item.CateId = id+"";
-		item.CateName = name;
-		item.SubcateList.add(getQSubcate(
-				1, name+" 评估子类-1"));
-		item.SubcateList.add(getQSubcate(
-				2, name+" 评估子类-2"));
-		item.SubcateList.add(getQSubcate(
-				3, name+" 评估子类-3"));
-		item.SubcateList.add(getQSubcate(
-				4, name+" 评估子类-4"));
-		item.SubcateList.add(getQSubcate(
-				5, name+" 评估子类-5"));
-		item.SubcateList.add(getQSubcate(
-				6, name+" 评估子类-6"));
-		
-		
-		
-		return item;
-	}
 	private QSubcategoryData setQSubcate(QSubcategoryData item){
 
-//		if()
-//		ArrayList<QItemData> itemList =
 		item.ItemList =		
 		QuesDBCtrl.getQItemListBySubcateId(this, item.SubcateId);
-//		DLog.LOG(SysMng.TAG_DB, " item.ItemList count ["+item.ItemList.size()+"]");
-//		String name = item.SubcateName;
-//		item.ItemList.add(getQItem(
-//				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
-//		item.ItemList.add(getQItem(
-//				2,"轻度",name+"-描述-2"));
-//		item.ItemList.add(getQItem(
-//				3,"中度",name+"-描述-3"));
-//		item.ItemList.add(getQItem(
-//				4,"重度",name+"-描述-4"));
 		
 		
 		item.ItemTagList.add(getQItemLab(
@@ -231,41 +163,6 @@ OnBtnStratClickListener
 				5,"快速标签5"));
 		
 		
-		return item;
-	}
-	private QSubcategoryData getQSubcate(int id,String name){
-		QSubcategoryData item = new QSubcategoryData();
-		item.SubcateId = id+"";
-		item.SubcateName = name;
-		item.ItemList.add(getQItem(
-				1,"正常","情绪稳定，对客观事物的主观态度体验与实际相符，能被常人理解的，程度等级评判为正常。"));
-		item.ItemList.add(getQItem(
-				2,"轻度",name+"-描述-2"));
-		item.ItemList.add(getQItem(
-				3,"中度",name+"-描述-3"));
-		item.ItemList.add(getQItem(
-				4,"重度",name+"-描述-4"));
-		
-		
-		item.ItemTagList.add(getQItemLab(
-				1,"快速标签1"));
-		item.ItemTagList.add(getQItemLab(
-				2,"快速标签2"));
-		item.ItemTagList.add(getQItemLab(
-				3,"快速标签3"));
-		item.ItemTagList.add(getQItemLab(
-				4,"快速标签4"));
-		item.ItemTagList.add(getQItemLab(
-				5,"快速标签5"));
-		
-		
-		return item;
-	}
-	private QItemData getQItem(int id,String name,String desc){
-		QItemData item = new QItemData();
-		item.ItemId = id;
-		item.ItemName = name;
-		item.ItemDesc = desc;
 		return item;
 	}
 	
@@ -289,6 +186,35 @@ OnBtnStratClickListener
 			public void onBackStackChanged() {
 //				DLog.LOG(SysMng.TAG_FRAGMENT,getSupportFragmentManager().getBackStackEntryCount()+" = addOnBackStackChangedListener");
 				setNavBtn(getSupportFragmentManager().getBackStackEntryCount());
+			}
+		});
+		
+		mLayout.getTxtMainAssessTitleView().setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				DLog.LOG(SysMng.TAG_ASSESS, "=============================");
+				for (AssessBaseFragment item : mAssessFragmentList) {
+					
+					ArrayList<AssessTaskDetailData> itemList = item.getSelectData();
+					if(itemList != null){
+						
+						for (AssessTaskDetailData itemData : itemList) {
+							DLog.LOG(SysMng.TAG_ASSESS, 
+									itemData.CateName + " " +
+											itemData.SubcateName + " " +
+											itemData.ItemName + " " +
+											itemData.ItemDesc + " " +
+											""
+									
+									);
+							
+//							long r = AssessDBCtrl.insertAssessTaskDetail(mActy,itemData);
+//							DLog.LOG(SysMng.TAG_ASSESS, r+" insertCount ");
+						}
+					}
+				}
 			}
 		});
 		
@@ -329,7 +255,7 @@ OnBtnStratClickListener
 		if(i >= mAssessFragmentList.size()){
 			return;
 		}
-		String tag = (i+1)+"";//mAssessFragmentList.get(i);
+		String tag = (i+1)+"";
 //		DLog.LOG(SysMng.TAG_FRAGMENT, "begin "+tag
 //				+" size["+mAssessFragmentList.size()+"] haveSize["+fMng.getFragments().size()+"] index["+i+"]=================================");
 		

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yrkj.elderlycareassess.MainActivity" >
+
+    <item
+        android:id="@+id/menuEducation1"
+        android:title="文盲"/>
+    <item
+        android:id="@+id/menuEducation2"
+        android:title="小小学"/>
+    <item
+        android:id="@+id/menuEducation3"
+        android:title="初中"/>
+    <item
+        android:id="@+id/menuEducation4"
+        android:title="高中"/>
+    <item
+        android:id="@+id/menuEducation5"
+        android:title="大专"/>
+    <item
+        android:id="@+id/menuEducation6"
+        android:title="本科及以上"/>
+
+</menu>

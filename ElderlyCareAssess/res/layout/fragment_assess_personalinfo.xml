@@ -3,16 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TableLayout
+    <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="20dip"
         android:paddingBottom="20dip"
-        android:stretchColumns="*" >
+        android:paddingTop="20dip" >
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
             <TextView
                 style="@style/fragment_assess_personal_tabcell_lab"
@@ -20,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
+                android:layout_weight="1"
                 android:text="@string/fragment_assess_personal_item1" />
 
             <TextView
@@ -28,10 +33,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
+                android:layout_weight="1"
                 android:text="@string/fragment_assess_personal_item2" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
             <EditText
                 android:id="@+id/txtCustomerNameView"
@@ -40,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
+                android:layout_weight="1"
                 android:singleLine="true" />
 
             <EditText
@@ -50,15 +60,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
+                android:layout_weight="1"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,43 +78,79 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item3" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item4" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <RadioGroup  android:layout_weight="1"
+                android:id="@+id/rdoSexView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
+                android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rdoSexMView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rdo_l_bg_x"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="男" />
+
+                <RadioButton
+                    android:id="@+id/rdoSexFView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rdo_r_bg_x"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="女" />
+            </RadioGroup>
+            <!--
+                 <TextView
                 android:id="@+id/txtSexView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
+                
                 android:singleLine="true" />
+            -->
 
-            <EditText
+            <EditText  android:layout_weight="1"
                 android:id="@+id/txtSocialSecurityView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView  android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,43 +158,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item5" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item6" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtEthnicView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtEducationView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -154,43 +206,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item7" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item8" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtBirthdayView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtWorkView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -198,43 +254,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item9" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item10" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtProvinceView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtIsMarryView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,43 +302,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item11" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item12" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtHouseHoldAddrView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtAddressView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -286,43 +350,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item13" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item14" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtHouseHoldMailView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtMailView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -330,43 +398,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item15" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item16" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtTelView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtMobliePhoneView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -374,43 +446,48 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item17" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item18" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtProxyNameView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <TextView android:layout_weight="1"
                 android:id="@+id/txtProxyRelationView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -418,43 +495,47 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item19" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item20" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtProxyAddrView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtProxyMailView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
+        </LinearLayout>
 
-       
-        
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical"  android:layout_marginTop="@dimen/fragment_assess_personalinfo_top_line_height"  android:layout_marginBottom="@dimen/fragment_assess_personalinfo_bottom_line_height"
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -462,42 +543,39 @@
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item21" />
 
-            <TextView
+            <TextView android:layout_weight="1"
                 style="@style/fragment_assess_personal_tabcell_lab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 android:text="@string/fragment_assess_personal_item22" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow style="@style/fragment_assess_personal_tabrow" >
+        <LinearLayout android:gravity="center_vertical" 
+            style="@style/fragment_assess_personal_tabrow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtProxyTelView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
 
-            <EditText
+            <EditText android:layout_weight="1"
                 android:id="@+id/txtProxyPhoneView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
-                android:background="@drawable/txt_login_bg"
                 android:singleLine="true" />
-        </TableRow>
-
-       
-        
-        
-        
-    </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </ScrollView>
