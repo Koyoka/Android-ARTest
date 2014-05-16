@@ -77,6 +77,31 @@ public class AssessDBCtrl {
 		
 	}
 	
+	public static ArrayList<AssessTaskDetailData> getAssessTaskDetailByTaskId(Context c,String id){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskDetailData.TblName, 
+				AssessTaskDetailData.getColumnColl(), cdt);
+
+		ArrayList<AssessTaskDetailData> itemList = new ArrayList<AssessTaskDetailData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskDetailData item = 
+				AssessTaskDetailData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		dbMng.close();
+		
+		return itemList;
+		
+	}
+	
 	
 	public static CustomerData getCustomerByCustId(Context c,String custId){
 		
@@ -103,13 +128,28 @@ public class AssessDBCtrl {
 	public static long insertAssessTaskDetail(Context c,AssessTaskDetailData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		dbMng.open();
-//		ContentValues values = new ContentValues();
-//		values.put(key, value)
 		long result = 0;
 		result = dbMng.insert(AssessTaskDetailData.TblName, 
 				AssessTaskDetailData.getContentValues(data));
 		dbMng.close();
 		return result;
+	}
+	
+	public static boolean deleteAssessTaskDetail(Context c,
+			String taskHeaderId,
+			String cateId
+			){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		String condition = 
+				AssessTaskDetailData.Col_TaskHeaderId + "=" + taskHeaderId + " and "+
+				AssessTaskDetailData.Col_CateId + "=" + cateId + " and "+
+				"1=1"
+				;
+		boolean r = dbMng.delete(AssessTaskDetailData.TblName, condition);
+		dbMng.close();
+		return r;
 	}
 	
 	

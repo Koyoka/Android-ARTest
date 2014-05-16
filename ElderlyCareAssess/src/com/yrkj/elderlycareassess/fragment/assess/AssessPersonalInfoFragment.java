@@ -122,10 +122,10 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 		mCust.idnumber = mLayout.getTxtIdNumberView().getText().toString();
 		
 		switch (mLayout.getRdoSexView().getCheckedRadioButtonId()) {
-		case FragmentAssessPersonalinfo.RdoSexFViewId://.getRdoSexFView():
+		case FragmentAssessPersonalinfo.RdoSexMViewId://.getRdoSexFView():
 			mCust.sex = CustomerData.SEX_MALE;
 			break;
-		case FragmentAssessPersonalinfo.RdoSexMViewId:
+		case FragmentAssessPersonalinfo.RdoSexFViewId:
 			mCust.sex = CustomerData.SEX_FEMALE;
 			break;
 		default:
@@ -328,8 +328,6 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 		if(hidden){
 			saveData();
 		}
-		
-//		ToastUtil.show(getActivity(), "======"+hidden);
 	}
 	
 	

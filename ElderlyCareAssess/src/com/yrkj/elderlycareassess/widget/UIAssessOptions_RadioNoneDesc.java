@@ -30,7 +30,7 @@ extends UIAssessOptions_Base  implements OnCheckedChangeListener {
 	private RadioButton mR1 = null;
 	private RadioButton mR2 = null;
 	
-	public void add(int id, String name,String desc){
+	public void add(int id, String name,String desc,boolean isChecked){
 		if(mR2 == null){
 			View v = mInflater.inflate(R.layout.view_question_item_row_radio,
 						mVGroup, false);
@@ -46,6 +46,7 @@ extends UIAssessOptions_Base  implements OnCheckedChangeListener {
 		item.Name = name;
 		item.Desc = desc;
 		if(rv1.getVisibility() == View.INVISIBLE){
+			rv1.setChecked(isChecked);
 			rv1.setText(name);
 			rv1.setId(id);
 			rv1.setVisibility(View.VISIBLE);
@@ -53,6 +54,7 @@ extends UIAssessOptions_Base  implements OnCheckedChangeListener {
 			rv1.setTag(item);
 			mRvList.add(rv1);
 		}else if(rv2.getVisibility() == View.INVISIBLE){
+			rv2.setChecked(isChecked);
 			rv2.setText(name);
 			rv2.setId(id);
 			rv2.setVisibility(View.VISIBLE);

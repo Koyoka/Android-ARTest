@@ -1,6 +1,8 @@
 package com.yrkj.elderlycareassess.acty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,7 +47,6 @@ OnBtnStratClickListener
 	
 	MainAssessActivity mActy;
 
-//	private int mCurIndex = 0;
 	private String[] mTitleList = null;
 	
 	private ActivityMainAssess mLayout;
@@ -89,20 +90,39 @@ OnBtnStratClickListener
 		}
 		return super.dispatchKeyEvent(event);
 	}
-	
-	
+//	ArrayList<AssessTaskDetailData> mTaskDetailList;
+	Map mTaskDetailIndex;
 	private void initData(){
 		
 		if(mCustId != null){
 			mCust = AssessDBCtrl.getCustomerByCustId(this, mCustId);
-			DLog.LOG(SysMng.TAG_DB, "custId=" + mCustId + " mCust=" +mCust);
 		}
 		
 		if(mAssessId != null){
 			mTask = AssessDBCtrl.getAssessTaskById(this,mAssessId);
-			DLog.LOG(SysMng.TAG_DB, "taskid=" + mAssessId + " mTask=" +mTask);
+			
+			ArrayList<AssessTaskDetailData> mTaskDetailList
+			 = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
+			
+			mTaskDetailIndex = new HashMap();
+			mTaskDetailIndex.put(INTENT_KEY_ASSESSID, mAssessId);
+			int i=0;
+			for (AssessTaskDetailData tdItem : mTaskDetailList) {
+					mTaskDetailIndex.put(tdItem.getIndexKey(), i);
+					DLog.LOG(SysMng.TAG_DB,"tdItem = " + 
+					tdItem.TaskHeaderId + "  " +
+					tdItem.CateId + "  " +
+					tdItem.SubcateId + "  " +
+					tdItem.ItemId + "  " +
+					tdItem.ItemName + "  " +
+//					tdItem.ItemId + "  "
+					""
+							);
+			}
+			
+			
+			
 		}
-		
 		
 		ArrayList<AssessBaseFragment> fList = 
 				new ArrayList<AssessBaseFragment>();
@@ -116,20 +136,20 @@ OnBtnStratClickListener
 		fList.add(new AssessLivingFragment(this,mCust));
 		titleList.add(getResources().getString(R.string.assess_title_living));
 		
-		
 		ArrayList<QCategoryData> qitemList = 
 				getQCategoryList();
 		
 		for (QCategoryData qCategoryData : qitemList) {
 			fList.add(
-					AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust)
+					AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust,
+//							mTaskDetailList,
+							mTaskDetailIndex)
 					);
 			titleList.add(qCategoryData.CateName);
 		}
 		
 		mTitleList =  titleList.toArray(new String[titleList.size()]);
 		mAssessFragmentList = fList;
-		
 	}
 	
 	private ArrayList<QCategoryData> getQCategoryList(){

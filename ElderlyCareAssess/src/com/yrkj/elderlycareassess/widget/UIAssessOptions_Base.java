@@ -27,7 +27,7 @@ public abstract class UIAssessOptions_Base {
 //	private CheckBox mR1 = null;
 //	private CheckBox mR2 = null;
 	
-	public abstract void add(int id, String name,String desc);
+	public abstract void add(int id, String name,String desc,boolean isChecked);
 		
 //	private ArrayList<CheckBox> mRvList = new ArrayList<CheckBox>();
 	public abstract ItemData[] getSelectIds();

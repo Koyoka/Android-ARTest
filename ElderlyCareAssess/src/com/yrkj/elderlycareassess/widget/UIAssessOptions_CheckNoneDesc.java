@@ -30,7 +30,7 @@ extends UIAssessOptions_Base {
 	private CheckBox mR1 = null;
 	private CheckBox mR2 = null;
 	private boolean needCreate  = false;
-	public void add(int id, String name,String desc){
+	public void add(int id, String name,String desc,boolean isChecked){
 		if(mR2 == null){
 			View v = mInflater.inflate(R.layout.view_question_item_row_check,
 						mVGroup, false);
@@ -45,6 +45,7 @@ extends UIAssessOptions_Base {
 		CheckBox rv1 = mR1;
 		CheckBox rv2 = mR2;
 		if(rv1.getVisibility() == View.INVISIBLE){
+			rv1.setChecked(isChecked);
 			rv1.setText(name);
 			rv1.setId(id);
 			rv1.setVisibility(View.VISIBLE);
@@ -52,6 +53,7 @@ extends UIAssessOptions_Base {
 			mRvList.add(rv1);
 //			mRvList.get(mRvList.size()).setTag(item);
 		}else if(rv2.getVisibility() == View.INVISIBLE){
+			rv2.setChecked(isChecked);
 			rv2.setText(name);
 			rv2.setId(id);
 			rv2.setVisibility(View.VISIBLE);

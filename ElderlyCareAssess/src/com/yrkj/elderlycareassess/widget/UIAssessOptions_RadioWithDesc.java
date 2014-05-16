@@ -35,13 +35,15 @@ public class UIAssessOptions_RadioWithDesc extends UIAssessOptions_Base {
 		container.addView(mUIRadioGroup);
 	}
 
-	public void add(int id, String name, String desc) {
+	public void add(int id, String name, String desc,boolean isChecked) {
 		View v = mInflater.inflate(R.layout.view_question_item_1,
 				mUIRadioGroup, false);
 		ViewQuestionItem1 holderView = new ViewQuestionItem1(v);
 		holderView.getTxtQuestionItemView().setText(desc);
 		holderView.getRdoQuestionItemView().setText(name);
 		holderView.getRdoQuestionItemView().setId(id);
+		holderView.getRdoQuestionItemView().setChecked(isChecked);
+		
 		
 		ItemData item = new ItemData();
 		item.Id = ""+id;

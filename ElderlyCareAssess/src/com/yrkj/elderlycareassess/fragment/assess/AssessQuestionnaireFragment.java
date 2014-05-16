@@ -1,6 +1,7 @@
 package com.yrkj.elderlycareassess.fragment.assess;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -34,8 +35,16 @@ implements OnClickListener{
 	
 	public UIAssessOptions_Base vBase;
 	
-	public AssessQuestionnaireFragment(QSubcategoryData d){
+	private String mCateId = "";
+//	private ArrayList<AssessTaskDetailData> mTaskDetailList;
+	private Map mTaskDetailIndex;
+	public AssessQuestionnaireFragment(QSubcategoryData d,String cateId,
+//			ArrayList<AssessTaskDetailData> dList,
+			Map tdIndex){
+		mCateId = cateId;
 		mSubcateData = d;
+//		mTaskDetailList = dList;
+		mTaskDetailIndex = tdIndex;
 	}
 	
 	@Override
@@ -91,6 +100,7 @@ implements OnClickListener{
 				item.ItemId = selectItem.Id;
 				item.ItemName = selectItem.Name;
 				item.ItemDesc = selectItem.Desc;
+				item.TaskType = AssessTaskDetailData.TASK_TYPE_ITEM;
 				itemList.add(item);
 			}
 			
@@ -125,10 +135,20 @@ implements OnClickListener{
 		}
 		if(vBase != null){
 			for(int i = 0; i< mSubcateData.ItemList.size();i++){
+				
+				
 				QItemData item = mSubcateData.ItemList.get(i);
-				vBase.add(item.ItemId, item.ItemName,item.ItemDesc);
+				String key = AssessTaskDetailData.getIndexKey(mCateId, mSubcateData.SubcateId, item.ItemId+"",AssessTaskDetailData.TASK_TYPE_ITEM);
+				
+				boolean isSelected = false;
+				if(mTaskDetailIndex.get(key)!=null){
+					isSelected = true;
+				}
+				vBase.add(item.ItemId, item.ItemName,item.ItemDesc,isSelected);
 			}
 		}
+		
+		
 		
 		for(int i = 0; i < mSubcateData.ItemTagList.size(); i++){
 			QItemTagData item = mSubcateData.ItemTagList.get(i);

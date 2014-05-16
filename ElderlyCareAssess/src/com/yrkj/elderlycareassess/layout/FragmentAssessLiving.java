@@ -36,10 +36,12 @@ public class FragmentAssessLiving extends BaseLayout{
     public static final int ChkQ4Item2ViewId = R.id.chkQ4Item2View;
     public static final int ChkQ4Item3ViewId = R.id.chkQ4Item3View;
     public static final int ChkQ4Item4ViewId = R.id.chkQ4Item4View;
+    public static final int TxtQ4ItemEditValViewId = R.id.txtQ4ItemEditValView;
     public static final int LayoutQuestionBar5ViewId = R.id.layoutQuestionBar5View;
     public static final int ChkQ5Item1ViewId = R.id.chkQ5Item1View;
     public static final int ChkQ5Item2ViewId = R.id.chkQ5Item2View;
     public static final int ChkQ5Item3ViewId = R.id.chkQ5Item3View;
+    public static final int TxtQ5ItemEditValViewId = R.id.txtQ5ItemEditValView;
 
     protected android.widget.RelativeLayout mLayoutQuestionBar1View;
     protected android.widget.CheckBox mChkQ1Item1View;
@@ -67,10 +69,12 @@ public class FragmentAssessLiving extends BaseLayout{
     protected android.widget.CheckBox mChkQ4Item2View;
     protected android.widget.CheckBox mChkQ4Item3View;
     protected android.widget.CheckBox mChkQ4Item4View;
+    protected android.widget.EditText mTxtQ4ItemEditValView;
     protected android.widget.RelativeLayout mLayoutQuestionBar5View;
     protected android.widget.CheckBox mChkQ5Item1View;
     protected android.widget.CheckBox mChkQ5Item2View;
     protected android.widget.CheckBox mChkQ5Item3View;
+    protected android.widget.EditText mTxtQ5ItemEditValView;
 
     protected Activity mCurActy;
 
@@ -102,10 +106,12 @@ public class FragmentAssessLiving extends BaseLayout{
         mChkQ4Item2View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item2ViewId);
         mChkQ4Item3View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item3ViewId);
         mChkQ4Item4View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item4ViewId);
+        mTxtQ4ItemEditValView = (android.widget.EditText) acty.findViewById(TxtQ4ItemEditValViewId);
         mLayoutQuestionBar5View = (android.widget.RelativeLayout) acty.findViewById(LayoutQuestionBar5ViewId);
         mChkQ5Item1View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item1ViewId);
         mChkQ5Item2View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item2ViewId);
         mChkQ5Item3View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item3ViewId);
+        mTxtQ5ItemEditValView = (android.widget.EditText) acty.findViewById(TxtQ5ItemEditValViewId);
     }   
 
     public FragmentAssessLiving(android.view.View acty){
@@ -135,10 +141,12 @@ public class FragmentAssessLiving extends BaseLayout{
         mChkQ4Item2View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item2ViewId);
         mChkQ4Item3View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item3ViewId);
         mChkQ4Item4View = (android.widget.CheckBox) acty.findViewById(ChkQ4Item4ViewId);
+        mTxtQ4ItemEditValView = (android.widget.EditText) acty.findViewById(TxtQ4ItemEditValViewId);
         mLayoutQuestionBar5View = (android.widget.RelativeLayout) acty.findViewById(LayoutQuestionBar5ViewId);
         mChkQ5Item1View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item1ViewId);
         mChkQ5Item2View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item2ViewId);
         mChkQ5Item3View = (android.widget.CheckBox) acty.findViewById(ChkQ5Item3ViewId);
+        mTxtQ5ItemEditValView = (android.widget.EditText) acty.findViewById(TxtQ5ItemEditValViewId);
     }   
     public android.widget.RelativeLayout getLayoutQuestionBar1View() {
         return mLayoutQuestionBar1View;
@@ -218,6 +226,9 @@ public class FragmentAssessLiving extends BaseLayout{
     public android.widget.CheckBox getChkQ4Item4View() {
         return mChkQ4Item4View;
     }
+    public android.widget.EditText getTxtQ4ItemEditValView() {
+        return mTxtQ4ItemEditValView;
+    }
     public android.widget.RelativeLayout getLayoutQuestionBar5View() {
         return mLayoutQuestionBar5View;
     }
@@ -229,6 +240,9 @@ public class FragmentAssessLiving extends BaseLayout{
     }
     public android.widget.CheckBox getChkQ5Item3View() {
         return mChkQ5Item3View;
+    }
+    public android.widget.EditText getTxtQ5ItemEditValView() {
+        return mTxtQ5ItemEditValView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -324,6 +338,9 @@ public class FragmentAssessLiving extends BaseLayout{
                 case ChkQ4Item4ViewId:
                     setViewData(adp,getChkQ4Item4View(),data,joinData.formatString,joinData.data);
                     break;
+                case TxtQ4ItemEditValViewId:
+                    setViewData(adp,getTxtQ4ItemEditValView(),data,joinData.formatString,joinData.data);
+                    break;
                 case LayoutQuestionBar5ViewId:
                     setViewData(adp,getLayoutQuestionBar5View(),data,joinData.formatString,joinData.data);
                     break;
@@ -335,6 +352,9 @@ public class FragmentAssessLiving extends BaseLayout{
                     break;
                 case ChkQ5Item3ViewId:
                     setViewData(adp,getChkQ5Item3View(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtQ5ItemEditValViewId:
+                    setViewData(adp,getTxtQ5ItemEditValView(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -427,6 +447,9 @@ public class FragmentAssessLiving extends BaseLayout{
                 case ChkQ4Item4ViewId:
                     setViewData(adp,getChkQ4Item4View(),data,"",path);
                     break;
+                case TxtQ4ItemEditValViewId:
+                    setViewData(adp,getTxtQ4ItemEditValView(),data,"",path);
+                    break;
                 case LayoutQuestionBar5ViewId:
                     setViewData(adp,getLayoutQuestionBar5View(),data,"",path);
                     break;
@@ -438,6 +461,9 @@ public class FragmentAssessLiving extends BaseLayout{
                     break;
                 case ChkQ5Item3ViewId:
                     setViewData(adp,getChkQ5Item3View(),data,"",path);
+                    break;
+                case TxtQ5ItemEditValViewId:
+                    setViewData(adp,getTxtQ5ItemEditValView(),data,"",path);
                     break;
                     
                 default:

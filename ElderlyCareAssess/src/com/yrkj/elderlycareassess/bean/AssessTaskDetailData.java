@@ -19,7 +19,7 @@ public class AssessTaskDetailData {
 	public static final String Col_ItemName = "ItemName";
 	public static final String Col_ItemDesc = "ItemDesc";
 	public static final String Col_ItemTagName = "ItemTagName";
-	public static final String Col_TaskState = "TaskState";
+	public static final String Col_TaskType = "TaskType";
 
 	public static String[] getColumnColl(){
 		return new String[]{
@@ -34,7 +34,7 @@ public class AssessTaskDetailData {
 				Col_ItemName,
 				Col_ItemDesc,
 				Col_ItemTagName,
-				Col_TaskState
+				Col_TaskType
 				};
 	}
 	
@@ -49,7 +49,11 @@ public class AssessTaskDetailData {
 	public String ItemName = "";
 	public String ItemDesc = "";
 	public String ItemTagName = "";
-	public String TaskState = "";
+	public String TaskType = "";
+	
+	public static final String TASK_TYPE_ITEM = "I";
+	public static final String TASK_TYPE_ITEMTAG = "T";
+	public static final String TASK_TYPE_ITEMSUB = "S";
 
 	public static AssessTaskDetailData convertDataToModule(Cursor c){
 		AssessTaskDetailData item = new AssessTaskDetailData();
@@ -64,7 +68,7 @@ public class AssessTaskDetailData {
 		item.ItemName = DBMng.GetDataString(c, Col_ItemName);
 		item.ItemDesc = DBMng.GetDataString(c, Col_ItemDesc);
 		item.ItemTagName = DBMng.GetDataString(c, Col_ItemTagName);
-		item.TaskState = DBMng.GetDataString(c, Col_TaskState);
+		item.TaskType = DBMng.GetDataString(c, Col_TaskType);
 
 		return item;
 	}
@@ -72,7 +76,7 @@ public class AssessTaskDetailData {
 	public static ContentValues getContentValues(AssessTaskDetailData data){
 		ContentValues values = new ContentValues();
 		
-		values.put(Col_Id,data.Id);
+//		values.put(Col_Id,data.Id);
 		values.put(Col_TaskHeaderId,data.TaskHeaderId);
 		values.put(Col_CateId,data.CateId);
 		values.put(Col_SubcateId,data.SubcateId);
@@ -83,9 +87,21 @@ public class AssessTaskDetailData {
 		values.put(Col_ItemName,data.ItemName);
 		values.put(Col_ItemDesc,data.ItemDesc);
 		values.put(Col_ItemTagName,data.ItemTagName);
-		values.put(Col_TaskState,data.TaskState);
+		values.put(Col_TaskType,data.TaskType);
 		
 		return values;
+	}
+	
+	public String getIndexKey(){
+		if(this.TaskType.equals(AssessTaskDetailData.TASK_TYPE_ITEM)){
+			return this.CateId+"_"+this.SubcateId+"_"+this.ItemId+"_"+TaskType;
+		}else{
+			return this.CateId+"_"+this.SubcateId+"_"+this.ItemTagId+"_"+TaskType;
+		}
+	}
+	
+	public static String getIndexKey(String cateId,String subcateId,String itemId,String type){
+		return cateId+"_"+subcateId+"_"+itemId+"_"+type;
 	}
 	
 }
