@@ -254,7 +254,7 @@ public class CustomerData {
 		else if(s.equals("4")){defineS = "高中";}
 		else if(s.equals("5")){defineS = "大专";}
 		else if(s.equals("6")){defineS = "本科及以上";}
-
+		else{defineS = "请选择";}
 
 		return defineS;
 	}
@@ -449,7 +449,7 @@ public class CustomerData {
 		else if(s.equals("55")){defineS = "珞巴族";}
 		else if(s.equals("56")){defineS = "塔塔尔族";}
 		else if(s.equals("57")){defineS = "其他";}
-
+		else{defineS = "请选择";}
 		
 		return defineS;
 	}
@@ -563,6 +563,7 @@ public class CustomerData {
 		else if(s.equals("2")){defineS = "已婚";}
 		else if(s.equals("3")){defineS = "丧偶";}
 		else if(s.equals("4")){defineS = "离异";}
+		else{defineS = "请选择";}
 
 
 		return defineS;

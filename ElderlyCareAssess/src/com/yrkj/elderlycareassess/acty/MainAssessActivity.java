@@ -30,6 +30,7 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
 import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
 import com.yrkj.util.log.DLog;
 
@@ -119,9 +120,6 @@ OnBtnStratClickListener
 					""
 							);
 			}
-			
-			
-			
 		}
 		
 		ArrayList<AssessBaseFragment> fList = 
@@ -147,6 +145,9 @@ OnBtnStratClickListener
 					);
 			titleList.add(qCategoryData.CateName);
 		}
+		
+		fList.add(new AssessServiceFragment(this,mCust,mAssessId));
+		titleList.add(getResources().getString(R.string.assess_title_service));
 		
 		mTitleList =  titleList.toArray(new String[titleList.size()]);
 		mAssessFragmentList = fList;
@@ -209,34 +210,30 @@ OnBtnStratClickListener
 			}
 		});
 		
-		mLayout.getTxtMainAssessTitleView().setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				DLog.LOG(SysMng.TAG_ASSESS, "=============================");
-				for (AssessBaseFragment item : mAssessFragmentList) {
-					
-					ArrayList<AssessTaskDetailData> itemList = item.getSelectData();
-					if(itemList != null){
-						
-						for (AssessTaskDetailData itemData : itemList) {
-							DLog.LOG(SysMng.TAG_ASSESS, 
-									itemData.CateName + " " +
-											itemData.SubcateName + " " +
-											itemData.ItemName + " " +
-											itemData.ItemDesc + " " +
-											""
-									
-									);
-							
-//							long r = AssessDBCtrl.insertAssessTaskDetail(mActy,itemData);
-//							DLog.LOG(SysMng.TAG_ASSESS, r+" insertCount ");
-						}
-					}
-				}
-			}
-		});
+//		mLayout.getTxtMainAssessTitleView().setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				DLog.LOG(SysMng.TAG_ASSESS, "=============================");
+//				for (AssessBaseFragment item : mAssessFragmentList) {
+//					
+//					ArrayList<AssessTaskDetailData> itemList = item.getSelectData();
+//					if(itemList != null){
+//						
+//						for (AssessTaskDetailData itemData : itemList) {
+//							DLog.LOG(SysMng.TAG_ASSESS, 
+//									itemData.CateName + " " +
+//											itemData.SubcateName + " " +
+//											itemData.ItemName + " " +
+//											itemData.ItemDesc + " " +
+//											""
+//									);
+//						}
+//					}
+//				}
+//			}
+//		});
 		
 		setAssessTitle(0);
 	}
@@ -252,8 +249,11 @@ OnBtnStratClickListener
 		}
 		if(index+1 < mTitleList.length)
 			mLayout.getBtnGoView().setText(mTitleList[index+1]);
-		else
+		else{
+			
 			mLayout.getBtnGoView().setText("提交");
+				
+		}
 		
 		if(index-1 >= 0)
 			mLayout.getBtnBackView().setText(mTitleList[index-1]);
@@ -331,6 +331,9 @@ OnBtnStratClickListener
 			goBack();
 			break;
 		case ActivityMainAssess.BtnGoViewId:
+			if(mLayout.getBtnGoView().getText().equals("提交")){
+				mAssessFragmentList.get(mAssessFragmentList.size()-1).saveData();		
+			}
 			addFragment();
 			break;
 

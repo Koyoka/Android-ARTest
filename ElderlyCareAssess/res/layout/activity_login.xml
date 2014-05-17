@@ -25,6 +25,7 @@
             android:textSize="@dimen/text_size_72px" />
 
         <EditText
+            
             android:id="@+id/txtUserNameView"
             android:maxLength="40"
             android:singleLine="true"

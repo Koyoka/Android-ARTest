@@ -9,6 +9,7 @@ import android.database.Cursor;
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
+import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
@@ -102,7 +103,6 @@ public class AssessDBCtrl {
 		
 	}
 	
-	
 	public static CustomerData getCustomerByCustId(Context c,String custId){
 		
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
@@ -151,6 +151,57 @@ public class AssessDBCtrl {
 		dbMng.close();
 		return r;
 	}
+	
+	public static ArrayList<AssessTaskServiceData> getAssessTaskServiceByTaskId(Context c,String id){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskServiceData.Col_TaskHeaderId + "=" + id;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskServiceData.TblName, 
+				AssessTaskServiceData.getColumnColl(), cdt);
+
+		ArrayList<AssessTaskServiceData> itemList = new ArrayList<AssessTaskServiceData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskServiceData item = 
+						AssessTaskServiceData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		dbMng.close();
+		
+		return itemList;
+	}
+	
+	public static long insertAssessTaskService(Context c,AssessTaskServiceData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		long result = 0;
+		result = dbMng.insert(AssessTaskServiceData.TblName, 
+				AssessTaskServiceData.getContentValues(data));
+		dbMng.close();
+		return result;
+	}
+	
+	public static boolean deleteAssessTaskService(Context c,
+			String taskHeaderId
+			){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		String condition = 
+				AssessTaskServiceData.Col_TaskHeaderId + "=" + taskHeaderId + " and "+
+						"1=1"
+						;
+		boolean r = dbMng.delete(AssessTaskServiceData.TblName, condition);
+		dbMng.close();
+		return r;
+	}
+	
+	
+	
 	
 	
 	public static boolean updateAssessTaskHeaderById(Context c,AssessTaskHeaderData data){

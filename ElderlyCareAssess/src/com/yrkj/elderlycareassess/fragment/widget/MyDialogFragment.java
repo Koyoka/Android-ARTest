@@ -33,6 +33,15 @@ public class MyDialogFragment extends DialogFragment {
 	public interface onDateSelected{
 		public void onSelected(int y,int m,int d);
 	}
+	
+	public onDialogClosed mOnDialogClosed;
+	public void setOnDialogClosed(onDialogClosed l){
+		mOnDialogClosed = l;
+	}
+	public interface onDialogClosed{
+		public void onClosed(boolean r);
+	}
+	
 
 	public static MyDialogFragment newInstance(int title) {
 		MyDialogFragment myDialogFragment = new MyDialogFragment();
@@ -80,21 +89,31 @@ public class MyDialogFragment extends DialogFragment {
 				}
 			}, mY,mM, mD);
 		case ALTER_DIALOG:
+//			View v = 
+			
 			return new AlertDialog.Builder(getActivity())
-				.setIcon(R.drawable.ic_launcher)
-				.setTitle(getTag())
-				.setPositiveButton("ok",
+//				.setIcon(R.drawable.ic_launcher)
+				.setCancelable(false)
+				.setTitle("确认消息")
+//				.setView(view)
+				.setMessage(getTag())
+				.setPositiveButton("确认",
 						new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					//点击ok触发的事件
-					System.out.println("click ok!");
+					if(mOnDialogClosed != null){
+						mOnDialogClosed.onClosed(true);
+					}
+//					System.out.println("click ok!");
 				}
 				})
-			.setNegativeButton("cancle",
+			.setNegativeButton("取消",
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					//点击cancle触发的时间
-					System.out.println("click cancle");
+					if(mOnDialogClosed != null){
+						mOnDialogClosed.onClosed(false);
+					}
 				}
 				})
 				.create();
@@ -109,5 +128,7 @@ public class MyDialogFragment extends DialogFragment {
 		}
 		return null;
 	}
+	
+	
 
 }

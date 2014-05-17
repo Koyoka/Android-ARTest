@@ -1,14 +1,1209 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<TableLayout 
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:shrinkColumns="1"
     tools:context="com.yrkj.elderlycareassess.MainActivity"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:ignore="MergeRootFrame" >
 
-    <TextView 
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox android:id="@+id/chkService1View"
+            
+			      style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="送餐"/>
+              
+        <LinearLayout 
+            android:id="@+id/layoutService1ContentView" android:visibility="gone" 
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每日次数" />
+
+            <Button
+                android:id="@+id/txtService1Item1ValView"
+                style="@style/fragment_assess_service_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:text="1" />
+        </LinearLayout>
+	</TableRow>
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService2View"
+            
+			style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="进食"/>
+        
+        <TableLayout 
+            android:id="@+id/layoutService2ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService2Item1View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            
+		            android:gravity="center"
+		            android:text="喂食" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService2Item1ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	           		<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <Button
+	                    android:id="@+id/txtService2Item1ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+	                <TextView
+	                    android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="小时1次" /> 
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService2Item2View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="饮水" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService2Item2ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	               	<Button
+	               	    android:id="@+id/txtService2Item2ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+	                <TextView
+	                    android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="小时1次" /> 
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService2Item3View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="切碎及搅拌" />                    
+	            <View android:layout_weight="1"
+	                   android:layout_width="0dip"
+	                   android:layout_height="0dip" />
+            </TableRow>
+            
+        </TableLayout>
+        
+    </TableRow>
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService3View"
+            
+			style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="修饰"/>
+        
+        <RadioGroup 
+            android:id="@+id/layoutService3ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton 
+                android:id="@+id/rdoService3item1View"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/rdo_l_bg_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="部分帮助"/>
+           
+            <RadioButton 
+                android:id="@+id/rdoService3item2View"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/rdo_r_bg_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="完全帮助"/>
+         </RadioGroup>
+         
+    </TableRow>
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService4View"
+            
+			style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="洗浴"/>
+        
+        <TableLayout 
+            android:id="@+id/layoutService4ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <RadioButton
+		            android:id="@+id/chkService4Item1View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="部分帮助" />                    
+                
+                <LinearLayout  
+                    android:id="@+id/layoutService4Item1ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <TextView
+	                    
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="每周次数" /> 
+	               <Button
+	                   android:id="@+id/txtService4Item1ValView"
+	                    android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <RadioButton
+		            android:id="@+id/chkService4Item2View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="完全帮助" />                    
+                
+                <LinearLayout  
+                    android:id="@+id/layoutService4Item2ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <TextView
+	                    
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="每周次数" /> 
+	               <Button
+	                    android:id="@+id/txtService4Item2ValView"
+	                    android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+                    
+                </LinearLayout>
+                
+            </TableRow>
+       	</TableLayout>
+        
+    </TableRow>
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService5View"
+            
+			style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="穿脱衣"/>
+        
+        <RadioGroup 
+            android:id="@+id/layoutService5ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton 
+                android:id="@+id/rdoService5item1View"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/rdo_l_bg_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="部分帮助"/>
+           
+            <RadioButton 
+                android:id="@+id/rdoService5item2View"
+                android:layout_weight="1"
+                android:button="@null"
+                android:background="@drawable/rdo_r_bg_x"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="完全帮助"/>
+            
+         </RadioGroup>
+        
+    </TableRow>
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService6View"
+            
+			style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="如厕及排便"/>
+        
+        <TableLayout 
+            android:id="@+id/layoutService6ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService6Item1View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            
+		            android:gravity="center"
+		            android:text="提醒" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService6Item1ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	           		<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <TextView
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="每日次数" /> 
+	                <Button
+	                    android:layout_marginLeft="10dip"
+	                    android:id="@+id/txtService6Item1ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService6Item2View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="扶助" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService6Item2ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <TextView
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="每日次数" /> 
+	               	<Button
+	                    android:layout_marginLeft="10dip"
+	               	    android:id="@+id/txtService6Item2ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService6Item3View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="协助使用便器" />                    
+	            <View android:layout_weight="1"
+	                   android:layout_width="0dip"
+	                   android:layout_height="0dip" />
+            </TableRow>
+             <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService6Item4View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="更换尿布" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService6Item4ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	               	<Button
+	               	    android:id="@+id/txtService6Item4ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+	                <TextView
+	                    android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="小时1次" /> 
+                    
+                </LinearLayout>
+                
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+    
+    <TableRow
+      style="@style/fragment_home_layout_content_donetask"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/fragment_content_line_height" >
+      
+      <CheckBox 
+          android:id="@+id/chkService7View"
+          
+		  style="@style/fragment_assess_service_chk_1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="20dip"
+          android:padding="20dip"
+          android:text="移动"/>
+      
+      <RadioGroup 
+          android:id="@+id/layoutService7ContentView" android:visibility="gone"
+          android:layout_weight="1"
+          android:gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+          <RadioButton 
+              android:id="@+id/rdoService7item1View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_l_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="协助站立"/>
+          <RadioButton 
+              android:id="@+id/rdoService7item2View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_c_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="协助行走"/>
+          <RadioButton 
+              android:id="@+id/rdoService7item3View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_c_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="协助上下楼"/>
+         
+          <RadioButton 
+              android:id="@+id/rdoService7item4View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_r_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="使用步行器"/>
+        
+     </RadioGroup>
+    
+</TableRow> 
+    
+    <TableRow
+        style="@style/fragment_home_layout_content_donetask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+        
+        <CheckBox 
+            android:id="@+id/chkService8View"
+            
+			      style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="压疮护理"/>
+        
+        <TableLayout 
+            android:id="@+id/layoutService8ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		                android:id="@+id/chkService8Item1View"
+		                style="@style/fragment_assess_service_item_chk"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		            
+		                android:gravity="center"
+		                android:text="定时翻身" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService8Item1ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	           		<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+
+                  <Button
+                     
+                     android:id="@+id/txtService8Item1ValView"
+                     style="@style/fragment_assess_service_count"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="1" />
+                  <TextView
+                      android:layout_marginLeft="10dip"
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="小时1次" /> 
+	               
+                    
+                </LinearLayout>
+                
+            </TableRow>
+            <TableRow 
+                style="@style/fragment_assess_service_item_row"
+                android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+                <CheckBox
+		            android:id="@+id/chkService8Item2View"
+		            style="@style/fragment_assess_service_item_chk"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="center"
+		            android:text="清洁皮肤" />                    
+                
+                <LinearLayout 
+                    android:id="@+id/layoutService8Item2ContentView" android:visibility="gone"
+                    style="@style/fragment_assess_service_item_col"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+	            	<View
+	                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+	                   android:layout_height="0dip" />
+	                <TextView
+	                    style="@style/fragment_assess_service_txt"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="每日次数" /> 
+	               	<Button
+	                    android:layout_marginLeft="10dip"
+	               	    android:id="@+id/txtService8Item2ValView"
+	                    style="@style/fragment_assess_service_count"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="1" />
+                    
+                </LinearLayout>
+                
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+
+    <TableRow
+      style="@style/fragment_home_layout_content_donetask"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <CheckBox
+            android:id="@+id/chkService9View"
+            
+          style="@style/fragment_assess_service_chk_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dip"
+            android:padding="20dip"
+            android:text="用药"/>
+
+        <RadioGroup
+            android:id="@+id/layoutService9ContentView" android:visibility="gone"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+          <RadioButton
+              android:id="@+id/rdoService9item1View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_l_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="保管药品"/>
+          <RadioButton
+              android:id="@+id/rdoService9item2View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_c_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="发放药品"/>
+          <RadioButton
+              android:id="@+id/rdoService9item3View"
+              android:layout_weight="1"
+              android:button="@null"
+              android:background="@drawable/rdo_r_bg_x"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="帮助服药"/>
+
+        </RadioGroup>
+
+    </TableRow>
+
+    <TableRow
+      style="@style/fragment_home_layout_content_doingtask"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox android:id="@+id/chkService10View"
+          
+          style="@style/fragment_assess_service_chk_2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="20dip"
+          android:padding="20dip"
+          android:text="物品整理"/>
+
+      <LinearLayout
+          android:id="@+id/layoutService10ContentView" android:visibility="gone"
+          android:layout_weight="1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="right"
+          android:orientation="horizontal" >
+
+        <TextView
+            style="@style/fragment_assess_service_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每月次数" />
+
+        <Button
+            android:id="@+id/txtService10Item1ValView"
+            style="@style/fragment_assess_service_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text="1" />
+        </LinearLayout>
+    </TableRow>
+
+    <TableRow
+      style="@style/fragment_home_layout_content_doingtask"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox android:id="@+id/chkService11View"
+        
+        style="@style/fragment_assess_service_chk_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="assess service"/>
+        android:drawablePadding="20dip"
+        android:padding="20dip"
+        android:text="物品清洁消毒"/>
+
+      <LinearLayout
+        android:id="@+id/layoutService11ContentView" android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+      <TextView
+          style="@style/fragment_assess_service_txt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="每周次数" />
+
+      <Button
+          android:id="@+id/txtService11Item1ValView"
+          style="@style/fragment_assess_service_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dip"
+          android:text="1" />
+    </LinearLayout>
+  </TableRow>
+
+    <TableRow
+       style="@style/fragment_home_layout_content_doingtask"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:gravity="top"
+       android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+        <CheckBox
+          android:id="@+id/chkService12View"
+          
+          style="@style/fragment_assess_service_chk_2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="20dip"
+          android:padding="20dip"
+          android:text="洗涤"/>
+
+      <TableLayout
+          android:id="@+id/layoutService12ContentView" android:visibility="gone"
+          android:layout_weight="1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+        <TableRow
+            style="@style/fragment_assess_service_item_row"
+            android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+          <CheckBox
+            android:id="@+id/chkService12Item1View"
+            style="@style/fragment_assess_service_item_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+		            
+            android:gravity="center"
+            android:text="衣物" />
+
+          <LinearLayout
+              android:id="@+id/layoutService12Item1ContentView" android:visibility="gone"
+              style="@style/fragment_assess_service_item_col"
+              android:layout_weight="1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+            <View
+                 android:layout_width="@dimen/fragment_assess_service_item_column_width"
+                 android:layout_height="0dip" />
+            <TextView
+                
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="每周次数" />
+            <Button
+                android:layout_marginLeft="10dip"
+                android:id="@+id/txtService12Item1ValView"
+                style="@style/fragment_assess_service_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+            
+
+          </LinearLayout>
+
+        </TableRow>
+        <TableRow
+            style="@style/fragment_assess_service_item_row"
+            android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+            <CheckBox
+              android:id="@+id/chkService12Item2View"
+              style="@style/fragment_assess_service_item_chk"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:text="被褥" />
+
+            <LinearLayout
+              android:id="@+id/layoutService12Item2ContentView" android:visibility="gone"
+              style="@style/fragment_assess_service_item_col"
+              android:layout_weight="1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+              <View
+                   android:layout_width="@dimen/fragment_assess_service_item_column_width"
+                   android:layout_height="0dip" />
+
+              <TextView
+                  style="@style/fragment_assess_service_txt"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="每周次数" />
+              <Button
+                  android:layout_marginLeft="10dip"
+                  android:id="@+id/txtService12Item2ValView"
+                  style="@style/fragment_assess_service_count"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="1" />
+              
+
+              </LinearLayout>
+
+        </TableRow>
+        <TableRow
+            style="@style/fragment_assess_service_item_row"
+            android:layout_marginBottom="@dimen/fragment_assess_service_item_row_margin_bottom">
+            <CheckBox
+                android:id="@+id/chkService12Item3View"
+                style="@style/fragment_assess_service_item_chk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="尿布" />
+            <View android:layout_weight="1"
+                   android:layout_width="0dip"
+                   android:layout_height="0dip" />
+        </TableRow>
+
+      </TableLayout>
+
+    </TableRow>
+
+    <TableRow
+       style="@style/fragment_home_layout_content_doingtask"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+    <CheckBox android:id="@+id/chkService13View"
+      
+      style="@style/fragment_assess_service_chk_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawablePadding="20dip"
+      android:padding="20dip"
+      android:text="打扫房间"/>
+
+    <LinearLayout
+      android:id="@+id/layoutService13ContentView" android:visibility="gone"
+      android:layout_weight="1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="right"
+      android:orientation="horizontal" >
+
+      <TextView
+          style="@style/fragment_assess_service_txt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="每周次数" />
+
+      <Button
+          android:id="@+id/txtService13Item1ValView"
+          style="@style/fragment_assess_service_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dip"
+          android:text="1" />
+    </LinearLayout>
+  </TableRow>
+
+    <TableRow
+     style="@style/fragment_home_layout_content_log"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox
+          android:id="@+id/chkService14View"
+          
+          style="@style/fragment_assess_service_chk_3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawablePadding="20dip"
+          android:padding="20dip"
+          android:text="陪诊"/>
+
+      <RadioGroup
+          android:id="@+id/layoutService14ContentView" android:visibility="gone"
+          android:layout_weight="1"
+          android:gravity="center_vertical"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/rdoService14item1View"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/rdo_l_bg_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="陪同接诊"/>
+        <RadioButton
+            android:id="@+id/rdoService14item2View"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/rdo_r_bg_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="帮助配药"/>
+
+      </RadioGroup>
+
+    </TableRow>
+
+    <TableRow
+        style="@style/fragment_home_layout_content_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+    <CheckBox android:id="@+id/chkService15View"
+      
+      style="@style/fragment_assess_service_chk_3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawablePadding="20dip"
+      android:padding="20dip"
+      android:text="购物"/>
+
+    <LinearLayout
+      android:id="@+id/layoutService15ContentView" android:visibility="gone"
+      android:layout_weight="1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="right"
+      android:orientation="horizontal" >
+
+      <TextView
+          style="@style/fragment_assess_service_txt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="每周次数" />
+
+      <Button
+          android:id="@+id/txtService15Item1ValView"
+          style="@style/fragment_assess_service_count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="10dip"
+          android:text="1" />
+    </LinearLayout>
+  </TableRow>
+
+    <TableRow
+          style="@style/fragment_home_layout_content_donetask"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox android:id="@+id/chkService16View"
+        
+        style="@style/fragment_assess_service_chk_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="20dip"
+        android:padding="20dip"
+        android:text="康复保健"/>
+
+      <LinearLayout
+        android:id="@+id/layoutService16ContentView" android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@style/fragment_assess_service_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每周次数" />
+
+        <Button
+            android:id="@+id/txtService16Item1ValView"
+            style="@style/fragment_assess_service_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:text="1" />
+      </LinearLayout>
+  </TableRow>
+
     
-</FrameLayout>
+   <TableRow
+          style="@style/fragment_home_layout_content_donetask"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox android:id="@+id/chkService17View"
+        
+        style="@style/fragment_assess_service_chk_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="20dip"
+        android:padding="20dip"
+        android:text="其他服务"/>
+
+      <LinearLayout
+        android:id="@+id/layoutService17ContentView" android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+		<EditText 
+		    android:gravity="top"
+		    android:id="@+id/txtService17Item1ValView"
+		    android:background="@drawable/txt_edit_bg"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:lines="3"/>
+
+      </LinearLayout>
+  </TableRow>
+  
+   <TableRow
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="@dimen/fragment_content_line_height" >
+      <TextView 
+          android:textSize="@dimen/text_size_42px"
+          android:textColor="#565656"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="建议更改服务形式"/>
+   <View android:layout_width="0dip" android:layout_height="0dip"/>
+       </TableRow>
+       
+   
+   <TableRow
+          style="@style/fragment_home_layout_content_donetask"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginBottom="@dimen/fragment_content_line_height" >
+
+      <CheckBox android:id="@+id/chkService18View"
+        
+        style="@style/fragment_assess_service_chk_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="20dip"
+        android:padding="20dip"
+        android:text="社区居家养老"/>
+
+      <LinearLayout
+        android:id="@+id/layoutService18ContentView" android:visibility="gone"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal" >
+		<EditText 
+		    android:id="@+id/txtService18Item1ValView"
+		    android:background="@drawable/txt_edit_bg"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="top"
+		    android:lines="3"/>
+
+      </LinearLayout>
+  </TableRow>
+
+  <!-- <RelativeLayout
+        android:id="@+id/layoutHomeContentDoingTaskView"
+        style="@style/fragment_home_layout_content_doingtask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutHomeContentLogView"
+        style="@style/fragment_home_layout_content_log"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_content_line_height" >
+    </RelativeLayout> -->
+
+</TableLayout>
+
+
+</ScrollView>

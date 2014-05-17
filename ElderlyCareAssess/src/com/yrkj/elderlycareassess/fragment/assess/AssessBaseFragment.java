@@ -40,6 +40,10 @@ public abstract class AssessBaseFragment extends Fragment {
 		
 	}
 	
+	public void saveData(){
+		
+	}
+	
 //		if(mA == null){
 //			return;
 //		}

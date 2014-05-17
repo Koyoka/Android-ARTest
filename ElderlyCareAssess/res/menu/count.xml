@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yrkj.elderlycareassess.MainActivity" >
+
+    <item android:id="@+id/menuCount1" android:title="1"/>
+	<item android:id="@+id/menuCount2" android:title="2"/>
+	<item android:id="@+id/menuCount3" android:title="3"/>
+	<item android:id="@+id/menuCount4" android:title="4"/>
+	<item android:id="@+id/menuCount5" android:title="5"/>
+	<item android:id="@+id/menuCount6" android:title="6"/>
+	<item android:id="@+id/menuCount7" android:title="7"/>
+	<item android:id="@+id/menuCount8" android:title="8"/>
+	<item android:id="@+id/menuCount9" android:title="9"/>
+	<item android:id="@+id/menuCount10" android:title="10"/>
+	<item android:id="@+id/menuCount11" android:title="11"/>
+	<item android:id="@+id/menuCount12" android:title="12"/>
+
+   
+
+</menu>
