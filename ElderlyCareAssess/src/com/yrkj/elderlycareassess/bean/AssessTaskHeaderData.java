@@ -9,8 +9,8 @@ import com.yrkj.util.db.DBMng;
 
 public class AssessTaskHeaderData {
 
-	public static final String ASSESS_STATE_DOING = "OFF";
-	public static final String ASSESS_STATE_DONE = "ON";
+	public static final String ASSESS_STATE_DOING = "ON";
+	public static final String ASSESS_STATE_DONE = "OFF";
 	public static final String ASSESS_TYPE_FIRST = "F";
 	public static final String ASSESS_TYPE_REVIEW = "R";
 	public static final String ASSESS_TYPE_CONTINUE = "C";

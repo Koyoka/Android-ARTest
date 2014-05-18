@@ -26,25 +26,20 @@ import com.yrkj.util.log.DLog;
 public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	
 	private AssessQuestionnaireFragment[] mFList;
-//	private ArrayList<AssessTaskDetailData> mTaskDetailList;
 	private Map mTaskDetailIndex;
 	private String mTaskHeaderId = "";
 	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d,CustomerData c,
-//			ArrayList<AssessTaskDetailData> dList,
-			Map tdIndex) {
+			String AssessId) {
 		super(a,d,c);
-//		mTaskDetailList = dList;
-		mTaskDetailIndex = tdIndex;
-		mTaskHeaderId = (String) tdIndex.get(MainAssessActivity.INTENT_KEY_ASSESSID);
+//		mTaskDetailIndex = tdIndex;
+		mTaskHeaderId = AssessId;//(String) tdIndex.get(MainAssessActivity.INTENT_KEY_ASSESSID);
 	}
 
 	public static AssessQuestionnaireListFragment getInstance(
 			MainAssessActivity a,QCategoryData d,CustomerData c,
-//			ArrayList<AssessTaskDetailData> dList,
-			Map tdIndex){
+			String AssessId){
 		return new AssessQuestionnaireListFragment(a,d,c,
-//				dList,
-				tdIndex);
+				AssessId);
 	}
 	
 	View mV;
@@ -60,9 +55,33 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState == null) {
-			 initFragment();
+				initData();
+				initFragment();
 		 }
 		
+	}
+	
+	private void initData(){
+		if(mTaskHeaderId != null){
+			ArrayList<AssessTaskDetailData> mTaskDetailList
+			 = AssessDBCtrl.getAssessTaskDetailByTaskIdCateId(getActivity(), 
+					 mTaskHeaderId,mData.CateId);
+			mTaskDetailIndex = new HashMap();
+			int i=0;
+			for (AssessTaskDetailData tdItem : mTaskDetailList) {
+					mTaskDetailIndex.put(tdItem.getIndexKey(), i);
+					DLog.LOG(SysMng.TAG_DB,"tdItem = " + 
+							tdItem.TaskHeaderId + "  " +
+							tdItem.CateId + "  " +
+							tdItem.SubcateId + "  " +
+							tdItem.ItemId + "  " +
+							tdItem.ItemName + "  " +
+							tdItem.getIndexKey() + "  " +
+//							tdItem.ItemId + "  "
+							""
+									);
+			}
+		}
 	}
 	
 	private void initFragment(){

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
+import com.yrkj.elderlycareassess.bean.AssessReportCountData;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
@@ -34,12 +35,48 @@ public class AssessDBCtrl {
 		if(cursor.moveToFirst()){
 			item = AssessTaskHeaderData.convertDataToModule(cursor);
 		}
-		
+		cursor.close();
 		return item;
 		
 	}
 	
 	public static ArrayList<CustomerAssessTask> getDoingAssessTaskList(Context c){
+		
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select a.*, ");
+		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address] ");
+		sb.append("From MAIN.[AssessTaskHeader] as a ");
+		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+
+				AssessTaskHeaderData.ASSESS_STATE_DOING+"'");
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		
+		ArrayList<CustomerAssessTask> itemList = new ArrayList<CustomerAssessTask>();
+		if(cursor.moveToFirst()){
+			do {
+
+				CustomerAssessTask itemHeader = new CustomerAssessTask();
+				
+				itemHeader.mTask = AssessTaskHeaderData.convertDataToModule(cursor);
+				CustomerData item = new CustomerData();
+				item.customername = DBMng.GetDataString(cursor, CustomerData.Col_customername);
+				item.sex = DBMng.GetDataString(cursor, CustomerData.Col_sex);
+				item.mobliephone = DBMng.GetDataString(cursor, CustomerData.Col_mobliephone);
+				item.address = DBMng.GetDataString(cursor, CustomerData.Col_address);
+				itemHeader.mCust = item;
+				itemList.add(itemHeader);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
+	
+	public static ArrayList<CustomerAssessTask> getDoneAssessTaskList(Context c){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		
 		dbMng.open();
@@ -47,7 +84,8 @@ public class AssessDBCtrl {
 		sb.append("Select a.*, ");
 		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address] ");
 		sb.append("From MAIN.[AssessTaskHeader] as a ");
-		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] ");
+		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"'");
+
 		
 		Cursor cursor = 
 				dbMng.rawQuery(sb.toString());
@@ -74,10 +112,6 @@ public class AssessDBCtrl {
 		return itemList;
 	}
 	
-	public void getDoneAssessTaskList(){
-		
-	}
-	
 	public static ArrayList<AssessTaskDetailData> getAssessTaskDetailByTaskId(Context c,String id){
 		
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
@@ -88,6 +122,7 @@ public class AssessDBCtrl {
 		dbMng.open();
 		Cursor cursor = dbMng.query(AssessTaskDetailData.TblName, 
 				AssessTaskDetailData.getColumnColl(), cdt);
+		dbMng.close();
 
 		ArrayList<AssessTaskDetailData> itemList = new ArrayList<AssessTaskDetailData>();
 		if(cursor.moveToFirst()){
@@ -97,8 +132,34 @@ public class AssessDBCtrl {
 				itemList.add(item);
 			} while (cursor.moveToNext());
 		}
+		cursor.close();
+		
+		return itemList;
+		
+	}
+	public static ArrayList<AssessTaskDetailData> getAssessTaskDetailByTaskIdCateId(Context c,String id,String cateId){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id 
+				+ " and " + AssessTaskDetailData.Col_CateId + "=" + cateId;
+				;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskDetailData.TblName, 
+				AssessTaskDetailData.getColumnColl(), cdt);
 		dbMng.close();
 		
+		ArrayList<AssessTaskDetailData> itemList = new ArrayList<AssessTaskDetailData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskDetailData item = 
+						AssessTaskDetailData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
 		return itemList;
 		
 	}
@@ -120,7 +181,7 @@ public class AssessDBCtrl {
 		if(cursor.moveToFirst()){
 			item = CustomerData.convertDataToModule(cursor);
 		}
-		
+		cursor.close();
 		return item;
 		
 	}
@@ -141,12 +202,12 @@ public class AssessDBCtrl {
 			){
 		
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
 		String condition = 
 				AssessTaskDetailData.Col_TaskHeaderId + "=" + taskHeaderId + " and "+
-				AssessTaskDetailData.Col_CateId + "=" + cateId + " and "+
-				"1=1"
-				;
+						AssessTaskDetailData.Col_CateId + "=" + cateId + " and "+
+						"1=1"
+						;
+		dbMng.open();
 		boolean r = dbMng.delete(AssessTaskDetailData.TblName, condition);
 		dbMng.close();
 		return r;
@@ -161,6 +222,7 @@ public class AssessDBCtrl {
 		dbMng.open();
 		Cursor cursor = dbMng.query(AssessTaskServiceData.TblName, 
 				AssessTaskServiceData.getColumnColl(), cdt);
+		dbMng.close();
 
 		ArrayList<AssessTaskServiceData> itemList = new ArrayList<AssessTaskServiceData>();
 		if(cursor.moveToFirst()){
@@ -170,15 +232,15 @@ public class AssessDBCtrl {
 				itemList.add(item);
 			} while (cursor.moveToNext());
 		}
-		dbMng.close();
+		cursor.close();
 		
 		return itemList;
 	}
 	
 	public static long insertAssessTaskService(Context c,AssessTaskServiceData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
 		long result = 0;
+		dbMng.open();
 		result = dbMng.insert(AssessTaskServiceData.TblName, 
 				AssessTaskServiceData.getContentValues(data));
 		dbMng.close();
@@ -190,25 +252,22 @@ public class AssessDBCtrl {
 			){
 		
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
 		String condition = 
 				AssessTaskServiceData.Col_TaskHeaderId + "=" + taskHeaderId + " and "+
 						"1=1"
 						;
+		dbMng.open();
 		boolean r = dbMng.delete(AssessTaskServiceData.TblName, condition);
 		dbMng.close();
 		return r;
 	}
 	
 	
-	
-	
-	
 	public static boolean updateAssessTaskHeaderById(Context c,AssessTaskHeaderData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
 		String condition = AssessTaskHeaderData.Col_Id+"="+data.Id;
 		boolean result = false;
+		dbMng.open();
 		result = dbMng.update(AssessTaskHeaderData.TblName, 
 				AssessTaskHeaderData.getContentValues(data),condition);
 		dbMng.close();
@@ -217,14 +276,41 @@ public class AssessDBCtrl {
 	
 	public static boolean updateCustomerById(Context c,CustomerData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
 		String condition = CustomerData.Col_id+"='"+data.id+"'";
 		boolean result = false;
+		dbMng.open();
 		result = dbMng.update(CustomerData.TblName, 
 				CustomerData.getContentValues(data),condition);
 		dbMng.close();
 		return result;
 	}
+	
+	
+	public static AssessReportCountData getAssessReportCount(Context c){
+		
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("select ");
+		sb.append("(Select count(*) From MAIN.[AssessTaskHeader] where assessstate = 'ON') as doningCount, ");
+		sb.append("(Select count(*) From MAIN.[AssessTaskHeader] where assessstate = 'OFF') as doneCount ");
+
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		
+		AssessReportCountData data = null;
+		if(cursor.moveToFirst()){
+			data = new AssessReportCountData();
+			data.doingTaskCount = DBMng.GetDataString(cursor,"doningCount");
+			data.doneTaskCount = DBMng.GetDataString(cursor,"doneCount");
+		}
+		cursor.close();
+		return data;
+	
+	}
+	
 	
 	
 //	public class CustomerAssessTask{

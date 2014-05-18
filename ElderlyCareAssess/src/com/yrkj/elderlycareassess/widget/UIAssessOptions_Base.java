@@ -36,5 +36,6 @@ public abstract class UIAssessOptions_Base {
 		public String Id = "";
 		public String Name = "";
 		public String Desc = "";
+		
 	}
 }

@@ -38,14 +38,6 @@ public class AssessTaskListFragment extends ListFragment implements
 	private void initData() {
 		mDataSource = new ArrayList<TaskData>();
 		addData();
-//		addData();
-//		addData();
-//		addData();
-//		addData();
-//		addData();
-//		addData();
-//		addData();
-//		addData();
 
 		mTaskAdapter = new TaskAdapter(getActivity());
 
@@ -78,22 +70,6 @@ public class AssessTaskListFragment extends ListFragment implements
 			mDataSource.add(item);
 		}
 		
-//		TaskData item = new TaskData();
-//		item.taskNum = mDataSource.size() + "00000AS";
-//		item.taskState = "进行中";
-//		;
-//		item.taskLastDoDate = "2014-05-19";
-//		;
-//		item.taskEndDate = "2014-05-19";
-//		item.userName = "任正";
-//		;
-//		item.sex = "男";
-//		;
-//		item.phoneNum = "1300000000";
-//		;
-//		item.address = "湖北省 武汉市 武昌区  XXXXXX";
-//		;
-//		mDataSource.add(item);
 	}
 
 	private void initFragment() {
@@ -120,20 +96,6 @@ public class AssessTaskListFragment extends ListFragment implements
 
 	}
 
-	// class TaskListAdapter extends ArrayAdapter<TaskData>{
-	//
-	// public TaskListAdapter(Context context, int textViewResourceId) {
-	// super(context, textViewResourceId);
-	// // TODO Auto-generated constructor stub
-	// }
-	//
-	//
-	// // public TaskListAdapter(Context context) {
-	// // super(context, android.R.layout.simple_list_item_2);
-	// // // TODO Auto-generated constructor stub
-	// // }
-	//
-	// }
 
 	class TaskAdapter extends BaseAdapter {
 

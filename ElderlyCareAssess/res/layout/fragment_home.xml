@@ -13,54 +13,17 @@
     <RelativeLayout
         android:id="@+id/layoutHomeContentView"
         style="@style/fragment_home_layout_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/fragment_content_line_height" >
-
-        <ImageView
-            android:id="@+id/imgUserAvatarView"
-            style="@style/fragment_home_img_avatar"
-            android:layout_width="@dimen/fragment_home_avatar_width"
-            android:layout_height="@dimen/fragment_home_avatar_height"
-            android:layout_marginRight="25dip"
-            android:src="@drawable/msface" />
-
-        <TextView
-            android:id="@+id/txtUserNameView"
-            style="@style/fragment_home_text_userinfo_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/imgUserAvatarView"
-            android:layout_toRightOf="@id/imgUserAvatarView"
-            android:text="Eleven" />
-
-        <TextView
-            android:id="@+id/txtAddressView"
-            style="@style/fragment_home_text_userinfo"
-            android:layout_width="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_content_line_height">
+        
+    <fragment 
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtUserNameView"
-            android:layout_below="@id/txtUserNameView"
-            android:text="address" />
-
-        <TextView
-            android:id="@+id/txtOfficeView"
-            style="@style/fragment_home_text_userinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtUserNameView"
-            android:layout_below="@id/txtAddressView"
-            android:text="office" />
-
-        <TextView
-            android:id="@+id/txtLastLoginDateView"
-            style="@style/fragment_home_text_userinfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/txtUserNameView"
-            android:layout_below="@id/txtOfficeView"
-            android:text="2014-05-08" />
+            android:name="com.yrkj.elderlycareassess.fragment.UserHeaderInfoFragment"
+            />
     </RelativeLayout>
+    
 
     <RelativeLayout
         android:id="@+id/layoutHomeContentDoneTaskView"
@@ -84,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/imgIconDoneTaskView"
             android:layout_toRightOf="@id/imgIconDoneTaskView"
-            android:text="donetask" />
+            android:text="已完成评估" />
 
         <TextView
             android:id="@+id/txtDoneTaskDescView"
@@ -93,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/txtDoneTaskTitleView"
             android:layout_below="@id/txtDoneTaskTitleView"
-            android:text="donetask xxxx" />
+            android:text="本月已完成评估1份" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -118,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/imgIconDoingTaskView"
             android:layout_toRightOf="@id/imgIconDoingTaskView"
-            android:text="doingtask" />
+            android:text="评估任务" />
 
         <TextView
             android:id="@+id/txtDoingTaskDescView"
@@ -127,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/txtDoingTaskTitleView"
             android:layout_below="@id/txtDoingTaskTitleView"
-            android:text="doingtask xxxx" />
+            android:text="还有4份评估未完成" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -152,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/imgIconLogView"
             android:layout_toRightOf="@id/imgIconLogView"
-            android:text="doingtask" />
+            android:text="操作日志" />
 
         <TextView
             android:id="@+id/txtLogDescView"
@@ -161,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/txtLogTitleView"
             android:layout_below="@id/txtLogTitleView"
-            android:text="doingtask xxxx" />
+            android:text="last log:2014-05-06" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -92,7 +92,7 @@ OnBtnStratClickListener
 		return super.dispatchKeyEvent(event);
 	}
 //	ArrayList<AssessTaskDetailData> mTaskDetailList;
-	Map mTaskDetailIndex;
+//	Map mTaskDetailIndex;
 	private void initData(){
 		
 		if(mCustId != null){
@@ -102,24 +102,25 @@ OnBtnStratClickListener
 		if(mAssessId != null){
 			mTask = AssessDBCtrl.getAssessTaskById(this,mAssessId);
 			
-			ArrayList<AssessTaskDetailData> mTaskDetailList
-			 = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
+//			ArrayList<AssessTaskDetailData> mTaskDetailList
+//			 = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
 			
-			mTaskDetailIndex = new HashMap();
-			mTaskDetailIndex.put(INTENT_KEY_ASSESSID, mAssessId);
-			int i=0;
-			for (AssessTaskDetailData tdItem : mTaskDetailList) {
-					mTaskDetailIndex.put(tdItem.getIndexKey(), i);
-					DLog.LOG(SysMng.TAG_DB,"tdItem = " + 
-					tdItem.TaskHeaderId + "  " +
-					tdItem.CateId + "  " +
-					tdItem.SubcateId + "  " +
-					tdItem.ItemId + "  " +
-					tdItem.ItemName + "  " +
-//					tdItem.ItemId + "  "
-					""
-							);
-			}
+//			mTaskDetailIndex = new HashMap();
+//			mTaskDetailIndex.put(INTENT_KEY_ASSESSID, mAssessId);
+//			int i=0;
+//			for (AssessTaskDetailData tdItem : mTaskDetailList) {
+//					mTaskDetailIndex.put(tdItem.getIndexKey(), i);
+//					DLog.LOG(SysMng.TAG_DB,"tdItem = " + 
+//					tdItem.TaskHeaderId + "  " +
+//					tdItem.CateId + "  " +
+//					tdItem.SubcateId + "  " +
+//					tdItem.ItemId + "  " +
+//					tdItem.ItemName + "  " +
+//					tdItem.getIndexKey() + "  " +
+////					tdItem.ItemId + "  "
+//					""
+//							);
+//			}
 		}
 		
 		ArrayList<AssessBaseFragment> fList = 
@@ -141,7 +142,7 @@ OnBtnStratClickListener
 			fList.add(
 					AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust,
 //							mTaskDetailList,
-							mTaskDetailIndex)
+							mAssessId)
 					);
 			titleList.add(qCategoryData.CateName);
 		}
@@ -171,17 +172,18 @@ OnBtnStratClickListener
 		item.ItemList =		
 		QuesDBCtrl.getQItemListBySubcateId(this, item.SubcateId);
 		
-		
-		item.ItemTagList.add(getQItemLab(
-				1,"快速标签1"));
-		item.ItemTagList.add(getQItemLab(
-				2,"快速标签2"));
-		item.ItemTagList.add(getQItemLab(
-				3,"快速标签3"));
-		item.ItemTagList.add(getQItemLab(
-				4,"快速标签4"));
-		item.ItemTagList.add(getQItemLab(
-				5,"快速标签5"));
+		item.ItemTagList = 
+				QuesDBCtrl.getQItemTagListBySubcateId(this, item.SubcateId);
+//		item.ItemTagList.add(getQItemLab(
+//				1,"快速标签1"));
+//		item.ItemTagList.add(getQItemLab(
+//				2,"快速标签2"));
+//		item.ItemTagList.add(getQItemLab(
+//				3,"快速标签3"));
+//		item.ItemTagList.add(getQItemLab(
+//				4,"快速标签4"));
+//		item.ItemTagList.add(getQItemLab(
+//				5,"快速标签5"));
 		
 		
 		return item;

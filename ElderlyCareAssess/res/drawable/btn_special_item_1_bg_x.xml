@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:drawable="@drawable/btn_special_item_1_bg_n" android:state_checked="false"></item>
-    <item android:drawable="@drawable/btn_special_item_1_bg_p" android:state_checked="true"></item>
+    <item android:drawable="@drawable/btn_special_item_1_bg_1_p" android:state_checked="true"></item>
 </selector>

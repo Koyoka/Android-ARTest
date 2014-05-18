@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layoutActionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btnBackView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dip"
+            android:background="@drawable/btn_home_x" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
+
+        <RelativeLayout
+            android:id="@+id/layoutUserHeaderInfoContainerView"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <fragment 
+            android:name="com.yrkj.elderlycareassess.fragment.UserHeaderInfoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/btnSetNetPwdView"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_row_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_tasklist_text_address_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="修改登录密码" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnSetLocPwdView"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_row_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_tasklist_text_address_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="修改独立密码" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnAysnView"
+            android:layout_marginTop="30dip"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_row_height"
+            android:background="@drawable/home_content_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_tasklist_text_address_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="全部同步" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnClearView"
+            android:layout_marginTop="30dip"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_row_height"
+            android:background="@drawable/home_content_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_tasklist_text_address_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="清空缓存数据" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnLogView"
+            android:layout_marginTop="30dip"
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/activity_setting_row_height"
+            android:background="@drawable/home_content_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_tasklist_text_address_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="查看日志" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/activity_setting_row"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="100dip"
+            android:paddingLeft="100dip"
+            android:paddingRight="100dip" >
+
+            <Button
+                android:id="@+id/btnLogoutView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_out_bg_x"
+                android:padding="10dip"
+                android:text="退出"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_size_52px" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

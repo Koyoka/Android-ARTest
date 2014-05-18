@@ -10,20 +10,24 @@
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
     -->
     <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
-        <!--
-        <item name="android:windowNoTitle">true</item>
+    <!--<style name="AppBaseTheme" parent="@android:style/Theme.NoTitleBar">
+        
+        
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme1" parent="AppBaseTheme">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="my_theme" parent="AppTheme">
+    <style name="my_theme" parent="AppTheme1">
 
         <!-- <item name="android:actionMenuTextColor">#FF0000</item> -->
         <item name="android:homeAsUpIndicator">@drawable/ic_menu_back</item>
@@ -351,6 +355,12 @@
          <item name="android:gravity">right</item>
      </style>
     
-    
+    <!-- activity setting -->
+    <style name="activity_setting_row">
+        <item name="android:paddingLeft">20dip</item>
+        <item name="android:paddingRight">20dip</item>
+        <item name="android:background">@drawable/home_content_bg</item>
+        
+    </style>
  	
 </resources>

@@ -8,9 +8,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.AssessReportCountData;
+import com.yrkj.elderlycareassess.bean.AssessUserData;
+import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
+import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.layout.FragmentHome;
 import com.yrkj.elderlycareassess.widget.UIReportCount;
-import com.yrkj.util.log.ToastUtil;
+import com.yrkj.util.log.DLog;
 
 public class HomeFragment extends Fragment 
 implements OnClickListener
@@ -26,6 +32,7 @@ implements OnClickListener
 	UIReportCount mRc6;
 	UIReportCount mRc7;
 	
+	FragmentHome mLayout;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,6 +40,8 @@ implements OnClickListener
 		View v = inflater.inflate(R.layout.fragment_home, container,
 				false);
 		mV = v;
+		mLayout = new FragmentHome(v);
+		
 		initFragment();
 		loadData();
 		return v;
@@ -80,13 +89,26 @@ implements OnClickListener
 	}
 
 	private void loadData(){
-//		mRc1.setValue(0);
-//		mRc2.setValue(0);
-//		mRc3.setValue(0);
-//		mRc4.setValue(0);
-//		mRc5.setValue(0);
-//		mRc6.setValue(0);
-//		mRc7.setValue(0);
+		
+//		String s = SysDBCtrl.getLastLoginDate(getActivity());
+//		
+//		mLayout.getTxtLastLoginDateView().setText(s.isEmpty()?"首次登陆":s);
+//		
+//		AssessUserData u = SysMng.getUserInfo();
+//		DLog.LOG(SysMng.TAG_DB, u+" 1 ===["+u.UserId);
+//		u = AssessUserDBCtrl.getUserData(getActivity(), u.UserId);
+//		DLog.LOG(SysMng.TAG_DB, u+" 2 ===[");
+//		if(u != null){
+//			mLayout.getTxtUserNameView().setText(u.UserName);
+//			mLayout.getTxtAddressView().setText(u.OfficeAddress);
+//			mLayout.getTxtOfficeView().setText(u.Office);
+//		}
+		
+		AssessReportCountData data = AssessDBCtrl.getAssessReportCount(getActivity());
+		mLayout.getTxtDoingTaskDescView().setText("还有"+data.doingTaskCount+"份评估未完成");
+		mLayout.getTxtDoneTaskDescView().setText("已完成评估"+data.doneTaskCount+"份");
+		
+		
 		
 		mRc1.setValue(20);
 		mRc2.setValue(60);
@@ -96,7 +118,6 @@ implements OnClickListener
 		mRc6.setValue(90);
 		mRc7.setValue(80);
 		
-//		mRc1.setValue(60);
 	}
 	
 	int c = 0;

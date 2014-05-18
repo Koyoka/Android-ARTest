@@ -7,6 +7,8 @@
     
     <dimen name="activity_login_margin">90dip</dimen>
     
+    <dimen name="activity_setting_row_height">80dip</dimen>
+    
     <dimen name="fragment_home_avatar_height">105dp</dimen>
     <dimen name="fragment_home_avatar_width">100dp</dimen>
     <dimen name="fragment_content_line_height">8dip</dimen>

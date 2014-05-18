@@ -1,7 +1,5 @@
 package com.yrkj.elderlycareassess.acty;
 
-import java.util.ArrayList;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,28 +8,36 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
-import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
-import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
-import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.bean.AssessUserData;
+import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
+import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.layout.ActivityLogin;
-import com.yrkj.util.log.DLog;
+import com.yrkj.util.dialog.DialogHelper;
 
 public class LoginActivity extends FragmentActivity {
 
 	LoginActivity mActy;
+	ActivityLogin mLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		mActy = this;
+		mLayout = new ActivityLogin(this);
 		initActy();
+		
 	}
 	
 	private void initActy(){
-		ActivityLogin mActyCtrl = new ActivityLogin(this);
-		mActyCtrl.getBtnLoginView().setOnClickListener(new OnClickListener() {
+		AssessUserData uData = SysMng.getUserInfo();
+		if(uData != null){
+			mLayout.getTxtUserNameView().setText(uData.UserId);
+			mLayout.getTxtPasswordView().setText(uData.LocPassword);
+		}
+		
+		mLayout.getBtnLoginView().setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -45,10 +51,21 @@ public class LoginActivity extends FragmentActivity {
 	
 	private void login(){
 		
+		String userId = mLayout.getTxtUserNameView().getText().toString();
+		String pwd = mLayout.getTxtPasswordView().getText().toString();
+		if(AssessUserDBCtrl.userLogin(this, userId.trim(), pwd)){
+			
+			SysMng.saveUserInfo(userId, pwd);
+			SysDBCtrl.addSysLoginLog(this, userId);
+			Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
+			startActivity(intent);
+			this.finish();
+		}else{
+			DialogHelper.createTextDialog(mActy, "消息", "用户名或密码错误,请重新输入。");
+			mLayout.getTxtUserNameView().setFocusable(true);
+		}
 		
-		Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
-		startActivity(intent);
-		this.finish();
+		
 		
 //		ArrayList<CustomerAssessTask> itemList =  AssessDBCtrl.getDoingAssessTaskList(this);
 //		

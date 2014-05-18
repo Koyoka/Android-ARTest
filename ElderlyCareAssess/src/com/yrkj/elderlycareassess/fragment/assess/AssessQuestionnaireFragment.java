@@ -98,6 +98,7 @@ implements OnClickListener{
 				item.SubcateName = mSubcateData.SubcateName;
 				
 				item.ItemId = selectItem.Id;
+//				item.ItemTagId = selectItem.Id;
 				item.ItemName = selectItem.Name;
 				item.ItemDesc = selectItem.Desc;
 				item.TaskType = AssessTaskDetailData.TASK_TYPE_ITEM;
@@ -105,12 +106,53 @@ implements OnClickListener{
 			}
 			
 		}
+		
+		
+		ArrayList<ItemTagData> itemTagDataList = getTagViewSelectIds();
+		for(ItemTagData selectTagItem : itemTagDataList){
+			AssessTaskDetailData item = new AssessTaskDetailData();
+			item.SubcateId = mSubcateData.SubcateId;
+			item.SubcateName = mSubcateData.SubcateName;
+			item.ItemTagId = selectTagItem.Id;
+//			item.ItemId = selectTagItem.Id;
+			item.ItemName = selectTagItem.Name;
+			item.ItemDesc = selectTagItem.Desc;
+			item.TaskType = AssessTaskDetailData.TASK_TYPE_ITEMTAG;
+//			DLog.LOG(SysMng.TAG_DB, 
+//					item.ItemId + " " +
+//							item.ItemName + " " +
+//							item.ItemDesc + " " +
+//							item.TaskType + " " +
+//					
+//					"");
+			itemList.add(item);
+		}
+		
+		
 		return itemList;
 		
 		
 	}
 	
+	private ArrayList<ItemTagData> getTagViewSelectIds(){
+		ArrayList<ItemTagData> dList 
+			= new ArrayList<ItemTagData>();
+		
+		if(mTagViewList != null){
+			for (CheckBox v : mTagViewList) {
+				if(v.isChecked()){
+					ItemTagData d =
+							(ItemTagData)v.getTag();
+					dList.add(d);
+				}
+			}
+		}
+		
+		return dList;
+		
+	}
 	
+	private ArrayList<CheckBox> mTagViewList;
 	private void addItemList(){
 		
 		
@@ -138,7 +180,11 @@ implements OnClickListener{
 				
 				
 				QItemData item = mSubcateData.ItemList.get(i);
-				String key = AssessTaskDetailData.getIndexKey(mCateId, mSubcateData.SubcateId, item.ItemId+"",AssessTaskDetailData.TASK_TYPE_ITEM);
+				String key = AssessTaskDetailData.getIndexKey(
+						mCateId, 
+						mSubcateData.SubcateId, 
+						item.ItemId+"",
+						AssessTaskDetailData.TASK_TYPE_ITEM);
 				
 				boolean isSelected = false;
 				if(mTaskDetailIndex.get(key)!=null){
@@ -149,42 +195,65 @@ implements OnClickListener{
 		}
 		
 		
-		
+		mTagViewList = new ArrayList<CheckBox>();
 		for(int i = 0; i < mSubcateData.ItemTagList.size(); i++){
 			QItemTagData item = mSubcateData.ItemTagList.get(i);
 			CheckBox v = null;
 			v = (CheckBox) inflater.inflate(R.layout.view_question_special_item, container,
 					false);
 			v.setText(item.ItemTagName);
+			
+			String key = AssessTaskDetailData.getIndexKey(
+					mCateId, 
+					mSubcateData.SubcateId, 
+					item.ItemTagId+"",
+					AssessTaskDetailData.TASK_TYPE_ITEMTAG);
+//			boolean isSelected = false;
+			if(mTaskDetailIndex.get(key)!=null){
+				DLog.LOG(SysMng.TAG_DB, "True-==="+key);
+				mLayout.getLayoutSpecialItemView().setVisibility(View.VISIBLE);
+				v.setChecked(true);
+			}
+			
+			ItemTagData d = new ItemTagData();
+			d.Id = ""+item.ItemTagId;
+			d.Name = item.ItemTagName;
+			d.Desc = item.ItemTagDesc;
+			v.setTag(d);
+			mTagViewList.add(v);
 			switch (i%4) {
 			case 0:
 				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
 				mLayout.getLayoutSpecialItem1View().addView(v);
 				break;
 			case 1:
-				v.setBackgroundResource(R.drawable.btn_special_item_2_bg_x);
+//				v.setBackgroundResource(R.drawable.btn_special_item_2_bg_x);
+				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
 				mLayout.getLayoutSpecialItem2View().addView(v);
 				break;
 			case 2:
-				v.setBackgroundResource(R.drawable.btn_special_item_3_bg_x);
+//				v.setBackgroundResource(R.drawable.btn_special_item_3_bg_x);
+				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
 				mLayout.getLayoutSpecialItem3View().addView(v);
 				break;
 			case 3:
-				v.setBackgroundResource(R.drawable.btn_special_item_4_bg_x);
+//				v.setBackgroundResource(R.drawable.btn_special_item_4_bg_x);
+				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
 				mLayout.getLayoutSpecialItem4View().addView(v);
 				break;
 
 			default:
 				break;
 			}
-			
-			
-			
-			
-			
 		}
 	}
 
+	class ItemTagData{
+		public String Id = "";
+		public String Name = "";
+		public String Desc = "";
+	}
+	
 	public void saveAssessDetailData() {
 		// TODO Auto-generated method stub
 		

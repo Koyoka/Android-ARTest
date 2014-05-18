@@ -10,6 +10,7 @@ import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
 import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QItemData;
+import com.yrkj.elderlycareassess.bean.QItemTagData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.db.DBMng;
@@ -114,6 +115,32 @@ public class QuesDBCtrl {
 			do {
 
 				QItemData item = QItemData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+        
+		return itemList;
+	}
+	
+	public static ArrayList<QItemTagData> getQItemTagListBySubcateId(Context c,String subcateId){
+		
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		DBCondition cdt = new DBCondition();
+		String selectSql = "ItemTagId in(Select itemid From [QSubcategoryDetail] where subcateid = {0} and itemtype = ''{1}'')";
+		cdt.Selection = MessageFormat.format(selectSql,subcateId,QSubcategoryData.ITEM_TYPE_ITEM_TAG);
+		cdt.OrderBy = QItemData.Col_SortIndex + " ASC";
+		dbMng.open();
+		Cursor cursor = dbMng.query(QItemTagData.TblName, 
+				QItemTagData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<QItemTagData> itemList = new ArrayList<QItemTagData>();
+		if(cursor.moveToFirst()){
+			do {
+
+				QItemTagData item = QItemTagData.convertDataToModule(cursor);
 				itemList.add(item);
 			} while (cursor.moveToNext());
 		}

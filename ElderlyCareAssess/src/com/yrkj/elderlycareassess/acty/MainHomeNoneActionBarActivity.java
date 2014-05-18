@@ -5,24 +5,23 @@ package com.yrkj.elderlycareassess.acty;
 //import android.app.ActionBar.TabListener;
 //import android.app.ActionBar;
 //import android.app.ActionBar.TabListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.widget.ActivityChooserModel.ActivitySorter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.base.BaseActivity;
-import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.fragment.AssessDoneListFragment;
 import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment;
 import com.yrkj.elderlycareassess.fragment.HomeFragment;
 import com.yrkj.elderlycareassess.fragment.ReportFragment;
-import com.yrkj.util.log.DLog;
+import com.yrkj.elderlycareassess.layout.ActivityMainHomeNoneactionbar;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.ActionBar.TabListener;
 
@@ -51,13 +50,15 @@ OnClickListener {
 	Button mBtnAssessDoneView;
 	
 	View mLayoutAssessTabView;
+	private ActivityMainHomeNoneactionbar mLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_home_noneactionbar);
 		mActy = this;
-		
+		mLayout
+		 = new ActivityMainHomeNoneactionbar(this);
 		initActy();
 		
 //		DLog.LOG(SysMng.TAG_FRAGMENT,"getActionBar() == " + getActionBar() + " " + getSupportActionBar());
@@ -96,6 +97,9 @@ OnClickListener {
 		mBtnAssessTaskView.setOnClickListener(this);
 		mBtnAssessDoneView.setOnClickListener(this);
 		
+		mLayout.getBtnSettingView().setOnClickListener(this);
+		
+		
 	}
 
 	@Override
@@ -121,6 +125,11 @@ OnClickListener {
 			break;
 		case R.id.btnAssessDoneView:
 			addFragment(AssessDoneListFragment.class.getName(),null);
+			break;
+		case ActivityMainHomeNoneactionbar.BtnSettingViewId:
+			Intent intent = new Intent(this,SettingActivity.class);
+			startActivity(intent);
+			
 			break;
 		default:
 			break;
