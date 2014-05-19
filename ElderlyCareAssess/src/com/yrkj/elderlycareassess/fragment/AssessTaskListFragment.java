@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -22,10 +24,13 @@ import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
+import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment.onDialogClosed;
 import com.yrkj.elderlycareassess.layout.ListItemDoingTask;
+import com.yrkj.util.log.ToastUtil;
 
 public class AssessTaskListFragment extends ListFragment implements
-		OnItemClickListener {
+		OnItemClickListener, OnItemLongClickListener {
 	
 
 	@Override
@@ -46,6 +51,7 @@ public class AssessTaskListFragment extends ListFragment implements
 		listView.setDivider(new ColorDrawable(Color.WHITE));
 		listView.setDividerHeight(0);
 		listView.setOnItemClickListener(this);
+		listView.setOnItemLongClickListener(this);
 		// getListView().setDividerHeight(1); // 不显示分割线
 		listView.setCacheColorHint(Color.TRANSPARENT); // 防止listview背景变黑
 		mTaskAdapter.notifyDataSetChanged();
@@ -97,7 +103,7 @@ public class AssessTaskListFragment extends ListFragment implements
 	}
 
 
-	class TaskAdapter extends BaseAdapter {
+	class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 		private LayoutInflater mInflater;
 
@@ -149,8 +155,35 @@ public class AssessTaskListFragment extends ListFragment implements
 			viewHolder.getTxtTaskSexView().setText(item.sex);
 			viewHolder.getTxtTaskStateView().setText(item.taskState);
 			viewHolder.getTxtTaskUserNameView().setText(item.userName);
+			
+			viewHolder.getLayoutReturnTaskView().setVisibility(View.GONE);
+			viewHolder.getBtnReturnTaskView().setTag(item.assessId);
+			viewHolder.getBtnReturnTaskView().setOnClickListener(this);
 
 			return convertView;
+		}
+
+		@Override
+		public void onClick(final View v) {
+			// TODO Auto-generated method stub
+			MyDialogFragment d = MyDialogFragment.newInstance(MyDialogFragment.ALTER_DIALOG);
+			d.setOnDialogClosed(new onDialogClosed() {
+				
+				@Override
+				public void onClosed(boolean r) {
+
+					if(r){
+						AssessDBCtrl.updateAssessTaksHeaderStateByTaskId(
+								getActivity(), 
+								v.getTag().toString(), 
+								AssessTaskHeaderData.ASSESS_STATE_RETURN);
+						reBind();
+					}else{
+						((View)v.getParent()).setVisibility(View.GONE);
+					}
+				}
+			});
+			d.show(getChildFragmentManager(), "是否需要退回？");
 		}
 
 	}
@@ -161,24 +194,36 @@ public class AssessTaskListFragment extends ListFragment implements
 		Intent intent = new Intent(getActivity(), MainAssessActivity.class);
 		intent.putExtra(MainAssessActivity.INTENT_KEY_CUSTID, mDataSource.get(position).custId);
 		intent.putExtra(MainAssessActivity.INTENT_KEY_ASSESSID,mDataSource.get(position).assessId);
-		getActivity().startActivity(intent);
+//		getActivity().startActivityForResult(intent, 1);
+//		getActivity().startActivity(intent);
+		startActivityForResult(intent, REQUESTCODE_ASSESS_ACTY);
+	}
+	
+	public final static int REQUESTCODE_ASSESS_ACTY = 1;
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == REQUESTCODE_ASSESS_ACTY){
+			reBind();
+		}
+	}
+	
+	private void reBind(){
+		mDataSource = new ArrayList<TaskData>();
+		addData();
+		mTaskAdapter.notifyDataSetChanged();
+	}
+
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		ListItemDoingTask v =
+		(ListItemDoingTask) view.getTag();
+		v.getLayoutReturnTaskView().setVisibility(v.getLayoutReturnTaskView().getVisibility()==View.VISIBLE?view.GONE:view.VISIBLE);
+		return true;
 	}
 
 }
-//@Override
-	// public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	// Bundle savedInstanceState) {
-	// View v = inflater.inflate(R.layout.fragment_assess_task_list, container,
-	// false);
-	//
-	// v.findViewById(R.id.btnRedirectView).setOnClickListener(new
-	// OnClickListener() {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// Intent intent = new Intent(getActivity(), MainAssessActivity.class);
-	// getActivity().startActivity(intent);
-	// }
-	// });
-	// return v;
-	// }

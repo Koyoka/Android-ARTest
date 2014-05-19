@@ -79,14 +79,17 @@ public class AssessDBCtrl {
 	public static ArrayList<CustomerAssessTask> getDoneAssessTaskList(Context c){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		
-		dbMng.open();
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append("Select a.*, ");
-		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address] ");
+		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address], ");
+		sb.append("(Select sum(score)as score From MAIN.[AssessTaskDetail] as d ");
+		sb.append("where d.[TaskHeaderId] = a.[Id]) AS score ");
+		
 		sb.append("From MAIN.[AssessTaskHeader] as a ");
 		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"'");
 
-		
+		dbMng.open();
 		Cursor cursor = 
 				dbMng.rawQuery(sb.toString());
 		dbMng.close();
@@ -104,6 +107,7 @@ public class AssessDBCtrl {
 				item.mobliephone = DBMng.GetDataString(cursor, CustomerData.Col_mobliephone);
 				item.address = DBMng.GetDataString(cursor, CustomerData.Col_address);
 				itemHeader.mCust = item;
+				itemHeader.score = DBMng.getDataInt(cursor, "score");
 				itemList.add(itemHeader);
 			} while (cursor.moveToNext());
 		}
@@ -111,6 +115,61 @@ public class AssessDBCtrl {
 		
 		return itemList;
 	}
+	
+	public static String getDoneAssessTaskDetailCateTotleScore(Context c,String taskHeaderId){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select d.catename, ");
+		sb.append("(Select sum(d1.[score]) as score From MAIN.[AssessTaskDetail] as d1 ");
+		sb.append("where   d.cateid = d1.cateid and d1.[TaskHeaderId] = d.[TaskHeaderId] and d1.[TaskType]='I' ");
+		sb.append("group by d1.cateid ) as TotleScore    ");
+		sb.append("From  ");
+		sb.append("MAIN.[AssessTaskDetail] as d  ");
+		sb.append("where d.taskheaderid = "+taskHeaderId);
+		sb.append(" group by d.taskheaderid,d.cateid ");
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		
+//		ArrayList<AssessTaskDetailData> dlist = new ArrayList<AssessTaskDetailData>();
+		String s = "";
+		if(cursor.moveToFirst()){
+			do {
+//				AssessTaskDetailData d = new AssessTaskDetailData();
+				String CateName = DBMng.GetDataString(cursor, "CateName");
+				int Score = DBMng.getDataInt(cursor, "TotleScore");
+				s += CateName + " " + Score + " ";
+//				dlist.add(d);
+			}while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		
+		
+		return s;
+	}
+	
+	/*
+	 Select d.catename,
+(
+Select sum(d1.[score]) as score From MAIN.[AssessTaskDetail] as d1 
+where   d.cateid = d1.cateid and d1.[TaskHeaderId] = d.[TaskHeaderId] and d1.[TaskType]='I'
+group by d1.cateid  
+) as TotleScore   
+From 
+MAIN.[AssessTaskDetail] as d 
+--where d.taskheaderid = 1  
+group by d.taskheaderid,d.cateid
+
+
+Limit 1000 ;
+
+
+--Limit 1000
+	 * */
 	
 	public static ArrayList<AssessTaskDetailData> getAssessTaskDetailByTaskId(Context c,String id){
 		
@@ -262,7 +321,6 @@ public class AssessDBCtrl {
 		return r;
 	}
 	
-	
 	public static boolean updateAssessTaskHeaderById(Context c,AssessTaskHeaderData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		String condition = AssessTaskHeaderData.Col_Id+"="+data.Id;
@@ -284,7 +342,6 @@ public class AssessDBCtrl {
 		dbMng.close();
 		return result;
 	}
-	
 	
 	public static AssessReportCountData getAssessReportCount(Context c){
 		
@@ -311,7 +368,29 @@ public class AssessDBCtrl {
 	
 	}
 	
-	
+	public static boolean updateAssessTaksHeaderStateByTaskId(Context c,String taskHeaderId,String state){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		String condition = AssessTaskHeaderData.Col_Id+"="+taskHeaderId;
+		boolean result = false;
+		
+		ContentValues values = new ContentValues();
+		
+//		values.put(Col_Id,data.Id);
+//		values.put(Col_AssessNum,data.AssessNum);
+//		values.put(Col_CustId,data.CustId);
+//		values.put(Col_CreateDate,data.CreateDate);
+//		values.put(Col_EndAssessDate,data.EndAssessDate);
+//		values.put(Col_LastAssessDate,data.LastAssessDate);
+//		values.put(Col_AssessType,data.AssessType);
+		values.put(AssessTaskHeaderData.Col_AssessState,state);
+		dbMng.open();
+		result = dbMng.update(AssessTaskHeaderData.TblName, 
+				values,
+				condition);
+		dbMng.close();
+		return result;
+		
+	}
 	
 //	public class CustomerAssessTask{
 //		public CustomerAssessTask getInstance(){

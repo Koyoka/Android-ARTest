@@ -60,7 +60,7 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 		
 		AssessDBCtrl.deleteAssessTaskService(getActivity(), mTaskHeaderId);
 		
-		ToastUtil.show(getActivity(), "eleven");
+//		ToastUtil.show(getActivity(), "eleven");
 		ArrayList<AssessTaskServiceData> dList =  
 				setData();
 		for (AssessTaskServiceData d : dList) {

@@ -10,6 +10,7 @@ import com.yrkj.elderlycareassess.R;
 
 public class FragmentHome extends BaseLayout{
 
+    public static final int LayoutHomeContentViewId = R.id.layoutHomeContentView;
     public static final int LayoutHomeContentDoneTaskViewId = R.id.layoutHomeContentDoneTaskView;
     public static final int ImgIconDoneTaskViewId = R.id.imgIconDoneTaskView;
     public static final int TxtDoneTaskTitleViewId = R.id.txtDoneTaskTitleView;
@@ -35,6 +36,7 @@ public class FragmentHome extends BaseLayout{
     public static final int UctrlRC7ViewId = R.id.uctrlRC7View;
     public static final int TxtReportTotleCountViewId = R.id.txtReportTotleCountView;
 
+    protected android.widget.RelativeLayout mLayoutHomeContentView;
     protected android.widget.RelativeLayout mLayoutHomeContentDoneTaskView;
     protected android.widget.ImageView mImgIconDoneTaskView;
     protected android.widget.TextView mTxtDoneTaskTitleView;
@@ -64,6 +66,7 @@ public class FragmentHome extends BaseLayout{
 
     public FragmentHome(Activity acty){
         mCurActy = acty;
+        mLayoutHomeContentView = (android.widget.RelativeLayout) acty.findViewById(LayoutHomeContentViewId);
         mLayoutHomeContentDoneTaskView = (android.widget.RelativeLayout) acty.findViewById(LayoutHomeContentDoneTaskViewId);
         mImgIconDoneTaskView = (android.widget.ImageView) acty.findViewById(ImgIconDoneTaskViewId);
         mTxtDoneTaskTitleView = (android.widget.TextView) acty.findViewById(TxtDoneTaskTitleViewId);
@@ -91,6 +94,7 @@ public class FragmentHome extends BaseLayout{
     }   
 
     public FragmentHome(android.view.View acty){
+        mLayoutHomeContentView = (android.widget.RelativeLayout) acty.findViewById(LayoutHomeContentViewId);
         mLayoutHomeContentDoneTaskView = (android.widget.RelativeLayout) acty.findViewById(LayoutHomeContentDoneTaskViewId);
         mImgIconDoneTaskView = (android.widget.ImageView) acty.findViewById(ImgIconDoneTaskViewId);
         mTxtDoneTaskTitleView = (android.widget.TextView) acty.findViewById(TxtDoneTaskTitleViewId);
@@ -116,6 +120,9 @@ public class FragmentHome extends BaseLayout{
         mUctrlRC7View = (com.yrkj.elderlycareassess.widget.UIReportCount) acty.findViewById(UctrlRC7ViewId);
         mTxtReportTotleCountView = (android.widget.TextView) acty.findViewById(TxtReportTotleCountViewId);
     }   
+    public android.widget.RelativeLayout getLayoutHomeContentView() {
+        return mLayoutHomeContentView;
+    }
     public android.widget.RelativeLayout getLayoutHomeContentDoneTaskView() {
         return mLayoutHomeContentDoneTaskView;
     }
@@ -204,6 +211,9 @@ public class FragmentHome extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
+                case LayoutHomeContentViewId:
+                    setViewData(adp,getLayoutHomeContentView(),data,joinData.formatString,joinData.data);
+                    break;
                 case LayoutHomeContentDoneTaskViewId:
                     setViewData(adp,getLayoutHomeContentDoneTaskView(),data,joinData.formatString,joinData.data);
                     break;
@@ -289,6 +299,9 @@ public class FragmentHome extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
+                case LayoutHomeContentViewId:
+                    setViewData(adp,getLayoutHomeContentView(),data,"",path);
+                    break;
                 case LayoutHomeContentDoneTaskViewId:
                     setViewData(adp,getLayoutHomeContentDoneTaskView(),data,"",path);
                     break;

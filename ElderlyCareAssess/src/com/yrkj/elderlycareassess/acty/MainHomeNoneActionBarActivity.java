@@ -145,8 +145,8 @@ OnClickListener {
 		
 		Fragment f = fMng.findFragmentByTag(mCurClass);
 		if(f != null){
-//			ft.detach(f);
-			ft.hide(f);
+			ft.detach(f);
+//			ft.hide(f);
 		}
 		
 		Fragment mFragment= fMng.findFragmentByTag(className);
@@ -154,8 +154,8 @@ OnClickListener {
 			mFragment = Fragment.instantiate(mActy, className, args);
 			ft.add(R.id.layoutBodyView, mFragment, className);
 		}else{
-//			ft.attach(mFragment);
-			ft.show(mFragment);
+			ft.attach(mFragment);
+//			ft.show(mFragment);
 		}
 		ft.commit();
 		

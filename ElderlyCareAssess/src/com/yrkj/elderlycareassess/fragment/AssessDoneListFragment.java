@@ -68,7 +68,9 @@ OnItemClickListener {
 			item.phoneNum = itemData.mCust.mobliephone;
 			item.address = itemData.mCust.address;
 			item.custId = itemData.mTask.CustId;
-			item.assessId = itemData.mTask.Id;
+			item.taskHeaderId = itemData.mTask.Id;
+			item.needSync = itemData.mTask.NeedSync;
+			item.score = itemData.score;
 			mDataSource.add(item);
 		}
 		
@@ -91,7 +93,9 @@ OnItemClickListener {
 		public String phoneNum;
 		public String address;
 		public String custId;
-		public String assessId;
+		public String taskHeaderId;
+		public boolean needSync = false;
+		public int score = 0;
 	}
 
 	class ViewHolder {
@@ -151,18 +155,44 @@ OnItemClickListener {
 //			viewHolder.getTxtTaskSexView().setText(item.sex);
 //			viewHolder.getTxtTaskStateView().setText(item.taskState);
 			viewHolder.getTxtTaskUserNameView().setText(item.userName);
+			viewHolder.getImgAssessLevelView().setImageResource(AssessTaskHeaderData.getScoreLevel(item.score));
+			if(item.needSync){
+				viewHolder.getBtnAysnView().setVisibility(View.VISIBLE);
+			}else{
+				viewHolder.getBtnAysnView().setVisibility(View.GONE);
+			}
+			String s = AssessDBCtrl.getDoneAssessTaskDetailCateTotleScore(getActivity(), item.taskHeaderId);
+			viewHolder.getTxtAssessTaskDetailTotleView().setText(s);
 
 			return convertView;
 		}
 
 	}
-
+	
+	private void reBind(){
+		mDataSource = new ArrayList<TaskData>();
+		addData();
+		mTaskAdapter.notifyDataSetChanged();
+	}
+	
+	public final static int REQUESTCODE_ASSESS_ACTY = 1;
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-//		Intent intent = new Intent(getActivity(), MainAssessActivity.class);
-//		intent.putExtra(MainAssessActivity.INTENT_KEY_CUSTID, mDataSource.get(position).custId);
-//		intent.putExtra(MainAssessActivity.INTENT_KEY_ASSESSID,mDataSource.get(position).assessId);
-//		getActivity().startActivity(intent);
+		
+		Intent intent = new Intent(getActivity(), MainAssessActivity.class);
+		intent.putExtra(MainAssessActivity.INTENT_KEY_CUSTID, mDataSource.get(position).custId);
+		intent.putExtra(MainAssessActivity.INTENT_KEY_ASSESSID,mDataSource.get(position).taskHeaderId);
+		startActivityForResult(intent, REQUESTCODE_ASSESS_ACTY);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == REQUESTCODE_ASSESS_ACTY){
+			reBind();
+		}
 	}
 }

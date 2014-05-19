@@ -13,6 +13,7 @@ public class ActivitySetting extends BaseLayout{
     public static final int ContainerId = R.id.container;
     public static final int LayoutActionBarViewId = R.id.layoutActionBarView;
     public static final int BtnBackViewId = R.id.btnBackView;
+    public static final int LayoutUserHeaderInfoContainerViewId = R.id.layoutUserHeaderInfoContainerView;
     public static final int BtnSetNetPwdViewId = R.id.btnSetNetPwdView;
     public static final int BtnSetLocPwdViewId = R.id.btnSetLocPwdView;
     public static final int BtnAysnViewId = R.id.btnAysnView;
@@ -23,6 +24,7 @@ public class ActivitySetting extends BaseLayout{
     protected android.widget.LinearLayout mContainer;
     protected android.widget.RelativeLayout mLayoutActionBarView;
     protected android.widget.ImageButton mBtnBackView;
+    protected android.widget.RelativeLayout mLayoutUserHeaderInfoContainerView;
     protected android.widget.LinearLayout mBtnSetNetPwdView;
     protected android.widget.LinearLayout mBtnSetLocPwdView;
     protected android.widget.LinearLayout mBtnAysnView;
@@ -37,6 +39,7 @@ public class ActivitySetting extends BaseLayout{
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mLayoutActionBarView = (android.widget.RelativeLayout) acty.findViewById(LayoutActionBarViewId);
         mBtnBackView = (android.widget.ImageButton) acty.findViewById(BtnBackViewId);
+        mLayoutUserHeaderInfoContainerView = (android.widget.RelativeLayout) acty.findViewById(LayoutUserHeaderInfoContainerViewId);
         mBtnSetNetPwdView = (android.widget.LinearLayout) acty.findViewById(BtnSetNetPwdViewId);
         mBtnSetLocPwdView = (android.widget.LinearLayout) acty.findViewById(BtnSetLocPwdViewId);
         mBtnAysnView = (android.widget.LinearLayout) acty.findViewById(BtnAysnViewId);
@@ -49,6 +52,7 @@ public class ActivitySetting extends BaseLayout{
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mLayoutActionBarView = (android.widget.RelativeLayout) acty.findViewById(LayoutActionBarViewId);
         mBtnBackView = (android.widget.ImageButton) acty.findViewById(BtnBackViewId);
+        mLayoutUserHeaderInfoContainerView = (android.widget.RelativeLayout) acty.findViewById(LayoutUserHeaderInfoContainerViewId);
         mBtnSetNetPwdView = (android.widget.LinearLayout) acty.findViewById(BtnSetNetPwdViewId);
         mBtnSetLocPwdView = (android.widget.LinearLayout) acty.findViewById(BtnSetLocPwdViewId);
         mBtnAysnView = (android.widget.LinearLayout) acty.findViewById(BtnAysnViewId);
@@ -64,6 +68,9 @@ public class ActivitySetting extends BaseLayout{
     }
     public android.widget.ImageButton getBtnBackView() {
         return mBtnBackView;
+    }
+    public android.widget.RelativeLayout getLayoutUserHeaderInfoContainerView() {
+        return mLayoutUserHeaderInfoContainerView;
     }
     public android.widget.LinearLayout getBtnSetNetPwdView() {
         return mBtnSetNetPwdView;
@@ -108,6 +115,9 @@ public class ActivitySetting extends BaseLayout{
                 case BtnBackViewId:
                     setViewData(adp,getBtnBackView(),data,joinData.formatString,joinData.data);
                     break;
+                case LayoutUserHeaderInfoContainerViewId:
+                    setViewData(adp,getLayoutUserHeaderInfoContainerView(),data,joinData.formatString,joinData.data);
+                    break;
                 case BtnSetNetPwdViewId:
                     setViewData(adp,getBtnSetNetPwdView(),data,joinData.formatString,joinData.data);
                     break;
@@ -147,6 +157,9 @@ public class ActivitySetting extends BaseLayout{
                     break;
                 case BtnBackViewId:
                     setViewData(adp,getBtnBackView(),data,"",path);
+                    break;
+                case LayoutUserHeaderInfoContainerViewId:
+                    setViewData(adp,getLayoutUserHeaderInfoContainerView(),data,"",path);
                     break;
                 case BtnSetNetPwdViewId:
                     setViewData(adp,getBtnSetNetPwdView(),data,"",path);

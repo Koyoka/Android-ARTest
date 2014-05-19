@@ -33,6 +33,7 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragmen
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
 import com.yrkj.util.log.DLog;
+import com.yrkj.util.log.ToastUtil;
 
 public class MainAssessActivity extends 
 //ActionBarActivity 
@@ -334,7 +335,16 @@ OnBtnStratClickListener
 			break;
 		case ActivityMainAssess.BtnGoViewId:
 			if(mLayout.getBtnGoView().getText().equals("提交")){
-				mAssessFragmentList.get(mAssessFragmentList.size()-1).saveData();		
+				mAssessFragmentList.get(mAssessFragmentList.size()-1).saveData();
+
+				if(mTask != null){
+					mTask.AssessState = AssessTaskHeaderData.ASSESS_STATE_DONE;
+					mTask.NeedSync = true;
+					AssessDBCtrl.updateAssessTaskHeaderById(this, mTask);
+					ToastUtil.show(mActy, "提交成功。");
+					setResult(RESULT_SUBMIT);
+					this.finish();
+				}
 			}
 			addFragment();
 			break;
@@ -342,8 +352,8 @@ OnBtnStratClickListener
 		default:
 			break;
 		}
-		
 	}
+	public static final int RESULT_SUBMIT = 101; 
 
 	@Override
 	public void onBtnStratClick() {

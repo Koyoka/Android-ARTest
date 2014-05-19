@@ -26,8 +26,10 @@ public class ListItemDoingTask extends BaseLayout{
     public static final int TxtTaskAddressViewId = R.id.txtTaskAddressView;
     public static final int ImgTaskAddressIconViewId = R.id.imgTaskAddressIconView;
     public static final int BtnTaskMapViewId = R.id.btnTaskMapView;
+    public static final int LayoutReturnTaskViewId = R.id.layoutReturnTaskView;
+    public static final int BtnReturnTaskViewId = R.id.btnReturnTaskView;
 
-    protected android.widget.RelativeLayout mContainer;
+    protected android.widget.LinearLayout mContainer;
     protected android.widget.TextView mTxtTaskNumView;
     protected android.widget.TextView mTxtTaskStateView;
     protected android.widget.TextView mTxtTaskLastDoDateView;
@@ -43,12 +45,14 @@ public class ListItemDoingTask extends BaseLayout{
     protected android.widget.TextView mTxtTaskAddressView;
     protected android.widget.ImageView mImgTaskAddressIconView;
     protected android.widget.Button mBtnTaskMapView;
+    protected android.widget.RelativeLayout mLayoutReturnTaskView;
+    protected android.widget.Button mBtnReturnTaskView;
 
     protected Activity mCurActy;
 
     public ListItemDoingTask(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mTxtTaskNumView = (android.widget.TextView) acty.findViewById(TxtTaskNumViewId);
         mTxtTaskStateView = (android.widget.TextView) acty.findViewById(TxtTaskStateViewId);
         mTxtTaskLastDoDateView = (android.widget.TextView) acty.findViewById(TxtTaskLastDoDateViewId);
@@ -64,10 +68,12 @@ public class ListItemDoingTask extends BaseLayout{
         mTxtTaskAddressView = (android.widget.TextView) acty.findViewById(TxtTaskAddressViewId);
         mImgTaskAddressIconView = (android.widget.ImageView) acty.findViewById(ImgTaskAddressIconViewId);
         mBtnTaskMapView = (android.widget.Button) acty.findViewById(BtnTaskMapViewId);
+        mLayoutReturnTaskView = (android.widget.RelativeLayout) acty.findViewById(LayoutReturnTaskViewId);
+        mBtnReturnTaskView = (android.widget.Button) acty.findViewById(BtnReturnTaskViewId);
     }   
 
     public ListItemDoingTask(android.view.View acty){
-        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mTxtTaskNumView = (android.widget.TextView) acty.findViewById(TxtTaskNumViewId);
         mTxtTaskStateView = (android.widget.TextView) acty.findViewById(TxtTaskStateViewId);
         mTxtTaskLastDoDateView = (android.widget.TextView) acty.findViewById(TxtTaskLastDoDateViewId);
@@ -83,8 +89,10 @@ public class ListItemDoingTask extends BaseLayout{
         mTxtTaskAddressView = (android.widget.TextView) acty.findViewById(TxtTaskAddressViewId);
         mImgTaskAddressIconView = (android.widget.ImageView) acty.findViewById(ImgTaskAddressIconViewId);
         mBtnTaskMapView = (android.widget.Button) acty.findViewById(BtnTaskMapViewId);
+        mLayoutReturnTaskView = (android.widget.RelativeLayout) acty.findViewById(LayoutReturnTaskViewId);
+        mBtnReturnTaskView = (android.widget.Button) acty.findViewById(BtnReturnTaskViewId);
     }   
-    public android.widget.RelativeLayout getContainer() {
+    public android.widget.LinearLayout getContainer() {
         return mContainer;
     }
     public android.widget.TextView getTxtTaskNumView() {
@@ -131,6 +139,12 @@ public class ListItemDoingTask extends BaseLayout{
     }
     public android.widget.Button getBtnTaskMapView() {
         return mBtnTaskMapView;
+    }
+    public android.widget.RelativeLayout getLayoutReturnTaskView() {
+        return mLayoutReturnTaskView;
+    }
+    public android.widget.Button getBtnReturnTaskView() {
+        return mBtnReturnTaskView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -196,6 +210,12 @@ public class ListItemDoingTask extends BaseLayout{
                 case BtnTaskMapViewId:
                     setViewData(adp,getBtnTaskMapView(),data,joinData.formatString,joinData.data);
                     break;
+                case LayoutReturnTaskViewId:
+                    setViewData(adp,getLayoutReturnTaskView(),data,joinData.formatString,joinData.data);
+                    break;
+                case BtnReturnTaskViewId:
+                    setViewData(adp,getBtnReturnTaskView(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -256,6 +276,12 @@ public class ListItemDoingTask extends BaseLayout{
                     break;
                 case BtnTaskMapViewId:
                     setViewData(adp,getBtnTaskMapView(),data,"",path);
+                    break;
+                case LayoutReturnTaskViewId:
+                    setViewData(adp,getLayoutReturnTaskView(),data,"",path);
+                    break;
+                case BtnReturnTaskViewId:
+                    setViewData(adp,getBtnReturnTaskView(),data,"",path);
                     break;
                     
                 default:

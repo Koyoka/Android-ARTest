@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.yrkj.elderlycareassess.R;
 import com.yrkj.util.db.DBMng;
 
 public class AssessTaskHeaderData {
 
 	public static final String ASSESS_STATE_DOING = "ON";
 	public static final String ASSESS_STATE_DONE = "OFF";
+	public static final String ASSESS_STATE_RETURN = "RETURN";
 	public static final String ASSESS_TYPE_FIRST = "F";
 	public static final String ASSESS_TYPE_REVIEW = "R";
 	public static final String ASSESS_TYPE_CONTINUE = "C";
@@ -37,6 +39,7 @@ public class AssessTaskHeaderData {
 	public static final String Col_LastAssessDate = "LastAssessDate";
 	public static final String Col_AssessType = "AssessType";
 	public static final String Col_AssessState = "AssessState";
+	public static final String Col_NeedSync = "NeedSync";
 
 	
 	public static String[] getColumnColl(){
@@ -48,7 +51,8 @@ public class AssessTaskHeaderData {
 				Col_EndAssessDate,
 				Col_LastAssessDate,
 				Col_AssessType,
-				Col_AssessState
+				Col_AssessState,
+				Col_NeedSync
 				};
 	}
 	
@@ -60,6 +64,7 @@ public class AssessTaskHeaderData {
 	public String LastAssessDate = "";
 	public String AssessType = "";
 	public String AssessState = "";
+	public boolean NeedSync = false;
 
 	
 	public static AssessTaskHeaderData convertDataToModule(Cursor c){
@@ -72,7 +77,7 @@ public class AssessTaskHeaderData {
 		item.LastAssessDate = DBMng.GetDataString(c, Col_LastAssessDate);
 		item.AssessType = DBMng.GetDataString(c, Col_AssessType);
 		item.AssessState = DBMng.GetDataString(c, Col_AssessState);
-
+		item.NeedSync = DBMng.getDataBoolean(c, Col_NeedSync);
 		return item;
 	}
 	
@@ -87,9 +92,27 @@ public class AssessTaskHeaderData {
 		values.put(Col_LastAssessDate,data.LastAssessDate);
 		values.put(Col_AssessType,data.AssessType);
 		values.put(Col_AssessState,data.AssessState);
-
+		values.put(Col_NeedSync,data.NeedSync);
 		
 		return values;
+	}
+
+	
+	public static int getScoreLevel(int c){
+		
+		if(c>=0 && c<=7){
+			return R.drawable.icon_level_1;
+		}else if(c>=8 && c<=21){
+			return R.drawable.icon_level_2;
+		}else if(c>=22 && c<=35){
+			return R.drawable.icon_level_3;
+		}else if(c>=36 && c<=131){
+			return R.drawable.icon_level_4;
+		}
+		
+		
+		
+		return R.drawable.icon_level_1;
 	}
 	
 }
