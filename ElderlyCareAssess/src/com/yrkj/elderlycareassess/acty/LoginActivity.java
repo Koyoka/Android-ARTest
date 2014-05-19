@@ -1,7 +1,9 @@
 package com.yrkj.elderlycareassess.acty;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +15,7 @@ import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.layout.ActivityLogin;
+import com.yrkj.elderlycareassess.util.sound.Recorder;
 import com.yrkj.util.dialog.DialogHelper;
 
 public class LoginActivity extends FragmentActivity {
@@ -26,6 +29,7 @@ public class LoginActivity extends FragmentActivity {
 		setContentView(R.layout.activity_login);
 		mActy = this;
 		mLayout = new ActivityLogin(this);
+		vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
 		initActy();
 		
 	}
@@ -42,11 +46,29 @@ public class LoginActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				login();
+				a();
+//				login();
 //				t();
 //				showDialog();
 			}
 		});
+	}
+	Vibrator vib;
+	public  void a(){
+		
+		
+		final Dialog dialog = new Dialog(LoginActivity.this);
+		dialog.setContentView(R.layout.recorder);
+		dialog.setTitle("Recorder");
+		dialog.setCancelable(true);
+		dialog.show();
+		Recorder newRecorder = new Recorder();
+		View view = dialog.findViewById(R.id.recorderView);
+		
+		 
+		// Vibrate for 300 milliseconds
+		vib.vibrate(30);
+		newRecorder.tonCreate(view,vib);//Call the
 	}
 	
 	private void login(){

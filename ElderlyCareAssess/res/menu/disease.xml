@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yrkj.elderlycareassess.MainActivity" >
+
+    <item
+        android:id="@+id/menuDisease1"
+        android:title="糖尿病"/>
+    <item
+        android:id="@+id/menuDisease2"
+        android:title="高血压"/>
+
+</menu>

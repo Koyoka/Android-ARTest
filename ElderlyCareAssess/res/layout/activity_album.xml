@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#000000"
+    tools:context="com.yrkj.elderlycareassess.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+	<ru.truba.touchgallery.GalleryWidget.GalleryViewPager
+            android:id="@+id/viewer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+</LinearLayout>

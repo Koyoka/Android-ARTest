@@ -102,6 +102,8 @@ implements OnClickListener{
 				item.ItemName = selectItem.Name;
 				item.ItemDesc = selectItem.Desc;
 				item.TaskType = AssessTaskDetailData.TASK_TYPE_ITEM;
+				
+				item.Score = item.getScore();
 				itemList.add(item);
 			}
 			

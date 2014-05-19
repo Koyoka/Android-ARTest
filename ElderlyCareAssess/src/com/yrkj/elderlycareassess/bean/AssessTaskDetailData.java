@@ -20,6 +20,7 @@ public class AssessTaskDetailData {
 	public static final String Col_ItemDesc = "ItemDesc";
 	public static final String Col_ItemTagName = "ItemTagName";
 	public static final String Col_TaskType = "TaskType";
+	public static final String Col_Score = "Score";
 
 	public static String[] getColumnColl(){
 		return new String[]{
@@ -34,7 +35,8 @@ public class AssessTaskDetailData {
 				Col_ItemName,
 				Col_ItemDesc,
 				Col_ItemTagName,
-				Col_TaskType
+				Col_TaskType,
+				Col_Score
 				};
 	}
 	
@@ -50,6 +52,7 @@ public class AssessTaskDetailData {
 	public String ItemDesc = "";
 	public String ItemTagName = "";
 	public String TaskType = "";
+	public int Score = 0;
 	
 	public static final String TASK_TYPE_ITEM = "I";
 	public static final String TASK_TYPE_ITEMTAG = "T";
@@ -69,6 +72,7 @@ public class AssessTaskDetailData {
 		item.ItemDesc = DBMng.GetDataString(c, Col_ItemDesc);
 		item.ItemTagName = DBMng.GetDataString(c, Col_ItemTagName);
 		item.TaskType = DBMng.GetDataString(c, Col_TaskType);
+		item.Score = DBMng.getDataInt(c, Col_Score);
 
 		return item;
 	}
@@ -88,6 +92,7 @@ public class AssessTaskDetailData {
 		values.put(Col_ItemDesc,data.ItemDesc);
 		values.put(Col_ItemTagName,data.ItemTagName);
 		values.put(Col_TaskType,data.TaskType);
+		values.put(Col_Score,data.Score);
 		
 		return values;
 	}
@@ -102,6 +107,25 @@ public class AssessTaskDetailData {
 	
 	public static String getIndexKey(String cateId,String subcateId,String itemId,String type){
 		return cateId+"_"+subcateId+"_"+itemId+"_"+type;
+	}
+
+	public int getScore() {
+
+		if(false){}
+		else if(ItemName.trim().equals("正常")){
+			return 0;
+		}
+		else if(ItemName.trim().equals("轻度")){
+			return 1;
+		}
+		else if(ItemName.trim().equals("中度")){
+			return 5;
+		}
+		else if(ItemName.trim().equals("重度")){
+			return 10;
+		}
+		
+		return 0;
 	}
 	
 }
