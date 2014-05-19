@@ -7,14 +7,13 @@ import android.database.Cursor;
 
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentImageData;
-import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentSoundData;
 import com.yrkj.util.db.DBCondition;
 
 public class AttachmentDBCtrl {
 
 	
 	public static long addAttachmentImg(Context c,AssessTaskAttachmentImageData d){
-		
 		
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		dbMng.open();
@@ -25,6 +24,42 @@ public class AttachmentDBCtrl {
 		return result;
 		
 	}
+	public static long addAttachmentSound(Context c,AssessTaskAttachmentSoundData d){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		long result = 0;
+		result = dbMng.insert(AssessTaskAttachmentSoundData.TblName, 
+				AssessTaskAttachmentSoundData.getContentValues(d));
+		dbMng.close();
+		return result;
+		
+	}
+	
+	public static ArrayList<AssessTaskAttachmentSoundData> getAttachmentSoundList(Context c){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+//		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskAttachmentSoundData.TblName, 
+				AssessTaskAttachmentSoundData.getColumnColl(), cdt);
+		dbMng.close();
+
+		ArrayList<AssessTaskAttachmentSoundData> itemList = new ArrayList<AssessTaskAttachmentSoundData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskAttachmentSoundData item = 
+						AssessTaskAttachmentSoundData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
+	
 	
 	public static ArrayList<AssessTaskAttachmentImageData> getAttachmentImgList(Context c){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);

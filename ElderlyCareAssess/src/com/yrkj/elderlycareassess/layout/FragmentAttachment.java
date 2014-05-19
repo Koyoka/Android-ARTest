@@ -15,12 +15,16 @@ public class FragmentAttachment extends BaseLayout{
     public static final int BtnCameraViewId = R.id.btnCameraView;
     public static final int BtnSoundViewId = R.id.btnSoundView;
     public static final int LayoutImgListId = R.id.layoutImgList;
+    public static final int LayoutSoundListId = R.id.layoutSoundList;
+    public static final int ProgressBar1Id = R.id.progressBar1;
 
     protected android.widget.LinearLayout mContainer;
     protected android.widget.Button mBtnDiseaseView;
     protected android.widget.ImageView mBtnCameraView;
-    protected android.widget.ImageView mBtnSoundView;
+    protected com.yrkj.elderlycareassess.widget.UIRecordButton mBtnSoundView;
     protected android.widget.LinearLayout mLayoutImgList;
+    protected android.widget.LinearLayout mLayoutSoundList;
+    protected android.widget.ProgressBar mProgressBar1;
 
     protected Activity mCurActy;
 
@@ -29,16 +33,20 @@ public class FragmentAttachment extends BaseLayout{
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mBtnDiseaseView = (android.widget.Button) acty.findViewById(BtnDiseaseViewId);
         mBtnCameraView = (android.widget.ImageView) acty.findViewById(BtnCameraViewId);
-        mBtnSoundView = (android.widget.ImageView) acty.findViewById(BtnSoundViewId);
+        mBtnSoundView = (com.yrkj.elderlycareassess.widget.UIRecordButton) acty.findViewById(BtnSoundViewId);
         mLayoutImgList = (android.widget.LinearLayout) acty.findViewById(LayoutImgListId);
+        mLayoutSoundList = (android.widget.LinearLayout) acty.findViewById(LayoutSoundListId);
+        mProgressBar1 = (android.widget.ProgressBar) acty.findViewById(ProgressBar1Id);
     }   
 
     public FragmentAttachment(android.view.View acty){
         mContainer = (android.widget.LinearLayout) acty.findViewById(ContainerId);
         mBtnDiseaseView = (android.widget.Button) acty.findViewById(BtnDiseaseViewId);
         mBtnCameraView = (android.widget.ImageView) acty.findViewById(BtnCameraViewId);
-        mBtnSoundView = (android.widget.ImageView) acty.findViewById(BtnSoundViewId);
+        mBtnSoundView = (com.yrkj.elderlycareassess.widget.UIRecordButton) acty.findViewById(BtnSoundViewId);
         mLayoutImgList = (android.widget.LinearLayout) acty.findViewById(LayoutImgListId);
+        mLayoutSoundList = (android.widget.LinearLayout) acty.findViewById(LayoutSoundListId);
+        mProgressBar1 = (android.widget.ProgressBar) acty.findViewById(ProgressBar1Id);
     }   
     public android.widget.LinearLayout getContainer() {
         return mContainer;
@@ -49,11 +57,17 @@ public class FragmentAttachment extends BaseLayout{
     public android.widget.ImageView getBtnCameraView() {
         return mBtnCameraView;
     }
-    public android.widget.ImageView getBtnSoundView() {
+    public com.yrkj.elderlycareassess.widget.UIRecordButton getBtnSoundView() {
         return mBtnSoundView;
     }
     public android.widget.LinearLayout getLayoutImgList() {
         return mLayoutImgList;
+    }
+    public android.widget.LinearLayout getLayoutSoundList() {
+        return mLayoutSoundList;
+    }
+    public android.widget.ProgressBar getProgressBar1() {
+        return mProgressBar1;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -86,6 +100,12 @@ public class FragmentAttachment extends BaseLayout{
                 case LayoutImgListId:
                     setViewData(adp,getLayoutImgList(),data,joinData.formatString,joinData.data);
                     break;
+                case LayoutSoundListId:
+                    setViewData(adp,getLayoutSoundList(),data,joinData.formatString,joinData.data);
+                    break;
+                case ProgressBar1Id:
+                    setViewData(adp,getProgressBar1(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -113,6 +133,12 @@ public class FragmentAttachment extends BaseLayout{
                     break;
                 case LayoutImgListId:
                     setViewData(adp,getLayoutImgList(),data,"",path);
+                    break;
+                case LayoutSoundListId:
+                    setViewData(adp,getLayoutSoundList(),data,"",path);
+                    break;
+                case ProgressBar1Id:
+                    setViewData(adp,getProgressBar1(),data,"",path);
                     break;
                     
                 default:

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recorderView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/my_border_darker" 
-    android:id="@+id/recorderView">
+    android:background="@drawable/my_border_darker" >
 
     <TextView
         android:id="@+id/textView1"
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
-    
+
     <RelativeLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:text="Chronometer"
             android:textSize="50dp" />
-
+
         <ProgressBar
             android:id="@+id/progressBar1"
             style="?android:attr/progressBarStyleHorizontal"
@@ -51,7 +51,6 @@
             android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/chronoTime"
             android:src="@drawable/play1" />
-
     </RelativeLayout>
 
     <ImageView
@@ -60,6 +59,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:src="@drawable/record2"/>
+        android:src="@drawable/record2" />
 
 </TableLayout>

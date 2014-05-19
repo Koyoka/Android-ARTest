@@ -1,37 +1,42 @@
 package com.yrkj.elderlycareassess.fragment;
 
+import java.io.File;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Vibrator;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.AlbumActivity;
-import com.yrkj.elderlycareassess.acty.SoundActivity;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentImageData;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentSoundData;
 import com.yrkj.elderlycareassess.dao.AttachmentDBCtrl;
 import com.yrkj.elderlycareassess.layout.FragmentAttachment;
+import com.yrkj.elderlycareassess.util.AudioHelper;
 import com.yrkj.elderlycareassess.util.FragmentMediaHelper;
-import com.yrkj.elderlycareassess.util.sound.Recorder;
+import com.yrkj.elderlycareassess.widget.UIRecordButton.OnFinishedRecordListener;
 import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.bitmap.MediaHelper;
 
 public class AttachmentFragment extends Fragment implements OnClickListener {
 	
 	private FragmentAttachment mLayout;
-	
+	AudioHelper mAudioHelper;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,7 +45,6 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 				false);
 		
 		mLayout = new FragmentAttachment(v);
-//      mViewPager = (GalleryViewPager)v.findViewById(R.id.listGalleryView);
 		initFragment();
 		return v;
 	}
@@ -48,8 +52,27 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	private void initFragment(){
 		mLayout.getBtnDiseaseView().setOnClickListener(this);
 		mLayout.getBtnCameraView().setOnClickListener(this);
-		bind();
+		mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
+		mAudioHelper = new AudioHelper(mLayout.getProgressBar1());
+		mLayout.getBtnSoundView().setOnFinishedRecordListener(new OnFinishedRecordListener() {
+
+			@Override
+			public void onFinishedRecord(String audioPath) {
+//				Toast.makeText(RecordingActivity.this,audioPath, Toast.LENGTH_SHORT).show();
+				AssessTaskAttachmentSoundData d = new AssessTaskAttachmentSoundData();
+				d.SoundPath = audioPath;
+				AttachmentDBCtrl.addAttachmentSound(getActivity(), d);	
+				bindSound();
+//				ToastUtil.show(getActivity(), audioPath);
+				mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
+//				openFile(new File(audioPath));
+//				
+			}
+		});
+		bindImg();
+		bindSound();
 	}
+
 	
 	private void popDisease(){
 		PopupMenu popup = new PopupMenu(getActivity(), mLayout.getBtnDiseaseView());
@@ -74,9 +97,9 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			break;
 
 		case FragmentAttachment.BtnCameraViewId:
-//			a();
-//			mSavePath = FragmentMediaHelper.getSavePath();
-//			FragmentMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
+			
+			mSavePath = FragmentMediaHelper.getSavePath();
+			FragmentMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
 			break;
 			
 		default:
@@ -84,9 +107,21 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		}
 			
 	}
+	private static final File SOUND_DIR = 
+			new File(Environment.getExternalStorageDirectory() + "/ECA_Sound");//图片的存储目录
 	
-	
-	
+	private static String getSaveSoundFileName(){
+		if(!SOUND_DIR.exists()){
+			SOUND_DIR.mkdir();
+		}
+		
+		Date date = new Date(System.currentTimeMillis());  
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("'SOUND'_yyyyMMdd_HHmmss");  
+	    String saveSoundFileName = dateFormat.format(date) + ".amr";  
+	    
+	    File f = new File(SOUND_DIR, saveSoundFileName); // 用当前时间给取得的图片命名
+		return f.getPath();
+	}
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -98,10 +133,10 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		d.ImgPath = imgPath;
 		
 		AttachmentDBCtrl.addAttachmentImg(getActivity(), d);
-		bind();
+		bindImg();
 	}
 	
-	private void bind(){
+	private void bindImg(){
 		mLayout.getLayoutImgList().removeAllViews();
 		ArrayList<AssessTaskAttachmentImageData> itemlist =
 				AttachmentDBCtrl.getAttachmentImgList(getActivity());
@@ -124,6 +159,57 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		}
 		
 	}
+	private void bindSound(){
+		mLayout.getLayoutSoundList().removeAllViews();
+		ArrayList<AssessTaskAttachmentSoundData> itemlist =
+				AttachmentDBCtrl.getAttachmentSoundList(getActivity());
+		LayoutInflater l = LayoutInflater.from(getActivity());
+		for (AssessTaskAttachmentSoundData item : itemlist) {
+			
+//			Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
+			
+//			<RadioButton 
+//            android:layout_width="wrap_content"
+//            android:layout_height="wrap_content"
+//            android:drawableTop="@drawable/icon_audio_x"
+//            android:text="1"
+//            android:gravity="center"
+//            android:button="@null"/>
+//			RadioButton v = (RadioButton) l.from(getActivity()).inflate(R.layout.view_radio, 
+//					mLayout.getLayoutSoundList(),
+//					false);
+//			v.setTag(item.SoundPath);
+//			v.setText(item.Id+"");
+//			mLayout.getLayoutSoundList().addView(v);
+//			v.setOnClickListener(soundClick);
+//			RadioButton vv = new RadioButton(getActivity());
+//			LinearLayout.LayoutParams lp1 =
+//					new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//			lp1.setMargins(10, 0, 10, 0);
+//			vv.setLayoutParams(lp1);
+//			vv.setd
+			
+			
+			ImageView v = new ImageView(getActivity());
+			
+			LinearLayout.LayoutParams lp =
+					new LinearLayout.LayoutParams(120, 120);
+			lp.setMargins(10, 0, 10, 0);
+			v.setLayoutParams(lp);
+			
+			v.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//			v.setImageBitmap(b);
+			v.setTag(item.SoundPath);
+			
+			v.setImageResource(R.drawable.icon_audio);
+			mLayout.getLayoutSoundList().addView(v);
+			v.setOnClickListener(soundClick);
+			
+		}
+		
+	}
+	
+	
 	
 	OnClickListener imgClick = new OnClickListener() {
 		
@@ -134,32 +220,16 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			startActivity(intent);
 		}
 	};
+	OnClickListener soundClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+//			v.setBackgroundColor(Color.parseColor("red"));
+			mAudioHelper.setFile(v.getTag().toString()).play();
+//			Intent intent = new Intent(getActivity(), AlbumActivity.class);
+//			startActivity(intent);
+		}
+	};
 	
-//	private GalleryViewPager mViewPager;
-//	 List<String> items = new ArrayList<String>();
-//	public void bindImage(){
-////		 String[] urls = null;
-//		ArrayList<AssessTaskAttachmentImageData> itemlist =
-//				AttachmentDBCtrl.getAttachmentImgList(getActivity());
-//		for (AssessTaskAttachmentImageData item : itemlist) {
-//			items.add(item.ImgPath);
-//		}
-//	        
-//        FilePagerAdapter pagerAdapter = new FilePagerAdapter(getActivity(), items);
-//        pagerAdapter.setOnItemChangeListener(new OnItemChangeListener()
-//		{
-//			@Override
-//			public void onItemChange(int currentPosition)
-//			{
-//				ToastUtil.show(getActivity(), "Current item is " + currentPosition);
-////				Toast.makeText(GalleryFileActivity.this, "Current item is " + currentPosition, Toast.LENGTH_SHORT).show();
-//			}
-//		});
-//        
-//
-//        mViewPager.setOffscreenPageLimit(3);
-//        mViewPager.setAdapter(pagerAdapter);   
-//	        
-//	}
 	
 }

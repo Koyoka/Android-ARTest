@@ -29,7 +29,7 @@ public class LoginActivity extends FragmentActivity {
 		setContentView(R.layout.activity_login);
 		mActy = this;
 		mLayout = new ActivityLogin(this);
-		vib = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
+		
 		initActy();
 		
 	}
@@ -46,30 +46,14 @@ public class LoginActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				a();
-//				login();
+//				a();
+				login();
 //				t();
 //				showDialog();
 			}
 		});
 	}
-	Vibrator vib;
-	public  void a(){
-		
-		
-		final Dialog dialog = new Dialog(LoginActivity.this);
-		dialog.setContentView(R.layout.recorder);
-		dialog.setTitle("Recorder");
-		dialog.setCancelable(true);
-		dialog.show();
-		Recorder newRecorder = new Recorder();
-		View view = dialog.findViewById(R.id.recorderView);
-		
-		 
-		// Vibrate for 300 milliseconds
-		vib.vibrate(30);
-		newRecorder.tonCreate(view,vib);//Call the
-	}
+	
 	
 	private void login(){
 		
