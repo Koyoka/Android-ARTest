@@ -17,11 +17,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical" >
         
-          <fragment 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.yrkj.elderlycareassess.fragment.AttachmentFragment"
-            />
+          
         
 
         <TextView

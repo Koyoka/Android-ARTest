@@ -1,9 +1,9 @@
 package com.yrkj.elderlycareassess.acty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.base.SysMng;
-import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
@@ -32,7 +30,6 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
-import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class MainAssessActivity extends 
@@ -79,6 +76,23 @@ OnBtnStratClickListener
 		getSupportFragmentManager().beginTransaction()
 		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
 		.commit();
+	}
+	
+	
+	@Override
+	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(arg0, arg1, arg2);
+		List<Fragment> frags = getSupportFragmentManager().getFragments();
+	    if (frags != null) {
+	        for (Fragment f : frags) {
+	            if (f != null){
+	            	if(!f.isHidden()){
+	            		f.onActivityResult(arg0, arg1, arg2);
+	            	}
+	            }
+	        }
+	    }
 	}
 	
 	

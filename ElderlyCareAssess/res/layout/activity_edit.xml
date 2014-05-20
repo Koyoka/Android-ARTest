@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yrkj.elderlycareassess.CddMainActivity"
+   
+    android:orientation="vertical"
+    tools:ignore="MergeRootFrame" >
+    
+     <RelativeLayout
+        android:id="@+id/layoutActionBarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btnBackView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="12dip"
+            android:background="@drawable/btn_home_x" />
+    </RelativeLayout>
+    
+     <TextView
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_login_margin"
+            	android:layout_marginRight="@dimen/activity_login_margin"
+                android:layout_marginTop="170dip"
+                android:text="修改密码" />
+    <EditText
+            
+            android:id="@+id/txtOldPwdView"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/txt_edit_bg"
+            android:hint="旧密码"
+            android:padding="18dip" />
+    <EditText
+            
+            android:id="@+id/txtNewPwdView"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/txt_edit_bg"
+            android:hint="旧密码"
+            android:padding="18dip" />
+    <EditText
+            
+            android:id="@+id/txtConfirmPwdView"
+            android:maxLength="40"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="20dip"
+            android:background="@drawable/txt_edit_bg"
+            android:hint="旧密码"
+            android:padding="18dip" />
+	    <Button
+            android:id="@+id/btnOkView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_login_margin"
+            android:layout_marginRight="@dimen/activity_login_margin"
+            android:layout_marginTop="40dip"
+            android:background="@drawable/btn_login_bg_x"
+            android:text="确定"
+            android:textColor="#866d2a"
+            android:textSize="25sp" />
+    
+</LinearLayout>
+

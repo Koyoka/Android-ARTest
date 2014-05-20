@@ -13,10 +13,11 @@ public class SysMng {
 	public static final String TAG_UCTRL = "ECA_UCtrl";
 	public static final String TAG_DB = "ECA_DB";
 	public static final String TAG_ASSESS = "ECA_Assess";
+	public static final String TAG_SERVICE = "ECA_Service";
 	
 	private final static String PREF_NAME = "ECA_pref";
 	private final static String PREF_KEY_USERID = "userName";
-	private final static String PREF_KEY_PASSWORD = "password";
+	public  final static String PREF_KEY_PASSWORD = "password";
 	
 	private static SharedPreferences mPrefs;
 	private static SharedPreferences getPrefs(){

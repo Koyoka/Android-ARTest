@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:text="疾病" />
+
+            <Button
+                android:id="@+id/btnDiseaseView"
+                style="@style/fragment_assess_service_count"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:text="慢性阻塞性肺炎" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSaveDiseaseInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:background="@drawable/btn_fragment_assess_question_shorthand_bg_x"
+            android:text="添加/保存" />
+
+        <TextView
+            android:id="@+id/txtDiseaseListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="aaaaaaaa,aaaaaaaaaaa,aaaaaaaaaaa,aaaaaaaaaaa,aaaaaaaaaaa,aaaaaaaaaaa,aaaaaa"
+            android:textSize="@dimen/text_size_36px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dip"
+        android:layout_weight="1"
+        android:background="@drawable/txt_edit_bg"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="4dip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:text="何时患病" />
+
+            <Button
+                android:id="@+id/btnDiseaseDateView"
+                style="@style/fragment_assess_service_count"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:text="2015-05-05" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="2dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/fragment_assess_service_txt"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:text="是否用药" />
+
+            <RadioGroup
+                android:id="@+id/rdoIsMedicationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/rdoMedicationYView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rdo_l_bg_x"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="是" />
+
+                <RadioButton
+                    android:id="@+id/rdoMedicationNView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rdo_r_bg_x"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="否" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/txtDiseaseDescView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="top"
+            android:lines="3"
+            android:text="文字文字" />
+    </LinearLayout>
+
+</LinearLayout>

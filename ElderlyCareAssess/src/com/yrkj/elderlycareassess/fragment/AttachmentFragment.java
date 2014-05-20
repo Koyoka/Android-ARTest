@@ -1,9 +1,9 @@
 package com.yrkj.elderlycareassess.fragment;
 
 import java.io.File;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,28 +15,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
-import android.widget.RadioButton;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.AlbumActivity;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentDiseaseData;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentImageData;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentSoundData;
 import com.yrkj.elderlycareassess.dao.AttachmentDBCtrl;
+import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
+import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment.onDateSelected;
 import com.yrkj.elderlycareassess.layout.FragmentAttachment;
 import com.yrkj.elderlycareassess.util.AudioHelper;
 import com.yrkj.elderlycareassess.util.FragmentMediaHelper;
 import com.yrkj.elderlycareassess.widget.UIRecordButton.OnFinishedRecordListener;
 import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.bitmap.MediaHelper;
+import com.yrkj.util.date.DateHelper;
+import com.yrkj.util.log.ToastUtil;
 
 public class AttachmentFragment extends Fragment implements OnClickListener {
 	
+	private String mSavePath = "";
+	private int mTaskHeaderId = 0;
+	private int mCateId = 0;
 	private FragmentAttachment mLayout;
 	AudioHelper mAudioHelper;
+	
+	public AttachmentFragment(int taskHeaderId,int cateId){
+		mTaskHeaderId = taskHeaderId;
+		mCateId = cateId;
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +63,22 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		return v;
 	}
 	
+	
 	private void initFragment(){
+		
+		mLayout.getBtnShowDiseaseView().setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					mLayout.getLayoutContentView().setVisibility(isChecked?View.VISIBLE:View.GONE);
+			}
+		});
+		
+		mLayout.getBtnShowDiseaseContentView().setOnClickListener(this);
+		
+		mLayout.getBtnSaveDiseaseInfoView().setOnClickListener(this);
+		mLayout.getBtnDiseaseDateView().setOnClickListener(this);
+		
 		mLayout.getBtnDiseaseView().setOnClickListener(this);
 		mLayout.getBtnCameraView().setOnClickListener(this);
 		mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
@@ -60,6 +89,8 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			public void onFinishedRecord(String audioPath) {
 //				Toast.makeText(RecordingActivity.this,audioPath, Toast.LENGTH_SHORT).show();
 				AssessTaskAttachmentSoundData d = new AssessTaskAttachmentSoundData();
+				d.TaskHeaderId = mTaskHeaderId;
+				d.CateId = mCateId;
 				d.SoundPath = audioPath;
 				AttachmentDBCtrl.addAttachmentSound(getActivity(), d);	
 				bindSound();
@@ -69,11 +100,12 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 //				
 			}
 		});
+		
 		bindImg();
 		bindSound();
+		bindDisease();
 	}
 
-	
 	private void popDisease(){
 		PopupMenu popup = new PopupMenu(getActivity(), mLayout.getBtnDiseaseView());
 		popup.getMenuInflater().inflate(R.menu.disease, popup.getMenu());
@@ -87,11 +119,65 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 		popup.show();
 	}
-	private String mSavePath = "";
+	
+	private void saveDisease(){
+		if(DateHelper.parseDate(mLayout.getBtnDiseaseDateView().getText()+"-1")
+				== null){
+			ToastUtil.show(getActivity(), "请选择日期。");
+			return;
+		}
+		
+//		long t = Date.parse(mLayout.getBtnDiseaseDateView().getText()+"-1");
+//		ToastUtil.show(getActivity(), t+"");
+		
+		AssessTaskAttachmentDiseaseData 
+		d = new AssessTaskAttachmentDiseaseData();
+		d.TaskHeaderId = mTaskHeaderId;
+		d.CateId = mCateId;
+		d.DiseaseDesc = mLayout.getTxtDiseaseDescView().getText().toString();
+		d.IsMedication = mLayout.getRdoIsMedicationView().getCheckedRadioButtonId()
+				== mLayout.getRdoMedicationYView().getId()?true:false;
+		d.SickDate = mLayout.getBtnDiseaseDateView().getText().toString();
+		d.DiseaseName = mLayout.getBtnDiseaseView().getText().toString();
+		
+		AttachmentDBCtrl.addAttachmentDisease(getActivity(), d);
+		mLayout.getTxtDiseaseDescView().setText("");
+		bindDisease();
+		
+	}
+	
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
+		case FragmentAttachment.BtnShowDiseaseContentViewId:
+			mLayout.getBtnShowDiseaseView().setChecked(!mLayout.getBtnShowDiseaseView().isChecked());
+			break;
+		case FragmentAttachment.BtnSaveDiseaseInfoViewId:
+			saveDisease();
+			break;
+		case FragmentAttachment.BtnDiseaseDateViewId:
+			MyDialogFragment dialog = 
+				MyDialogFragment.newInstance(MyDialogFragment.DATE_PICKER_DIALOG);
+			dialog.setOnDateSelected(new onDateSelected() {
+				
+				@Override
+				public void onSelected(int y, int m, int d) {
+					// TODO Auto-generated method stub
+					mLayout.getBtnDiseaseDateView().setText(y+"-"+(m+1));
+				}
+			});
+			
+			if(mLayout.getBtnDiseaseDateView().getText()!= null 
+					&& !mLayout.getBtnDiseaseDateView().getText().toString().isEmpty()){
+				Date d =DateHelper.parseDate(mLayout.getBtnDiseaseDateView().getText()+"-1");
+				if(d != null)
+					dialog.setDateDialogValue(d.getYear()+1900,d.getMonth(),1);
+			}
+			
+			dialog.show(getChildFragmentManager(), "");
+			
+			break;
 		case FragmentAttachment.BtnDiseaseViewId:
 			popDisease();
 			break;
@@ -99,6 +185,8 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		case FragmentAttachment.BtnCameraViewId:
 			
 			mSavePath = FragmentMediaHelper.getSavePath();
+			
+//			MediaHelper.setMedia(getActivity(), MediaHelper.MEDIA_IMG_CAMERA,mSavePath);
 			FragmentMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
 			break;
 			
@@ -127,19 +215,24 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		
 		String imgPath = FragmentMediaHelper.getMedioResultPath(this,data,requestCode,mSavePath);
+//		String imgPath = MediaHelper.getMedioResultPath(getActivity(),data,requestCode,mSavePath);
 		
 		AssessTaskAttachmentImageData d = new AssessTaskAttachmentImageData();
+		d.TaskHeaderId = mTaskHeaderId;
+		d.CateId = mCateId;
 		d.ImgPath = imgPath;
 		
-		AttachmentDBCtrl.addAttachmentImg(getActivity(), d);
+		long i = AttachmentDBCtrl.addAttachmentImg(getActivity(), d);
+		
 		bindImg();
 	}
 	
 	private void bindImg(){
 		mLayout.getLayoutImgList().removeAllViews();
 		ArrayList<AssessTaskAttachmentImageData> itemlist =
-				AttachmentDBCtrl.getAttachmentImgList(getActivity());
+				AttachmentDBCtrl.getAttachmentImgList(getActivity(),mTaskHeaderId,mCateId);
 		for (AssessTaskAttachmentImageData item : itemlist) {
 			
 			Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
@@ -162,33 +255,8 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	private void bindSound(){
 		mLayout.getLayoutSoundList().removeAllViews();
 		ArrayList<AssessTaskAttachmentSoundData> itemlist =
-				AttachmentDBCtrl.getAttachmentSoundList(getActivity());
-		LayoutInflater l = LayoutInflater.from(getActivity());
+				AttachmentDBCtrl.getAttachmentSoundList(getActivity(),mTaskHeaderId,mCateId);
 		for (AssessTaskAttachmentSoundData item : itemlist) {
-			
-//			Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
-			
-//			<RadioButton 
-//            android:layout_width="wrap_content"
-//            android:layout_height="wrap_content"
-//            android:drawableTop="@drawable/icon_audio_x"
-//            android:text="1"
-//            android:gravity="center"
-//            android:button="@null"/>
-//			RadioButton v = (RadioButton) l.from(getActivity()).inflate(R.layout.view_radio, 
-//					mLayout.getLayoutSoundList(),
-//					false);
-//			v.setTag(item.SoundPath);
-//			v.setText(item.Id+"");
-//			mLayout.getLayoutSoundList().addView(v);
-//			v.setOnClickListener(soundClick);
-//			RadioButton vv = new RadioButton(getActivity());
-//			LinearLayout.LayoutParams lp1 =
-//					new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//			lp1.setMargins(10, 0, 10, 0);
-//			vv.setLayoutParams(lp1);
-//			vv.setd
-			
 			
 			ImageView v = new ImageView(getActivity());
 			
@@ -198,7 +266,6 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			v.setLayoutParams(lp);
 			
 			v.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//			v.setImageBitmap(b);
 			v.setTag(item.SoundPath);
 			
 			v.setImageResource(R.drawable.icon_audio);
@@ -209,7 +276,16 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 	}
 	
+	private void bindDisease(){
+		ArrayList<AssessTaskAttachmentDiseaseData> dlist =
+				AttachmentDBCtrl.getAttachmentDiseaseList(getActivity(), mTaskHeaderId, mCateId);
 	
+		String s = "";
+		for (AssessTaskAttachmentDiseaseData item : dlist) {
+			s+=item.DiseaseName+" ";
+		}
+		mLayout.getTxtDiseaseListView().setText(s);
+	}
 	
 	OnClickListener imgClick = new OnClickListener() {
 		
@@ -217,6 +293,8 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		public void onClick(View v) {
 
 			Intent intent = new Intent(getActivity(), AlbumActivity.class);
+			intent.putExtra(AlbumActivity.INTENT_KEY_TASKHEADER_ID, mTaskHeaderId);
+			intent.putExtra(AlbumActivity.INTENT_KEY_CATE_ID, mCateId);
 			startActivity(intent);
 		}
 	};

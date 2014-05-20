@@ -3,11 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.yrkj.elderlycareassess.MainActivity" >
 
-    <item
-        android:id="@+id/menuDisease1"
-        android:title="糖尿病"/>
-    <item
-        android:id="@+id/menuDisease2"
-        android:title="高血压"/>
+    <item android:id="@+id/menuDisease1" android:title="糖尿病"/>
+	<item android:id="@+id/menuDisease2" android:title="高血压"/>
+	<item android:id="@+id/menuDisease3" android:title="高血脂"/>
+	<item android:id="@+id/menuDisease4" android:title="慢性阻塞性肺炎"/>
+	<item android:id="@+id/menuDisease5" android:title="冠心病"/>
+	<item android:id="@+id/menuDisease6" android:title="慢性肾病"/>
+	<item android:id="@+id/menuDisease7" android:title="肿瘤"/>
+	<item android:id="@+id/menuDisease8" android:title="关节炎"/>
+	<item android:id="@+id/menuDisease9" android:title="慢性气管炎 "/>
+	<item android:id="@+id/menuDisease10" android:title="肺气肿"/>
+
 
 </menu>

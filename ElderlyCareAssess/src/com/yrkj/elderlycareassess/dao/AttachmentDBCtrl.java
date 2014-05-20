@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.yrkj.elderlycareassess.base.ECAQuesDBMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentDiseaseData;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentImageData;
 import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentSoundData;
 import com.yrkj.util.db.DBCondition;
@@ -35,13 +36,55 @@ public class AttachmentDBCtrl {
 		return result;
 		
 	}
+	public static long addAttachmentDisease(Context c,AssessTaskAttachmentDiseaseData d){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		long result = 0;
+		result = dbMng.insert(AssessTaskAttachmentDiseaseData.TblName, 
+				AssessTaskAttachmentDiseaseData.getContentValues(d));
+		dbMng.close();
+		return result;
+		
+	}
 	
-	public static ArrayList<AssessTaskAttachmentSoundData> getAttachmentSoundList(Context c){
+	public static ArrayList<AssessTaskAttachmentDiseaseData> getAttachmentDiseaseList(Context c,
+			int taskHeaderId,int cateId){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		
 		dbMng.open();
 		DBCondition cdt = new DBCondition();
-//		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id;
+		cdt.Selection = AssessTaskAttachmentDiseaseData.Col_TaskHeaderId + "=" + taskHeaderId +" and "
+				+ AssessTaskAttachmentDiseaseData.Col_CateId + "=" + cateId ;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskAttachmentDiseaseData.TblName, 
+				AssessTaskAttachmentDiseaseData.getColumnColl(), cdt);
+		dbMng.close();
+
+		ArrayList<AssessTaskAttachmentDiseaseData> itemList = new ArrayList<AssessTaskAttachmentDiseaseData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskAttachmentDiseaseData item = 
+						AssessTaskAttachmentDiseaseData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
+	
+	
+	
+	
+	public static ArrayList<AssessTaskAttachmentSoundData> getAttachmentSoundList(Context c,
+			int taskHeaderId,int cateId){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskAttachmentSoundData.Col_TaskHeaderId + "=" + taskHeaderId +" and "
+				+ AssessTaskAttachmentSoundData.Col_CateId + "=" + cateId ;
 		dbMng.open();
 		Cursor cursor = dbMng.query(AssessTaskAttachmentSoundData.TblName, 
 				AssessTaskAttachmentSoundData.getColumnColl(), cdt);
@@ -61,12 +104,15 @@ public class AttachmentDBCtrl {
 	}
 	
 	
-	public static ArrayList<AssessTaskAttachmentImageData> getAttachmentImgList(Context c){
+	public static ArrayList<AssessTaskAttachmentImageData> getAttachmentImgList(Context c
+			,int taskHeaderId,int cateId){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		
 		dbMng.open();
 		DBCondition cdt = new DBCondition();
 //		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id;
+		cdt.Selection = AssessTaskAttachmentImageData.Col_TaskHeaderId + "=" + taskHeaderId +" and "
+				+ AssessTaskAttachmentImageData.Col_CateId + "=" + cateId ;
 		dbMng.open();
 		Cursor cursor = dbMng.query(AssessTaskAttachmentImageData.TblName, 
 				AssessTaskAttachmentImageData.getColumnColl(), cdt);

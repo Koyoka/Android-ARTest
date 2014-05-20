@@ -1,29 +1,25 @@
 package com.yrkj.elderlycareassess.fragment.widget;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 
-import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.base.SysMng;
-import com.yrkj.util.date.DateHelper;
-import com.yrkj.util.log.DLog;
-
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.AlertDialog;
 import android.app.Dialog;
-//import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+//import android.app.DialogFragment;
 
 public class MyDialogFragment extends DialogFragment {
 	public static final int DATE_PICKER_DIALOG = 1;
+	public static final int DATE_PICKER_DIALOG_YM = 4;
 	public static final int ALTER_DIALOG = 2;
 	public static final int TIME_PICKER_DiALOG = 3;
 	private onDateSelected mOnDateSelected;
@@ -70,13 +66,51 @@ public class MyDialogFragment extends DialogFragment {
 				
 	}
 
+	
+	public static DatePicker findDatePicker(ViewGroup group) {  
+        if (group != null) {  
+            for (int i = 0, j = group.getChildCount(); i < j; i++) {  
+                View child = group.getChildAt(i);  
+                if (child instanceof DatePicker) {  
+                    return (DatePicker) child;  
+                } else if (child instanceof ViewGroup) {  
+                    DatePicker result = findDatePicker((ViewGroup) child);  
+                    if (result != null)  
+                        return result;  
+                }  
+            }  
+        }  
+        return null;  
+    }   
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		int args = getArguments().getInt("title");
 		//根据传进来的参数选择创建哪种Dialog
 		switch (args) {
+		case DATE_PICKER_DIALOG_YM:
+			DatePickerDialog d = new DatePickerDialog(getActivity(), new OnDateSetListener() {
+				public void onDateSet(DatePicker view, int year, int monthOfYear,
+						int dayOfMonth) {
+					// TODO Auto-generated method stub
+					//月是从0开始的
+					System.out.println( "year-->" + year + "  month-->" + monthOfYear
+							+ "  day-->" + dayOfMonth);
+					if(mOnDateSelected != null)
+						mOnDateSelected.onSelected(year,monthOfYear,dayOfMonth);
+				}
+			}, mY,mM, mD);
+			
+			
+			return d;
+		
+		
 		case DATE_PICKER_DIALOG:
+			
+//			DatePickerDialog d;
+			
+			
 			return new DatePickerDialog(getActivity(), new OnDateSetListener() {
 				public void onDateSet(DatePicker view, int year, int monthOfYear,
 						int dayOfMonth) {
@@ -117,6 +151,8 @@ public class MyDialogFragment extends DialogFragment {
 				}
 				})
 				.create();
+			
+		
 		case TIME_PICKER_DiALOG:
 			return new TimePickerDialog(getActivity(),new OnTimeSetListener() {
 				

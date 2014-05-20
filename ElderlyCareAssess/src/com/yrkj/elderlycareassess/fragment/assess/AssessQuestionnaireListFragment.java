@@ -2,8 +2,10 @@ package com.yrkj.elderlycareassess.fragment.assess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,8 +22,10 @@ import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.fragment.AttachmentFragment;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnairellist;
 import com.yrkj.util.log.DLog;
+import com.yrkj.util.log.ToastUtil;
 
 public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	
@@ -57,7 +61,22 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		if (savedInstanceState == null) {
 				initData();
 				initFragment();
+//				initAttachment();
 		 }
+		
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		mAf.onActivityResult(requestCode, resultCode, data);
+//		List<Fragment> fragments = getChildFragmentManager().getFragments();
+//        if (fragments != null) {
+//            for (Fragment fragment : fragments) {
+//                fragment.onActivityResult(requestCode, resultCode, data);
+//            }
+//        }
 		
 	}
 	
@@ -84,6 +103,7 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		}
 	}
 	
+	AttachmentFragment mAf;
 	private void initFragment(){
 		if(mData == null){
 			return;
@@ -91,6 +111,13 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		
 		FragmentManager fMng = getChildFragmentManager();
 		FragmentTransaction ft = fMng.beginTransaction();
+		int hId = Integer.parseInt(mTaskHeaderId, 10);
+		int cId = Integer.parseInt(mData.CateId, 10);
+		
+		mAf = new AttachmentFragment(hId,cId);
+		ft.add(FragmentAssessQuestionnairellist.LayoutBodyId,mAf, "attachment");
+		
+		
 		mFList = new AssessQuestionnaireFragment[mData.SubcateList.size()];
 		
 		int i =0;
@@ -110,6 +137,26 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		
 		ft.commit();
 	}
+	
+//	private void initAttachment(){
+//		{
+//			AttachmentFragment f = (AttachmentFragment)
+//				getChildFragmentManager().findFragmentById(R.id.fragAttachmentView);
+//		
+//			DLog.LOG(SysMng.TAG_FRAGMENT, "1--------------"+f);
+//		}
+//		
+//		{
+//			AttachmentFragment f = (AttachmentFragment)
+//					getFragmentManager().findFragmentById(R.id.fragAttachmentView);
+//			DLog.LOG(SysMng.TAG_FRAGMENT, "2--------------"+f);
+//		}
+////		int hId = Integer.parseInt(mTaskHeaderId, 10);
+////		int cId = Integer.parseInt(mData.CateId, 10);
+////		f.setData(hId, cId);
+//		
+//		
+//	}
 	
 	private void loadData(){
 		
