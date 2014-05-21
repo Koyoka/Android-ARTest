@@ -14,7 +14,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.gson.Gson;
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
@@ -30,6 +33,7 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class MainAssessActivity extends 
@@ -349,6 +353,7 @@ OnBtnStratClickListener
 			break;
 		case ActivityMainAssess.BtnGoViewId:
 			if(mLayout.getBtnGoView().getText().equals("Ã·Ωª")){
+				
 				mAssessFragmentList.get(mAssessFragmentList.size()-1).saveData();
 
 				if(mTask != null){
@@ -367,6 +372,11 @@ OnBtnStratClickListener
 			break;
 		}
 	}
+	
+	
+	
+	
+	
 	public static final int RESULT_SUBMIT = 101; 
 
 	@Override

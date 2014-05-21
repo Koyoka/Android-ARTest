@@ -235,7 +235,7 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 //            			item.getItemId()
             			CustomerData.getEthnicId(defineS)
             			);
-            	ToastUtil.show(getActivity(), mLayout.getTxtEthnicView().getTag()+"");
+//            	ToastUtil.show(getActivity(), mLayout.getTxtEthnicView().getTag()+"");
                 return true;
             }
         });

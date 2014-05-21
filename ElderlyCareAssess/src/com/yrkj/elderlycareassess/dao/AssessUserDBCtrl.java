@@ -62,4 +62,16 @@ public class AssessUserDBCtrl {
 		return false;
 		
 	}
+
+	public static long insertUser(Context c,AssessUserData d){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		long result = 0;
+		result = dbMng.insert(AssessUserData.TblName, 
+				AssessUserData.getContentValues(d));
+		dbMng.close();
+		return result;
+		
+	}
+
 }

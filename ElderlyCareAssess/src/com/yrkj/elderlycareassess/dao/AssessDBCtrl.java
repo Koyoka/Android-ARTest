@@ -40,6 +40,27 @@ public class AssessDBCtrl {
 		
 	}
 	
+	public static ArrayList<AssessTaskHeaderData> getAllAssessTaskList(Context c){
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskHeaderData.TblName, 
+				AssessTaskHeaderData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<AssessTaskHeaderData> itemList = new ArrayList<AssessTaskHeaderData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskHeaderData itemHeader = AssessTaskHeaderData.convertDataToModule(cursor);
+				itemList.add(itemHeader);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return itemList;
+	}
+	
 	public static ArrayList<CustomerAssessTask> getDoingAssessTaskList(Context c){
 		
 		
@@ -245,6 +266,16 @@ Limit 1000 ;
 		
 	}
 	
+	public static long insertAssessTaskHeader(Context c,AssessTaskHeaderData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		long result = 0;
+		result = dbMng.insert(AssessTaskHeaderData.TblName, 
+				AssessTaskHeaderData.getContentValues(data));
+		dbMng.close();
+		return result;
+	}
+	
 	public static long insertAssessTaskDetail(Context c,AssessTaskDetailData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		dbMng.open();
@@ -332,6 +363,17 @@ Limit 1000 ;
 		return result;
 	}
 	
+	public static long insertCustomer(Context c,CustomerData data){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		long result = 0;
+		ContentValues values = CustomerData.getContentValues(data);
+		values.put(CustomerData.Col_id,data.id);
+		dbMng.open();
+		result = dbMng.insert(CustomerData.TblName, 
+				values);
+		dbMng.close();
+		return result;
+	}
 	public static boolean updateCustomerById(Context c,CustomerData data){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		String condition = CustomerData.Col_id+"='"+data.id+"'";

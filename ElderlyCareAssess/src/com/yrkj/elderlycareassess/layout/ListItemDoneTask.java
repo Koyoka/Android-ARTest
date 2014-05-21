@@ -15,14 +15,14 @@ public class ListItemDoneTask extends BaseLayout{
     public static final int TxtTaskNumViewId = R.id.txtTaskNumView;
     public static final int TxtTaskUserNameViewId = R.id.txtTaskUserNameView;
     public static final int TxtAssessTaskDetailTotleViewId = R.id.txtAssessTaskDetailTotleView;
-    public static final int BtnAysnViewId = R.id.btnAysnView;
+    public static final int BtnSyncViewId = R.id.btnSyncView;
 
     protected android.widget.LinearLayout mContainer;
     protected android.widget.ImageView mImgAssessLevelView;
     protected android.widget.TextView mTxtTaskNumView;
     protected android.widget.TextView mTxtTaskUserNameView;
     protected android.widget.TextView mTxtAssessTaskDetailTotleView;
-    protected android.widget.RelativeLayout mBtnAysnView;
+    protected android.widget.RelativeLayout mBtnSyncView;
 
     protected Activity mCurActy;
 
@@ -33,7 +33,7 @@ public class ListItemDoneTask extends BaseLayout{
         mTxtTaskNumView = (android.widget.TextView) acty.findViewById(TxtTaskNumViewId);
         mTxtTaskUserNameView = (android.widget.TextView) acty.findViewById(TxtTaskUserNameViewId);
         mTxtAssessTaskDetailTotleView = (android.widget.TextView) acty.findViewById(TxtAssessTaskDetailTotleViewId);
-        mBtnAysnView = (android.widget.RelativeLayout) acty.findViewById(BtnAysnViewId);
+        mBtnSyncView = (android.widget.RelativeLayout) acty.findViewById(BtnSyncViewId);
     }   
 
     public ListItemDoneTask(android.view.View acty){
@@ -42,7 +42,7 @@ public class ListItemDoneTask extends BaseLayout{
         mTxtTaskNumView = (android.widget.TextView) acty.findViewById(TxtTaskNumViewId);
         mTxtTaskUserNameView = (android.widget.TextView) acty.findViewById(TxtTaskUserNameViewId);
         mTxtAssessTaskDetailTotleView = (android.widget.TextView) acty.findViewById(TxtAssessTaskDetailTotleViewId);
-        mBtnAysnView = (android.widget.RelativeLayout) acty.findViewById(BtnAysnViewId);
+        mBtnSyncView = (android.widget.RelativeLayout) acty.findViewById(BtnSyncViewId);
     }   
     public android.widget.LinearLayout getContainer() {
         return mContainer;
@@ -59,8 +59,8 @@ public class ListItemDoneTask extends BaseLayout{
     public android.widget.TextView getTxtAssessTaskDetailTotleView() {
         return mTxtAssessTaskDetailTotleView;
     }
-    public android.widget.RelativeLayout getBtnAysnView() {
-        return mBtnAysnView;
+    public android.widget.RelativeLayout getBtnSyncView() {
+        return mBtnSyncView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -93,8 +93,8 @@ public class ListItemDoneTask extends BaseLayout{
                 case TxtAssessTaskDetailTotleViewId:
                     setViewData(adp,getTxtAssessTaskDetailTotleView(),data,joinData.formatString,joinData.data);
                     break;
-                case BtnAysnViewId:
-                    setViewData(adp,getBtnAysnView(),data,joinData.formatString,joinData.data);
+                case BtnSyncViewId:
+                    setViewData(adp,getBtnSyncView(),data,joinData.formatString,joinData.data);
                     break;
                 }
             }
@@ -124,8 +124,8 @@ public class ListItemDoneTask extends BaseLayout{
                 case TxtAssessTaskDetailTotleViewId:
                     setViewData(adp,getTxtAssessTaskDetailTotleView(),data,"",path);
                     break;
-                case BtnAysnViewId:
-                    setViewData(adp,getBtnAysnView(),data,"",path);
+                case BtnSyncViewId:
+                    setViewData(adp,getBtnSyncView(),data,"",path);
                     break;
                     
                 default:

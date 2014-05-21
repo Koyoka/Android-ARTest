@@ -31,6 +31,8 @@ public class AssessUserData {
 	public String LocPassword = "";
 	public String OfficeAddress = "";
 	public String Office = "";
+	public String Taskcount = "";
+	public String Cmtcount = "";
 
 
 	public static AssessUserData convertDataToModule(Cursor c){

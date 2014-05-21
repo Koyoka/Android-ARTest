@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.internal.widget.ActivityChooserModel.ActivitySorter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +21,7 @@ import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment;
 import com.yrkj.elderlycareassess.fragment.HomeFragment;
 import com.yrkj.elderlycareassess.fragment.ReportFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainHomeNoneactionbar;
+import com.yrkj.elderlycareassess.service.SyncService;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.ActionBar.TabListener;
 
@@ -59,6 +59,10 @@ OnClickListener {
 		mActy = this;
 		mLayout
 		 = new ActivityMainHomeNoneactionbar(this);
+		
+		Intent intent = new Intent(getBaseContext(), SyncService.class);
+    	startService(intent);
+    	
 		initActy();
 		
 //		DLog.LOG(SysMng.TAG_FRAGMENT,"getActionBar() == " + getActionBar() + " " + getSupportActionBar());
@@ -70,6 +74,16 @@ OnClickListener {
 		}
 		
 		
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	
+		Intent intent = new Intent(this, SyncService.class);
+    	stopService(intent);
+    	
 	}
 	
 	@Override

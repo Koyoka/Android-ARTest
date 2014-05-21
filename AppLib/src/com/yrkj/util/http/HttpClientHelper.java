@@ -38,6 +38,7 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
+import com.yrkj.util.http.CustomMultipartEntity.HttpProgressListener;
 import com.yrkj.util.information.HttpInfor;
 import com.yrkj.util.log.DLog;
 
@@ -353,7 +354,7 @@ public class HttpClientHelper {
 	
 	public String PostRequest(String operatorPath, List<NameValuePair> getQparams,List<NameValuePair> postQparams)
 	throws Exception{
-		return httpRequest(operatorPath,getQparams,postQparams,null);
+		return httpRequest(operatorPath,getQparams,postQparams,null,null);
 	}
 	
 	public String FilePostRequest(String operatorPath,
@@ -363,20 +364,35 @@ public class HttpClientHelper {
 		return httpRequest(operatorPath,
 				getQparams==null?null:getQparams.GetValus(),
 				postQparams==null?null:postQparams.GetValus(),
-				fileQparams==null?null:fileQparams.GetFileValues());
+				fileQparams==null?null:fileQparams.GetFileValues(),null);
+	}
+	public String FilePostRequest(String operatorPath,
+			HttpRequestValue getQparams,
+			HttpRequestValue postQparams,
+			HttpRequestValue fileQparams,HttpProgressListener l)throws Exception{
+		return httpRequest(operatorPath,
+				getQparams==null?null:getQparams.GetValus(),
+						postQparams==null?null:postQparams.GetValus(),
+								fileQparams==null?null:fileQparams.GetFileValues(),l);
 	}
 	
 	public String httpRequest(String operatorPath,
 			List<NameValuePair> getQparams,
 			List<NameValuePair> postQparams,
-			Map<String,InputFileObj> fileQparams)throws Exception{
+			Map<String,InputFileObj> fileQparams,HttpProgressListener l)throws Exception{
 		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
 				getQparams!= null?URLEncodedUtils.format(getQparams, CHARSET):null, null);
 		
 	    HttpPost post = new HttpPost(uri);  
 		
 	    if(postQparams != null || fileQparams != null){
-	    	MultipartEntity multipartEntity = new MultipartEntity();  
+	    	MultipartEntity multipartEntity;
+	    	if(l == null){
+	    		 multipartEntity = new MultipartEntity();  
+	    	}else{
+	    		 multipartEntity = new CustomMultipartEntity(l);
+	    	}
+	    	
 	    	
 	    	if(postQparams != null){
 	    		for(NameValuePair item : postQparams){

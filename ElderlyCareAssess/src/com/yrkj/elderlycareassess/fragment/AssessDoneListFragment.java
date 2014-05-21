@@ -7,25 +7,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
+import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
-import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment.TaskAdapter;
-import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment.TaskData;
-import com.yrkj.elderlycareassess.layout.ListItemDoingTask;
 import com.yrkj.elderlycareassess.layout.ListItemDoneTask;
 
 public class AssessDoneListFragment extends ListFragment implements
@@ -157,10 +155,14 @@ OnItemClickListener {
 			viewHolder.getTxtTaskUserNameView().setText(item.userName);
 			viewHolder.getImgAssessLevelView().setImageResource(AssessTaskHeaderData.getScoreLevel(item.score));
 			if(item.needSync){
-				viewHolder.getBtnAysnView().setVisibility(View.VISIBLE);
+				viewHolder.getBtnSyncView().setVisibility(View.VISIBLE);
+				viewHolder.getBtnSyncView().setTag(item.taskHeaderId);
+				viewHolder.getBtnSyncView().setOnClickListener(SyncClick);
 			}else{
-				viewHolder.getBtnAysnView().setVisibility(View.GONE);
+				viewHolder.getBtnSyncView().setVisibility(View.GONE);
 			}
+			
+			
 			String s = AssessDBCtrl.getDoneAssessTaskDetailCateTotleScore(getActivity(), item.taskHeaderId);
 			viewHolder.getTxtAssessTaskDetailTotleView().setText(s);
 
@@ -168,6 +170,24 @@ OnItemClickListener {
 		}
 
 	}
+	
+	OnClickListener SyncClick = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			if(v.getTag() == null)
+				return;
+			
+			String id = v.getTag().toString();
+			
+			try{
+				int taskHeaderId = Integer.parseInt(id, 10);
+				SyncBroadcast.sendUploadSyncBroadcast(getActivity(), taskHeaderId);
+			}
+			catch(Exception e){
+			}
+		}
+	};
 	
 	private void reBind(){
 		mDataSource = new ArrayList<TaskData>();

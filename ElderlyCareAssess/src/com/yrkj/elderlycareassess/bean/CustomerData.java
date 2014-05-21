@@ -207,6 +207,59 @@ public class CustomerData {
 		return item;
 	}
 	
+//	public static ContentValues getContentValues(CustomerData data){
+//		ContentValues values = new ContentValues();
+//		values.put(Col_id,data.id);
+//		values.put(Col_customername,data.customername);
+//		values.put(Col_idnumber,data.idnumber);
+//		values.put(Col_sex,data.sex);
+//		values.put(Col_birthday,data.birthday);
+//		values.put(Col_socialsecurity,data.socialsecurity);
+//		values.put(Col_tel,data.tel);
+//		values.put(Col_mobliephone,data.mobliephone);
+//		values.put(Col_area,data.area);
+//		values.put(Col_address,data.address);
+//		values.put(Col_mail,data.mail);
+//		values.put(Col_customerimg,data.customerimg);
+//		values.put(Col_ethnic,data.ethnic);
+//		values.put(Col_otherethnic,data.otherethnic);
+//		values.put(Col_education,data.education);
+//		values.put(Col_province,data.province);
+//		values.put(Col_work,data.work);
+//		values.put(Col_householdarea,data.householdarea);
+//		values.put(Col_householdaddr,data.householdaddr);
+//		values.put(Col_householdmail,data.householdmail);
+//		values.put(Col_ismarry,data.ismarry);
+//		values.put(Col_proxyname,data.proxyname);
+//		values.put(Col_proxyrelation,data.proxyrelation);
+//		values.put(Col_proxytel,data.proxytel);
+//		values.put(Col_proxyphone,data.proxyphone);
+//		values.put(Col_proxyarea,data.proxyarea);
+//		values.put(Col_proxyaddr,data.proxyaddr);
+//		values.put(Col_proxymail,data.proxymail);
+//		values.put(Col_economicstatus,data.economicstatus);
+//		values.put(Col_livestatus,data.livestatus);
+//		values.put(Col_housestatus,data.housestatus);
+//		values.put(Col_helpstatus,data.helpstatus);
+//		values.put(Col_helper,data.helper);
+//		values.put(Col_otherhelper,data.otherhelper);
+//		values.put(Col_medicalstatus,data.medicalstatus);
+//		values.put(Col_othermedical,data.othermedical);
+//		values.put(Col_adduser,data.adduser);
+//		values.put(Col_addtime,data.addtime);
+//		values.put(Col_isok,data.isok);
+//		values.put(Col_assessnum,data.assessnum);
+//		values.put(Col_firstassessdate,data.firstassessdate);
+//		values.put(Col_curassesstype,data.curassesstype);
+//		values.put(Col_curassessstatus,data.curassessstatus);
+//		values.put(Col_unitid,data.unitid);
+//
+//
+//		
+//		return values;
+//	}
+	
+	
 	
 	public static String getSexDesc(String s){
 		String defineS = "";

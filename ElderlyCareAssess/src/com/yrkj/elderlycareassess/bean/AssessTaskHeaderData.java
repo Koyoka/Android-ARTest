@@ -40,6 +40,7 @@ public class AssessTaskHeaderData {
 	public static final String Col_AssessType = "AssessType";
 	public static final String Col_AssessState = "AssessState";
 	public static final String Col_NeedSync = "NeedSync";
+	public static final String Col_NetTaskHeaderId = "NetTaskHeaderId";
 
 	
 	public static String[] getColumnColl(){
@@ -52,7 +53,8 @@ public class AssessTaskHeaderData {
 				Col_LastAssessDate,
 				Col_AssessType,
 				Col_AssessState,
-				Col_NeedSync
+				Col_NeedSync,
+				Col_NetTaskHeaderId
 				};
 	}
 	
@@ -65,6 +67,7 @@ public class AssessTaskHeaderData {
 	public String AssessType = "";
 	public String AssessState = "";
 	public boolean NeedSync = false;
+	public String NetTaskHeaderId = "";
 
 	
 	public static AssessTaskHeaderData convertDataToModule(Cursor c){
@@ -78,6 +81,7 @@ public class AssessTaskHeaderData {
 		item.AssessType = DBMng.GetDataString(c, Col_AssessType);
 		item.AssessState = DBMng.GetDataString(c, Col_AssessState);
 		item.NeedSync = DBMng.getDataBoolean(c, Col_NeedSync);
+		item.NetTaskHeaderId = DBMng.GetDataString(c, Col_NetTaskHeaderId);
 		return item;
 	}
 	
@@ -93,6 +97,7 @@ public class AssessTaskHeaderData {
 		values.put(Col_AssessType,data.AssessType);
 		values.put(Col_AssessState,data.AssessState);
 		values.put(Col_NeedSync,data.NeedSync);
+		values.put(Col_NetTaskHeaderId,data.NetTaskHeaderId);
 		
 		return values;
 	}

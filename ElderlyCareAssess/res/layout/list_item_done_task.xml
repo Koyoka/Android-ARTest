@@ -69,7 +69,7 @@
 
         
         <RelativeLayout 
-            android:id="@+id/btnAysnView"
+            android:id="@+id/btnSyncView"
             android:layout_width="80dip"
             android:layout_height="match_parent"
             android:gravity="center">
