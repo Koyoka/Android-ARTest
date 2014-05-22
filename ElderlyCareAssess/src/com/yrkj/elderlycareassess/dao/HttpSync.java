@@ -18,9 +18,9 @@ import com.yrkj.util.http.HttpRequestValue;
 
 public class HttpSync {
 
-	private static String host = "www.baidu.com";
-	private static int port = 80;
-	private static String mUrl = "";
+	private static String host = "111.175.197.104";
+	private static int port = 8088;
+	private static String mUrl = "tymk/interface_getClientMessage.do";
 
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
 			HttpRequestValue mReqPostValues, HttpRequestValue mReqFileValues,HttpProgressListener l)
@@ -36,6 +36,8 @@ public class HttpSync {
 		
 		try {
 			HttpRequestValue v = new HttpRequestValue();
+			v.Add("method", "cmttask");
+			v.Add("json", assessJsonString);
 			String jsonStr = doHttp(mUrl,null,v,null,l);
 		} catch (Exception e) {
 			// TODO: handle exception

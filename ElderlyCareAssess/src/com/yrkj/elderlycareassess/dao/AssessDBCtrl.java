@@ -137,6 +137,27 @@ public class AssessDBCtrl {
 		return itemList;
 	}
 	
+	public static ArrayList<AssessTaskHeaderData> getUnSyncAssessTaskList(Context c){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskHeaderData.Col_NeedSync+"=1";
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskHeaderData.TblName, 
+				AssessTaskHeaderData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<AssessTaskHeaderData> itemList = new ArrayList<AssessTaskHeaderData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskHeaderData itemHeader = AssessTaskHeaderData.convertDataToModule(cursor);
+				itemList.add(itemHeader);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return itemList;
+	}
+	
 	public static String getDoneAssessTaskDetailCateTotleScore(Context c,String taskHeaderId){
 		
 		StringBuilder sb = new StringBuilder();

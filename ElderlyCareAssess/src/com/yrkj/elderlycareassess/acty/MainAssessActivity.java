@@ -19,6 +19,7 @@ import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
+import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QItemTagData;
@@ -33,6 +34,7 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
+import com.yrkj.elderlycareassess.service.SyncService;
 import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
@@ -361,6 +363,7 @@ OnBtnStratClickListener
 					mTask.NeedSync = true;
 					AssessDBCtrl.updateAssessTaskHeaderById(this, mTask);
 					ToastUtil.show(mActy, "提交成功。");
+					a();
 					setResult(RESULT_SUBMIT);
 					this.finish();
 				}
@@ -372,9 +375,37 @@ OnBtnStratClickListener
 			break;
 		}
 	}
+	class TaskData{
+		CustomerData cust = null;
+		AssessTaskHeaderData header = null;
+		ArrayList<AssessTaskDetailData> detail = null;
+		ArrayList<AssessTaskServiceData> service = null;
+	}
 	
-	
-	
+	void a(){
+//		
+//		
+		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, mAssessId);
+		data.NetTaskHeaderId = "NetTaskHeaderId";
+		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
+		ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(this, mAssessId);
+		CustomerData cust = AssessDBCtrl.getCustomerByCustId(this, data.CustId);
+		
+		TaskData td = new TaskData();
+		td.cust = cust;
+		td.header = data;
+		td.detail = dataDetailList;
+		td.service = dataServiceList;
+		Gson gson = new Gson();
+//		AssessTaskHeaderData d = new AssessTaskHeaderData();
+//		d.AssessNum = "111";
+//		d.AssessState = "dd";
+		 String s = gson.toJson(td);
+		 DLog.LOG(SysMng.TAG_DB,s);
+//		 autoRun = gson.fromJson(s, AutoRun.class);
+
+
+	}
 	
 	
 	public static final int RESULT_SUBMIT = 101; 

@@ -22,9 +22,13 @@ import com.yrkj.elderlycareassess.acty.MainAssessActivity;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
+import com.yrkj.elderlycareassess.bean.SysSyncData;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.layout.ListItemDoneTask;
+import com.yrkj.elderlycareassess.service.SyncService;
+import com.yrkj.util.date.DateHelper;
 
 public class AssessDoneListFragment extends ListFragment implements
 OnItemClickListener {
@@ -182,6 +186,11 @@ OnItemClickListener {
 			
 			try{
 				int taskHeaderId = Integer.parseInt(id, 10);
+				SysSyncData data = new SysSyncData();
+				data.TaskHeaderId = taskHeaderId;
+				data.State = SysSyncData.SYNC_STATE_WAIT;
+				data.startTime = DateHelper.getTodayAndTime();
+				SysDBCtrl.addWaitingSyncTask(getActivity(), data);
 				SyncBroadcast.sendUploadSyncBroadcast(getActivity(), taskHeaderId);
 			}
 			catch(Exception e){

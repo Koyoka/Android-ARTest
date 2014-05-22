@@ -21,6 +21,7 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
     public static final int BtnAssessViewId = R.id.btnAssessView;
     public static final int BtnReportViewId = R.id.btnReportView;
     public static final int BtnSyncViewId = R.id.btnSyncView;
+    public static final int TxtSyncCountId = R.id.txtSyncCount;
     public static final int LayoutBodyViewId = R.id.layoutBodyView;
 
     protected android.widget.RelativeLayout mContainer;
@@ -29,11 +30,12 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
     protected android.widget.RadioGroup mLayoutAssessTabView;
     protected android.widget.RadioButton mBtnAssessTaskView;
     protected android.widget.RadioButton mBtnAssessDoneView;
-    protected android.widget.RadioGroup mLayoutFootView;
+    protected android.widget.RelativeLayout mLayoutFootView;
     protected android.widget.RadioButton mBtnHomeView;
     protected android.widget.RadioButton mBtnAssessView;
     protected android.widget.RadioButton mBtnReportView;
     protected android.widget.RadioButton mBtnSyncView;
+    protected android.widget.TextView mTxtSyncCount;
     protected android.widget.FrameLayout mLayoutBodyView;
 
     protected Activity mCurActy;
@@ -46,11 +48,12 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
         mLayoutAssessTabView = (android.widget.RadioGroup) acty.findViewById(LayoutAssessTabViewId);
         mBtnAssessTaskView = (android.widget.RadioButton) acty.findViewById(BtnAssessTaskViewId);
         mBtnAssessDoneView = (android.widget.RadioButton) acty.findViewById(BtnAssessDoneViewId);
-        mLayoutFootView = (android.widget.RadioGroup) acty.findViewById(LayoutFootViewId);
+        mLayoutFootView = (android.widget.RelativeLayout) acty.findViewById(LayoutFootViewId);
         mBtnHomeView = (android.widget.RadioButton) acty.findViewById(BtnHomeViewId);
         mBtnAssessView = (android.widget.RadioButton) acty.findViewById(BtnAssessViewId);
         mBtnReportView = (android.widget.RadioButton) acty.findViewById(BtnReportViewId);
         mBtnSyncView = (android.widget.RadioButton) acty.findViewById(BtnSyncViewId);
+        mTxtSyncCount = (android.widget.TextView) acty.findViewById(TxtSyncCountId);
         mLayoutBodyView = (android.widget.FrameLayout) acty.findViewById(LayoutBodyViewId);
     }   
 
@@ -61,11 +64,12 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
         mLayoutAssessTabView = (android.widget.RadioGroup) acty.findViewById(LayoutAssessTabViewId);
         mBtnAssessTaskView = (android.widget.RadioButton) acty.findViewById(BtnAssessTaskViewId);
         mBtnAssessDoneView = (android.widget.RadioButton) acty.findViewById(BtnAssessDoneViewId);
-        mLayoutFootView = (android.widget.RadioGroup) acty.findViewById(LayoutFootViewId);
+        mLayoutFootView = (android.widget.RelativeLayout) acty.findViewById(LayoutFootViewId);
         mBtnHomeView = (android.widget.RadioButton) acty.findViewById(BtnHomeViewId);
         mBtnAssessView = (android.widget.RadioButton) acty.findViewById(BtnAssessViewId);
         mBtnReportView = (android.widget.RadioButton) acty.findViewById(BtnReportViewId);
         mBtnSyncView = (android.widget.RadioButton) acty.findViewById(BtnSyncViewId);
+        mTxtSyncCount = (android.widget.TextView) acty.findViewById(TxtSyncCountId);
         mLayoutBodyView = (android.widget.FrameLayout) acty.findViewById(LayoutBodyViewId);
     }   
     public android.widget.RelativeLayout getContainer() {
@@ -86,7 +90,7 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
     public android.widget.RadioButton getBtnAssessDoneView() {
         return mBtnAssessDoneView;
     }
-    public android.widget.RadioGroup getLayoutFootView() {
+    public android.widget.RelativeLayout getLayoutFootView() {
         return mLayoutFootView;
     }
     public android.widget.RadioButton getBtnHomeView() {
@@ -100,6 +104,9 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
     }
     public android.widget.RadioButton getBtnSyncView() {
         return mBtnSyncView;
+    }
+    public android.widget.TextView getTxtSyncCount() {
+        return mTxtSyncCount;
     }
     public android.widget.FrameLayout getLayoutBodyView() {
         return mLayoutBodyView;
@@ -153,6 +160,9 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
                 case BtnSyncViewId:
                     setViewData(adp,getBtnSyncView(),data,joinData.formatString,joinData.data);
                     break;
+                case TxtSyncCountId:
+                    setViewData(adp,getTxtSyncCount(),data,joinData.formatString,joinData.data);
+                    break;
                 case LayoutBodyViewId:
                     setViewData(adp,getLayoutBodyView(),data,joinData.formatString,joinData.data);
                     break;
@@ -201,6 +211,9 @@ public class ActivityMainHomeNoneactionbar extends BaseLayout{
                     break;
                 case BtnSyncViewId:
                     setViewData(adp,getBtnSyncView(),data,"",path);
+                    break;
+                case TxtSyncCountId:
+                    setViewData(adp,getTxtSyncCount(),data,"",path);
                     break;
                 case LayoutBodyViewId:
                     setViewData(adp,getLayoutBodyView(),data,"",path);

@@ -14,12 +14,14 @@ import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
+import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.SysSyncData;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast.UploadSyncListener;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
+import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.http.CustomMultipartEntity.HttpProgressListener;
 import com.yrkj.util.http.NetHelper;
 import com.yrkj.util.log.DLog;
@@ -72,24 +74,40 @@ public class SyncService extends Service {
 				// TODO Auto-generated method stub
 				DLog.LOG(SysMng.TAG_SERVICE, "taskHeaderId--"+taskHeaderId);
 //				uploadTask(taskHeaderId);
-				iList.add(taskHeaderId);
+				if(taskHeaderId == SYNC_ALL_TASK_KEY){
+					mSyncAll = true;
+				}else{
+					
+					iList.add(taskHeaderId);
+				}
 			}
 		});
 	}
-//	int i = 0;
-	private void uploadTask(final int id){
-		
-//		SysSyncData data = new SysSyncData();
-//		data.TaskHeaderId = id;
-//		data.State = SysSyncData.SYNC_STATE_WAIT;
-//		data.startTime = DateHelper.getTodayAndTime();
+	
+	public static int SYNC_ALL_TASK_KEY = -1;
+	
+////	int i = 0;
+//	private void uploadTask(final int id){
 //		
-//		SysDBCtrl.addWaitingSyncTask(this,data);
-		
-		
+////		SysSyncData data = new SysSyncData();
+////		data.TaskHeaderId = id;
+////		data.State = SysSyncData.SYNC_STATE_WAIT;
+////		data.startTime = DateHelper.getTodayAndTime();
+////		
+////		SysDBCtrl.addWaitingSyncTask(this,data);
+//		
+//		
+//	}
+	
+	private void sendUnSyncTaskCount(){
+		int count = 
+				AssessDBCtrl.getUnSyncAssessTaskList(this).size();
+		SyncBroadcast.sendUnSyncCountBroadcast(this, count);
 	}
+	
 	private void timeHandlerEvent(){
 		DLog.LOG(SysMng.TAG_SERVICE,"0.-------- doCount="+ doCount);
+		sendUnSyncTaskCount();
 		
 		if(NetHelper.getAPNType(this) != -1){
 			if(mSyncAll
@@ -105,9 +123,9 @@ public class SyncService extends Service {
 			}
 			
 //			if(doCount<threadCount && iList.size()!=0){
-				for(int i=0;i<threadCount && (doCount<threadCount && iList.size()!=0);i++){
-					syncThread();
-				}
+			for(int i=0;i<threadCount && (doCount<threadCount && iList.size()!=0);i++){
+				syncThread();
+			}
 //			}
 		}
 	}
@@ -127,6 +145,7 @@ public class SyncService extends Service {
 
 		final int id = iList.get(0);
 		iList.remove(0);
+		
 		
 		
 		final Handler mUploadTaskHandle = new Handler(){
@@ -149,7 +168,11 @@ public class SyncService extends Service {
 				 
 			}
 		};
-		
+
+
+		if(!SysDBCtrl.doingSyncTaskState(SyncService.this, id)){
+			return;
+		}
 		Thread t = new Thread(){
 			public void run() {
 				//do sync item
@@ -159,8 +182,11 @@ public class SyncService extends Service {
 				AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(SyncService.this, id+"");
 				ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(SyncService.this, id+"");
 				ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(SyncService.this, id+"");
+				CustomerData cust = AssessDBCtrl.getCustomerByCustId(SyncService.this, id+"");
+				
 				
 				TaskData td = new TaskData();
+				td.cust = cust;
 				td.header = data;
 				td.detail = dataDetailList;
 				td.service = dataServiceList;
@@ -187,16 +213,18 @@ public class SyncService extends Service {
 				
 				
 				DLog.LOG(SysMng.TAG_SERVICE,"2.--------id["+id+"] "+ doCount +" iList.size["+iList.size()+"]");
-//				SysDBCtrl.finishSyncTaskState(SyncService.this, id);
+				SysDBCtrl.finishSyncTaskState(SyncService.this, id);
 				doCount--;
 			};
 		};
+		
 		t.start();
 		
 		
 	}
 
 	class TaskData{
+		CustomerData cust = null;
 		AssessTaskHeaderData header = null;
 		ArrayList<AssessTaskDetailData> detail = null;
 		ArrayList<AssessTaskServiceData> service = null;

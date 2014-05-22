@@ -58,73 +58,86 @@
             android:text="@string/activity_main_home_assess_tabs_donetask" />
     </RadioGroup>
 
-    <RadioGroup
-         android:id="@+id/layoutFootView"
+    <RelativeLayout
+        android:id="@+id/layoutFootView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal" >
-        <RadioButton
-            android:checked="true"
-            android:button="@null"
-            android:gravity="center"
-            android:id="@+id/btnHomeView"
-            style="@style/activity_main_home_tabs_font"
+        android:layout_alignParentBottom="true" >
+
+       
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/activity_main_home_tabs_home" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg" />
+            <RadioButton
+                android:id="@+id/btnHomeView"
+                style="@style/activity_main_home_tabs_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/activity_main_home_tabs_home" />
 
-        <RadioButton
-            android:button="@null"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/tabs_split_bg" />
+
+            <RadioButton
+                android:id="@+id/btnAssessView"
+                style="@style/activity_main_home_tabs_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/activity_main_home_tabs_assess" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/tabs_split_bg" />
+
+            <RadioButton
+                android:id="@+id/btnReportView"
+                style="@style/activity_main_home_tabs_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/activity_main_home_tabs_report" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/tabs_split_bg" />
+
+            <RadioButton
+                android:id="@+id/btnSyncView"
+                style="@style/activity_main_home_tabs_font"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="@string/activity_main_home_tabs_sync" />
+        </RadioGroup>
+         <TextView 
+             android:visibility="gone"
+             android:id="@+id/txtSyncCount"
+             android:background="@drawable/pop" 
+            android:layout_width="35dip"
+            android:layout_height="35dip"
             android:gravity="center"
-            android:id="@+id/btnAssessView"
-            style="@style/activity_main_home_tabs_font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/activity_main_home_tabs_assess" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg" />
-
-        <RadioButton
-            android:button="@null"
-            android:gravity="center"
-            android:id="@+id/btnReportView"
-            style="@style/activity_main_home_tabs_font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/activity_main_home_tabs_report" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/tabs_split_bg" />
-
-        <RadioButton
-            android:button="@null"
-            android:gravity="center"
-            android:id="@+id/btnSyncView"
-            style="@style/activity_main_home_tabs_font"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/activity_main_home_tabs_sync" />
-        
-        
-
-    </RadioGroup>
-
+            android:textColor="#ffffff"
+            android:text="99"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/layoutBodyView"

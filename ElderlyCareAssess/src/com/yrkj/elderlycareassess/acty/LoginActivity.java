@@ -41,7 +41,7 @@ public class LoginActivity extends FragmentActivity {
 		mLayout = new ActivityLogin(this);
 		
 		initActy();
-		a();
+//		a();
 	}
 	
 	void a(){
@@ -87,7 +87,10 @@ public class LoginActivity extends FragmentActivity {
 			return;
 		}
 		
-		if(NetHelper.getAPNType(this) == -1){
+		int a = NetHelper.getAPNType(this);
+		ToastUtil.show(this, a+" net");
+		
+		if(a == -1){
 			DialogHelper.createTextDialog(mActy, "消息", "用户名或密码错误,请重新输入。");
 			mLayout.getTxtUserNameView().setFocusable(true);
 			

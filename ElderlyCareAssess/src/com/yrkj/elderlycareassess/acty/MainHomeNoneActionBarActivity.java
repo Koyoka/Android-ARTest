@@ -16,6 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
+import com.yrkj.elderlycareassess.broadcast.SyncBroadcast.UnSyncCountListener;
 import com.yrkj.elderlycareassess.fragment.AssessDoneListFragment;
 import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment;
 import com.yrkj.elderlycareassess.fragment.HomeFragment;
@@ -73,14 +75,26 @@ OnClickListener {
 			addFragment(savedInstanceState.getString(SAVE_STATE_KEY_FRAGMENT),null);
 		}
 		
+		b1 = SyncBroadcast.registUnSyncCountBroadcast(this, new UnSyncCountListener() {
+			
+			@Override
+			public void onListener(Bundle bundle, int count) {
+				// TODO Auto-generated method stub
+				mLayout.getTxtSyncCount().setVisibility(count==0?View.GONE:View.VISIBLE);
+				mLayout.getTxtSyncCount().setText(count+"");
+			}
+		});
+		
 		
 	}
-	
+	SyncBroadcast b1;
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-	
+		if(b1!=null){
+			 unregisterReceiver(b1);  
+		}
 		Intent intent = new Intent(this, SyncService.class);
     	stopService(intent);
     	
