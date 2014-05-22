@@ -11,7 +11,7 @@ public class SysSyncData {
 	public static final String Col_Id = "Id";
 	public static final String Col_TaskHeaderId = "TaskHeaderId";
 	public static final String Col_State = "State";
-	public static final String Col_startTime = "startTime";
+	public static final String Col_StartTime = "StartTime";
 	public static final String Col_EndTime = "EndTime";
 
 	public static final String SYNC_STATE_WAIT = "W";
@@ -24,7 +24,7 @@ public class SysSyncData {
 				Col_Id,
 				Col_TaskHeaderId,
 				Col_State,
-				Col_startTime,
+				Col_StartTime,
 				Col_EndTime
 				};
 	}
@@ -41,7 +41,7 @@ public class SysSyncData {
 		item.Id = DBMng.getDataInt(c, Col_Id);
 		item.TaskHeaderId = DBMng.getDataInt(c, Col_TaskHeaderId);
 		item.State = DBMng.GetDataString(c, Col_State);
-		item.startTime = DBMng.GetDataString(c, Col_startTime);
+		item.startTime = DBMng.GetDataString(c, Col_StartTime);
 		item.EndTime = DBMng.GetDataString(c, Col_EndTime);
 
 		return item;
@@ -53,7 +53,7 @@ public class SysSyncData {
 //		values.put(Col_Id,data.Id);
 		values.put(Col_TaskHeaderId,data.TaskHeaderId);
 		values.put(Col_State,data.State);
-		values.put(Col_startTime,data.startTime);
+		values.put(Col_StartTime,data.startTime);
 		values.put(Col_EndTime,data.EndTime);
 
 		

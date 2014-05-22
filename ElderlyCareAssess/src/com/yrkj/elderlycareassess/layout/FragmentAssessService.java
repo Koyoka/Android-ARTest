@@ -53,10 +53,10 @@ public class FragmentAssessService extends BaseLayout{
     public static final int TxtService6Item4ValViewId = R.id.txtService6Item4ValView;
     public static final int ChkService7ViewId = R.id.chkService7View;
     public static final int LayoutService7ContentViewId = R.id.layoutService7ContentView;
-    public static final int RdoService7item1ViewId = R.id.rdoService7item1View;
-    public static final int RdoService7item2ViewId = R.id.rdoService7item2View;
-    public static final int RdoService7item3ViewId = R.id.rdoService7item3View;
-    public static final int RdoService7item4ViewId = R.id.rdoService7item4View;
+    public static final int ChkService7Item1ViewId = R.id.chkService7Item1View;
+    public static final int ChkService7Item2ViewId = R.id.chkService7Item2View;
+    public static final int ChkService7Item3ViewId = R.id.chkService7Item3View;
+    public static final int ChkService7Item4ViewId = R.id.chkService7Item4View;
     public static final int ChkService8ViewId = R.id.chkService8View;
     public static final int LayoutService8ContentViewId = R.id.layoutService8ContentView;
     public static final int ChkService8Item1ViewId = R.id.chkService8Item1View;
@@ -67,9 +67,9 @@ public class FragmentAssessService extends BaseLayout{
     public static final int TxtService8Item2ValViewId = R.id.txtService8Item2ValView;
     public static final int ChkService9ViewId = R.id.chkService9View;
     public static final int LayoutService9ContentViewId = R.id.layoutService9ContentView;
-    public static final int RdoService9item1ViewId = R.id.rdoService9item1View;
-    public static final int RdoService9item2ViewId = R.id.rdoService9item2View;
-    public static final int RdoService9item3ViewId = R.id.rdoService9item3View;
+    public static final int ChkService9Item1ViewId = R.id.chkService9Item1View;
+    public static final int ChkService9Item2ViewId = R.id.chkService9Item2View;
+    public static final int ChkService9Item3ViewId = R.id.chkService9Item3View;
     public static final int ChkService10ViewId = R.id.chkService10View;
     public static final int LayoutService10ContentViewId = R.id.layoutService10ContentView;
     public static final int TxtService10Item1ValViewId = R.id.txtService10Item1ValView;
@@ -90,8 +90,8 @@ public class FragmentAssessService extends BaseLayout{
     public static final int TxtService13Item1ValViewId = R.id.txtService13Item1ValView;
     public static final int ChkService14ViewId = R.id.chkService14View;
     public static final int LayoutService14ContentViewId = R.id.layoutService14ContentView;
-    public static final int RdoService14item1ViewId = R.id.rdoService14item1View;
-    public static final int RdoService14item2ViewId = R.id.rdoService14item2View;
+    public static final int ChkService14Item1ViewId = R.id.chkService14Item1View;
+    public static final int ChkService14Item2ViewId = R.id.chkService14Item2View;
     public static final int ChkService15ViewId = R.id.chkService15View;
     public static final int LayoutService15ContentViewId = R.id.layoutService15ContentView;
     public static final int TxtService15Item1ValViewId = R.id.txtService15Item1ValView;
@@ -147,11 +147,11 @@ public class FragmentAssessService extends BaseLayout{
     protected android.widget.LinearLayout mLayoutService6Item4ContentView;
     protected android.widget.Button mTxtService6Item4ValView;
     protected android.widget.CheckBox mChkService7View;
-    protected android.widget.RadioGroup mLayoutService7ContentView;
-    protected android.widget.RadioButton mRdoService7item1View;
-    protected android.widget.RadioButton mRdoService7item2View;
-    protected android.widget.RadioButton mRdoService7item3View;
-    protected android.widget.RadioButton mRdoService7item4View;
+    protected android.widget.LinearLayout mLayoutService7ContentView;
+    protected android.widget.CheckBox mChkService7Item1View;
+    protected android.widget.CheckBox mChkService7Item2View;
+    protected android.widget.CheckBox mChkService7Item3View;
+    protected android.widget.CheckBox mChkService7Item4View;
     protected android.widget.CheckBox mChkService8View;
     protected android.widget.TableLayout mLayoutService8ContentView;
     protected android.widget.CheckBox mChkService8Item1View;
@@ -161,10 +161,10 @@ public class FragmentAssessService extends BaseLayout{
     protected android.widget.LinearLayout mLayoutService8Item2ContentView;
     protected android.widget.Button mTxtService8Item2ValView;
     protected android.widget.CheckBox mChkService9View;
-    protected android.widget.RadioGroup mLayoutService9ContentView;
-    protected android.widget.RadioButton mRdoService9item1View;
-    protected android.widget.RadioButton mRdoService9item2View;
-    protected android.widget.RadioButton mRdoService9item3View;
+    protected android.widget.LinearLayout mLayoutService9ContentView;
+    protected android.widget.CheckBox mChkService9Item1View;
+    protected android.widget.CheckBox mChkService9Item2View;
+    protected android.widget.CheckBox mChkService9Item3View;
     protected android.widget.CheckBox mChkService10View;
     protected android.widget.LinearLayout mLayoutService10ContentView;
     protected android.widget.Button mTxtService10Item1ValView;
@@ -184,9 +184,9 @@ public class FragmentAssessService extends BaseLayout{
     protected android.widget.LinearLayout mLayoutService13ContentView;
     protected android.widget.Button mTxtService13Item1ValView;
     protected android.widget.CheckBox mChkService14View;
-    protected android.widget.RadioGroup mLayoutService14ContentView;
-    protected android.widget.RadioButton mRdoService14item1View;
-    protected android.widget.RadioButton mRdoService14item2View;
+    protected android.widget.LinearLayout mLayoutService14ContentView;
+    protected android.widget.CheckBox mChkService14Item1View;
+    protected android.widget.CheckBox mChkService14Item2View;
     protected android.widget.CheckBox mChkService15View;
     protected android.widget.LinearLayout mLayoutService15ContentView;
     protected android.widget.Button mTxtService15Item1ValView;
@@ -246,11 +246,11 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService6Item4ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService6Item4ContentViewId);
         mTxtService6Item4ValView = (android.widget.Button) acty.findViewById(TxtService6Item4ValViewId);
         mChkService7View = (android.widget.CheckBox) acty.findViewById(ChkService7ViewId);
-        mLayoutService7ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService7ContentViewId);
-        mRdoService7item1View = (android.widget.RadioButton) acty.findViewById(RdoService7item1ViewId);
-        mRdoService7item2View = (android.widget.RadioButton) acty.findViewById(RdoService7item2ViewId);
-        mRdoService7item3View = (android.widget.RadioButton) acty.findViewById(RdoService7item3ViewId);
-        mRdoService7item4View = (android.widget.RadioButton) acty.findViewById(RdoService7item4ViewId);
+        mLayoutService7ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService7ContentViewId);
+        mChkService7Item1View = (android.widget.CheckBox) acty.findViewById(ChkService7Item1ViewId);
+        mChkService7Item2View = (android.widget.CheckBox) acty.findViewById(ChkService7Item2ViewId);
+        mChkService7Item3View = (android.widget.CheckBox) acty.findViewById(ChkService7Item3ViewId);
+        mChkService7Item4View = (android.widget.CheckBox) acty.findViewById(ChkService7Item4ViewId);
         mChkService8View = (android.widget.CheckBox) acty.findViewById(ChkService8ViewId);
         mLayoutService8ContentView = (android.widget.TableLayout) acty.findViewById(LayoutService8ContentViewId);
         mChkService8Item1View = (android.widget.CheckBox) acty.findViewById(ChkService8Item1ViewId);
@@ -260,10 +260,10 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService8Item2ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService8Item2ContentViewId);
         mTxtService8Item2ValView = (android.widget.Button) acty.findViewById(TxtService8Item2ValViewId);
         mChkService9View = (android.widget.CheckBox) acty.findViewById(ChkService9ViewId);
-        mLayoutService9ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService9ContentViewId);
-        mRdoService9item1View = (android.widget.RadioButton) acty.findViewById(RdoService9item1ViewId);
-        mRdoService9item2View = (android.widget.RadioButton) acty.findViewById(RdoService9item2ViewId);
-        mRdoService9item3View = (android.widget.RadioButton) acty.findViewById(RdoService9item3ViewId);
+        mLayoutService9ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService9ContentViewId);
+        mChkService9Item1View = (android.widget.CheckBox) acty.findViewById(ChkService9Item1ViewId);
+        mChkService9Item2View = (android.widget.CheckBox) acty.findViewById(ChkService9Item2ViewId);
+        mChkService9Item3View = (android.widget.CheckBox) acty.findViewById(ChkService9Item3ViewId);
         mChkService10View = (android.widget.CheckBox) acty.findViewById(ChkService10ViewId);
         mLayoutService10ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService10ContentViewId);
         mTxtService10Item1ValView = (android.widget.Button) acty.findViewById(TxtService10Item1ValViewId);
@@ -283,9 +283,9 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService13ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService13ContentViewId);
         mTxtService13Item1ValView = (android.widget.Button) acty.findViewById(TxtService13Item1ValViewId);
         mChkService14View = (android.widget.CheckBox) acty.findViewById(ChkService14ViewId);
-        mLayoutService14ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService14ContentViewId);
-        mRdoService14item1View = (android.widget.RadioButton) acty.findViewById(RdoService14item1ViewId);
-        mRdoService14item2View = (android.widget.RadioButton) acty.findViewById(RdoService14item2ViewId);
+        mLayoutService14ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService14ContentViewId);
+        mChkService14Item1View = (android.widget.CheckBox) acty.findViewById(ChkService14Item1ViewId);
+        mChkService14Item2View = (android.widget.CheckBox) acty.findViewById(ChkService14Item2ViewId);
         mChkService15View = (android.widget.CheckBox) acty.findViewById(ChkService15ViewId);
         mLayoutService15ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService15ContentViewId);
         mTxtService15Item1ValView = (android.widget.Button) acty.findViewById(TxtService15Item1ValViewId);
@@ -343,11 +343,11 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService6Item4ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService6Item4ContentViewId);
         mTxtService6Item4ValView = (android.widget.Button) acty.findViewById(TxtService6Item4ValViewId);
         mChkService7View = (android.widget.CheckBox) acty.findViewById(ChkService7ViewId);
-        mLayoutService7ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService7ContentViewId);
-        mRdoService7item1View = (android.widget.RadioButton) acty.findViewById(RdoService7item1ViewId);
-        mRdoService7item2View = (android.widget.RadioButton) acty.findViewById(RdoService7item2ViewId);
-        mRdoService7item3View = (android.widget.RadioButton) acty.findViewById(RdoService7item3ViewId);
-        mRdoService7item4View = (android.widget.RadioButton) acty.findViewById(RdoService7item4ViewId);
+        mLayoutService7ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService7ContentViewId);
+        mChkService7Item1View = (android.widget.CheckBox) acty.findViewById(ChkService7Item1ViewId);
+        mChkService7Item2View = (android.widget.CheckBox) acty.findViewById(ChkService7Item2ViewId);
+        mChkService7Item3View = (android.widget.CheckBox) acty.findViewById(ChkService7Item3ViewId);
+        mChkService7Item4View = (android.widget.CheckBox) acty.findViewById(ChkService7Item4ViewId);
         mChkService8View = (android.widget.CheckBox) acty.findViewById(ChkService8ViewId);
         mLayoutService8ContentView = (android.widget.TableLayout) acty.findViewById(LayoutService8ContentViewId);
         mChkService8Item1View = (android.widget.CheckBox) acty.findViewById(ChkService8Item1ViewId);
@@ -357,10 +357,10 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService8Item2ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService8Item2ContentViewId);
         mTxtService8Item2ValView = (android.widget.Button) acty.findViewById(TxtService8Item2ValViewId);
         mChkService9View = (android.widget.CheckBox) acty.findViewById(ChkService9ViewId);
-        mLayoutService9ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService9ContentViewId);
-        mRdoService9item1View = (android.widget.RadioButton) acty.findViewById(RdoService9item1ViewId);
-        mRdoService9item2View = (android.widget.RadioButton) acty.findViewById(RdoService9item2ViewId);
-        mRdoService9item3View = (android.widget.RadioButton) acty.findViewById(RdoService9item3ViewId);
+        mLayoutService9ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService9ContentViewId);
+        mChkService9Item1View = (android.widget.CheckBox) acty.findViewById(ChkService9Item1ViewId);
+        mChkService9Item2View = (android.widget.CheckBox) acty.findViewById(ChkService9Item2ViewId);
+        mChkService9Item3View = (android.widget.CheckBox) acty.findViewById(ChkService9Item3ViewId);
         mChkService10View = (android.widget.CheckBox) acty.findViewById(ChkService10ViewId);
         mLayoutService10ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService10ContentViewId);
         mTxtService10Item1ValView = (android.widget.Button) acty.findViewById(TxtService10Item1ValViewId);
@@ -380,9 +380,9 @@ public class FragmentAssessService extends BaseLayout{
         mLayoutService13ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService13ContentViewId);
         mTxtService13Item1ValView = (android.widget.Button) acty.findViewById(TxtService13Item1ValViewId);
         mChkService14View = (android.widget.CheckBox) acty.findViewById(ChkService14ViewId);
-        mLayoutService14ContentView = (android.widget.RadioGroup) acty.findViewById(LayoutService14ContentViewId);
-        mRdoService14item1View = (android.widget.RadioButton) acty.findViewById(RdoService14item1ViewId);
-        mRdoService14item2View = (android.widget.RadioButton) acty.findViewById(RdoService14item2ViewId);
+        mLayoutService14ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService14ContentViewId);
+        mChkService14Item1View = (android.widget.CheckBox) acty.findViewById(ChkService14Item1ViewId);
+        mChkService14Item2View = (android.widget.CheckBox) acty.findViewById(ChkService14Item2ViewId);
         mChkService15View = (android.widget.CheckBox) acty.findViewById(ChkService15ViewId);
         mLayoutService15ContentView = (android.widget.LinearLayout) acty.findViewById(LayoutService15ContentViewId);
         mTxtService15Item1ValView = (android.widget.Button) acty.findViewById(TxtService15Item1ValViewId);
@@ -522,20 +522,20 @@ public class FragmentAssessService extends BaseLayout{
     public android.widget.CheckBox getChkService7View() {
         return mChkService7View;
     }
-    public android.widget.RadioGroup getLayoutService7ContentView() {
+    public android.widget.LinearLayout getLayoutService7ContentView() {
         return mLayoutService7ContentView;
     }
-    public android.widget.RadioButton getRdoService7item1View() {
-        return mRdoService7item1View;
+    public android.widget.CheckBox getChkService7Item1View() {
+        return mChkService7Item1View;
     }
-    public android.widget.RadioButton getRdoService7item2View() {
-        return mRdoService7item2View;
+    public android.widget.CheckBox getChkService7Item2View() {
+        return mChkService7Item2View;
     }
-    public android.widget.RadioButton getRdoService7item3View() {
-        return mRdoService7item3View;
+    public android.widget.CheckBox getChkService7Item3View() {
+        return mChkService7Item3View;
     }
-    public android.widget.RadioButton getRdoService7item4View() {
-        return mRdoService7item4View;
+    public android.widget.CheckBox getChkService7Item4View() {
+        return mChkService7Item4View;
     }
     public android.widget.CheckBox getChkService8View() {
         return mChkService8View;
@@ -564,17 +564,17 @@ public class FragmentAssessService extends BaseLayout{
     public android.widget.CheckBox getChkService9View() {
         return mChkService9View;
     }
-    public android.widget.RadioGroup getLayoutService9ContentView() {
+    public android.widget.LinearLayout getLayoutService9ContentView() {
         return mLayoutService9ContentView;
     }
-    public android.widget.RadioButton getRdoService9item1View() {
-        return mRdoService9item1View;
+    public android.widget.CheckBox getChkService9Item1View() {
+        return mChkService9Item1View;
     }
-    public android.widget.RadioButton getRdoService9item2View() {
-        return mRdoService9item2View;
+    public android.widget.CheckBox getChkService9Item2View() {
+        return mChkService9Item2View;
     }
-    public android.widget.RadioButton getRdoService9item3View() {
-        return mRdoService9item3View;
+    public android.widget.CheckBox getChkService9Item3View() {
+        return mChkService9Item3View;
     }
     public android.widget.CheckBox getChkService10View() {
         return mChkService10View;
@@ -633,14 +633,14 @@ public class FragmentAssessService extends BaseLayout{
     public android.widget.CheckBox getChkService14View() {
         return mChkService14View;
     }
-    public android.widget.RadioGroup getLayoutService14ContentView() {
+    public android.widget.LinearLayout getLayoutService14ContentView() {
         return mLayoutService14ContentView;
     }
-    public android.widget.RadioButton getRdoService14item1View() {
-        return mRdoService14item1View;
+    public android.widget.CheckBox getChkService14Item1View() {
+        return mChkService14Item1View;
     }
-    public android.widget.RadioButton getRdoService14item2View() {
-        return mRdoService14item2View;
+    public android.widget.CheckBox getChkService14Item2View() {
+        return mChkService14Item2View;
     }
     public android.widget.CheckBox getChkService15View() {
         return mChkService15View;
@@ -823,17 +823,17 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService7ContentViewId:
                     setViewData(adp,getLayoutService7ContentView(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService7item1ViewId:
-                    setViewData(adp,getRdoService7item1View(),data,joinData.formatString,joinData.data);
+                case ChkService7Item1ViewId:
+                    setViewData(adp,getChkService7Item1View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService7item2ViewId:
-                    setViewData(adp,getRdoService7item2View(),data,joinData.formatString,joinData.data);
+                case ChkService7Item2ViewId:
+                    setViewData(adp,getChkService7Item2View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService7item3ViewId:
-                    setViewData(adp,getRdoService7item3View(),data,joinData.formatString,joinData.data);
+                case ChkService7Item3ViewId:
+                    setViewData(adp,getChkService7Item3View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService7item4ViewId:
-                    setViewData(adp,getRdoService7item4View(),data,joinData.formatString,joinData.data);
+                case ChkService7Item4ViewId:
+                    setViewData(adp,getChkService7Item4View(),data,joinData.formatString,joinData.data);
                     break;
                 case ChkService8ViewId:
                     setViewData(adp,getChkService8View(),data,joinData.formatString,joinData.data);
@@ -865,14 +865,14 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService9ContentViewId:
                     setViewData(adp,getLayoutService9ContentView(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService9item1ViewId:
-                    setViewData(adp,getRdoService9item1View(),data,joinData.formatString,joinData.data);
+                case ChkService9Item1ViewId:
+                    setViewData(adp,getChkService9Item1View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService9item2ViewId:
-                    setViewData(adp,getRdoService9item2View(),data,joinData.formatString,joinData.data);
+                case ChkService9Item2ViewId:
+                    setViewData(adp,getChkService9Item2View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService9item3ViewId:
-                    setViewData(adp,getRdoService9item3View(),data,joinData.formatString,joinData.data);
+                case ChkService9Item3ViewId:
+                    setViewData(adp,getChkService9Item3View(),data,joinData.formatString,joinData.data);
                     break;
                 case ChkService10ViewId:
                     setViewData(adp,getChkService10View(),data,joinData.formatString,joinData.data);
@@ -934,11 +934,11 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService14ContentViewId:
                     setViewData(adp,getLayoutService14ContentView(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService14item1ViewId:
-                    setViewData(adp,getRdoService14item1View(),data,joinData.formatString,joinData.data);
+                case ChkService14Item1ViewId:
+                    setViewData(adp,getChkService14Item1View(),data,joinData.formatString,joinData.data);
                     break;
-                case RdoService14item2ViewId:
-                    setViewData(adp,getRdoService14item2View(),data,joinData.formatString,joinData.data);
+                case ChkService14Item2ViewId:
+                    setViewData(adp,getChkService14Item2View(),data,joinData.formatString,joinData.data);
                     break;
                 case ChkService15ViewId:
                     setViewData(adp,getChkService15View(),data,joinData.formatString,joinData.data);
@@ -1118,17 +1118,17 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService7ContentViewId:
                     setViewData(adp,getLayoutService7ContentView(),data,"",path);
                     break;
-                case RdoService7item1ViewId:
-                    setViewData(adp,getRdoService7item1View(),data,"",path);
+                case ChkService7Item1ViewId:
+                    setViewData(adp,getChkService7Item1View(),data,"",path);
                     break;
-                case RdoService7item2ViewId:
-                    setViewData(adp,getRdoService7item2View(),data,"",path);
+                case ChkService7Item2ViewId:
+                    setViewData(adp,getChkService7Item2View(),data,"",path);
                     break;
-                case RdoService7item3ViewId:
-                    setViewData(adp,getRdoService7item3View(),data,"",path);
+                case ChkService7Item3ViewId:
+                    setViewData(adp,getChkService7Item3View(),data,"",path);
                     break;
-                case RdoService7item4ViewId:
-                    setViewData(adp,getRdoService7item4View(),data,"",path);
+                case ChkService7Item4ViewId:
+                    setViewData(adp,getChkService7Item4View(),data,"",path);
                     break;
                 case ChkService8ViewId:
                     setViewData(adp,getChkService8View(),data,"",path);
@@ -1160,14 +1160,14 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService9ContentViewId:
                     setViewData(adp,getLayoutService9ContentView(),data,"",path);
                     break;
-                case RdoService9item1ViewId:
-                    setViewData(adp,getRdoService9item1View(),data,"",path);
+                case ChkService9Item1ViewId:
+                    setViewData(adp,getChkService9Item1View(),data,"",path);
                     break;
-                case RdoService9item2ViewId:
-                    setViewData(adp,getRdoService9item2View(),data,"",path);
+                case ChkService9Item2ViewId:
+                    setViewData(adp,getChkService9Item2View(),data,"",path);
                     break;
-                case RdoService9item3ViewId:
-                    setViewData(adp,getRdoService9item3View(),data,"",path);
+                case ChkService9Item3ViewId:
+                    setViewData(adp,getChkService9Item3View(),data,"",path);
                     break;
                 case ChkService10ViewId:
                     setViewData(adp,getChkService10View(),data,"",path);
@@ -1229,11 +1229,11 @@ public class FragmentAssessService extends BaseLayout{
                 case LayoutService14ContentViewId:
                     setViewData(adp,getLayoutService14ContentView(),data,"",path);
                     break;
-                case RdoService14item1ViewId:
-                    setViewData(adp,getRdoService14item1View(),data,"",path);
+                case ChkService14Item1ViewId:
+                    setViewData(adp,getChkService14Item1View(),data,"",path);
                     break;
-                case RdoService14item2ViewId:
-                    setViewData(adp,getRdoService14item2View(),data,"",path);
+                case ChkService14Item2ViewId:
+                    setViewData(adp,getChkService14Item2View(),data,"",path);
                     break;
                 case ChkService15ViewId:
                     setViewData(adp,getChkService15View(),data,"",path);

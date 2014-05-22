@@ -38,7 +38,7 @@ public class UserHeaderInfoFragment extends Fragment {
 		
 		String s = SysDBCtrl.getLastLoginDate(getActivity());
 		
-		mLayout.getTxtLastLoginDateView().setText(s.isEmpty()?"首次登陆":s);
+		mLayout.getTxtLastLoginDateView().setText(s.isEmpty()?"首次登陆":"上次登录时间:"+s);
 		
 		AssessUserData u = SysMng.getUserInfo();
 		u = AssessUserDBCtrl.getUserData(getActivity(), u.UserId);

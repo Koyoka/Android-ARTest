@@ -201,7 +201,7 @@
     <style name="activity_main_assess_btn_back">
         <item name="android:textSize">@dimen/text_size_28px</item>
         <item name="android:textColor">@color/fragment_home_text_color</item>
-        <item name="android:background">@drawable/btn_main_assess_back_bg_x</item>
+        <item name="android:background">@drawable/btn_back_1_x</item>
         <item name="android:paddingLeft">15dip</item>
         <item name="android:paddingRight">15dip</item>
     </style>

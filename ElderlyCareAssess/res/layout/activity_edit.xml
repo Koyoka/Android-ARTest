@@ -57,7 +57,7 @@
             android:layout_marginRight="@dimen/activity_login_margin"
             android:layout_marginTop="20dip"
             android:background="@drawable/txt_edit_bg"
-            android:hint="旧密码"
+            android:hint="新密码"
             android:padding="18dip" />
     <EditText
             
@@ -70,7 +70,7 @@
             android:layout_marginRight="@dimen/activity_login_margin"
             android:layout_marginTop="20dip"
             android:background="@drawable/txt_edit_bg"
-            android:hint="旧密码"
+            android:hint="确认密码"
             android:padding="18dip" />
 	    <Button
             android:id="@+id/btnOkView"

@@ -7,19 +7,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.os.RecoverySystem.ProgressListener;
 
+import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessUserData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.util.http.CustomMultipartEntity.HttpProgressListener;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
+import com.yrkj.util.log.DLog;
 
 public class HttpSync {
 
-	private static String host = "111.175.197.104";
-	private static int port = 8088;
+	private static String host = "121.199.17.68";
+	private static int port = 80;
 	private static String mUrl = "tymk/interface_getClientMessage.do";
 
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
@@ -33,22 +34,34 @@ public class HttpSync {
 	
 	
 	public static boolean uploadAssessTask(Context c,String assessJsonString,HttpProgressListener l){
-		
+		DLog.LOG(SysMng.TAG_NET,"uploadAssessTask 1--------");
+		DLog.LOG(SysMng.TAG_NET,assessJsonString);
 		try {
 			HttpRequestValue v = new HttpRequestValue();
 			v.Add("method", "cmttask");
 			v.Add("json", assessJsonString);
 			String jsonStr = doHttp(mUrl,null,v,null,l);
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTask 2--------"+jsonStr);
+			JSONBean b = JSONBean.getInstance(jsonStr);
+			if(!b.IsSuccess()){
+				return false;
+			}
+			JSONObject jo = new JSONObject(b.body);
+			if(jo.getString("status").equals("0")){
+				return true;
+			}else{
+				return false;
+			}
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTask err --------"+e.getMessage());
+			return false;
 		}
 		
-	
-		
-		return true;
+//		return true;
 	}
 	
-	public static boolean backAssessTask(Context c,String userId,String taskHeaderId){
+	public static boolean backAssessTask(Context c,String userId,String netTaskHeaderId){
 		
 		// ²ÎÊý assessid, username
 //		{"success":"0","errormessage":"","body":{"status":"-1","statusmessage":"assess is null"}}
@@ -57,10 +70,11 @@ public class HttpSync {
 			HttpRequestValue v = new HttpRequestValue();
 			v.Add("method", "backtask");
 			v.Add("username", userId);
-			v.Add("assessid", taskHeaderId);
+			v.Add("assessid", netTaskHeaderId);
 			String jsonStr = doHttp(mUrl,null,v,null,null);
+			DLog.LOG(SysMng.TAG_NET,"backAssessTask 3--------"+jsonStr+" "+netTaskHeaderId+" "+userId);
 			JSONBean b = JSONBean.getInstance(jsonStr);
-			if(b.IsSuccess()){
+			if(!b.IsSuccess()){
 				return false;
 			}
 			
@@ -94,8 +108,9 @@ public class HttpSync {
 			v.Add("assessid", assessid);
 			
 			String jsonStr = doHttp(mUrl,null,v,null,null);
+			DLog.LOG(SysMng.TAG_NET,"downLoadAssessTask 3--------"+jsonStr);
 			JSONBean b = JSONBean.getInstance(jsonStr);
-			if(b.IsSuccess()){
+			if(!b.IsSuccess()){
 				return false;
 			}
 
@@ -104,6 +119,10 @@ public class HttpSync {
 				JSONObject b1 = jay.getJSONObject(i);
 				AssessTaskHeaderData dataAssess =
 						JsonAssess.convertToModule(b1.getString("assess"));
+				dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_FIRST;
+				dataAssess.AssessState = AssessTaskHeaderData.ASSESS_STATE_DOING;
+				dataAssess.NeedSync = false;
+				
 				CustomerData cust = 
 						JsonCustomer.convertToModule(b1.getString("customer"));
 				
@@ -120,7 +139,7 @@ public class HttpSync {
 	}
 	
 	public static boolean userNetLogin(Context c,String userId,String password){
-		
+//		DLog.LOG(SysMng.TAG_NET,"1--------");
 		try {
 			ArrayList<AssessTaskHeaderData> itemList =
 					AssessDBCtrl.getAllAssessTaskList(c);
@@ -128,7 +147,7 @@ public class HttpSync {
 			for (AssessTaskHeaderData item : itemList) {
 				assessid += ","+item.NetTaskHeaderId;
 			}
-			
+//			DLog.LOG(SysMng.TAG_NET,"2--------");
 			HttpRequestValue v = new HttpRequestValue();
 			v.Add("method", "getuserinfo");
 			v.Add("username", userId);
@@ -136,14 +155,18 @@ public class HttpSync {
 			v.Add("assessid", assessid);
 			
 			String jsonStr = doHttp(mUrl,null,v,null,null);
+//			DLog.LOG(SysMng.TAG_NET,"3--------"+jsonStr);
 			JSONBean b = JSONBean.getInstance(jsonStr);
-			if(b.IsSuccess()){
+//			DLog.LOG(SysMng.TAG_NET,"4--------"+b.IsSuccess());
+			if(!b.IsSuccess()){
 				return false;
 			}
+			
 			
 			JsonUserBean user = JsonUserBean.getInstance(b.body);
 			
 			AssessUserData d = new AssessUserData();
+//			DLog.LOG(SysMng.TAG_NET,"4.1--------"+user);
 			if(user != null && user.islogin.equals("1")){
 				d.UserId = user.loginname;
 				d.LocPassword = password;
@@ -153,12 +176,15 @@ public class HttpSync {
 				d.Taskcount = user.taskcount;
 				d.Cmtcount = user.cmtcount;
 				AssessUserDBCtrl.insertUser(c, d);
+//				DLog.LOG(SysMng.TAG_NET,"5--------");
 				return true;
 			}else{
+//				DLog.LOG(SysMng.TAG_NET,"6--------");
 				return false;
 			}
 			
 		} catch (Exception e) {
+			DLog.LOG(SysMng.TAG_NET,"err "+e.getMessage());
 			e.printStackTrace();
 			return false;
 		}

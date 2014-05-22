@@ -29,6 +29,9 @@ import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.layout.ListItemDoneTask;
 import com.yrkj.elderlycareassess.service.SyncService;
 import com.yrkj.util.date.DateHelper;
+import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.http.NetHelper;
+import com.yrkj.util.log.ToastUtil;
 
 public class AssessDoneListFragment extends ListFragment implements
 OnItemClickListener {
@@ -73,6 +76,7 @@ OnItemClickListener {
 			item.taskHeaderId = itemData.mTask.Id;
 			item.needSync = itemData.mTask.NeedSync;
 			item.score = itemData.score;
+			item.scount = itemData.scount;
 			mDataSource.add(item);
 		}
 		
@@ -98,6 +102,7 @@ OnItemClickListener {
 		public String taskHeaderId;
 		public boolean needSync = false;
 		public int score = 0;
+		public int scount = 0;
 	}
 
 	class ViewHolder {
@@ -150,18 +155,17 @@ OnItemClickListener {
 			TaskData item = mDataSource.get(position);
 
 			viewHolder.getTxtTaskNumView().setText(item.taskNum);
-//			viewHolder.getTxtTaskAddressView().setText(item.address);
-//			viewHolder.getTxtTaskEndDateView().setText(item.taskEndDate);
-//			viewHolder.getTxtTaskLastDoDateView().setText(item.taskLastDoDate);
-//			viewHolder.getTxtTaskPhoneNumView().setText(item.phoneNum);
-//			viewHolder.getTxtTaskSexView().setText(item.sex);
-//			viewHolder.getTxtTaskStateView().setText(item.taskState);
 			viewHolder.getTxtTaskUserNameView().setText(item.userName);
 			viewHolder.getImgAssessLevelView().setImageResource(AssessTaskHeaderData.getScoreLevel(item.score));
+			
 			if(item.needSync){
-				viewHolder.getBtnSyncView().setVisibility(View.VISIBLE);
-				viewHolder.getBtnSyncView().setTag(item.taskHeaderId);
-				viewHolder.getBtnSyncView().setOnClickListener(SyncClick);
+				if(item.scount != 0){
+					viewHolder.getBtnSyncView().setVisibility(View.GONE);
+				}else{
+					viewHolder.getBtnSyncView().setVisibility(View.VISIBLE);
+					viewHolder.getBtnSyncView().setTag(item.taskHeaderId);
+					viewHolder.getBtnSyncView().setOnClickListener(SyncClick);
+				}
 			}else{
 				viewHolder.getBtnSyncView().setVisibility(View.GONE);
 			}
@@ -186,17 +190,51 @@ OnItemClickListener {
 			
 			try{
 				int taskHeaderId = Integer.parseInt(id, 10);
-				SysSyncData data = new SysSyncData();
-				data.TaskHeaderId = taskHeaderId;
-				data.State = SysSyncData.SYNC_STATE_WAIT;
-				data.startTime = DateHelper.getTodayAndTime();
-				SysDBCtrl.addWaitingSyncTask(getActivity(), data);
-				SyncBroadcast.sendUploadSyncBroadcast(getActivity(), taskHeaderId);
+
+				syncTask(v,taskHeaderId);
+				
+//				if(SysDBCtrl.checkTaskHasBeenAddToSyncList(getActivity(), id)){
+//					ToastUtil.show(getActivity(), "已添加到同步队列中。");
+//					return;
+//				}
+				
+//				v.setVisibility(View.GONE);
 			}
 			catch(Exception e){
 			}
 		}
 	};
+	
+	private synchronized void syncTask(View v,int taskHeaderId){
+		
+		if(NetHelper.getAPNType(getActivity()) == -1){
+			DialogHelper.createTextDialog(getActivity(), "消息", "请确保在通畅的网络环境下，进行同步操作。");
+			return;
+		}
+		
+		
+		SysSyncData defineData = SysDBCtrl.getSyncDataByTaskHeaderId(getActivity(), taskHeaderId+"");
+		if(defineData != null){
+			if(defineData.State.equals(SysSyncData.SYNC_STATE_DOING)){
+				ToastUtil.show(getActivity(), "已添加到同步队列中。");
+				return;
+			}
+			else if( defineData.State.equals(SysSyncData.SYNC_STATE_DOING)){
+				ToastUtil.show(getActivity(), "正在上传中");
+				return;
+			}
+		}else{
+			ToastUtil.show(getActivity(), "准备同步中。");
+			SysSyncData data = new SysSyncData();
+			data.TaskHeaderId = taskHeaderId;
+			data.State = SysSyncData.SYNC_STATE_WAIT;
+			data.startTime = DateHelper.getTodayAndTime();
+			SysDBCtrl.addWaitingSyncTask(getActivity(), data);
+			SyncBroadcast.sendUploadSyncBroadcast(getActivity(), taskHeaderId);
+			v.setVisibility(View.GONE);
+			
+		}
+	}
 	
 	private void reBind(){
 		mDataSource = new ArrayList<TaskData>();

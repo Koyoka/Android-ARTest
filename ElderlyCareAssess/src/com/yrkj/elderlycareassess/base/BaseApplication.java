@@ -21,7 +21,7 @@ public class BaseApplication extends Application {
 		super.onCreate();
 		
 		mApplication = this;
-		if(!ECAQuesDBMng.init(this,SysMng.IsDebug)){
+		if(!ECAQuesDBMng.init(this,false/*SysMng.IsDebug*/)){
 			DLog.LOG("create db error");
 		}else{
 //			sys_DBCreated = true;

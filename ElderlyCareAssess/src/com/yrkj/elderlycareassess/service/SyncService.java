@@ -28,6 +28,7 @@ import com.yrkj.util.log.DLog;
 
 public class SyncService extends Service {
 
+	int time = 5000;
 	SyncBroadcast b1;
 	
 	Handler mTimeHandler=new Handler();
@@ -101,17 +102,21 @@ public class SyncService extends Service {
 	
 	private void sendUnSyncTaskCount(){
 		int count = 
-				AssessDBCtrl.getUnSyncAssessTaskList(this).size();
-		SyncBroadcast.sendUnSyncCountBroadcast(this, count);
+				AssessDBCtrl.getCanSyncAssessTaskCount(this);//AssessDBCtrl.getUnSyncAssessTaskList(this).size();
+		int scount = AssessDBCtrl.getWaitingSyncAssessTaskCount(this);
+		SyncBroadcast.sendUnSyncCountBroadcast(this, count+scount);
 	}
 	
 	private void timeHandlerEvent(){
 		DLog.LOG(SysMng.TAG_SERVICE,"0.-------- doCount="+ doCount);
-		sendUnSyncTaskCount();
+		
 		
 		if(NetHelper.getAPNType(this) != -1){
+			sendUnSyncTaskCount();
+			
 			if(mSyncAll
-					&& doCount<threadCount){
+					&& 
+					doCount<threadCount){
 				ArrayList<SysSyncData> items = SysDBCtrl.getWaitingSyncTask(this, threadCount);
 				if(items.size()==0){
 					mSyncAll = false;
@@ -123,14 +128,33 @@ public class SyncService extends Service {
 			}
 			
 //			if(doCount<threadCount && iList.size()!=0){
-			for(int i=0;i<threadCount && (doCount<threadCount && iList.size()!=0);i++){
-				syncThread();
-			}
+				for(int i=0;i<threadCount && (doCount<threadCount && iList.size()!=0);i++){
+					syncThread();
+				}
 //			}
 		}
 	}
 	
-	
+	final Handler mUploadTaskHandle = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			
+			String assessNum = "";
+			int processVal = 0;
+			int taskHeaderId = 0;
+			
+			Bundle bundle = msg.getData();
+			assessNum = bundle.getString(MESSAGE_KEY_ASSESSNUM);
+			taskHeaderId = bundle.getInt(MESSAGE_KEY_TASKHEADERID);
+			processVal = bundle.getInt(MESSAGE_KEY_PROCESSVAL);
+
+			SyncBroadcast.sendUploadProcessSyncBroadcast(SyncService.this,
+					taskHeaderId, assessNum, processVal);
+			 
+		}
+	};
 	private boolean mSyncAll = false;
 	private int doCount = 0;
 	int ii=0;
@@ -141,34 +165,9 @@ public class SyncService extends Service {
 		}
 		doCount++;
 		DLog.LOG(SysMng.TAG_SERVICE,"1.-------- doCount="+ doCount);
-		
 
 		final int id = iList.get(0);
 		iList.remove(0);
-		
-		
-		
-		final Handler mUploadTaskHandle = new Handler(){
-			@Override
-			public void handleMessage(Message msg) {
-				// TODO Auto-generated method stub
-				super.handleMessage(msg);
-				
-				String assessNum = "";
-				int processVal = 0;
-				int taskHeaderId = 0;
-				
-				Bundle bundle = msg.getData();
-				assessNum = bundle.getString(MESSAGE_KEY_ASSESSNUM);
-				taskHeaderId = bundle.getInt(MESSAGE_KEY_TASKHEADERID);
-				processVal = bundle.getInt(MESSAGE_KEY_PROCESSVAL);
-
-				SyncBroadcast.sendUploadProcessSyncBroadcast(SyncService.this,
-						taskHeaderId, assessNum, processVal);
-				 
-			}
-		};
-
 
 		if(!SysDBCtrl.doingSyncTaskState(SyncService.this, id)){
 			return;
@@ -178,28 +177,31 @@ public class SyncService extends Service {
 				//do sync item
 //				String assessNum = "";
 //				int processVal = 0;
-				
+				DLog.LOG(SysMng.TAG_SERVICE,"2.-------- run thread  id="+ id);
 				AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(SyncService.this, id+"");
 				ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(SyncService.this, id+"");
 				ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(SyncService.this, id+"");
-				CustomerData cust = AssessDBCtrl.getCustomerByCustId(SyncService.this, id+"");
-				
+				CustomerData cust = AssessDBCtrl.getCustomerByCustId(SyncService.this, data.CustId);
 				
 				TaskData td = new TaskData();
 				td.cust = cust;
-				td.header = data;
+//				td.header = data;
+				td.assessid = data.NetTaskHeaderId;
 				td.detail = dataDetailList;
 				td.service = dataServiceList;
 				Gson gson = new Gson();
 				String s = gson.toJson(td);
 				
+				
 				final String assessNum = data.AssessNum;
-				HttpSync.uploadAssessTask(SyncService.this, s,new HttpProgressListener() {
+				if(HttpSync.uploadAssessTask(SyncService.this, s,new HttpProgressListener() {
 					
 					@Override
 					public void transferred(long num, long contentLenth) {
 						// TODO Auto-generated method stub
 						int p = (int) ((num / (float) contentLenth) * 100);
+						DLog.LOG(SysMng.TAG_SERVICE,"4.-------- process="+p);
+
 						Message msg = new Message();
 						Bundle bundle = new Bundle();
 						bundle.putInt(MESSAGE_KEY_TASKHEADERID, id);
@@ -208,13 +210,22 @@ public class SyncService extends Service {
 						msg.setData(bundle);
 						mUploadTaskHandle.sendMessage(msg);
 					}
-				});
+				})){
+					DLog.LOG(SysMng.TAG_SERVICE,"3.1-------- ok");
+					doCount--;
+					data.NeedSync = false;
+					AssessDBCtrl.updateAssessTaskHeaderById(SyncService.this, data);
+					SysDBCtrl.finishSyncTaskState(SyncService.this, id);
+					SysDBCtrl.addSyncAssessLog(SyncService.this, assessNum);
+				}else{
+					DLog.LOG(SysMng.TAG_SERVICE,"3.2-------- err");
+					doCount--;
+					SysDBCtrl.finishSyncTaskState(SyncService.this, id);
+//					data.NeedSync = true;
+//					AssessDBCtrl.updateAssessTaskHeaderById(SyncService.this, data);
+//					iList.add(id);
+				}
 				
-				
-				
-				DLog.LOG(SysMng.TAG_SERVICE,"2.--------id["+id+"] "+ doCount +" iList.size["+iList.size()+"]");
-				SysDBCtrl.finishSyncTaskState(SyncService.this, id);
-				doCount--;
 			};
 		};
 		
@@ -224,8 +235,9 @@ public class SyncService extends Service {
 	}
 
 	class TaskData{
+		String assessid = "";
 		CustomerData cust = null;
-		AssessTaskHeaderData header = null;
+//		AssessTaskHeaderData header = null;
 		ArrayList<AssessTaskDetailData> detail = null;
 		ArrayList<AssessTaskServiceData> service = null;
 	}
@@ -261,10 +273,11 @@ public class SyncService extends Service {
 //	}
 	ArrayList<Integer> iList = new ArrayList<Integer>();
 	
-	int time = 10000;
+	
 	
 	private void startTimeHandler(){
-		mTimeHandler.postDelayed(timeRunnable, time);
+		mTimeHandler.post(timeRunnable);
+//		mTimeHandler.postDelayed(timeRunnable, time);
 	}
 	private void stopTimeHandler(){
 		mTimeHandler.removeCallbacks(timeRunnable);

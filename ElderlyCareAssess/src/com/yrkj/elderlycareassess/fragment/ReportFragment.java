@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.bean.AssessReportCountData;
+import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.layout.FragmentReport;
 import com.yrkj.elderlycareassess.widget.UIReportCount;
 
 public class ReportFragment extends Fragment {
@@ -29,6 +32,22 @@ public class ReportFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View mV = inflater.inflate(R.layout.fragment_report, container,
 				false);
+		
+		AssessReportCountData data = AssessDBCtrl.getAssessReportCount(getActivity());
+		
+		int totle = 0;
+		try {
+			
+			int c1 = data.doingTaskCount!=null && !data.doingTaskCount.isEmpty()?
+					Integer.parseInt(data.doingTaskCount, 10):0;
+			int c2 = data.doingTaskCount!=null && !data.doingTaskCount.isEmpty()?
+					Integer.parseInt(data.doneTaskCount, 10):0;
+			totle = c1+c2;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		new FragmentReport(mV).getTxtReportTotleCountView().setText(totle+"");
 		
 		mRc1 = (UIReportCount) mV.findViewById(R.id.uctrlRC1View);
 		mRc2 = (UIReportCount) mV.findViewById(R.id.uctrlRC2View);

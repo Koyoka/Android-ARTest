@@ -1,27 +1,36 @@
 package com.yrkj.elderlycareassess;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import com.yrkj.elderlycareassess.acty.MainHomeNoneActionBarActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 
 public class CddMainActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cdd_main);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+		if(getIntent() != null && getIntent().getStringExtra("exit") != null){
+			this.finish();
+		}else{
+			Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
+			startActivity(intent);
+			
 		}
+		
+//		setContentView(R.layout.activity_cdd_main);
+//
+//		if (savedInstanceState == null) {
+//			getSupportFragmentManager().beginTransaction()
+//					.add(R.id.container, new PlaceholderFragment()).commit();
+//		}
 	}
 
 	@Override

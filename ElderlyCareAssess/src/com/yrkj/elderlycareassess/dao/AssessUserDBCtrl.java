@@ -71,7 +71,20 @@ public class AssessUserDBCtrl {
 				AssessUserData.getContentValues(d));
 		dbMng.close();
 		return result;
+	}
+	
+	public static boolean updateUserPassword(Context c,String userId,String newPassword){
+		ContentValues values = new ContentValues();
+		values.put(AssessUserData.Col_LocPassword,newPassword);
 		
+		String condition = AssessUserData.Col_UserId + "='"+userId+"'";
+		
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		boolean result = false;
+		result = dbMng.update(AssessUserData.TblName, values, condition);
+		dbMng.close();
+		return result;
 	}
 
 }

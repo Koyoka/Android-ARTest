@@ -529,16 +529,16 @@
           android:drawablePadding="20dip"
           android:padding="20dip"
           android:text="移动"/>
-      
-      <RadioGroup 
-          android:id="@+id/layoutService7ContentView" android:visibility="gone"
+      <LinearLayout 
+          android:id="@+id/layoutService7ContentView" 
+          android:visibility="gone"
           android:layout_weight="1"
           android:gravity="center_vertical"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:orientation="horizontal">
-          <RadioButton 
-              android:id="@+id/rdoService7item1View"
+          <CheckBox 
+              android:id="@+id/chkService7Item1View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_l_bg_x"
@@ -546,8 +546,8 @@
               android:layout_height="wrap_content"
               android:gravity="center"
               android:text="协助站立"/>
-          <RadioButton 
-              android:id="@+id/rdoService7item2View"
+          <CheckBox 
+              android:id="@+id/chkService7Item2View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_c_bg_x"
@@ -555,8 +555,8 @@
               android:layout_height="wrap_content"
               android:gravity="center"
               android:text="协助行走"/>
-          <RadioButton 
-              android:id="@+id/rdoService7item3View"
+          <CheckBox 
+              android:id="@+id/chkService7Item3View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_c_bg_x"
@@ -565,8 +565,8 @@
               android:gravity="center"
               android:text="协助上下楼"/>
          
-          <RadioButton 
-              android:id="@+id/rdoService7item4View"
+          <CheckBox 
+              android:id="@+id/chkService7Item4View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_r_bg_x"
@@ -575,7 +575,7 @@
               android:gravity="center"
               android:text="使用步行器"/>
         
-     </RadioGroup>
+     </LinearLayout>
     
 </TableRow> 
     
@@ -698,15 +698,15 @@
             android:padding="20dip"
             android:text="用药"/>
 
-        <RadioGroup
+        <LinearLayout
             android:id="@+id/layoutService9ContentView" android:visibility="gone"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-          <RadioButton
-              android:id="@+id/rdoService9item1View"
+          <CheckBox
+              android:id="@+id/chkService9Item1View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_l_bg_x"
@@ -714,8 +714,8 @@
               android:layout_height="wrap_content"
               android:gravity="center"
               android:text="保管药品"/>
-          <RadioButton
-              android:id="@+id/rdoService9item2View"
+          <CheckBox
+              android:id="@+id/chkService9Item2View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_c_bg_x"
@@ -723,8 +723,8 @@
               android:layout_height="wrap_content"
               android:gravity="center"
               android:text="发放药品"/>
-          <RadioButton
-              android:id="@+id/rdoService9item3View"
+          <CheckBox
+              android:id="@+id/chkService9Item3View"
               android:layout_weight="1"
               android:button="@null"
               android:background="@drawable/rdo_r_bg_x"
@@ -733,7 +733,7 @@
               android:gravity="center"
               android:text="帮助服药"/>
 
-        </RadioGroup>
+        </LinearLayout>
 
     </TableRow>
 
@@ -992,16 +992,15 @@
           android:drawablePadding="20dip"
           android:padding="20dip"
           android:text="陪诊"/>
-
-      <RadioGroup
+      <LinearLayout
           android:id="@+id/layoutService14ContentView" android:visibility="gone"
           android:layout_weight="1"
           android:gravity="center_vertical"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/rdoService14item1View"
+        <CheckBox
+            android:id="@+id/chkService14Item1View"
             android:layout_weight="1"
             android:button="@null"
             android:background="@drawable/rdo_l_bg_x"
@@ -1009,8 +1008,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="陪同接诊"/>
-        <RadioButton
-            android:id="@+id/rdoService14item2View"
+        <CheckBox
+            android:id="@+id/chkService14Item2View"
             android:layout_weight="1"
             android:button="@null"
             android:background="@drawable/rdo_r_bg_x"
@@ -1019,7 +1018,7 @@
             android:gravity="center"
             android:text="帮助配药"/>
 
-      </RadioGroup>
+      </LinearLayout>
 
     </TableRow>
 
@@ -1068,6 +1067,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
+          android:background="@drawable/service_bg_4"
           android:layout_marginBottom="@dimen/fragment_content_line_height" >
 
       <CheckBox android:id="@+id/chkService16View"
@@ -1109,10 +1109,10 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
+          android:background="@drawable/service_bg_5"
           android:layout_marginBottom="@dimen/fragment_content_line_height" >
 
       <CheckBox android:id="@+id/chkService17View"
-        
         style="@style/fragment_assess_service_chk_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

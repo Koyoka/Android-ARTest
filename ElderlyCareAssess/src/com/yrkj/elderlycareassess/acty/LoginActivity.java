@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.google.gson.Gson;
+import com.yrkj.elderlycareassess.CddMainActivity;
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
@@ -82,21 +83,27 @@ public class LoginActivity extends FragmentActivity {
 		String userId = mLayout.getTxtUserNameView().getText().toString();
 		String pwd = mLayout.getTxtPasswordView().getText().toString();
 		
+		boolean isLogin = false;
 		if(AssessUserDBCtrl.userLogin(this, userId.trim(), pwd)){
-			go();
-			return;
+			isLogin = true;
+//			return;
 		}
 		
 		int a = NetHelper.getAPNType(this);
-		ToastUtil.show(this, a+" net");
+//		ToastUtil.show(this, a+" net");
 		
 		if(a == -1){
-			DialogHelper.createTextDialog(mActy, "消息", "用户名或密码错误,请重新输入。");
-			mLayout.getTxtUserNameView().setFocusable(true);
+			if(isLogin){
+				go();
+			}else{
+				
+				DialogHelper.createTextDialog(mActy, "消息", "用户名或密码错误,请重新输入。");
+				mLayout.getTxtUserNameView().setFocusable(true);
+			}
 			
 		}else{
 			if(mLoginTask == null){
-				mLoginTask = new LoginTask(userId, pwd);
+				mLoginTask = new LoginTask(userId, pwd,isLogin);
 			}
 			
 			if(mLoginTask.getStatus() == Status.RUNNING){
@@ -104,7 +111,7 @@ public class LoginActivity extends FragmentActivity {
 			}
 			
 			if(mLoginTask.getStatus() == Status.FINISHED){
-				mLoginTask = new LoginTask(userId, pwd);
+				mLoginTask = new LoginTask(userId, pwd,isLogin);
 			}
 			
 			
@@ -140,6 +147,7 @@ public class LoginActivity extends FragmentActivity {
 		SysMng.saveUserInfo(userId, pwd);
 		SysDBCtrl.addSysLoginLog(this, userId);
 		Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
+//		Intent intent = new Intent(this,CddMainActivity.class);
 		startActivity(intent);
 		this.finish();
 	}
@@ -149,10 +157,11 @@ public class LoginActivity extends FragmentActivity {
 	class LoginTask extends AsyncTask<Object, Object, Boolean>{
 		String mUserId = "";
 		String mPassword = "";
-		
-		public LoginTask(String userId, String password){
+		boolean mIsLogin = false;
+		public LoginTask(String userId, String password,boolean isLogin){
 			mUserId = userId;
 			mPassword = password;
+			mIsLogin = isLogin;
 		}
 		
 		@Override
@@ -160,19 +169,18 @@ public class LoginActivity extends FragmentActivity {
 			// TODO Auto-generated method stub
 			super.onPreExecute();
 			DialogHelper.getProgressDialogInstance().show(mActy, "数据提交中");
-			
-			
 		}
 		
 		@Override
 		protected Boolean doInBackground(Object... params) {
-			 if(HttpSync.userNetLogin(mActy, mUserId, mPassword)){
-				 
-				 HttpSync.downLoadAssessTask(mActy,mUserId);
-				 return true;
-			 }else{
-				 return false;
-			 }
+			if(!mIsLogin){
+				 if(!HttpSync.userNetLogin(mActy, mUserId, mPassword)){
+					 return false;
+				 }
+			}
+			
+			HttpSync.downLoadAssessTask(mActy,mUserId);
+			return true;
 			 
 		}
 		

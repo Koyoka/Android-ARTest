@@ -66,6 +66,7 @@
 
        
         <RadioGroup
+            android:id="@+id/rdoTabsView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -117,9 +118,10 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/tabs_split_bg" />
 
-            <RadioButton
+            <Button
                 android:id="@+id/btnSyncView"
                 style="@style/activity_main_home_tabs_font"
+                android:background="@drawable/btn_tabs_click_bg_x"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

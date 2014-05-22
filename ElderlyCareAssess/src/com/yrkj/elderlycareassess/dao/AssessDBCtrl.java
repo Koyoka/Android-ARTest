@@ -60,6 +60,33 @@ public class AssessDBCtrl {
 		cursor.close();
 		return itemList;
 	}
+	public static ArrayList<AssessTaskHeaderData> getCanSyncAssessTaskList(Context c){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select h.* From MAIN.[AssessTaskHeader] as h ");
+		sb.append("where h.[AssessState] = '"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and h.[NeedSync]=1  ");
+		sb.append("and h.[Id] not in(Select s.[TaskHeaderId] From MAIN.[SysSync] as s) ");
+		
+
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		
+		ArrayList<AssessTaskHeaderData> dataList
+			= new ArrayList<AssessTaskHeaderData>();
+		
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskHeaderData itemHeader = AssessTaskHeaderData.convertDataToModule(cursor);
+				dataList.add(itemHeader);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return dataList;
+	}
 	
 	public static ArrayList<CustomerAssessTask> getDoingAssessTaskList(Context c){
 		
@@ -104,8 +131,9 @@ public class AssessDBCtrl {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Select a.*, ");
 		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address], ");
-		sb.append("(Select sum(score)as score From MAIN.[AssessTaskDetail] as d ");
+		sb.append("(Select sum(score) as score From MAIN.[AssessTaskDetail] as d ");
 		sb.append("where d.[TaskHeaderId] = a.[Id]) AS score ");
+		sb.append(",(Select count(*) as scount From MAIN.[SysSync] as sy  where sy.[TaskHeaderId] = a.[Id] ) AS scount ");
 		
 		sb.append("From MAIN.[AssessTaskHeader] as a ");
 		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"'");
@@ -129,12 +157,72 @@ public class AssessDBCtrl {
 				item.address = DBMng.GetDataString(cursor, CustomerData.Col_address);
 				itemHeader.mCust = item;
 				itemHeader.score = DBMng.getDataInt(cursor, "score");
+				itemHeader.scount = DBMng.getDataInt(cursor, "scount");
 				itemList.add(itemHeader);
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
 		
 		return itemList;
+	}
+	
+	
+	public static int getWaitingSyncAssessTaskCount(Context c){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select count(*) as scount From MAIN.[SysSync]");
+
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		int count = 0;
+		if(cursor.moveToFirst()){
+			count = DBMng.getDataInt(cursor, "scount");
+		}
+		cursor.close();
+		return count;
+	}
+	public static int getCanSyncAssessTaskCount(Context c){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] as h  ");
+		sb.append("where h.[AssessState] = '"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and h.[NeedSync]=1  ");
+		sb.append("and h.[Id] not in(Select s.[TaskHeaderId] From MAIN.[SysSync] as s) ");
+
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		int count = 0;
+		if(cursor.moveToFirst()){
+			count = DBMng.getDataInt(cursor, "count");
+		}
+		cursor.close();
+		return count;
+//		
+//		
+//		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+//		
+//		
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] where  ");
+//		sb.append("[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and [NeedSync]=1");
+//
+//		dbMng.open();
+//		Cursor cursor = 
+//				dbMng.rawQuery(sb.toString());
+//		dbMng.close();
+//		
+//		int count = 0;
+//		if(cursor.moveToFirst()){
+//			count = DBMng.getDataInt(cursor, "count");
+//			
+//		}
+//		cursor.close();
+//		return count;
 	}
 	
 	public static ArrayList<AssessTaskHeaderData> getUnSyncAssessTaskList(Context c){
@@ -188,8 +276,6 @@ public class AssessDBCtrl {
 			}while (cursor.moveToNext());
 		}
 		cursor.close();
-		
-		
 		
 		return s;
 	}
@@ -429,6 +515,18 @@ Limit 1000 ;
 		cursor.close();
 		return data;
 	
+	}
+	
+	public static boolean deletAssessTaskHeaderById(Context c,String taskHeaderId){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		String condition = AssessTaskHeaderData.Col_Id+"="+taskHeaderId;
+		boolean result = false;
+		
+		dbMng.open();
+		result = dbMng.delete(AssessTaskHeaderData.TblName, condition);
+		dbMng.close();
+		
+		return result;
 	}
 	
 	public static boolean updateAssessTaksHeaderStateByTaskId(Context c,String taskHeaderId,String state){

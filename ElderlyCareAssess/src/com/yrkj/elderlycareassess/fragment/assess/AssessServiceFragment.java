@@ -470,17 +470,21 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 			} else if (item.ServiceId.equals("7")) {
 				mLayout.getChkService7View().setChecked(true);
 				if(false){}
-				else if(mLayout.getRdoService7item1View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item1View().getId());
+				else if(mLayout.getChkService7Item1View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService7Item1View().setChecked(true);
+//					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item1View().getId());
 				}
-				else if(mLayout.getRdoService7item2View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item2View().getId());
+				else if(mLayout.getChkService7Item2View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService7Item2View().setChecked(true);
+//					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item2View().getId());
 				}
-				else if(mLayout.getRdoService7item3View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item3View().getId());
+				else if(mLayout.getChkService7Item3View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService7Item3View().setChecked(true);
+//					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item3View().getId());
 				}
-				else if(mLayout.getRdoService7item4View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item4View().getId());
+				else if(mLayout.getChkService7Item4View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService7Item4View().setChecked(true);
+//					mLayout.getLayoutService7ContentView().check(mLayout.getRdoService7item4View().getId());
 				}
 
 
@@ -501,14 +505,14 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 				mLayout.getChkService9View().setChecked(true);
 				
 				if(false){}
-				else if(mLayout.getRdoService9item1View().getText().equals(item.ServiceContent)){
-					mLayout.getLayoutService9ContentView().check(mLayout.getRdoService9item1View().getId());
+				else if(mLayout.getChkService9Item1View().getText().equals(item.ServiceContent)){
+					mLayout.getChkService9Item1View().setChecked(true);
 				}
-				else if(mLayout.getRdoService9item2View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService9ContentView().check(mLayout.getRdoService9item2View().getId());
+				else if(mLayout.getChkService9Item2View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService9Item2View().setChecked(true);
 				}
-				else if(mLayout.getRdoService9item3View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService9ContentView().check(mLayout.getRdoService9item3View().getId());
+				else if(mLayout.getChkService9Item3View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService9Item3View().setChecked(true);
 				}
 //				else if(mLayout.getRdoService9item4View().getText().equals(item.ServiceContent)){ 
 //					mLayout.getLayoutService9ContentView().check(mLayout.getRdoService9item4View().getId());
@@ -546,11 +550,11 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 			} else if (item.ServiceId.equals("14")) {
 				mLayout.getChkService14View().setChecked(true);
 				if(false){}
-				else if(mLayout.getRdoService14item1View().getText().equals(item.ServiceContent)){
-					mLayout.getLayoutService14ContentView().check(mLayout.getRdoService14item1View().getId());
+				else if(mLayout.getChkService14Item1View().getText().equals(item.ServiceContent)){
+					mLayout.getChkService14Item1View().setChecked(true);
 				}
-				else if(mLayout.getRdoService14item2View().getText().equals(item.ServiceContent)){ 
-					mLayout.getLayoutService14ContentView().check(mLayout.getRdoService14item2View().getId());
+				else if(mLayout.getChkService14Item2View().getText().equals(item.ServiceContent)){ 
+					mLayout.getChkService14Item2View().setChecked(true);
 				}
 
 
@@ -849,23 +853,78 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 		}
 		
 //		7.================
-		if(mLayout.getLayoutService7ContentView().getCheckedRadioButtonId()
-				!= -1)
+//		if(mLayout.getLayoutService7ContentView().getCheckedRadioButtonId()
+//				!= -1)
+//		{
+//			String id = "7";
+//			AssessTaskServiceData data = getServiceDataByView(mLayout
+//					.getChkService7View());
+//			data.ServiceId = id;
+//			data.ServiceName = mLayout.getChkService7View().getText()+"";
+//			data.ServiceContent = ""+
+//					((RadioButton)
+//					mV.findViewById(
+//					mLayout.getLayoutService7ContentView().
+//					getCheckedRadioButtonId()
+//					))
+//					.getText();
+//			dataList.add(data);
+//		}
+		if(mLayout.getChkService7Item1View().isChecked())
 		{
 			String id = "7";
 			AssessTaskServiceData data = getServiceDataByView(mLayout
 					.getChkService7View());
-			data.ServiceId = id;
-			data.ServiceName = mLayout.getChkService7View().getText()+"";
-			data.ServiceContent = ""+
-					((RadioButton)
-					mV.findViewById(
-					mLayout.getLayoutService7ContentView().
-					getCheckedRadioButtonId()
-					))
-					.getText();
-			dataList.add(data);
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService7View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService7Item1View().getText();
+				dataList.add(data);
+			}
 		}
+		if(mLayout.getChkService7Item2View().isChecked())
+		{
+			String id = "7";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService7View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService7View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService7Item2View().getText();
+				dataList.add(data);
+			}
+		}
+		if(mLayout.getChkService7Item3View().isChecked())
+		{
+			String id = "7";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService7View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService7View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService7Item3View().getText();
+				dataList.add(data);
+			}
+		}
+		if(mLayout.getChkService7Item4View().isChecked())
+		{
+			String id = "7";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService7View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService7View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService7Item4View().getText();
+				dataList.add(data);
+			}
+		}
+		
+		
+		
 		
 //		8.================
 		if(mLayout.getChkService8Item1View().isChecked())
@@ -906,8 +965,26 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 		}
 		
 //		9.================
-		if(mLayout.getLayoutService9ContentView().getCheckedRadioButtonId()
-				!= -1)
+//		if(mLayout.getLayoutService9ContentView().getCheckedRadioButtonId()
+//				!= -1)
+//		{
+//			String id = "9";
+//			AssessTaskServiceData data = getServiceDataByView(mLayout
+//					.getChkService9View());
+//			if(data != null){
+//				data.ServiceId = id;
+//				data.ServiceName = mLayout.getChkService9View().getText()+"";
+//				data.ServiceContent = ""+
+//						((RadioButton)
+//						mV.findViewById(
+//						mLayout.getLayoutService9ContentView().
+//						getCheckedRadioButtonId()
+//						))
+//						.getText();
+//				dataList.add(data);
+//			}
+//		}
+		if(mLayout.getChkService9Item1View().isChecked())
 		{
 			String id = "9";
 			AssessTaskServiceData data = getServiceDataByView(mLayout
@@ -916,15 +993,37 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 				data.ServiceId = id;
 				data.ServiceName = mLayout.getChkService9View().getText()+"";
 				data.ServiceContent = ""+
-						((RadioButton)
-						mV.findViewById(
-						mLayout.getLayoutService9ContentView().
-						getCheckedRadioButtonId()
-						))
-						.getText();
+						mLayout.getChkService9Item1View().getText();
 				dataList.add(data);
 			}
 		}
+		if(mLayout.getChkService9Item2View().isChecked())
+		{
+			String id = "9";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService9View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService9View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService9Item2View().getText();
+				dataList.add(data);
+			}
+		}
+		if(mLayout.getChkService9Item3View().isChecked())
+		{
+			String id = "9";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService9View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService9View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService9Item3View().getText();
+				dataList.add(data);
+			}
+		}
+		
 		
 //		10.===============
 		{
@@ -1028,26 +1127,54 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 			}
 		}
 //		14.===============
-		if(mLayout.getLayoutService14ContentView().getCheckedRadioButtonId()
-				!= -1)
+//		if(mLayout.getLayoutService14ContentView().getCheckedRadioButtonId()
+//				!= -1)
+//		{
+//			String id = "14";
+//			AssessTaskServiceData data = getServiceDataByView(mLayout
+//					.getChkService14View());
+//			if(data != null){
+//
+//				data.ServiceId = id;
+//				data.ServiceName = mLayout.getChkService14View().getText()+"";
+//				data.ServiceContent = ""+
+//						((RadioButton)
+//						mV.findViewById(
+//						mLayout.getLayoutService14ContentView().
+//						getCheckedRadioButtonId()
+//						))
+//						.getText();
+//				dataList.add(data);
+//			}
+//		}
+		
+		if(mLayout.getChkService14Item1View().isChecked())
 		{
 			String id = "14";
 			AssessTaskServiceData data = getServiceDataByView(mLayout
-					.getChkService14View());
+					.getChkService9View());
 			if(data != null){
-
 				data.ServiceId = id;
 				data.ServiceName = mLayout.getChkService14View().getText()+"";
 				data.ServiceContent = ""+
-						((RadioButton)
-						mV.findViewById(
-						mLayout.getLayoutService14ContentView().
-						getCheckedRadioButtonId()
-						))
-						.getText();
+						mLayout.getChkService14Item1View().getText();
 				dataList.add(data);
 			}
 		}
+		if(mLayout.getChkService14Item2View().isChecked())
+		{
+			String id = "14";
+			AssessTaskServiceData data = getServiceDataByView(mLayout
+					.getChkService9View());
+			if(data != null){
+				data.ServiceId = id;
+				data.ServiceName = mLayout.getChkService14View().getText()+"";
+				data.ServiceContent = ""+
+						mLayout.getChkService14Item2View().getText();
+				dataList.add(data);
+			}
+		}
+		
 //		15.===============
 		{
 			String id = "15";

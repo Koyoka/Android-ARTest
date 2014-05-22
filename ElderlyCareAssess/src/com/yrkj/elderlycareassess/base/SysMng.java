@@ -14,6 +14,8 @@ public class SysMng {
 	public static final String TAG_DB = "ECA_DB";
 	public static final String TAG_ASSESS = "ECA_Assess";
 	public static final String TAG_SERVICE = "ECA_Service";
+	public static final String TAG_NET = "ECA_Net";
+	
 	
 	private final static String PREF_NAME = "ECA_pref";
 	private final static String PREF_KEY_USERID = "userName";

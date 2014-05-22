@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.AsyncTask.Status;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +22,16 @@ import android.widget.ListView;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
+import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerAssessTask;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment.onDialogClosed;
 import com.yrkj.elderlycareassess.layout.ListItemDoingTask;
+import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.log.ToastUtil;
 
 public class AssessTaskListFragment extends ListFragment implements
@@ -173,11 +178,9 @@ public class AssessTaskListFragment extends ListFragment implements
 				public void onClosed(boolean r) {
 
 					if(r){
-						AssessDBCtrl.updateAssessTaksHeaderStateByTaskId(
-								getActivity(), 
-								v.getTag().toString(), 
-								AssessTaskHeaderData.ASSESS_STATE_RETURN);
-						reBind();
+						
+						doBackTask(v.getTag().toString());
+						
 					}else{
 						((View)v.getParent()).setVisibility(View.GONE);
 					}
@@ -225,5 +228,83 @@ public class AssessTaskListFragment extends ListFragment implements
 		v.getLayoutReturnTaskView().setVisibility(v.getLayoutReturnTaskView().getVisibility()==View.VISIBLE?view.GONE:view.VISIBLE);
 		return true;
 	}
+	
+	private void doBackTask(String taskHeaderId){
+		if(mLoginTask == null){
+			mLoginTask = new BackTask(taskHeaderId);
+		}
+		
+		if(mLoginTask.getStatus() == Status.RUNNING){
+			return;
+		}
+		
+		if(mLoginTask.getStatus() == Status.FINISHED){
+			mLoginTask = new BackTask(taskHeaderId);
+		}
+		
+		
+		if(mLoginTask.getStatus() != Status.RUNNING){
+			mLoginTask.execute();
+		}
+	}
+	private BackTask mLoginTask;
+	class BackTask extends AsyncTask<Object, Object, Boolean>{
+
+		String mLocTaskHeaderId = "";
+		
+		public BackTask(String taskHeaderId){
+			mLocTaskHeaderId = taskHeaderId;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			DialogHelper.getProgressDialogInstance().show(getActivity(), "数据提交中");
+		}
+		
+		@Override
+		protected Boolean doInBackground(Object... params) {
+			String userId = SysMng.getUserInfo().UserId;
+			String mNetTaskHeaderId = "";
+			AssessTaskHeaderData data =
+					AssessDBCtrl.getAssessTaskById(getActivity(), mLocTaskHeaderId);
+			if(data != null){
+				mNetTaskHeaderId = data.NetTaskHeaderId;
+				return HttpSync.backAssessTask(getActivity(), userId, mNetTaskHeaderId);
+			}
+			return false;
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			if(result){
+				AssessDBCtrl
+				.deletAssessTaskHeaderById(getActivity(), mLocTaskHeaderId);
+				reBind();
+			}
+			
+			DialogHelper.getProgressDialogInstance().close();
+			
+		}
+		
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

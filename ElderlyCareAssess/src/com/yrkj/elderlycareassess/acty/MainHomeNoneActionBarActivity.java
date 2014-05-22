@@ -5,7 +5,11 @@ package com.yrkj.elderlycareassess.acty;
 //import android.app.ActionBar.TabListener;
 //import android.app.ActionBar;
 //import android.app.ActionBar.TabListener;
+import java.util.ArrayList;
+
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,14 +20,23 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
+import com.yrkj.elderlycareassess.bean.SysSyncData;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast.UnSyncCountListener;
+import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.AssessDoneListFragment;
 import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment;
 import com.yrkj.elderlycareassess.fragment.HomeFragment;
+import com.yrkj.elderlycareassess.fragment.HomeFragment.OnAssessTaskClick;
 import com.yrkj.elderlycareassess.fragment.ReportFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainHomeNoneactionbar;
 import com.yrkj.elderlycareassess.service.SyncService;
+import com.yrkj.util.date.DateHelper;
+import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.http.NetHelper;
+import com.yrkj.util.log.ToastUtil;
 //import android.support.v7.app.ActionBar;
 //import android.support.v7.app.ActionBar.TabListener;
 
@@ -125,7 +138,9 @@ OnClickListener {
 		mBtnAssessTaskView.setOnClickListener(this);
 		mBtnAssessDoneView.setOnClickListener(this);
 		
+		
 		mLayout.getBtnSettingView().setOnClickListener(this);
+		mLayout.getBtnSyncView().setOnClickListener(this);
 		
 		
 	}
@@ -159,9 +174,44 @@ OnClickListener {
 			startActivity(intent);
 			
 			break;
+		case ActivityMainHomeNoneactionbar .BtnSyncViewId:
+			syncAll();
+			
+			break;
 		default:
 			break;
 		}
+	}
+	
+	public synchronized void syncAll(){
+		if(NetHelper.getAPNType(this) == -1){
+			DialogHelper.createTextDialog(this, "消息", "请确保在通畅的网络环境下，进行同步操作。");
+			return;
+		}
+		
+		
+		int scount = AssessDBCtrl.getWaitingSyncAssessTaskCount(mActy);
+		if((AssessDBCtrl.getCanSyncAssessTaskCount(this)+scount) == 0){
+			ToastUtil.show(this, "没有数据需要同步。");
+			return;
+		}
+		
+		if(mSyncAllTask == null){
+			mSyncAllTask = new SyncAllTask();
+		}
+		
+		if(mSyncAllTask.getStatus() == Status.RUNNING){
+			return;
+		}
+		
+		if(mSyncAllTask.getStatus() == Status.FINISHED){
+			mSyncAllTask = new SyncAllTask();
+		}
+		
+		if(mSyncAllTask.getStatus() != Status.RUNNING){
+			mSyncAllTask.execute();
+		}
+		
 	}
 	
 	private synchronized void addFragment(String className,Bundle args){
@@ -181,6 +231,11 @@ OnClickListener {
 		if(mFragment == null){
 			mFragment = Fragment.instantiate(mActy, className, args);
 			ft.add(R.id.layoutBodyView, mFragment, className);
+			
+			if(className.equals(HomeFragment.class.getName())){
+				((HomeFragment)mFragment).setOnAssessTaskClick(mHomeTaskRowClick);
+			}
+			
 		}else{
 			ft.attach(mFragment);
 //			ft.show(mFragment);
@@ -202,6 +257,74 @@ OnClickListener {
 			
 		}
 	}
+	private SyncAllTask mSyncAllTask;
+	class SyncAllTask extends AsyncTask<Object, Object, Boolean>{
+		
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			ToastUtil.show(mActy, "已开始全部同步");
+			mLayout.getTxtSyncCount().setVisibility(View.GONE);
+//			DialogHelper.getProgressDialogInstance().show(mActy, "正在准备数据");
+		}
+		
+		@Override
+		protected Boolean doInBackground(Object... params) {
+			ArrayList<AssessTaskHeaderData> itemList = 
+					AssessDBCtrl.getCanSyncAssessTaskList(mActy);
+			
+			String time =  DateHelper.getTodayAndTime();
+			for (AssessTaskHeaderData item : itemList) {
+				try{
+					int taskHeaderId = Integer.parseInt(item.Id, 10);
+					SysSyncData data = new SysSyncData();
+					data.TaskHeaderId = taskHeaderId;
+					data.State = SysSyncData.SYNC_STATE_WAIT;
+					data.startTime = time;
+					SysDBCtrl.addWaitingSyncTask(mActy, data);
+				}
+				catch(Exception ex){
+					
+				}
+			}
+			
+			int scount = AssessDBCtrl.getWaitingSyncAssessTaskCount(mActy);
+			
+			if((itemList.size()+scount) != 0){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			super.onPostExecute(result);
+			if(result){
+				SyncBroadcast.sendUploadSyncBroadcast(mActy,SyncService.SYNC_ALL_TASK_KEY);
+			}
+//			DialogHelper.getProgressDialogInstance().close();
+			
+		}
+		
+	}
+
+	
+	OnAssessTaskClick mHomeTaskRowClick = new OnAssessTaskClick() {
+		
+		@Override
+		public void onClick(String name) {
+			addFragment(name,null);
+			
+			mLayout.getRdoTabsView().check(mLayout.getBtnAssessView().getId());
+			if(name.equals(AssessTaskListFragment.class.getName())){
+				mLayout.getLayoutAssessTabView().check(mLayout.getBtnAssessTaskView().getId());
+			}else{
+				mLayout.getLayoutAssessTabView().check(mLayout.getBtnAssessDoneView().getId());
+			}
+		}
+	};
 	
 
 }

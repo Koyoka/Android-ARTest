@@ -1,5 +1,8 @@
 package com.yrkj.elderlycareassess.fragment;
 
+import java.util.ArrayList;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,15 +11,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.acty.SettingContentActivity;
 import com.yrkj.elderlycareassess.bean.AssessReportCountData;
-import com.yrkj.elderlycareassess.bean.AssessUserData;
+import com.yrkj.elderlycareassess.bean.SysLogData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
-import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.layout.FragmentHome;
 import com.yrkj.elderlycareassess.widget.UIReportCount;
-import com.yrkj.util.log.DLog;
 
 public class HomeFragment extends Fragment 
 implements OnClickListener
@@ -75,6 +76,10 @@ implements OnClickListener
 		
 		FragmentHome mLayout = new FragmentHome(mV);
 		mLayout.getTxtReportTotleCountView().setOnClickListener(this);
+//		layoutHomeContentLogView
+		mLayout.getLayoutHomeContentLogView().setOnClickListener(this);
+		mLayout.getLayoutHomeContentDoingTaskView().setOnClickListener(this);
+		mLayout.getLayoutHomeContentDoneTaskView().setOnClickListener(this);
 		
 		if(mV != null){
 			mRc1 = (UIReportCount) mV.findViewById(R.id.uctrlRC1View);
@@ -108,6 +113,35 @@ implements OnClickListener
 		mLayout.getTxtDoingTaskDescView().setText("还有"+data.doingTaskCount+"份评估未完成");
 		mLayout.getTxtDoneTaskDescView().setText("已完成评估"+data.doneTaskCount+"份");
 		
+		int totle = 0;
+		try {
+			
+			int c1 = data.doingTaskCount!=null && !data.doingTaskCount.isEmpty()?
+					Integer.parseInt(data.doingTaskCount, 10):0;
+			int c2 = data.doingTaskCount!=null && !data.doingTaskCount.isEmpty()?
+					Integer.parseInt(data.doneTaskCount, 10):0;
+			totle = c1+c2;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		mLayout.getTxtReportTotleCountView().setText(totle+"");
+		
+		ArrayList<SysLogData>  items = SysDBCtrl.getAllLog(getActivity(),1);
+		String s = "";
+		if(items.size() != 0){
+			SysLogData item = items.get(0);
+			if(items.get(0).LogType.equals(SysLogData.LOGTYPE_ASSESS)){
+				s = "完成评估  - 评估编号 - ";
+			}else if(items.get(0).LogType.equals(SysLogData.LOGTYPE_SYNC)){
+				s = "同步数据  - 评估编号 - ";
+			}else if(items.get(0).LogType.equals(SysLogData.LOGTYPE_SYS_LOGIN)){
+				s = "用户登录 - ";
+			}
+			s = s + item.LogDesc+" 日期:" + item.LogDate;
+		}
+		
+		mLayout.getTxtLogDescView().setText(s);
 		
 		
 		mRc1.setValue(20);
@@ -124,12 +158,39 @@ implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		mRc1.setValue(c == 0?90:0);
-		mRc2.setValue(c);
-		if(c==0)
-			c=90;
-		else
-			c = 0;
+		
+		switch (v.getId()) {
+		case FragmentHome.LayoutHomeContentLogViewId:
+			Intent intent = new Intent(getActivity(), SettingContentActivity.class);
+			startActivity(intent);
+			break;
+
+		case FragmentHome.LayoutHomeContentDoingTaskViewId:
+			if(mOnAssessTaskClick != null)
+				mOnAssessTaskClick.onClick(AssessTaskListFragment.class.getName());
+			break;
+		case FragmentHome.LayoutHomeContentDoneTaskViewId:
+			if(mOnAssessTaskClick != null)
+				mOnAssessTaskClick.onClick(AssessDoneListFragment.class.getName());
+			break;
+		default:
+			mRc1.setValue(c == 0?90:0);
+			mRc2.setValue(c);
+			if(c==0)
+				c=90;
+			else
+				c = 0;
+			break;
+		}
+		
+	}
+	
+	private OnAssessTaskClick mOnAssessTaskClick;
+	public void setOnAssessTaskClick(OnAssessTaskClick l){
+		mOnAssessTaskClick = l;
+	}
+	public interface OnAssessTaskClick{
+		void onClick(String name);
 	}
 }
 

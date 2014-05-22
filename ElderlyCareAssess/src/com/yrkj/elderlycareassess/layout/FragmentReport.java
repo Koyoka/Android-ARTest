@@ -13,6 +13,7 @@ public class FragmentReport extends BaseLayout{
     public static final int LayoutUserHeaderInfoContainerViewId = R.id.layoutUserHeaderInfoContainerView;
     public static final int TxtReportInfoViewId = R.id.txtReportInfoView;
     public static final int TxtReportTotleCountViewId = R.id.txtReportTotleCountView;
+    public static final int TxtReportTotleDistanceCountViewId = R.id.txtReportTotleDistanceCountView;
     public static final int LayoutReportTotleViewId = R.id.layoutReportTotleView;
     public static final int UctrlRC1ViewId = R.id.uctrlRC1View;
     public static final int UctrlRC2ViewId = R.id.uctrlRC2View;
@@ -30,6 +31,7 @@ public class FragmentReport extends BaseLayout{
     protected android.widget.RelativeLayout mLayoutUserHeaderInfoContainerView;
     protected android.widget.TextView mTxtReportInfoView;
     protected android.widget.TextView mTxtReportTotleCountView;
+    protected android.widget.TextView mTxtReportTotleDistanceCountView;
     protected android.widget.LinearLayout mLayoutReportTotleView;
     protected com.yrkj.elderlycareassess.widget.UIReportCount mUctrlRC1View;
     protected com.yrkj.elderlycareassess.widget.UIReportCount mUctrlRC2View;
@@ -51,6 +53,7 @@ public class FragmentReport extends BaseLayout{
         mLayoutUserHeaderInfoContainerView = (android.widget.RelativeLayout) acty.findViewById(LayoutUserHeaderInfoContainerViewId);
         mTxtReportInfoView = (android.widget.TextView) acty.findViewById(TxtReportInfoViewId);
         mTxtReportTotleCountView = (android.widget.TextView) acty.findViewById(TxtReportTotleCountViewId);
+        mTxtReportTotleDistanceCountView = (android.widget.TextView) acty.findViewById(TxtReportTotleDistanceCountViewId);
         mLayoutReportTotleView = (android.widget.LinearLayout) acty.findViewById(LayoutReportTotleViewId);
         mUctrlRC1View = (com.yrkj.elderlycareassess.widget.UIReportCount) acty.findViewById(UctrlRC1ViewId);
         mUctrlRC2View = (com.yrkj.elderlycareassess.widget.UIReportCount) acty.findViewById(UctrlRC2ViewId);
@@ -70,6 +73,7 @@ public class FragmentReport extends BaseLayout{
         mLayoutUserHeaderInfoContainerView = (android.widget.RelativeLayout) acty.findViewById(LayoutUserHeaderInfoContainerViewId);
         mTxtReportInfoView = (android.widget.TextView) acty.findViewById(TxtReportInfoViewId);
         mTxtReportTotleCountView = (android.widget.TextView) acty.findViewById(TxtReportTotleCountViewId);
+        mTxtReportTotleDistanceCountView = (android.widget.TextView) acty.findViewById(TxtReportTotleDistanceCountViewId);
         mLayoutReportTotleView = (android.widget.LinearLayout) acty.findViewById(LayoutReportTotleViewId);
         mUctrlRC1View = (com.yrkj.elderlycareassess.widget.UIReportCount) acty.findViewById(UctrlRC1ViewId);
         mUctrlRC2View = (com.yrkj.elderlycareassess.widget.UIReportCount) acty.findViewById(UctrlRC2ViewId);
@@ -92,6 +96,9 @@ public class FragmentReport extends BaseLayout{
     }
     public android.widget.TextView getTxtReportTotleCountView() {
         return mTxtReportTotleCountView;
+    }
+    public android.widget.TextView getTxtReportTotleDistanceCountView() {
+        return mTxtReportTotleDistanceCountView;
     }
     public android.widget.LinearLayout getLayoutReportTotleView() {
         return mLayoutReportTotleView;
@@ -157,6 +164,9 @@ public class FragmentReport extends BaseLayout{
                 case TxtReportTotleCountViewId:
                     setViewData(adp,getTxtReportTotleCountView(),data,joinData.formatString,joinData.data);
                     break;
+                case TxtReportTotleDistanceCountViewId:
+                    setViewData(adp,getTxtReportTotleDistanceCountView(),data,joinData.formatString,joinData.data);
+                    break;
                 case LayoutReportTotleViewId:
                     setViewData(adp,getLayoutReportTotleView(),data,joinData.formatString,joinData.data);
                     break;
@@ -217,6 +227,9 @@ public class FragmentReport extends BaseLayout{
                     break;
                 case TxtReportTotleCountViewId:
                     setViewData(adp,getTxtReportTotleCountView(),data,"",path);
+                    break;
+                case TxtReportTotleDistanceCountViewId:
+                    setViewData(adp,getTxtReportTotleDistanceCountView(),data,"",path);
                     break;
                 case LayoutReportTotleViewId:
                     setViewData(adp,getLayoutReportTotleView(),data,"",path);

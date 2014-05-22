@@ -284,6 +284,6 @@
             android:textStyle="bold"
             android:textSize="220sp"
             android:textColor="#c9f15d"
-            android:text="63"/>
+            android:text="0"/>
     </LinearLayout>
 </RelativeLayout>

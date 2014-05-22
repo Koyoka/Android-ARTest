@@ -26,6 +26,7 @@ import com.yrkj.elderlycareassess.bean.QItemTagData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.QuesDBCtrl;
+import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
@@ -195,18 +196,6 @@ OnBtnStratClickListener
 		
 		item.ItemTagList = 
 				QuesDBCtrl.getQItemTagListBySubcateId(this, item.SubcateId);
-//		item.ItemTagList.add(getQItemLab(
-//				1,"快速标签1"));
-//		item.ItemTagList.add(getQItemLab(
-//				2,"快速标签2"));
-//		item.ItemTagList.add(getQItemLab(
-//				3,"快速标签3"));
-//		item.ItemTagList.add(getQItemLab(
-//				4,"快速标签4"));
-//		item.ItemTagList.add(getQItemLab(
-//				5,"快速标签5"));
-		
-		
 		return item;
 	}
 	
@@ -233,30 +222,6 @@ OnBtnStratClickListener
 			}
 		});
 		
-//		mLayout.getTxtMainAssessTitleView().setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				DLog.LOG(SysMng.TAG_ASSESS, "=============================");
-//				for (AssessBaseFragment item : mAssessFragmentList) {
-//					
-//					ArrayList<AssessTaskDetailData> itemList = item.getSelectData();
-//					if(itemList != null){
-//						
-//						for (AssessTaskDetailData itemData : itemList) {
-//							DLog.LOG(SysMng.TAG_ASSESS, 
-//									itemData.CateName + " " +
-//											itemData.SubcateName + " " +
-//											itemData.ItemName + " " +
-//											itemData.ItemDesc + " " +
-//											""
-//									);
-//						}
-//					}
-//				}
-//			}
-//		});
 		
 		setAssessTitle(0);
 	}
@@ -271,15 +236,13 @@ OnBtnStratClickListener
 			mLayout.getLayoutFootView().setVisibility(View.VISIBLE);
 		}
 		if(index+1 < mTitleList.length)
-			mLayout.getBtnGoView().setText(mTitleList[index+1]);
+			mLayout.getBtnGoView().setText("("+(index+2)+"/"+mTitleList.length+")"+mTitleList[index+1]);
 		else{
-			
 			mLayout.getBtnGoView().setText("提交");
-				
 		}
 		
 		if(index-1 >= 0)
-			mLayout.getBtnBackView().setText(mTitleList[index-1]);
+			mLayout.getBtnBackView().setText("("+(index)+"/"+mTitleList.length+")"+mTitleList[index-1]);
 		else{
 			mLayout.getBtnBackView().setText("");
 		}
@@ -362,8 +325,11 @@ OnBtnStratClickListener
 					mTask.AssessState = AssessTaskHeaderData.ASSESS_STATE_DONE;
 					mTask.NeedSync = true;
 					AssessDBCtrl.updateAssessTaskHeaderById(this, mTask);
+					
+					SysDBCtrl.addSubmitAssessLog(this, mTask.AssessNum);
+					
 					ToastUtil.show(mActy, "提交成功。");
-					a();
+//					a();
 					setResult(RESULT_SUBMIT);
 					this.finish();
 				}
@@ -382,30 +348,30 @@ OnBtnStratClickListener
 		ArrayList<AssessTaskServiceData> service = null;
 	}
 	
-	void a(){
+//	void a(){
+////		
+////		
+//		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, mAssessId);
+//		data.NetTaskHeaderId = "NetTaskHeaderId";
+//		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
+//		ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(this, mAssessId);
+//		CustomerData cust = AssessDBCtrl.getCustomerByCustId(this, data.CustId);
 //		
-//		
-		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, mAssessId);
-		data.NetTaskHeaderId = "NetTaskHeaderId";
-		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
-		ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(this, mAssessId);
-		CustomerData cust = AssessDBCtrl.getCustomerByCustId(this, data.CustId);
-		
-		TaskData td = new TaskData();
-		td.cust = cust;
-		td.header = data;
-		td.detail = dataDetailList;
-		td.service = dataServiceList;
-		Gson gson = new Gson();
-//		AssessTaskHeaderData d = new AssessTaskHeaderData();
-//		d.AssessNum = "111";
-//		d.AssessState = "dd";
-		 String s = gson.toJson(td);
-		 DLog.LOG(SysMng.TAG_DB,s);
-//		 autoRun = gson.fromJson(s, AutoRun.class);
-
-
-	}
+//		TaskData td = new TaskData();
+//		td.cust = cust;
+//		td.header = data;
+//		td.detail = dataDetailList;
+//		td.service = dataServiceList;
+//		Gson gson = new Gson();
+////		AssessTaskHeaderData d = new AssessTaskHeaderData();
+////		d.AssessNum = "111";
+////		d.AssessState = "dd";
+//		 String s = gson.toJson(td);
+//		 DLog.LOG(SysMng.TAG_DB,s);
+////		 autoRun = gson.fromJson(s, AutoRun.class);
+//
+//
+//	}
 	
 	
 	public static final int RESULT_SUBMIT = 101; 

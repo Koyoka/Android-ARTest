@@ -31,6 +31,7 @@ public class SysLogData {
 	public String LogDate = "";
 
 	public static final String LOGTYPE_ASSESS = "AS";
+	public static final String LOGTYPE_SYNC = "SY";
 	public static final String LOGTYPE_SYS_LOGIN = "SL";
 
 	
