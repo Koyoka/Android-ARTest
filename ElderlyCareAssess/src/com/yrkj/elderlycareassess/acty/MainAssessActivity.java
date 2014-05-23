@@ -8,26 +8,28 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupMenu;
 
-import com.google.gson.Gson;
 import com.yrkj.elderlycareassess.R;
-import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
-import com.yrkj.elderlycareassess.bean.QItemTagData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.QuesDBCtrl;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment;
+import com.yrkj.elderlycareassess.fragment.assess.AssessBaseFragment.OnCheckDataLisenter;
 import com.yrkj.elderlycareassess.fragment.assess.AssessLivingFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessNewFragment.OnBtnStratClickListener;
@@ -35,8 +37,6 @@ import com.yrkj.elderlycareassess.fragment.assess.AssessPersonalInfoFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessQuestionnaireListFragment;
 import com.yrkj.elderlycareassess.fragment.assess.AssessServiceFragment;
 import com.yrkj.elderlycareassess.layout.ActivityMainAssess;
-import com.yrkj.elderlycareassess.service.SyncService;
-import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class MainAssessActivity extends 
@@ -76,15 +76,14 @@ OnBtnStratClickListener
 		
 		initData();
 		initActy();
-		
-		AssessNewFragment f = new AssessNewFragment(this,mCust,mTask);
-		f.setOnBtnStratClickListener(this);
-		
-		getSupportFragmentManager().beginTransaction()
-		.add(R.id.layoutBodyView,f, AssessNewFragment.class.getName())
-		.commit();
+		showFragment(0);
+//		AssessNewFragment mNewFragment = new AssessNewFragment(this,mCust,mTask);
+//		mNewFragment.setOnBtnStratClickListener(this);
+//		
+//		getSupportFragmentManager().beginTransaction()
+//		.add(R.id.layoutBodyView,mNewFragment, AssessNewFragment.class.getName())
+//		.commit();
 	}
-	
 	
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
@@ -113,8 +112,7 @@ OnBtnStratClickListener
 		}
 		return super.dispatchKeyEvent(event);
 	}
-//	ArrayList<AssessTaskDetailData> mTaskDetailList;
-//	Map mTaskDetailIndex;
+
 	private void initData(){
 		
 		if(mCustId != null){
@@ -123,50 +121,46 @@ OnBtnStratClickListener
 		
 		if(mAssessId != null){
 			mTask = AssessDBCtrl.getAssessTaskById(this,mAssessId);
-			
-//			ArrayList<AssessTaskDetailData> mTaskDetailList
-//			 = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
-			
-//			mTaskDetailIndex = new HashMap();
-//			mTaskDetailIndex.put(INTENT_KEY_ASSESSID, mAssessId);
-//			int i=0;
-//			for (AssessTaskDetailData tdItem : mTaskDetailList) {
-//					mTaskDetailIndex.put(tdItem.getIndexKey(), i);
-//					DLog.LOG(SysMng.TAG_DB,"tdItem = " + 
-//					tdItem.TaskHeaderId + "  " +
-//					tdItem.CateId + "  " +
-//					tdItem.SubcateId + "  " +
-//					tdItem.ItemId + "  " +
-//					tdItem.ItemName + "  " +
-//					tdItem.getIndexKey() + "  " +
-////					tdItem.ItemId + "  "
-//					""
-//							);
-//			}
 		}
+		
 		
 		ArrayList<AssessBaseFragment> fList = 
 				new ArrayList<AssessBaseFragment>();
 		ArrayList<String> titleList = new ArrayList<String>();
-		titleList.add("评估信息");//default first page name
 		
-		fList.add(new AssessPersonalInfoFragment(this,mCust));
-		titleList.add(getResources().getString(R.string.assess_title_person));
+		{
+			AssessNewFragment mNewFragment = new AssessNewFragment(this,mCust,mTask);
+			mNewFragment.setOnBtnStratClickListener(this);
+			
+//			getSupportFragmentManager().beginTransaction()
+//			.add(R.id.layoutBodyView,mNewFragment, AssessNewFragment.class.getName())
+//			.commit();
+			fList.add(mNewFragment);
+			titleList.add("评估信息");//default first page name
+		}
 		
+		{
+			fList.add(new AssessPersonalInfoFragment(this,mCust));
+			titleList.add(getResources().getString(R.string.assess_title_person));
+		}
 		 
-		fList.add(new AssessLivingFragment(this,mCust));
-		titleList.add(getResources().getString(R.string.assess_title_living));
+		{
+			fList.add(new AssessLivingFragment(this,mCust));
+			titleList.add(getResources().getString(R.string.assess_title_living));
+		}
 		
-		ArrayList<QCategoryData> qitemList = 
-				getQCategoryList();
-		
-		for (QCategoryData qCategoryData : qitemList) {
-			fList.add(
-					AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust,
-//							mTaskDetailList,
-							mAssessId)
-					);
-			titleList.add(qCategoryData.CateName);
+		{
+			ArrayList<QCategoryData> qitemList = 
+					getQCategoryList();
+			
+			for (QCategoryData qCategoryData : qitemList) {
+				AssessQuestionnaireListFragment f
+					=AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust,
+						mAssessId);
+				fList.add(f);
+				f.setOnCheckDataLisenter(mRecordCheckLisenter);
+				titleList.add(qCategoryData.CateName);
+			}
 		}
 		
 		fList.add(new AssessServiceFragment(this,mCust,mAssessId));
@@ -175,6 +169,8 @@ OnBtnStratClickListener
 		mTitleList =  titleList.toArray(new String[titleList.size()]);
 		mAssessFragmentList = fList;
 	}
+	
+	
 	
 	private ArrayList<QCategoryData> getQCategoryList(){
 		ArrayList<QCategoryData> qitemList
@@ -199,28 +195,23 @@ OnBtnStratClickListener
 		return item;
 	}
 	
-	private QItemTagData getQItemLab(int id,String name){
-		QItemTagData item = new QItemTagData();
-		item.ItemTagId = id;
-		item.ItemTagName = name;
-		return item;
-	}
-
 	private void initActy() {
 		mLayout.getBtnGoView().setOnClickListener(this);
 		mLayout.getBtnBackView().setOnClickListener(this);
 		mLayout.getBtnFinishView().setOnClickListener(this);
+		mLayout.getBtnMenuView().setOnClickListener(this);
 		
-		FragmentManager fMng = getSupportFragmentManager();
 		
-		fMng.addOnBackStackChangedListener(new OnBackStackChangedListener() {
-			
-			@Override
-			public void onBackStackChanged() {
-//				DLog.LOG(SysMng.TAG_FRAGMENT,getSupportFragmentManager().getBackStackEntryCount()+" = addOnBackStackChangedListener");
-				setNavBtn(getSupportFragmentManager().getBackStackEntryCount());
-			}
-		});
+//		FragmentManager fMng = getSupportFragmentManager();
+//		
+//		fMng.addOnBackStackChangedListener(new OnBackStackChangedListener() {
+//			
+//			@Override
+//			public void onBackStackChanged() {
+////				DLog.LOG(SysMng.TAG_FRAGMENT,getSupportFragmentManager().getBackStackEntryCount()+" = addOnBackStackChangedListener");
+//				setNavBtn(getSupportFragmentManager().getBackStackEntryCount());
+//			}
+//		});
 		
 		
 		setAssessTitle(0);
@@ -248,56 +239,122 @@ OnBtnStratClickListener
 		}
 	}
 
-	public void goBack(){
-		FragmentManager fMng = getSupportFragmentManager();
-		fMng.popBackStack();
+//	public void goBack(){
+//		FragmentManager fMng = getSupportFragmentManager();
+//		fMng.popBackStack();
+//	}
+	
+	private int mCurPage = -1;
+	
+	public synchronized void goFragment(boolean isGo){
+		
+		int nextPage;
+		if(isGo){
+			nextPage = mCurPage+1;
+			if(nextPage>=mAssessFragmentList.size()){
+				return;
+			}
+		}else{
+			nextPage = mCurPage-1;
+			if(nextPage<0){
+				return;
+			}
+		}
+		showFragment(nextPage);
 	}
 	
-	public synchronized void addFragment() {
+	private OnCheckDataLisenter mRecordCheckLisenter = new OnCheckDataLisenter() {
 		
-		FragmentManager fMng = getSupportFragmentManager();
-		int i = fMng.getBackStackEntryCount();
-				
-		if(i >= mAssessFragmentList.size()){
+		@Override
+		public void onCheck(int page,boolean check) {
+			if(check){
+				showFragment(page);
+			}
+		}
+	};
+	private synchronized void showFragment(int index){
+		if(index==mCurPage){
 			return;
 		}
-		String tag = (i+1)+"";
-//		DLog.LOG(SysMng.TAG_FRAGMENT, "begin "+tag
-//				+" size["+mAssessFragmentList.size()+"] haveSize["+fMng.getFragments().size()+"] index["+i+"]=================================");
+		FragmentManager fMng = getSupportFragmentManager();
+		FragmentTransaction ft = fMng.beginTransaction();
 		
-		Fragment lastFragment = fMng.getFragments().get(i);//fMng.findFragmentById(R.id.layoutBodyView);
-		AssessBaseFragment mFragment = mAssessFragmentList.get(i);
-		{
+		String tag = index+"";
+		
+		Fragment nextFragment = fMng.findFragmentByTag(tag);
+		AssessBaseFragment curFragment = mCurPage!=-1&&mCurPage<mAssessFragmentList.size()?mAssessFragmentList.get(mCurPage):null;
+		
+		if(curFragment!=null){
+			if(!curFragment.checkData(index)){
+				return;
+			}
 			
-			if(!mFragment.isAdded() /*&& fMng.findFragmentByTag(tag) == null*/){
-				FragmentTransaction ft = fMng.beginTransaction();
+			ft.hide(curFragment);
+		}
+		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		if(nextFragment==null){
+			AssessBaseFragment mFragment = mAssessFragmentList.get(index);
+			if(!mFragment.isAdded() ){
 				ft.add(R.id.layoutBodyView, mFragment, tag);
-//				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 				ft.commit();
 				fMng.executePendingTransactions();
 			}
-		}
-		
-		if(fMng.getFragments().contains(mFragment))
-		{
-			FragmentTransaction ft = fMng.beginTransaction();
-//			ft.setCustomAnimations(R.anim.fragment_slide_left_enter,
-//		                R.anim.fragment_slide_left_exit,
-//		                R.anim.fragment_slide_right_enter,
-//		                R.anim.fragment_slide_right_exit);
-			ft.hide(lastFragment);
-//			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-			ft.show(mFragment);
-			ft.addToBackStack(null);
+		}else{
+			
+			ft.show(nextFragment);
 //			ft.commitAllowingStateLoss();
 			ft.commit();
-			fMng.executePendingTransactions();
-			
 		}
-//		DLog.LOG(SysMng.TAG_FRAGMENT, "end "+tag+" "+ mFragment.isAdded()+ " =================================");
-		
-		
+		mCurPage = index;
+		setNavBtn(mCurPage);
 	}
+	
+	
+//	public synchronized void addFragment() {
+//		
+//		FragmentManager fMng = getSupportFragmentManager();
+//		int i = fMng.getBackStackEntryCount();
+//				
+//		if(i >= mAssessFragmentList.size()){
+//			return;
+//		}
+//		String tag = (i+1)+"";
+////		DLog.LOG(SysMng.TAG_FRAGMENT, "begin "+tag
+////				+" size["+mAssessFragmentList.size()+"] haveSize["+fMng.getFragments().size()+"] index["+i+"]=================================");
+//		
+//		Fragment lastFragment = fMng.getFragments().get(i);//fMng.findFragmentById(R.id.layoutBodyView);
+//		AssessBaseFragment mFragment = mAssessFragmentList.get(i);
+//		{
+//			
+//			if(!mFragment.isAdded() /*&& fMng.findFragmentByTag(tag) == null*/){
+//				FragmentTransaction ft = fMng.beginTransaction();
+//				ft.add(R.id.layoutBodyView, mFragment, tag);
+////				ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//				ft.commit();
+//				fMng.executePendingTransactions();
+//			}
+//		}
+//		
+//		if(fMng.getFragments().contains(mFragment))
+//		{
+//			FragmentTransaction ft = fMng.beginTransaction();
+////			ft.setCustomAnimations(R.anim.fragment_slide_left_enter,
+////		                R.anim.fragment_slide_left_exit,
+////		                R.anim.fragment_slide_right_enter,
+////		                R.anim.fragment_slide_right_exit);
+//			ft.hide(lastFragment);
+////			ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//			ft.show(mFragment);
+//			ft.addToBackStack(null);
+////			ft.commitAllowingStateLoss();
+//			ft.commit();
+//			fMng.executePendingTransactions();
+//			
+//		}
+////		DLog.LOG(SysMng.TAG_FRAGMENT, "end "+tag+" "+ mFragment.isAdded()+ " =================================");
+//		
+//		
+//	}
 	
 	
 	public void setAssessTitle(int i){
@@ -314,7 +371,11 @@ OnBtnStratClickListener
 			finish();
 			break;
 		case ActivityMainAssess.BtnBackViewId:
-			goBack();
+			goFragment(false);
+//			goBack();
+			break;
+		case ActivityMainAssess.BtnMenuViewId:
+			pageMenuPop();
 			break;
 		case ActivityMainAssess.BtnGoViewId:
 			if(mLayout.getBtnGoView().getText().equals("提交")){
@@ -334,7 +395,8 @@ OnBtnStratClickListener
 					this.finish();
 				}
 			}
-			addFragment();
+			goFragment(true);
+//			addFragment();
 			break;
 
 		default:
@@ -348,37 +410,55 @@ OnBtnStratClickListener
 		ArrayList<AssessTaskServiceData> service = null;
 	}
 	
-//	void a(){
-////		
-////		
-//		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, mAssessId);
-//		data.NetTaskHeaderId = "NetTaskHeaderId";
-//		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
-//		ArrayList<AssessTaskServiceData> dataServiceList =  AssessDBCtrl.getAssessTaskServiceByTaskId(this, mAssessId);
-//		CustomerData cust = AssessDBCtrl.getCustomerByCustId(this, data.CustId);
-//		
-//		TaskData td = new TaskData();
-//		td.cust = cust;
-//		td.header = data;
-//		td.detail = dataDetailList;
-//		td.service = dataServiceList;
-//		Gson gson = new Gson();
-////		AssessTaskHeaderData d = new AssessTaskHeaderData();
-////		d.AssessNum = "111";
-////		d.AssessState = "dd";
-//		 String s = gson.toJson(td);
-//		 DLog.LOG(SysMng.TAG_DB,s);
-////		 autoRun = gson.fromJson(s, AutoRun.class);
-//
-//
-//	}
 	
 	
 	public static final int RESULT_SUBMIT = 101; 
 
 	@Override
 	public void onBtnStratClick() {
-		addFragment();
+//		addFragment();
+		goFragment(true);
 	}
+	
+	private void pageMenuPop(){
+		PopupMenu popup = new PopupMenu(this, mLayout.getBtnMenuView());
+//		popup.getMenuInflater().inflate(R.menu.relation, popup.getMenu());
+//		mTitleList
+		for (int i = 0; i<mTitleList.length;i++) {
+			MenuItem menu = popup.getMenu().add(Menu.NONE, i, Menu.NONE, mTitleList[i]);
+			
+		}
+		
+//	
+//		
+		popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+			public boolean onMenuItemClick(MenuItem item) {
+//				ToastUtil.show(mActy, item.getItemId()+" "+item.getTitle());
+				showFragment(item.getItemId());
+//				String defineS = CustomerData.getRelationDesc(item.getItemId());
+//				mLayout.getTxtProxyRelationView().setText(defineS);
+//				mLayout.getTxtProxyRelationView().setTag(
+////							item.getItemId()
+//						CustomerData.getRelationId(defineS)
+//						);
+				return true;
+			}
+		});
+		
+		popup.show();
+	}
+	
+//	@Override  
+//	 public boolean onTouchEvent(MotionEvent event) {  
+//	  // TODO Auto-generated method stub  
+//	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
+//	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
+//	    	 getCurrentFocus().setFocusable(false);
+////	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+//	     }  
+//	  }  
+//	  return super.onTouchEvent(event);  
+//	 }  
+	
 
 }

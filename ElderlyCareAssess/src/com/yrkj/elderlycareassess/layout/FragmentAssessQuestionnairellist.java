@@ -13,26 +13,30 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
     public static final int ContainerId = R.id.container;
     public static final int LayoutBodyId = R.id.layoutBody;
     public static final int BtnStopRecordViewId = R.id.btnStopRecordView;
+    public static final int TxtRecordDescViewId = R.id.txtRecordDescView;
 
-    protected android.widget.RelativeLayout mContainer;
+    protected android.widget.ScrollView mContainer;
     protected android.widget.LinearLayout mLayoutBody;
     protected android.widget.LinearLayout mBtnStopRecordView;
+    protected android.widget.TextView mTxtRecordDescView;
 
     protected Activity mCurActy;
 
     public FragmentAssessQuestionnairellist(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.ScrollView) acty.findViewById(ContainerId);
         mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
         mBtnStopRecordView = (android.widget.LinearLayout) acty.findViewById(BtnStopRecordViewId);
+        mTxtRecordDescView = (android.widget.TextView) acty.findViewById(TxtRecordDescViewId);
     }   
 
     public FragmentAssessQuestionnairellist(android.view.View acty){
-        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.ScrollView) acty.findViewById(ContainerId);
         mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
         mBtnStopRecordView = (android.widget.LinearLayout) acty.findViewById(BtnStopRecordViewId);
+        mTxtRecordDescView = (android.widget.TextView) acty.findViewById(TxtRecordDescViewId);
     }   
-    public android.widget.RelativeLayout getContainer() {
+    public android.widget.ScrollView getContainer() {
         return mContainer;
     }
     public android.widget.LinearLayout getLayoutBody() {
@@ -40,6 +44,9 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
     }
     public android.widget.LinearLayout getBtnStopRecordView() {
         return mBtnStopRecordView;
+    }
+    public android.widget.TextView getTxtRecordDescView() {
+        return mTxtRecordDescView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -66,6 +73,9 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
                 case BtnStopRecordViewId:
                     setViewData(adp,getBtnStopRecordView(),data,joinData.formatString,joinData.data);
                     break;
+                case TxtRecordDescViewId:
+                    setViewData(adp,getTxtRecordDescView(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -87,6 +97,9 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
                     break;
                 case BtnStopRecordViewId:
                     setViewData(adp,getBtnStopRecordView(),data,"",path);
+                    break;
+                case TxtRecordDescViewId:
+                    setViewData(adp,getTxtRecordDescView(),data,"",path);
                     break;
                     
                 default:

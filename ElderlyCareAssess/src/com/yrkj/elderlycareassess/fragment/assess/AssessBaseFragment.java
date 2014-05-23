@@ -44,6 +44,19 @@ public abstract class AssessBaseFragment extends Fragment {
 		
 	}
 	
+	public boolean checkData(int page){
+		return true;
+	}
+	
+	
+	protected OnCheckDataLisenter mOnCheckDataLisenter;
+	public void setOnCheckDataLisenter(OnCheckDataLisenter l){
+		mOnCheckDataLisenter = l;
+	}
+	public interface OnCheckDataLisenter{
+		public void onCheck(int page,boolean check);
+	}
+	
 //		if(mA == null){
 //			return;
 //		}

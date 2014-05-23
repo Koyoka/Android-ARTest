@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
@@ -26,7 +28,6 @@ import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment.onDialogClosed;
 import com.yrkj.elderlycareassess.layout.FragmentAssessService;
 import com.yrkj.util.log.DLog;
-import com.yrkj.util.log.ToastUtil;
 
 public class AssessServiceFragment extends AssessBaseFragment implements OnCheckedChangeListener, OnClickListener {
 	
@@ -45,6 +46,20 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 				false);
 		mV = v;
 		mLayout = new FragmentAssessService(v);
+		
+		
+		ScrollView scroll = mLayout.getContainer();
+	    scroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+	    scroll.setFocusable(true);
+	    scroll.setFocusableInTouchMode(true);
+	    scroll.setOnTouchListener(new View.OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            v.requestFocusFromTouch();
+	            return false;
+	        }
+	    });
+		
 		setChkEvent();
 		initFragment();
 		bindData();

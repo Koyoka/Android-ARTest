@@ -13,6 +13,7 @@ public class ActivityMainAssess extends BaseLayout{
     public static final int LayoutActionBarViewId = R.id.layoutActionBarView;
     public static final int BtnFinishViewId = R.id.btnFinishView;
     public static final int TxtMainAssessTitleViewId = R.id.txtMainAssessTitleView;
+    public static final int BtnMenuViewId = R.id.btnMenuView;
     public static final int LayoutBodyViewId = R.id.layoutBodyView;
     public static final int LayoutFootViewId = R.id.layoutFootView;
     public static final int BtnBackViewId = R.id.btnBackView;
@@ -21,6 +22,7 @@ public class ActivityMainAssess extends BaseLayout{
     protected android.widget.RelativeLayout mLayoutActionBarView;
     protected android.widget.Button mBtnFinishView;
     protected android.widget.TextView mTxtMainAssessTitleView;
+    protected android.widget.Button mBtnMenuView;
     protected android.widget.FrameLayout mLayoutBodyView;
     protected android.widget.LinearLayout mLayoutFootView;
     protected android.widget.Button mBtnBackView;
@@ -33,6 +35,7 @@ public class ActivityMainAssess extends BaseLayout{
         mLayoutActionBarView = (android.widget.RelativeLayout) acty.findViewById(LayoutActionBarViewId);
         mBtnFinishView = (android.widget.Button) acty.findViewById(BtnFinishViewId);
         mTxtMainAssessTitleView = (android.widget.TextView) acty.findViewById(TxtMainAssessTitleViewId);
+        mBtnMenuView = (android.widget.Button) acty.findViewById(BtnMenuViewId);
         mLayoutBodyView = (android.widget.FrameLayout) acty.findViewById(LayoutBodyViewId);
         mLayoutFootView = (android.widget.LinearLayout) acty.findViewById(LayoutFootViewId);
         mBtnBackView = (android.widget.Button) acty.findViewById(BtnBackViewId);
@@ -43,6 +46,7 @@ public class ActivityMainAssess extends BaseLayout{
         mLayoutActionBarView = (android.widget.RelativeLayout) acty.findViewById(LayoutActionBarViewId);
         mBtnFinishView = (android.widget.Button) acty.findViewById(BtnFinishViewId);
         mTxtMainAssessTitleView = (android.widget.TextView) acty.findViewById(TxtMainAssessTitleViewId);
+        mBtnMenuView = (android.widget.Button) acty.findViewById(BtnMenuViewId);
         mLayoutBodyView = (android.widget.FrameLayout) acty.findViewById(LayoutBodyViewId);
         mLayoutFootView = (android.widget.LinearLayout) acty.findViewById(LayoutFootViewId);
         mBtnBackView = (android.widget.Button) acty.findViewById(BtnBackViewId);
@@ -56,6 +60,9 @@ public class ActivityMainAssess extends BaseLayout{
     }
     public android.widget.TextView getTxtMainAssessTitleView() {
         return mTxtMainAssessTitleView;
+    }
+    public android.widget.Button getBtnMenuView() {
+        return mBtnMenuView;
     }
     public android.widget.FrameLayout getLayoutBodyView() {
         return mLayoutBodyView;
@@ -94,6 +101,9 @@ public class ActivityMainAssess extends BaseLayout{
                 case TxtMainAssessTitleViewId:
                     setViewData(adp,getTxtMainAssessTitleView(),data,joinData.formatString,joinData.data);
                     break;
+                case BtnMenuViewId:
+                    setViewData(adp,getBtnMenuView(),data,joinData.formatString,joinData.data);
+                    break;
                 case LayoutBodyViewId:
                     setViewData(adp,getLayoutBodyView(),data,joinData.formatString,joinData.data);
                     break;
@@ -127,6 +137,9 @@ public class ActivityMainAssess extends BaseLayout{
                     break;
                 case TxtMainAssessTitleViewId:
                     setViewData(adp,getTxtMainAssessTitleView(),data,"",path);
+                    break;
+                case BtnMenuViewId:
+                    setViewData(adp,getBtnMenuView(),data,"",path);
                     break;
                 case LayoutBodyViewId:
                     setViewData(adp,getLayoutBodyView(),data,"",path);

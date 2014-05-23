@@ -3,15 +3,14 @@ package com.yrkj.elderlycareassess.util;
 import java.io.File;
 import java.io.IOException;
 
-import com.yrkj.elderlycareassess.widget.UIRecordButton.OnFinishedRecordListener;
-import com.yrkj.util.log.ToastUtil;
-
-
 import android.content.Context;
 import android.media.MediaRecorder;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.yrkj.util.log.ToastUtil;
 
 public class RecordHelper {
 	
@@ -20,16 +19,24 @@ public class RecordHelper {
 	private MediaRecorder recorder;
 	private String mFileName = null;
 	private Context mC;
+	private TextView mV;
 	
-	static class ShowVolumeHandler extends Handler {
+	 class ShowVolumeHandler extends Handler {
 		@Override
 		public void handleMessage(Message msg) {
 //			view.setImageResource(res[msg.what]);
+			String s = ".";
+			for(int i=0;i<msg.what;i++){
+				s=s+".";
+			}
+			
+			mV.setText("Â¼ÒôÖÐ£¬µã»÷Í£Ö¹±£´æ"+s);
 		}
 	}
-	public RecordHelper(Context context){
+	public RecordHelper(Context context,TextView v){
 		volumeHandler = new ShowVolumeHandler();
 		mC = context;
+		mV = v;
 	}
 	
 	private void init(){
@@ -37,16 +44,19 @@ public class RecordHelper {
 //		startRecording();
 	}
 	
-	boolean isBegin = false;
+	boolean isStart = false;
+	public boolean getHasBeenStart(){
+		return isStart;
+	}
 	
 	public void startRecording(String fileName) {
 		
-		if(isBegin){
+		if(isStart){
 			ToastUtil.show(mC, "ÕýÔÚÂ¼Òô¡£");
 			return;
 		}
 		
-		isBegin = true;
+		isStart = true;
 		mFileName = fileName;
 		startTime = System.currentTimeMillis();
 		
@@ -93,7 +103,7 @@ public class RecordHelper {
 			recorder.release();
 			recorder = null;
 		}
-		isBegin = false;
+		isStart = false;
 	}
 	
 	public void finishRecord() {

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yrkj.elderlycareassess"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.3.140524" >
 
     <uses-sdk
         android:minSdkVersion="11"

@@ -23,8 +23,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="Title" />
-
         <Button
+            android:focusable="true"
             android:id="@+id/btnQuestionShorthandView"
             style="@style/fragment_assess_question_btn_shorthand"
             android:layout_width="wrap_content"

@@ -119,7 +119,8 @@ implements OnClickListener{
 			item.SubcateName = mSubcateData.SubcateName;
 			item.ItemTagId = selectTagItem.Id;
 //			item.ItemId = selectTagItem.Id;
-			item.ItemName = selectTagItem.Name;
+//			item.ItemName = selectTagItem.Name;
+			item.ItemTagName = selectTagItem.Name;
 			item.ItemDesc = selectTagItem.Desc;
 			item.TaskType = AssessTaskDetailData.TASK_TYPE_ITEMTAG;
 //			DLog.LOG(SysMng.TAG_DB, 
@@ -199,7 +200,7 @@ implements OnClickListener{
 		
 		
 		mTagViewList = new ArrayList<CheckBox>();
-		if(mTagViewList.size() == 0){
+		if(mSubcateData.ItemTagList.size() == 0){
 			mLayout.getBtnQuestionShorthandView().setVisibility(View.GONE);
 		}else{
 			mLayout.getBtnQuestionShorthandView().setVisibility(View.VISIBLE);

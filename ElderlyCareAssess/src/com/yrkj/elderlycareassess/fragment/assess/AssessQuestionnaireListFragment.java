@@ -10,9 +10,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
@@ -27,8 +29,9 @@ import com.yrkj.elderlycareassess.fragment.AttachmentFragment.OnRecorLisenter;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnairellist;
 import com.yrkj.elderlycareassess.util.RecordHelper;
 import com.yrkj.elderlycareassess.util.RecordHelper.OnHFinishedRecordListener;
+import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.log.DLog;
-import com.yrkj.util.log.ToastUtil;
 
 public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	
@@ -61,6 +64,19 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 				false);
 		mLayout
 		= new FragmentAssessQuestionnairellist(mV);
+		
+		ScrollView scroll = mLayout.getContainer();
+	    scroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+	    scroll.setFocusable(true);
+	    scroll.setFocusableInTouchMode(true);
+	    scroll.setOnTouchListener(new View.OnTouchListener() {
+	        @Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	            v.requestFocusFromTouch();
+	            return false;
+	        }
+	    });
+		
 		if (savedInstanceState == null) {
 				initData();
 				initFragment();
@@ -74,9 +90,9 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
 	}
+	
+	
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -121,7 +137,8 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 			return;
 		}
 		
-		mRecordHelper = new RecordHelper(getActivity());
+		
+		mRecordHelper = new RecordHelper(getActivity(),mLayout.getTxtRecordDescView());
 		mRecordHelper.setOnFinishedRecordListener(new OnHFinishedRecordListener() {
 			
 			@Override
@@ -248,9 +265,38 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		super.onHiddenChanged(hidden);
 		if(hidden){
 			saveData();
+			
 		}
 	}
 	
+//	private boolean mCheckData = true;
+	
+	@Override
+	public boolean checkData(final int page) {
+		// TODO Auto-generated method stub
+		if(!mRecordHelper.getHasBeenStart())
+			return true;
+		else{
+			if(mOnCheckDataLisenter != null){
+				DialogHelper.createConfirmDialog(getActivity(), "Äú½«ÇÐ»»Ò³Ãæ£¬ÊÇ·ñ±£´æÂ¼Òô£¿",new ConfirmDialogListener() {
+					
+					@Override
+					public void onClickListener(boolean result) {
+						if(result){
+							mRecordHelper.finishRecord();
+						}else{
+							mLayout.getBtnStopRecordView().setVisibility(View.GONE);
+							mRecordHelper.cancelRecord();
+						}
+//						ToastUtil.show(getActivity(), result+"");
+						mOnCheckDataLisenter.onCheck(page,true);
+					}
+				});
+				
+			}
+			return false;
+		}
+	}
 	
 	@Override
 	public void onDetach() {
