@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+      android:background="@drawable/login_bg"
+    tools:context=".MainActivity" >
+	<TextView
+	    android:id="@+id/txtStepDescView"
+	    android:layout_marginTop="100dip"
+        style="@style/fragment_home_text_userinfo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="设置您的独立密码" />
+    <com.yrkj.elderlycareassess.gusturelock.LockPatternView
+        android:id="@+id/lock_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:padding="50dip"
+        android:orientation="vertical">
+		<Button
+		    android:visibility="gone"
+		    android:layout_marginBottom="20dip"
+             android:background="@drawable/btn_login_bg_x"
+            android:text="right"
+            android:textColor="#866d2a"
+            android:textSize="25sp"
+            android:id="@+id/right_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick" />
+        <Button
+             android:background="@drawable/btn_login_bg_x"
+            android:text="left"
+            android:textColor="#866d2a"
+            android:textSize="25sp"
+            android:id="@+id/left_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick" />
+
+        
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,33 +1,27 @@
 package com.yrkj.elderlycareassess.acty;
 
-import java.util.ArrayList;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.AsyncTask.Status;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 
-import com.google.gson.Gson;
-import com.yrkj.elderlycareassess.CddMainActivity;
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
-import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
-import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessUserData;
-import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
 import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
+import com.yrkj.elderlycareassess.gusturelock.LockActivity;
 import com.yrkj.elderlycareassess.layout.ActivityLogin;
-import com.yrkj.elderlycareassess.service.SyncService;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.http.NetHelper;
-import com.yrkj.util.log.DLog;
-import com.yrkj.util.log.ToastUtil;
 
 public class LoginActivity extends FragmentActivity {
 
@@ -37,29 +31,34 @@ public class LoginActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_login);
 		mActy = this;
 		mLayout = new ActivityLogin(this);
-		
+		manager  = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);  
 		initActy();
-//		a();
 	}
 	
-	void a(){
-		Gson gson = new Gson();
-		
-//		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, id+"");
-//		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, id+"");
-		
-//		AssessTaskHeaderData d = new AssessTaskHeaderData();
-//		d.AssessNum = "111";
-//		d.AssessState = "dd";
-//		 String s = gson.toJson(d);
-//		 DLog.LOG(SysMng.TAG_DB,s);
-//		 autoRun = gson.fromJson(s, AutoRun.class);
-
-
-	}
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if(getIntent() != null && getIntent().getIntExtra("exit",0) != 0){
+			this.finish();
+		}
+	};
+	
+	InputMethodManager manager;//  = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);  
+	  
+	@Override  
+	 public boolean onTouchEvent(MotionEvent event) {  
+	  // TODO Auto-generated method stub  
+	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
+	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
+	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+	     }  
+	  }  
+	  return super.onTouchEvent(event);  
+	 }  
 	
 	private void initActy(){
 		AssessUserData uData = SysMng.getUserInfo();
@@ -97,7 +96,7 @@ public class LoginActivity extends FragmentActivity {
 				go();
 			}else{
 				
-				DialogHelper.createTextDialog(mActy, "ÏûÏ¢", "ÓÃ»§Ãû»òÃÜÂë´íÎó,ÇëÖØĞÂÊäÈë¡£");
+				DialogHelper.createTextDialog(mActy, "æ¶ˆæ¯", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥ã€‚");
 				mLayout.getTxtUserNameView().setFocusable(true);
 			}
 			
@@ -127,7 +126,7 @@ public class LoginActivity extends FragmentActivity {
 	
 	public void showDialog()
     {
-    	//¸ù¾İ´«½øµÄ²ÎÊıÀ´ÊµÀı»¯DialogFragment.
+    	//æ ¹æ®ä¼ è¿›çš„å‚æ•°æ¥å®ä¾‹åŒ–DialogFragment.
 //    	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.ALTER_DIALOG);
     	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.DATE_PICKER_DIALOG);
 //    	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.TIME_PICKER_DiALOG);
@@ -135,21 +134,16 @@ public class LoginActivity extends FragmentActivity {
     	newDialog.show(getSupportFragmentManager(), "alert msg");
     }
 	
-
-	
-	
-	
-	
-	
 	private void go(){
 		String userId = mLayout.getTxtUserNameView().getText().toString();
 		String pwd = mLayout.getTxtPasswordView().getText().toString();
 		SysMng.saveUserInfo(userId, pwd);
 		SysDBCtrl.addSysLoginLog(this, userId);
-		Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
+//		Intent intent = new Intent(this,MainHomeNoneActionBarActivity.class);
+		Intent intent = new Intent(this,LockActivity.class);
 //		Intent intent = new Intent(this,CddMainActivity.class);
 		startActivity(intent);
-		this.finish();
+//		this.finish();
 	}
 	
 	
@@ -168,7 +162,7 @@ public class LoginActivity extends FragmentActivity {
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			super.onPreExecute();
-			DialogHelper.getProgressDialogInstance().show(mActy, "Êı¾İÌá½»ÖĞ");
+			DialogHelper.getProgressDialogInstance().show(mActy, "æ•°æ®æäº¤ä¸­");
 		}
 		
 		@Override
@@ -189,7 +183,7 @@ public class LoginActivity extends FragmentActivity {
 			super.onPostExecute(result);
 			DialogHelper.getProgressDialogInstance().close();
 			if(!result){
-				DialogHelper.createTextDialog(mActy, "ÏûÏ¢", "ÓÃ»§Ãû»òÃÜÂë´íÎó,ÇëÖØĞÂÊäÈë¡£");
+				DialogHelper.createTextDialog(mActy, "æ¶ˆæ¯", "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥ã€‚");
 				mLayout.getTxtUserNameView().setFocusable(true);
 			}else{
 				go();

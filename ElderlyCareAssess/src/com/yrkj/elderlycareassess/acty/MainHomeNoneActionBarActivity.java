@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,6 +36,7 @@ import com.yrkj.elderlycareassess.layout.ActivityMainHomeNoneactionbar;
 import com.yrkj.elderlycareassess.service.SyncService;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.http.NetHelper;
 import com.yrkj.util.log.ToastUtil;
 //import android.support.v7.app.ActionBar;
@@ -112,6 +114,31 @@ OnClickListener {
     	stopService(intent);
     	
 	}
+	
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			DialogHelper.createConfirmDialog(MainHomeNoneActionBarActivity.this, "È·ÈÏÍË³ö£¿",new ConfirmDialogListener() {
+				
+				@Override
+				public void onClickListener(boolean result) {
+					
+					if(result){
+//						SysMng.closeApp(mActy);
+						Intent intent3 = new Intent(MainHomeNoneActionBarActivity.this, LoginActivity.class);
+						intent3.putExtra("exit", 1);
+						intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivity(intent3);
+					}
+				}
+			});
+			return false;
+		}
+		return super.dispatchKeyEvent(event);
+	}
+
+	
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

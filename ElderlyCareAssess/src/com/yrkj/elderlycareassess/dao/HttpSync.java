@@ -18,9 +18,9 @@ import com.yrkj.util.http.HttpRequestValue;
 import com.yrkj.util.log.DLog;
 
 public class HttpSync {
-
-	private static String host = "121.199.17.68";
-	private static int port = 80;
+	static boolean  debug = false;
+	private static String host = debug?"192.168.1.101":"121.199.17.68";
+	private static int port = debug?8080:80;
 	private static String mUrl = "tymk/interface_getClientMessage.do";
 
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
@@ -231,6 +231,7 @@ public class HttpSync {
 		public String taskcount = "";
 		public String cmtcount = "";
 		public String islogin = "";	
+		public String userimg = "";
 		
 		public static JsonUserBean getInstance(String s){
 			if(s!=null && !s.isEmpty()){
@@ -245,6 +246,7 @@ public class HttpSync {
 					b.taskcount = jo.getString("taskcount");
 					b.cmtcount = jo.getString("cmtcount");
 					b.islogin = jo.getString("islogin");
+//					b.userimg = jo.getString("userimg");
 					return b;
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block

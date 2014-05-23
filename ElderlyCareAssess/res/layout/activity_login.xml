@@ -11,7 +11,7 @@
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
-        android:layout_marginTop="220dip"
+        android:layout_marginTop="190dip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/activity_login_margin"
             android:layout_marginRight="@dimen/activity_login_margin"
-            android:layout_marginTop="170dip"
+            android:layout_marginTop="130dip"
             android:background="@drawable/txt_login_bg"
             android:drawableLeft="@drawable/icon_username"
             android:drawablePadding="8dip"

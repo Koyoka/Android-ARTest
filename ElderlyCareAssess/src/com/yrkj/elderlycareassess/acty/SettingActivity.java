@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.yrkj.elderlycareassess.CddMainActivity;
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.gusturelock.LockActivity;
 import com.yrkj.elderlycareassess.layout.ActivitySetting;
 
 public class SettingActivity extends FragmentActivity implements OnClickListener {
@@ -39,6 +39,7 @@ public class SettingActivity extends FragmentActivity implements OnClickListener
 		mLayout.getBtnBackView().setOnClickListener(this);
 		mLayout.getBtnLogoutView().setOnClickListener(this);
 		mLayout.getBtnAysnView().setOnClickListener(this);
+		mLayout.getBtnSetNetPwdView().setOnClickListener(this);
 		mLayout.getBtnSetLocPwdView().setOnClickListener(this);
 		mLayout.getBtnLogView().setOnClickListener(this);
 		
@@ -52,19 +53,24 @@ public class SettingActivity extends FragmentActivity implements OnClickListener
 			this.finish();
 			break;
 		case ActivitySetting.BtnLogoutViewId:
-//			Intent intent3 = new Intent(SettingActivity.this, CddMainActivity.class);
-//			intent3.putExtra("exit", 1);
-//			intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//			startActivity(intent3);
+			Intent intent3 = new Intent(SettingActivity.this, LoginActivity.class);
+			
+			intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent3);
 //			android.os.Process.killProcess(android.os.Process.myPid()) ;   //ªÒ»°PID 
 //			  System.exit(0); 
-			this.finish();
+//			this.finish();
 			return;
 		case ActivitySetting.BtnAysnViewId:
 			Intent intent = new Intent(this, SyncActivity.class);
 			startActivity(intent);
 			break;
 		case ActivitySetting.BtnSetLocPwdViewId:
+			Intent intent11 = new Intent(this, LockActivity.class);
+			intent11.putExtra("Login", true);
+			startActivity(intent11);
+			break;
+		case ActivitySetting.BtnSetNetPwdViewId:
 			Intent intent1 = new Intent(this, EditActivity.class);
 			startActivity(intent1);
 			break;

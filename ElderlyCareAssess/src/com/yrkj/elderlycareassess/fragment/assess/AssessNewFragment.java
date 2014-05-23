@@ -63,8 +63,7 @@ implements OnClickListener {
 		mLayout.getTxtAssessCountView().setText(mCust.assessnum);
 		mLayout.getTxtAssessLastDateView().setText(mTask.LastAssessDate);
 		mLayout.getTxtAssessEndDateView().setText(mTask.EndAssessDate);
-		mLayout.getTxtEmployNameView().setText("∆¿π¿‘±–’√˚");
-		
+		mLayout.getTxtEmployNameView().setText(mCust.customername);
 		
 	}
 	

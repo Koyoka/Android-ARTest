@@ -12,27 +12,34 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
 
     public static final int ContainerId = R.id.container;
     public static final int LayoutBodyId = R.id.layoutBody;
+    public static final int BtnStopRecordViewId = R.id.btnStopRecordView;
 
-    protected android.widget.FrameLayout mContainer;
+    protected android.widget.RelativeLayout mContainer;
     protected android.widget.LinearLayout mLayoutBody;
+    protected android.widget.LinearLayout mBtnStopRecordView;
 
     protected Activity mCurActy;
 
     public FragmentAssessQuestionnairellist(Activity acty){
         mCurActy = acty;
-        mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
         mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
+        mBtnStopRecordView = (android.widget.LinearLayout) acty.findViewById(BtnStopRecordViewId);
     }   
 
     public FragmentAssessQuestionnairellist(android.view.View acty){
-        mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mContainer = (android.widget.RelativeLayout) acty.findViewById(ContainerId);
         mLayoutBody = (android.widget.LinearLayout) acty.findViewById(LayoutBodyId);
+        mBtnStopRecordView = (android.widget.LinearLayout) acty.findViewById(BtnStopRecordViewId);
     }   
-    public android.widget.FrameLayout getContainer() {
+    public android.widget.RelativeLayout getContainer() {
         return mContainer;
     }
     public android.widget.LinearLayout getLayoutBody() {
         return mLayoutBody;
+    }
+    public android.widget.LinearLayout getBtnStopRecordView() {
+        return mBtnStopRecordView;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -56,6 +63,9 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
                 case LayoutBodyId:
                     setViewData(adp,getLayoutBody(),data,joinData.formatString,joinData.data);
                     break;
+                case BtnStopRecordViewId:
+                    setViewData(adp,getBtnStopRecordView(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -74,6 +84,9 @@ public class FragmentAssessQuestionnairellist extends BaseLayout{
                     break;
                 case LayoutBodyId:
                     setViewData(adp,getLayoutBody(),data,"",path);
+                    break;
+                case BtnStopRecordViewId:
+                    setViewData(adp,getBtnStopRecordView(),data,"",path);
                     break;
                     
                 default:

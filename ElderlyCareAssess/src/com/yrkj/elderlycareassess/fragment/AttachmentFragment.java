@@ -37,6 +37,7 @@ import com.yrkj.elderlycareassess.widget.UIRecordButton.OnFinishedRecordListener
 import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.bitmap.MediaHelper;
 import com.yrkj.util.date.DateHelper;
+import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.log.ToastUtil;
 
 public class AttachmentFragment extends Fragment implements OnClickListener {
@@ -81,29 +82,45 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 		mLayout.getBtnDiseaseView().setOnClickListener(this);
 		mLayout.getBtnCameraView().setOnClickListener(this);
-		mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
+//		mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
 		mAudioHelper = new AudioHelper(mLayout.getProgressBar1());
-		mLayout.getBtnSoundView().setOnFinishedRecordListener(new OnFinishedRecordListener() {
-
-			@Override
-			public void onFinishedRecord(String audioPath) {
-//				Toast.makeText(RecordingActivity.this,audioPath, Toast.LENGTH_SHORT).show();
-				AssessTaskAttachmentSoundData d = new AssessTaskAttachmentSoundData();
-				d.TaskHeaderId = mTaskHeaderId;
-				d.CateId = mCateId;
-				d.SoundPath = audioPath;
-				AttachmentDBCtrl.addAttachmentSound(getActivity(), d);	
-				bindSound();
-//				ToastUtil.show(getActivity(), audioPath);
-				mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
-//				openFile(new File(audioPath));
-//				
-			}
-		});
+		mLayout.getBtnSoundView().setOnClickListener(this);
+//		mLayout.getBtnSoundView().setOnFinishedRecordListener(new OnFinishedRecordListener() {
+//
+//			@Override
+//			public void onFinishedRecord(String audioPath) {
+////				Toast.makeText(RecordingActivity.this,audioPath, Toast.LENGTH_SHORT).show();
+//				AssessTaskAttachmentSoundData d = new AssessTaskAttachmentSoundData();
+//				d.TaskHeaderId = mTaskHeaderId;
+//				d.CateId = mCateId;
+//				d.SoundPath = audioPath;
+//				AttachmentDBCtrl.addAttachmentSound(getActivity(), d);	
+//				bindSound();
+////				ToastUtil.show(getActivity(), audioPath);
+//				mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
+////				openFile(new File(audioPath));
+////				
+//			}
+//		});
 		
 		bindImg();
 		bindSound();
 		bindDisease();
+	}
+	
+	public void saveSound(String audioPath){
+		
+		if(audioPath.isEmpty()){
+			return;
+		}
+		AssessTaskAttachmentSoundData d = new AssessTaskAttachmentSoundData();
+		d.TaskHeaderId = mTaskHeaderId;
+		d.CateId = mCateId;
+		d.SoundPath = audioPath;
+		AttachmentDBCtrl.addAttachmentSound(getActivity(), d);	
+		bindSound();
+//		ToastUtil.show(getActivity(), audioPath);
+//		mLayout.getBtnSoundView().setSavePath(getSaveSoundFileName());
 	}
 
 	private void popDisease(){
@@ -124,6 +141,14 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		if(DateHelper.parseDate(mLayout.getBtnDiseaseDateView().getText()+"-1")
 				== null){
 			ToastUtil.show(getActivity(), "请选择日期。");
+			return;
+		}
+		
+		String s1 = mLayout.getTxtDiseaseListView().getText().toString();
+		String s2 = mLayout.getBtnDiseaseView().getText().toString();
+		
+		if(s1.indexOf(s2) != -1){
+			DialogHelper.createTextDialog(getActivity(), "消息", "该疾病已添加");
 			return;
 		}
 		
@@ -189,16 +214,29 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 //			MediaHelper.setMedia(getActivity(), MediaHelper.MEDIA_IMG_CAMERA,mSavePath);
 			FragmentMediaHelper.setMedia(this,MediaHelper.MEDIA_IMG_CAMERA /*| MediaHelper.MEDIA_IMG_CROP*/,mSavePath);
 			break;
-			
+		case FragmentAttachment.BtnSoundViewId:
+			if(mOnRecorLisenter!=null){
+				mOnRecorLisenter.onStart();
+			}
+			break;
 		default:
 			break;
 		}
 			
 	}
+	
+	private OnRecorLisenter mOnRecorLisenter;
+	public void setOnRecorLisenter(OnRecorLisenter l){
+		mOnRecorLisenter = l;
+	}
+	public interface OnRecorLisenter{
+		public void onStart();
+	}
+	
 	private static final File SOUND_DIR = 
 			new File(Environment.getExternalStorageDirectory() + "/ECA_Sound");//图片的存储目录
 	
-	private static String getSaveSoundFileName(){
+	public String getSaveSoundFileName(){
 		if(!SOUND_DIR.exists()){
 			SOUND_DIR.mkdir();
 		}
@@ -235,7 +273,11 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 				AttachmentDBCtrl.getAttachmentImgList(getActivity(),mTaskHeaderId,mCateId);
 		for (AssessTaskAttachmentImageData item : itemlist) {
 			
+			
+			
 			Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
+			int degree = MediaHelper.readPictureDegree(item.ImgPath);
+			b = MediaHelper.rotaingImageView(degree,b);
 			
 			ImageView v = new ImageView(getActivity());
 			

@@ -111,6 +111,8 @@ implements OnClickListener{
 		
 		
 		ArrayList<ItemTagData> itemTagDataList = getTagViewSelectIds();
+		
+		
 		for(ItemTagData selectTagItem : itemTagDataList){
 			AssessTaskDetailData item = new AssessTaskDetailData();
 			item.SubcateId = mSubcateData.SubcateId;
@@ -129,7 +131,6 @@ implements OnClickListener{
 //					"");
 			itemList.add(item);
 		}
-		
 		
 		return itemList;
 		
@@ -198,54 +199,60 @@ implements OnClickListener{
 		
 		
 		mTagViewList = new ArrayList<CheckBox>();
-		for(int i = 0; i < mSubcateData.ItemTagList.size(); i++){
-			QItemTagData item = mSubcateData.ItemTagList.get(i);
-			CheckBox v = null;
-			v = (CheckBox) inflater.inflate(R.layout.view_question_special_item, container,
-					false);
-			v.setText(item.ItemTagName);
-			
-			String key = AssessTaskDetailData.getIndexKey(
-					mCateId, 
-					mSubcateData.SubcateId, 
-					item.ItemTagId+"",
-					AssessTaskDetailData.TASK_TYPE_ITEMTAG);
-//			boolean isSelected = false;
-			if(mTaskDetailIndex.get(key)!=null){
-				DLog.LOG(SysMng.TAG_DB, "True-==="+key);
-				mLayout.getLayoutSpecialItemView().setVisibility(View.VISIBLE);
-				v.setChecked(true);
-			}
-			
-			ItemTagData d = new ItemTagData();
-			d.Id = ""+item.ItemTagId;
-			d.Name = item.ItemTagName;
-			d.Desc = item.ItemTagDesc;
-			v.setTag(d);
-			mTagViewList.add(v);
-			switch (i%4) {
-			case 0:
-				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
-				mLayout.getLayoutSpecialItem1View().addView(v);
-				break;
-			case 1:
-//				v.setBackgroundResource(R.drawable.btn_special_item_2_bg_x);
-				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
-				mLayout.getLayoutSpecialItem2View().addView(v);
-				break;
-			case 2:
-//				v.setBackgroundResource(R.drawable.btn_special_item_3_bg_x);
-				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
-				mLayout.getLayoutSpecialItem3View().addView(v);
-				break;
-			case 3:
-//				v.setBackgroundResource(R.drawable.btn_special_item_4_bg_x);
-				v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
-				mLayout.getLayoutSpecialItem4View().addView(v);
-				break;
-
-			default:
-				break;
+		if(mTagViewList.size() == 0){
+			mLayout.getBtnQuestionShorthandView().setVisibility(View.GONE);
+		}else{
+			mLayout.getBtnQuestionShorthandView().setVisibility(View.VISIBLE);
+		
+			for(int i = 0; i < mSubcateData.ItemTagList.size(); i++){
+				QItemTagData item = mSubcateData.ItemTagList.get(i);
+				CheckBox v = null;
+				v = (CheckBox) inflater.inflate(R.layout.view_question_special_item, container,
+						false);
+				v.setText(item.ItemTagName);
+				
+				String key = AssessTaskDetailData.getIndexKey(
+						mCateId, 
+						mSubcateData.SubcateId, 
+						item.ItemTagId+"",
+						AssessTaskDetailData.TASK_TYPE_ITEMTAG);
+	//			boolean isSelected = false;
+				if(mTaskDetailIndex.get(key)!=null){
+					DLog.LOG(SysMng.TAG_DB, "True-==="+key);
+					mLayout.getLayoutSpecialItemView().setVisibility(View.VISIBLE);
+					v.setChecked(true);
+				}
+				
+				ItemTagData d = new ItemTagData();
+				d.Id = ""+item.ItemTagId;
+				d.Name = item.ItemTagName;
+				d.Desc = item.ItemTagDesc;
+				v.setTag(d);
+				mTagViewList.add(v);
+				switch (i%4) {
+				case 0:
+					v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
+					mLayout.getLayoutSpecialItem1View().addView(v);
+					break;
+				case 1:
+	//				v.setBackgroundResource(R.drawable.btn_special_item_2_bg_x);
+					v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
+					mLayout.getLayoutSpecialItem2View().addView(v);
+					break;
+				case 2:
+	//				v.setBackgroundResource(R.drawable.btn_special_item_3_bg_x);
+					v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
+					mLayout.getLayoutSpecialItem3View().addView(v);
+					break;
+				case 3:
+	//				v.setBackgroundResource(R.drawable.btn_special_item_4_bg_x);
+					v.setBackgroundResource(R.drawable.btn_special_item_1_bg_x);
+					mLayout.getLayoutSpecialItem4View().addView(v);
+					break;
+	
+				default:
+					break;
+				}
 			}
 		}
 	}

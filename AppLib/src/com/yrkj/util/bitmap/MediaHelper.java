@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
@@ -288,6 +289,17 @@ public class MediaHelper {
         }
         return degree;
     }
+	
+	public static Bitmap rotaingImageView(int angle , Bitmap bitmap) { 
+		       //旋转图片 动作  
+       Matrix matrix = new Matrix();; 
+       matrix.postRotate(angle); 
+       // 创建新的图片  
+       Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, 
+               bitmap.getWidth(), bitmap.getHeight(), matrix, true); 
+       return resizedBitmap; 
+   }
+
 	
 }
 

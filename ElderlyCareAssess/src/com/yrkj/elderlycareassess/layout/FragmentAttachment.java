@@ -46,7 +46,7 @@ public class FragmentAttachment extends BaseLayout{
     protected android.widget.EditText mTxtDiseaseDescView;
     protected android.widget.ImageView mBtnCameraView;
     protected android.widget.LinearLayout mLayoutImgList;
-    protected com.yrkj.elderlycareassess.widget.UIRecordButton mBtnSoundView;
+    protected android.widget.Button mBtnSoundView;
     protected android.widget.LinearLayout mLayoutSoundList;
     protected android.widget.ProgressBar mProgressBar1;
 
@@ -70,7 +70,7 @@ public class FragmentAttachment extends BaseLayout{
         mTxtDiseaseDescView = (android.widget.EditText) acty.findViewById(TxtDiseaseDescViewId);
         mBtnCameraView = (android.widget.ImageView) acty.findViewById(BtnCameraViewId);
         mLayoutImgList = (android.widget.LinearLayout) acty.findViewById(LayoutImgListId);
-        mBtnSoundView = (com.yrkj.elderlycareassess.widget.UIRecordButton) acty.findViewById(BtnSoundViewId);
+        mBtnSoundView = (android.widget.Button) acty.findViewById(BtnSoundViewId);
         mLayoutSoundList = (android.widget.LinearLayout) acty.findViewById(LayoutSoundListId);
         mProgressBar1 = (android.widget.ProgressBar) acty.findViewById(ProgressBar1Id);
     }   
@@ -92,7 +92,7 @@ public class FragmentAttachment extends BaseLayout{
         mTxtDiseaseDescView = (android.widget.EditText) acty.findViewById(TxtDiseaseDescViewId);
         mBtnCameraView = (android.widget.ImageView) acty.findViewById(BtnCameraViewId);
         mLayoutImgList = (android.widget.LinearLayout) acty.findViewById(LayoutImgListId);
-        mBtnSoundView = (com.yrkj.elderlycareassess.widget.UIRecordButton) acty.findViewById(BtnSoundViewId);
+        mBtnSoundView = (android.widget.Button) acty.findViewById(BtnSoundViewId);
         mLayoutSoundList = (android.widget.LinearLayout) acty.findViewById(LayoutSoundListId);
         mProgressBar1 = (android.widget.ProgressBar) acty.findViewById(ProgressBar1Id);
     }   
@@ -144,7 +144,7 @@ public class FragmentAttachment extends BaseLayout{
     public android.widget.LinearLayout getLayoutImgList() {
         return mLayoutImgList;
     }
-    public com.yrkj.elderlycareassess.widget.UIRecordButton getBtnSoundView() {
+    public android.widget.Button getBtnSoundView() {
         return mBtnSoundView;
     }
     public android.widget.LinearLayout getLayoutSoundList() {

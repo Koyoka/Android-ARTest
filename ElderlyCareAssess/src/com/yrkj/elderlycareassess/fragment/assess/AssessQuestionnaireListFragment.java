@@ -2,7 +2,6 @@ package com.yrkj.elderlycareassess.fragment.assess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.yrkj.elderlycareassess.R;
@@ -23,7 +23,10 @@ import com.yrkj.elderlycareassess.bean.QCategoryData;
 import com.yrkj.elderlycareassess.bean.QSubcategoryData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
 import com.yrkj.elderlycareassess.fragment.AttachmentFragment;
+import com.yrkj.elderlycareassess.fragment.AttachmentFragment.OnRecorLisenter;
 import com.yrkj.elderlycareassess.layout.FragmentAssessQuestionnairellist;
+import com.yrkj.elderlycareassess.util.RecordHelper;
+import com.yrkj.elderlycareassess.util.RecordHelper.OnHFinishedRecordListener;
 import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
@@ -32,6 +35,9 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	private AssessQuestionnaireFragment[] mFList;
 	private Map mTaskDetailIndex;
 	private String mTaskHeaderId = "";
+	private AttachmentFragment mAf;
+	
+	
 	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d,CustomerData c,
 			String AssessId) {
 		super(a,d,c);
@@ -47,22 +53,28 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	}
 	
 	View mV;
+	FragmentAssessQuestionnairellist mLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-			mV = inflater.inflate(R.layout.fragment_assess_questionnairellist, container,
-					false);
+		mV = inflater.inflate(R.layout.fragment_assess_questionnairellist, container,
+				false);
+		mLayout
+		= new FragmentAssessQuestionnairellist(mV);
+		if (savedInstanceState == null) {
+				initData();
+				initFragment();
+//				initAttachment();
+		 }
+		
+			
 		return mV;
 	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState == null) {
-				initData();
-				initFragment();
-//				initAttachment();
-		 }
+		
 		
 	}
 	
@@ -103,11 +115,33 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		}
 	}
 	
-	AttachmentFragment mAf;
+	private RecordHelper mRecordHelper;
 	private void initFragment(){
 		if(mData == null){
 			return;
 		}
+		
+		mRecordHelper = new RecordHelper(getActivity());
+		mRecordHelper.setOnFinishedRecordListener(new OnHFinishedRecordListener() {
+			
+			@Override
+			public void onFinishedRecord(String audioPath) {
+				// TODO Auto-generated method stub
+//				ToastUtil.show(getActivity(), audioPath);
+				mAf.saveSound(audioPath);
+				mLayout.getBtnStopRecordView().setVisibility(View.GONE);
+			}
+		});
+		
+		
+		mLayout.getBtnStopRecordView().setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mRecordHelper.finishRecord();
+			}
+		});
 		
 		FragmentManager fMng = getChildFragmentManager();
 		FragmentTransaction ft = fMng.beginTransaction();
@@ -115,6 +149,15 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		int cId = Integer.parseInt(mData.CateId, 10);
 		
 		mAf = new AttachmentFragment(hId,cId);
+		mAf.setOnRecorLisenter(new OnRecorLisenter() {
+			
+			@Override
+			public void onStart() {
+				// TODO Auto-generated method stub
+				mRecordHelper.startRecording(mAf.getSaveSoundFileName());
+				mLayout.getBtnStopRecordView().setVisibility(View.VISIBLE);
+			}
+		});
 		ft.add(FragmentAssessQuestionnairellist.LayoutBodyId,mAf, "attachment");
 		
 		

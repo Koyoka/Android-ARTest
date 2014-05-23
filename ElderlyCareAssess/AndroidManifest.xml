@@ -69,6 +69,7 @@
         </activity>
          <activity android:name="com.yrkj.elderlycareassess.acty.LoginActivity"
             android:screenOrientation="portrait"   
+           
             android:configChanges="keyboardHidden|orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -121,6 +122,26 @@
         </activity>
         <activity
             android:name="com.yrkj.elderlycareassess.acty.SettingContentActivity"
+            android:screenOrientation="portrait"  
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity
+            android:name="com.yrkj.elderlycareassess.gusturelock.MainActivity"
+            android:screenOrientation="portrait"  
+            android:configChanges="keyboardHidden|orientation">
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>  -->
+        </activity>
+        <activity
+            android:name="com.yrkj.elderlycareassess.gusturelock.LockActivity"
+            android:screenOrientation="portrait"  
+            android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity
+            android:name="com.yrkj.elderlycareassess.gusturelock.LockSetupActivity"
             android:screenOrientation="portrait"  
             android:configChanges="keyboardHidden|orientation">
         </activity>
