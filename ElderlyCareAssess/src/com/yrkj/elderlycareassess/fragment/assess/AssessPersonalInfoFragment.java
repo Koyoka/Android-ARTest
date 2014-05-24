@@ -89,7 +89,7 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 			}
 		}
 		
-		mLayout.getTxtWorkView().setText(mCust.work);
+		mLayout.getTxtWorkView().setText(mCust.workarea);
 		mLayout.getTxtProvinceView().setText(mCust.province);
 		
 		mLayout.getTxtIsMarryView().setText(CustomerData.getMarryDesc(mCust.ismarry));
@@ -142,7 +142,7 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 		
 		
 		mCust.birthday =mLayout.getTxtBirthdayView().getText().toString();
-		mCust.work =mLayout.getTxtWorkView().getText().toString();
+		mCust.workarea =mLayout.getTxtWorkView().getText().toString();
 		
 		mCust.province =mLayout.getTxtProvinceView().getText().toString();
 		

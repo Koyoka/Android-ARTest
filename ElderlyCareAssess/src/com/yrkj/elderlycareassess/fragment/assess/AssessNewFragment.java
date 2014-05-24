@@ -1,5 +1,6 @@
 package com.yrkj.elderlycareassess.fragment.assess;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.layout.FragmentAssessNew;
+import com.yrkj.util.date.DateHelper;
 
 public class AssessNewFragment extends AssessBaseFragment 
 implements OnClickListener {
@@ -62,7 +64,14 @@ implements OnClickListener {
 		mLayout.getTxtAssessTypeView().setText(AssessTaskHeaderData.getAssessTypeDesc(mTask.AssessType));
 		mLayout.getTxtAssessCountView().setText(mCust.assessnum);
 		mLayout.getTxtAssessLastDateView().setText(mTask.LastAssessDate);
-		mLayout.getTxtAssessEndDateView().setText(mTask.EndAssessDate);
+//		mLayout.getTxtAssessEndDateView().setText(mTask.EndAssessDate);
+		
+		try {
+			mLayout.getTxtAssessEndDateView().setText(DateHelper.getTodayStr());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mLayout.getTxtEmployNameView().setText(mCust.customername);
 		
 	}

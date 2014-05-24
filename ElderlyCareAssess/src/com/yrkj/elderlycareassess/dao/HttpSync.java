@@ -21,8 +21,10 @@ public class HttpSync {
 	static boolean  debug = false;
 	private static String host = debug?"192.168.1.101":"121.199.17.68";
 	private static int port = debug?8080:80;
-	private static String mUrl = "tymk/interface_getClientMessage.do";
-
+//	private static String mUrl = "tymk/interface_getClientMessage.do";
+	public static String mVirDir = "tymk_v2/";
+	private static String mUrl = mVirDir+"interface_getClientMessage.do";
+///http://121.199.17.68/tymk_v2/
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
 			HttpRequestValue mReqPostValues, HttpRequestValue mReqFileValues,HttpProgressListener l)
 			throws Exception {
@@ -155,7 +157,7 @@ public class HttpSync {
 			v.Add("assessid", assessid);
 			
 			String jsonStr = doHttp(mUrl,null,v,null,null);
-//			DLog.LOG(SysMng.TAG_NET,"3--------"+jsonStr);
+			DLog.LOG(SysMng.TAG_NET,"userNetLogin 3--------"+jsonStr);
 			JSONBean b = JSONBean.getInstance(jsonStr);
 //			DLog.LOG(SysMng.TAG_NET,"4--------"+b.IsSuccess());
 			if(!b.IsSuccess()){
@@ -246,7 +248,7 @@ public class HttpSync {
 					b.taskcount = jo.getString("taskcount");
 					b.cmtcount = jo.getString("cmtcount");
 					b.islogin = jo.getString("islogin");
-//					b.userimg = jo.getString("userimg");
+					b.userimg = jo.getString("userimg");
 					return b;
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -443,7 +445,7 @@ public class HttpSync {
 					b.otherethnic = jo.getString("otherethnic");
 					b.education = jo.getString("education");
 					b.province = jo.getString("province");
-					b.work = jo.getString("work");
+					b.workarea = jo.getString("work");
 					b.householdarea = jo.getString("householdarea");
 					b.householdaddr = jo.getString("householdaddr");
 					b.householdmail = jo.getString("householdmail");

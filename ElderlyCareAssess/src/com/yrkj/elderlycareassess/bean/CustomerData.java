@@ -59,6 +59,8 @@ public class CustomerData {
 	public static final String Col_curassesstype = "curassesstype";
 	public static final String Col_curassessstatus = "curassessstatus";
 	public static final String Col_unitid = "unitid";
+	
+	
 
 	
 	public static String[] getColumnColl(){
@@ -126,7 +128,7 @@ public class CustomerData {
 	public String otherethnic = "";
 	public String education = "";
 	public String province = "";
-	public String work = "";
+	public String workarea = "";
 	public String householdarea = "";
 	public String householdaddr = "";
 	public String householdmail = "";
@@ -157,7 +159,6 @@ public class CustomerData {
 
 	
 	
-	
 	public static CustomerData convertDataToModule(Cursor c){
 		CustomerData item = new CustomerData();
 		item.id = DBMng.GetDataString(c, Col_id);
@@ -176,7 +177,7 @@ public class CustomerData {
 		item.otherethnic = DBMng.GetDataString(c, Col_otherethnic);
 		item.education = DBMng.GetDataString(c, Col_education);
 		item.province = DBMng.GetDataString(c, Col_province);
-		item.work = DBMng.GetDataString(c, Col_work);
+		item.workarea = DBMng.GetDataString(c, Col_work);
 		item.householdarea = DBMng.GetDataString(c, Col_householdarea);
 		item.householdaddr = DBMng.GetDataString(c, Col_householdaddr);
 		item.householdmail = DBMng.GetDataString(c, Col_householdmail);
@@ -721,7 +722,7 @@ public class CustomerData {
 		values.put(Col_otherethnic,data.otherethnic);
 		values.put(Col_education,data.education);
 		values.put(Col_province,data.province);
-		values.put(Col_work,data.work);
+		values.put(Col_work,data.workarea);
 		values.put(Col_householdarea,data.householdarea);
 		values.put(Col_householdaddr,data.householdaddr);
 		values.put(Col_householdmail,data.householdmail);
