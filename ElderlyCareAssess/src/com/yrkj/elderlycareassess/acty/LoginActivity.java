@@ -54,7 +54,8 @@ public class LoginActivity extends FragmentActivity {
 	  // TODO Auto-generated method stub  
 	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
 	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
-	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
+	    	 if(manager != null)
+	    		 manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
 	     }  
 	  }  
 	  return super.onTouchEvent(event);  

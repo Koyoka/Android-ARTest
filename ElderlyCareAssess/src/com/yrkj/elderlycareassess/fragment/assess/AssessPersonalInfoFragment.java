@@ -2,20 +2,21 @@ package com.yrkj.elderlycareassess.fragment.assess;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
-import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
@@ -23,8 +24,6 @@ import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment.onDateSelected;
 import com.yrkj.elderlycareassess.layout.FragmentAssessPersonalinfo;
 import com.yrkj.util.date.DateHelper;
-import com.yrkj.util.log.DLog;
-import com.yrkj.util.log.ToastUtil;
 
 public class AssessPersonalInfoFragment extends AssessBaseFragment implements OnClickListener {
 	
@@ -90,7 +89,10 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 		}
 		
 		mLayout.getTxtWorkView().setText(mCust.workarea);
-		mLayout.getTxtProvinceView().setText(mCust.province);
+		mLayout.getTxtProvinceView().setText(
+				getPmap().get(
+				mCust.province)+"");
+		mLayout.getTxtProvinceView().setTag(mCust.province+"");
 		
 		mLayout.getTxtIsMarryView().setText(CustomerData.getMarryDesc(mCust.ismarry));
 		mLayout.getTxtIsMarryView().setTag(mCust.ismarry);
@@ -144,7 +146,7 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 		mCust.birthday =mLayout.getTxtBirthdayView().getText().toString();
 		mCust.workarea =mLayout.getTxtWorkView().getText().toString();
 		
-		mCust.province =mLayout.getTxtProvinceView().getText().toString();
+		mCust.province =mLayout.getTxtProvinceView().getTag().toString();
 		
 		mCust.ismarry =mLayout.getTxtIsMarryView().getTag()+"";//.getText().toString();
 		
@@ -261,21 +263,101 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 
         popup.show();
 	}
+	private Map provinceList;
+	private Map getPmap(){
+		if(provinceList!=null){
+			return provinceList;
+		}
+		provinceList = new HashMap<String,String>();
+		provinceList.put("110000", "北京市");
+		provinceList.put("120000", "天津市");
+		provinceList.put("130000", "河北省");
+		provinceList.put("140000", "山西省");
+		provinceList.put("150000", "内蒙古自治区");
+		provinceList.put("210000", "辽宁省");
+		provinceList.put("220000", "吉林省");
+		provinceList.put("230000", "黑龙江省");
+		provinceList.put("310000", "上海市");
+		provinceList.put("320000", "江苏省");
+		provinceList.put("330000", "浙江省");
+		provinceList.put("340000", "安徽省");
+		provinceList.put("350000", "福建省");
+		provinceList.put("360000", "江西省");
+		provinceList.put("370000", "山东省");
+		provinceList.put("410000", "河南省");
+		provinceList.put("420000", "湖北省");
+		provinceList.put("430000", "湖南省");
+		provinceList.put("440000", "广东省");
+		provinceList.put("450000", "广西壮族自治区");
+		provinceList.put("460000", "海南省");
+		provinceList.put("500000", "重庆市");
+		provinceList.put("510000", "四川省");
+		provinceList.put("520000", "贵州省");
+		provinceList.put("530000", "云南省");
+		provinceList.put("540000", "西藏自治区");
+		provinceList.put("610000", "陕西省");
+		provinceList.put("620000", "甘肃省");
+		provinceList.put("630000", "青海省");
+		provinceList.put("640000", "宁夏回族自治区");
+		provinceList.put("650000", "新疆维吾尔自治区");
+		provinceList.put("710000", "台湾省");
+		provinceList.put("810000", "香港");
+		provinceList.put("820000", "澳门");
+		return provinceList;
+	}
+	
+	
 	
 	private void popProvince(){
 		PopupMenu popup = new PopupMenu(getActivity(), mLayout.getTxtProvinceView());
-        popup.getMenuInflater().inflate(R.menu.province, popup.getMenu());
-
+		popup.getMenu().add(Menu.NONE, 110000, Menu.NONE, "北京市");
+		popup.getMenu().add(Menu.NONE, 120000, Menu.NONE, "天津市");
+		popup.getMenu().add(Menu.NONE, 130000, Menu.NONE, "河北省");
+		popup.getMenu().add(Menu.NONE, 140000, Menu.NONE, "山西省");
+		popup.getMenu().add(Menu.NONE, 150000, Menu.NONE, "内蒙古自治区");
+		popup.getMenu().add(Menu.NONE, 210000, Menu.NONE, "辽宁省");
+		popup.getMenu().add(Menu.NONE, 220000, Menu.NONE, "吉林省");
+		popup.getMenu().add(Menu.NONE, 230000, Menu.NONE, "黑龙江省");
+		popup.getMenu().add(Menu.NONE, 310000, Menu.NONE, "上海市");
+		popup.getMenu().add(Menu.NONE, 320000, Menu.NONE, "江苏省");
+		popup.getMenu().add(Menu.NONE, 330000, Menu.NONE, "浙江省");
+		popup.getMenu().add(Menu.NONE, 340000, Menu.NONE, "安徽省");
+		popup.getMenu().add(Menu.NONE, 350000, Menu.NONE, "福建省");
+		popup.getMenu().add(Menu.NONE, 360000, Menu.NONE, "江西省");
+		popup.getMenu().add(Menu.NONE, 370000, Menu.NONE, "山东省");
+		popup.getMenu().add(Menu.NONE, 410000, Menu.NONE, "河南省");
+		popup.getMenu().add(Menu.NONE, 420000, Menu.NONE, "湖北省");
+		popup.getMenu().add(Menu.NONE, 430000, Menu.NONE, "湖南省");
+		popup.getMenu().add(Menu.NONE, 440000, Menu.NONE, "广东省");
+		popup.getMenu().add(Menu.NONE, 450000, Menu.NONE, "广西壮族自治区");
+		popup.getMenu().add(Menu.NONE, 460000, Menu.NONE, "海南省");
+		popup.getMenu().add(Menu.NONE, 500000, Menu.NONE, "重庆市");
+		popup.getMenu().add(Menu.NONE, 510000, Menu.NONE, "四川省");
+		popup.getMenu().add(Menu.NONE, 520000, Menu.NONE, "贵州省");
+		popup.getMenu().add(Menu.NONE, 530000, Menu.NONE, "云南省");
+		popup.getMenu().add(Menu.NONE, 540000, Menu.NONE, "西藏自治区");
+		popup.getMenu().add(Menu.NONE, 610000, Menu.NONE, "陕西省");
+		popup.getMenu().add(Menu.NONE, 620000, Menu.NONE, "甘肃省");
+		popup.getMenu().add(Menu.NONE, 630000, Menu.NONE, "青海省");
+		popup.getMenu().add(Menu.NONE, 640000, Menu.NONE, "宁夏回族自治区");
+		popup.getMenu().add(Menu.NONE, 650000, Menu.NONE, "新疆维吾尔自治区");
+		popup.getMenu().add(Menu.NONE, 710000, Menu.NONE, "台湾省");
+		popup.getMenu().add(Menu.NONE, 810000, Menu.NONE, "香港");
+		popup.getMenu().add(Menu.NONE, 820000, Menu.NONE, "澳门");
+//        popup.getMenuInflater().inflate(R.menu.province, popup.getMenu());
+//		getPmap().
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
-            	String defineS = CustomerData.getProvinceDesc(item.getItemId());
+            	String defineS = getPmap().get(item.getItemId()+"")+"";//CustomerData.getProvinceDesc(item.getItemId());
             	mLayout.getTxtProvinceView().setText(defineS);
+            	mLayout.getTxtProvinceView().setTag(item.getItemId()+"");
                 return true;
             }
         });
 
         popup.show();
 	}
+	
 	
 	private void popMarry(){
 		PopupMenu popup = new PopupMenu(getActivity(), mLayout.getTxtIsMarryView());

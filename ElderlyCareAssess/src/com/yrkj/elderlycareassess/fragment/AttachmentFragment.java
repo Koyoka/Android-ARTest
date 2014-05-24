@@ -3,8 +3,10 @@ package com.yrkj.elderlycareassess.fragment;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -171,6 +173,66 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 	}
 	
+	public static int getSDKVersionNumber() {
+        int sdkVersion;
+        try {
+            sdkVersion = Integer.valueOf(android.os.Build.VERSION.SDK_INT);
+        } catch (NumberFormatException e) {
+            sdkVersion = 0;
+        }
+        return sdkVersion;
+    }
+	
+	 private DatePickerDialog customDatePicker(Date d) {
+		 
+		final Calendar cd = Calendar.getInstance();
+		if(d==null){
+			Date date = new Date();
+			cd.setTime(date);
+		}else{
+			cd.setTime(d);
+		}
+		DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+				new android.app.DatePickerDialog.OnDateSetListener() {
+
+					@Override
+					public void onDateSet(DatePicker view, int year,
+							int monthOfYear, int dayOfMonth) {
+						mLayout.getBtnDiseaseDateView().setText(
+								year + "-" + (monthOfYear + 1));
+					}
+				}, cd.get(Calendar.YEAR), cd.get(Calendar.MONTH),
+				cd.get(Calendar.DAY_OF_MONTH));
+		dpd.getDatePicker().setCalendarViewShown(false);
+		try {
+			java.lang.reflect.Field[] datePickerDialogFields = dpd.getClass()
+					.getDeclaredFields();
+			for (java.lang.reflect.Field datePickerDialogField : datePickerDialogFields) {
+				if (datePickerDialogField.getName().equals("mDatePicker")) {
+					datePickerDialogField.setAccessible(true);
+					DatePicker datePicker = (DatePicker) datePickerDialogField
+							.get(dpd);
+
+					java.lang.reflect.Field datePickerFields[] = datePickerDialogField
+							.getType().getDeclaredFields();
+					for (java.lang.reflect.Field datePickerField : datePickerFields) {
+						if ("mDayPicker".equals(datePickerField.getName())
+								|| "mDaySpinner".equals(datePickerField
+										.getName())) {
+							datePickerField.setAccessible(true);
+							Object dayPicker = new Object();
+							dayPicker = datePickerField.get(datePicker);
+							((View) dayPicker).setVisibility(View.GONE);
+						}
+					}
+				}
+			}
+		} catch (Exception ex) {
+		}
+	        return dpd;
+	    }
+	
+	
 	@Override
 	public void onClick(View v) {
 
@@ -182,26 +244,12 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			saveDisease();
 			break;
 		case FragmentAttachment.BtnDiseaseDateViewId:
-			MyDialogFragment dialog = 
-				MyDialogFragment.newInstance(MyDialogFragment.DATE_PICKER_DIALOG);
-			dialog.setOnDateSelected(new onDateSelected() {
-				
-				@Override
-				public void onSelected(int y, int m, int d) {
-					// TODO Auto-generated method stub
-					mLayout.getBtnDiseaseDateView().setText(y+"-"+(m+1));
-				}
-			});
-			
+			Date d = null;
 			if(mLayout.getBtnDiseaseDateView().getText()!= null 
 					&& !mLayout.getBtnDiseaseDateView().getText().toString().isEmpty()){
-				Date d =DateHelper.parseDate(mLayout.getBtnDiseaseDateView().getText()+"-1");
-				if(d != null)
-					dialog.setDateDialogValue(d.getYear()+1900,d.getMonth(),1);
+				d =DateHelper.parseDate(mLayout.getBtnDiseaseDateView().getText()+"-1");
 			}
-			
-			dialog.show(getChildFragmentManager(), "");
-			
+			customDatePicker(d).show();
 			break;
 		case FragmentAttachment.BtnDiseaseViewId:
 			popDisease();

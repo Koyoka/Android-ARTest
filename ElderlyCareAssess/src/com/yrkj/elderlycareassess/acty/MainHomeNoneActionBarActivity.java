@@ -21,11 +21,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.yrkj.elderlycareassess.R;
+import com.yrkj.elderlycareassess.acty.LoginActivity.LoginTask;
+import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.SysSyncData;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast.UnSyncCountListener;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.AssessDoneListFragment;
 import com.yrkj.elderlycareassess.fragment.AssessTaskListFragment;
@@ -219,7 +222,8 @@ OnClickListener {
 		
 		int scount = AssessDBCtrl.getWaitingSyncAssessTaskCount(mActy);
 		if((AssessDBCtrl.getCanSyncAssessTaskCount(this)+scount) == 0){
-			ToastUtil.show(this, "没有数据需要同步。");
+//			ToastUtil.show(this, "没有数据需要同步。");
+			doDownloadTask();
 			return;
 		}
 		
@@ -331,8 +335,68 @@ OnClickListener {
 			if(result){
 				SyncBroadcast.sendUploadSyncBroadcast(mActy,SyncService.SYNC_ALL_TASK_KEY);
 			}
+			doDownloadTask();
 //			DialogHelper.getProgressDialogInstance().close();
 			
+		}
+		
+	}
+	
+	private DownloadTask mDownloadTask;
+	private void doDownloadTask(){
+		String userId = SysMng.getUserInfo().UserId;
+		if(userId.isEmpty()){
+			return;
+		}
+		if(mDownloadTask == null){
+			mDownloadTask = new DownloadTask(userId);
+		}
+		
+		if(mDownloadTask.getStatus() == Status.RUNNING){
+			return;
+		}
+		
+		if(mDownloadTask.getStatus() == Status.FINISHED){
+			mDownloadTask = new DownloadTask(userId);
+		}
+		
+		
+		if(mDownloadTask.getStatus() != Status.RUNNING){
+			mDownloadTask.execute();
+		}
+	}
+	
+	class DownloadTask extends AsyncTask<Object, Object, Integer>{
+		String mUserId = "";
+		public DownloadTask(String userId){
+			mUserId = userId;
+			
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			DialogHelper.getProgressDialogInstance().show(mActy, "获取网络数据");
+		}
+		
+		@Override
+		protected Integer doInBackground(Object... params) {
+			
+			return HttpSync.downLoadAssessTask(mActy,mUserId);
+		}
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+			super.onPostExecute(result);
+			
+			DialogHelper.getProgressDialogInstance().close();
+			if(result != -1){
+				ToastUtil.show(mActy, "获取数据"+result+"条");
+			}else{
+				ToastUtil.show(mActy, "同步数据出错，联系管理员。");
+				
+			}
 		}
 		
 	}

@@ -83,6 +83,8 @@ public class MyDialogFragment extends DialogFragment {
         return null;  
     }   
 	
+	
+	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

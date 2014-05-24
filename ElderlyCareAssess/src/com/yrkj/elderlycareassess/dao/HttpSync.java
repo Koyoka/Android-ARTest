@@ -22,7 +22,7 @@ public class HttpSync {
 	private static String host = debug?"192.168.1.101":"121.199.17.68";
 	private static int port = debug?8080:80;
 //	private static String mUrl = "tymk/interface_getClientMessage.do";
-	public static String mVirDir = "tymk_v2/";
+	public static String mVirDir = "tymk_v3/";
 	private static String mUrl = mVirDir+"interface_getClientMessage.do";
 ///http://121.199.17.68/tymk_v2/
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
@@ -93,8 +93,9 @@ public class HttpSync {
 		}
 	}
 
-	public static boolean downLoadAssessTask(Context c,String userId) {
+	public static int downLoadAssessTask(Context c,String userId) {
 		
+		int result = -1;
 		try {
 			
 			ArrayList<AssessTaskHeaderData> itemList =
@@ -103,7 +104,7 @@ public class HttpSync {
 			for (AssessTaskHeaderData item : itemList) {
 				assessid += ","+item.NetTaskHeaderId;
 			}
-			
+			DLog.LOG(SysMng.TAG_NET,"downLoadAssessTask 2--------"+assessid);
 			HttpRequestValue v = new HttpRequestValue();
 			v.Add("method", "gettaskinfo");
 			v.Add("username", userId);
@@ -113,7 +114,7 @@ public class HttpSync {
 			DLog.LOG(SysMng.TAG_NET,"downLoadAssessTask 3--------"+jsonStr);
 			JSONBean b = JSONBean.getInstance(jsonStr);
 			if(!b.IsSuccess()){
-				return false;
+				return result;
 			}
 
 			JSONArray jay = new JSONArray(b.body);
@@ -131,13 +132,15 @@ public class HttpSync {
 				AssessDBCtrl.insertCustomer(c, cust);
 				AssessDBCtrl.insertAssessTaskHeader(c, dataAssess);
 			}
+			result = jay.length();
+			return result;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			return false;
+			return result;
 		}
 		
-		return false;
+//		return result;
 	}
 	
 	public static boolean userNetLogin(Context c,String userId,String password){
