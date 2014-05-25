@@ -1,0 +1,1 @@
+String[] lines = string.split(System.getProperty("line.separator"));

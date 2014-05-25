@@ -1,5 +1,9 @@
 package com.yrkj.elderlycareassess.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Service;
@@ -11,6 +15,9 @@ import android.os.Message;
 
 import com.google.gson.Gson;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentDiseaseData;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentImageData;
+import com.yrkj.elderlycareassess.bean.AssessTaskAttachmentSoundData;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessTaskServiceData;
@@ -19,10 +26,11 @@ import com.yrkj.elderlycareassess.bean.SysSyncData;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast;
 import com.yrkj.elderlycareassess.broadcast.SyncBroadcast.UploadSyncListener;
 import com.yrkj.elderlycareassess.dao.AssessDBCtrl;
+import com.yrkj.elderlycareassess.dao.AttachmentDBCtrl;
 import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
-import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.http.CustomMultipartEntity.HttpProgressListener;
+import com.yrkj.util.http.InputFileObj;
 import com.yrkj.util.http.NetHelper;
 import com.yrkj.util.log.DLog;
 
@@ -193,8 +201,10 @@ public class SyncService extends Service {
 				String s = gson.toJson(td);
 				
 				
+				
 				final String assessNum = data.AssessNum;
-				if(HttpSync.uploadAssessTask(SyncService.this, s,new HttpProgressListener() {
+				boolean result = false;
+				result = HttpSync.uploadAssessTask(SyncService.this, s,new HttpProgressListener() {
 					
 					@Override
 					public void transferred(long num, long contentLenth) {
@@ -210,7 +220,99 @@ public class SyncService extends Service {
 						msg.setData(bundle);
 						mUploadTaskHandle.sendMessage(msg);
 					}
-				})){
+				});
+				
+				if(result){
+					DLog.LOG(SysMng.TAG_SERVICE,"2.1.1-------- upload ill ");
+					ArrayList<AssessTaskAttachmentDiseaseData> dlist =
+							AttachmentDBCtrl.getAttachmentDiseaseList(SyncService.this, id);
+					ArrayList<IllData> illList  = new ArrayList<IllData>();
+					for (AssessTaskAttachmentDiseaseData d : dlist) {
+						IllData item = new IllData();
+						item.name = d.DiseaseName;
+						item.content = d.DiseaseDesc;
+						item.cateid = d.CateId+"";
+						item.assessid = data.NetTaskHeaderId;
+						item.time = d.SickDate;
+						item.medicate = d.IsMedication?"1":"0";
+						illList.add(item);
+					}
+					String illJsonStr = gson.toJson(illList);
+					DLog.LOG(SysMng.TAG_SERVICE,"2.1.2-------- illJsonStr " + illJsonStr);
+					result = HttpSync.uploadAssessTaskIll(SyncService.this, illJsonStr, null);
+				}
+				
+				HttpProgressListener fileUploadListener = new HttpProgressListener() {
+					
+					@Override
+					public void transferred(long num, long contentLenth) {
+						// TODO Auto-generated method stub
+						int p = (int) ((num / (float) contentLenth) * 100);
+						DLog.LOG(SysMng.TAG_SERVICE,"4.-------- process="+p);
+
+						Message msg = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putInt(MESSAGE_KEY_TASKHEADERID, id);
+						bundle.putString(MESSAGE_KEY_ASSESSNUM, "File");
+						bundle.putInt(MESSAGE_KEY_PROCESSVAL, p);
+						msg.setData(bundle);
+						mUploadTaskHandle.sendMessage(msg);
+					}
+				};
+				
+				if(result){
+					DLog.LOG(SysMng.TAG_SERVICE,"2.2.1-------- upload sound ");
+					ArrayList<AssessTaskAttachmentSoundData> dlist =
+							AttachmentDBCtrl.getAttachmentSoundList(SyncService.this, id);
+					
+					for (AssessTaskAttachmentSoundData d : dlist) {
+						FileInputStream fi;
+						InputFileObj fileObj = null;
+						File f = new File(d.SoundPath);
+						DLog.LOG(SysMng.TAG_SERVICE,"2.2.2-------- upload sound "+d.SoundPath);
+						try {
+							fi = new FileInputStream(f);
+							fileObj = new InputFileObj(f.getName(), fi);
+							
+							HttpSync.uploadAssessTaskFile(SyncService.this, "synaudio", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
+							
+							fi.close();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					};
+				}
+				if(result){
+					DLog.LOG(SysMng.TAG_SERVICE,"2.3.1-------- upload pic ");
+					ArrayList<AssessTaskAttachmentImageData> dlist =
+							AttachmentDBCtrl.getAttachmentImgList(SyncService.this, id);
+					
+					for (AssessTaskAttachmentImageData d : dlist) {
+						FileInputStream fi;
+						InputFileObj fileObj = null;
+						File f = new File(d.ImgPath);
+						DLog.LOG(SysMng.TAG_SERVICE,"2.3.2-------- upload pic "+d.ImgPath);
+						try {
+							fi = new FileInputStream(f);
+							fileObj = new InputFileObj(f.getName(), fi);
+							
+							HttpSync.uploadAssessTaskFile(SyncService.this, "synpic", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
+							
+							fi.close();
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+					};
+				}
+				
+				if(result){
+					
 					DLog.LOG(SysMng.TAG_SERVICE,"3.1-------- ok");
 					doCount--;
 					data.NeedSync = false;
@@ -221,9 +323,6 @@ public class SyncService extends Service {
 					DLog.LOG(SysMng.TAG_SERVICE,"3.2-------- err");
 					doCount--;
 					SysDBCtrl.finishSyncTaskState(SyncService.this, id);
-//					data.NeedSync = true;
-//					AssessDBCtrl.updateAssessTaskHeaderById(SyncService.this, data);
-//					iList.add(id);
 				}
 				
 			};
@@ -240,6 +339,17 @@ public class SyncService extends Service {
 //		AssessTaskHeaderData header = null;
 		ArrayList<AssessTaskDetailData> detail = null;
 		ArrayList<AssessTaskServiceData> service = null;
+	}
+	class IllData{
+//		{"name":"¹ÚÐÄ²¡","content":"bb","cateid":"2","assessid":"","time":"","medicate":"1"}
+		String name = "";
+		String content = "";
+		String cateid = "";
+		String assessid = "";
+		String time = "";
+		String medicate = "";
+		
+		
 	}
 //	void a(){
 //		

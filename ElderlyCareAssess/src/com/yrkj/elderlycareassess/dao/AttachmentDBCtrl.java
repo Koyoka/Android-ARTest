@@ -73,6 +73,32 @@ public class AttachmentDBCtrl {
 		
 		return itemList;
 	}
+	public static ArrayList<AssessTaskAttachmentDiseaseData> getAttachmentDiseaseList(Context c,
+			int taskHeaderId){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskAttachmentDiseaseData.Col_TaskHeaderId + "=" + taskHeaderId;
+//				+" and "
+//				+ AssessTaskAttachmentDiseaseData.Col_CateId + "=" + cateId ;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskAttachmentDiseaseData.TblName, 
+				AssessTaskAttachmentDiseaseData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<AssessTaskAttachmentDiseaseData> itemList = new ArrayList<AssessTaskAttachmentDiseaseData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskAttachmentDiseaseData item = 
+						AssessTaskAttachmentDiseaseData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
 	
 	
 	
@@ -102,6 +128,32 @@ public class AttachmentDBCtrl {
 		
 		return itemList;
 	}
+	public static ArrayList<AssessTaskAttachmentSoundData> getAttachmentSoundList(Context c,
+			int taskHeaderId){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+		cdt.Selection = AssessTaskAttachmentSoundData.Col_TaskHeaderId + "=" + taskHeaderId;
+//				+" and "
+//				+ AssessTaskAttachmentSoundData.Col_CateId + "=" + cateId ;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskAttachmentSoundData.TblName, 
+				AssessTaskAttachmentSoundData.getColumnColl(), cdt);
+		dbMng.close();
+		
+		ArrayList<AssessTaskAttachmentSoundData> itemList = new ArrayList<AssessTaskAttachmentSoundData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskAttachmentSoundData item = 
+						AssessTaskAttachmentSoundData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
 	
 	
 	public static ArrayList<AssessTaskAttachmentImageData> getAttachmentImgList(Context c
@@ -118,6 +170,33 @@ public class AttachmentDBCtrl {
 				AssessTaskAttachmentImageData.getColumnColl(), cdt);
 		dbMng.close();
 
+		ArrayList<AssessTaskAttachmentImageData> itemList = new ArrayList<AssessTaskAttachmentImageData>();
+		if(cursor.moveToFirst()){
+			do {
+				AssessTaskAttachmentImageData item = 
+						AssessTaskAttachmentImageData.convertDataToModule(cursor);
+				itemList.add(item);
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		
+		return itemList;
+	}
+	public static ArrayList<AssessTaskAttachmentImageData> getAttachmentImgList(Context c
+			,int taskHeaderId){
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		
+		dbMng.open();
+		DBCondition cdt = new DBCondition();
+//		cdt.Selection = AssessTaskDetailData.Col_TaskHeaderId + "=" + id;
+		cdt.Selection = AssessTaskAttachmentImageData.Col_TaskHeaderId + "=" + taskHeaderId;
+//				+" and "
+//				+ AssessTaskAttachmentImageData.Col_CateId + "=" + cateId ;
+		dbMng.open();
+		Cursor cursor = dbMng.query(AssessTaskAttachmentImageData.TblName, 
+				AssessTaskAttachmentImageData.getColumnColl(), cdt);
+		dbMng.close();
+		
 		ArrayList<AssessTaskAttachmentImageData> itemList = new ArrayList<AssessTaskAttachmentImageData>();
 		if(cursor.moveToFirst()){
 			do {

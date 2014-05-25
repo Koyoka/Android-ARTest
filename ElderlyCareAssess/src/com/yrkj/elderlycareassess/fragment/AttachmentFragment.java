@@ -291,6 +291,7 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 		Date date = new Date(System.currentTimeMillis());  
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("'SOUND'_yyyyMMdd_HHmmss");  
+//	    String saveSoundFileName = dateFormat.format(date) + ".mp3";  
 	    String saveSoundFileName = dateFormat.format(date) + ".amr";  
 	    
 	    File f = new File(SOUND_DIR, saveSoundFileName); // 用当前时间给取得的图片命名

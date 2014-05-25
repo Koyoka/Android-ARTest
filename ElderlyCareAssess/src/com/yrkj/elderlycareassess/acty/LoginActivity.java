@@ -1,7 +1,9 @@
 package com.yrkj.elderlycareassess.acty;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -13,15 +15,21 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.base.SysMng;
+import com.yrkj.elderlycareassess.base.TestDBMng;
 import com.yrkj.elderlycareassess.bean.AssessUserData;
+import com.yrkj.elderlycareassess.bean.SysLogData;
 import com.yrkj.elderlycareassess.dao.AssessUserDBCtrl;
 import com.yrkj.elderlycareassess.dao.HttpSync;
 import com.yrkj.elderlycareassess.dao.SysDBCtrl;
 import com.yrkj.elderlycareassess.fragment.widget.MyDialogFragment;
 import com.yrkj.elderlycareassess.gusturelock.LockActivity;
 import com.yrkj.elderlycareassess.layout.ActivityLogin;
+import com.yrkj.util.db.DBCondition;
+import com.yrkj.util.db.DBMng;
 import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.file.FileHelper;
 import com.yrkj.util.http.NetHelper;
+import com.yrkj.util.log.DLog;
 
 public class LoginActivity extends FragmentActivity {
 
@@ -72,11 +80,13 @@ public class LoginActivity extends FragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+//				tc();
 				login();
 			}
 		});
 	}
+	
+	
 	
 	private LoginTask mLoginTask;
 	private void login(){
@@ -196,6 +206,54 @@ public class LoginActivity extends FragmentActivity {
 	
 	
 	
+//	private void tc(){
+////		String s = FileHelper.readAssessFile(this, "a.sql");
+////		DLog.LOG(SysMng.TAG_DB, s);
+//		
+////		if(!TestDBMng.init(this, false)){
+////			return;
+////		}
+//	synill
+//	me
+//	json
+//	
+//	synaudio
+//	cateid所属pageid
+//	assessid任务id
+//	att文件名
+//
+//	synpic
+//	cateid所属pageid
+//	assessid任务id
+//	att文件名
+//		TestDBMng mng = new TestDBMng(this);
+//		DBCondition cdt = new DBCondition();
+//		mng.open();
+//
+//		ContentValues values = new ContentValues();
+//		values.put("id","1");
+//		values.put("id","2");
+//		values.put("id","3");
+//		
+//		long r = mng.insert("Tab_a", 
+//				values);
+//		DLog.LOG("LibDBMng",r+"");
+//		Cursor cursor = mng.query("Tab_a",
+//		new String[]{
+//		"id"
+//		},cdt);
+//		if(cursor.moveToFirst()){
+//			do {
+//				
+//				DLog.LOG("LibDBMng", DBMng.GetDataString(cursor, "id"));
+//				
+//			} while (cursor.moveToNext());
+//		}
+//		cursor.close();
+//		mng.close();
+//		
+//	}
+//	
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.yrkj.elderlycareassess.dao;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -12,9 +14,11 @@ import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.bean.AssessTaskHeaderData;
 import com.yrkj.elderlycareassess.bean.AssessUserData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
+import com.yrkj.util.bitmap.BitmapHelper;
 import com.yrkj.util.http.CustomMultipartEntity.HttpProgressListener;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.HttpRequestValue;
+import com.yrkj.util.http.InputFileObj;
 import com.yrkj.util.log.DLog;
 
 public class HttpSync {
@@ -34,6 +38,86 @@ public class HttpSync {
 
 	}
 	
+	public static boolean uploadAssessTaskFile(Context c,String method,String assessid,String cateid,InputFileObj fileObj,HttpProgressListener l){
+//		
+//		synaudio
+//		cateid所属pageid
+//		assessid任务id
+//		att文件名
+//
+//		synpic
+//		cateid所属pageid
+//		assessid任务id
+//		att文件名
+//		FileInputStream fi;
+//		File f = new File(filePath);
+//		fi = new FileInputStream(f);
+		
+		DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskFile 1--------");
+//		DLog.LOG(SysMng.TAG_NET,filePath);
+		try {
+			HttpRequestValue v = new HttpRequestValue();
+			v.Add("method", method);
+			v.Add("assessid", assessid);
+			v.Add("cateid", cateid);
+			
+			
+			
+//			InputFileObj fileObj = new InputFileObj(
+//					f.getName(), 
+//					fi);
+			HttpRequestValue fv = new HttpRequestValue();
+			fv.AddFile("att", fileObj);
+			
+			
+			String jsonStr = doHttp(mUrl,null,v,fv,l);
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskFile 2--------"+jsonStr);
+			JSONBean b = JSONBean.getInstance(jsonStr);
+			if(!b.IsSuccess()){
+				return false;
+			}
+			JSONObject jo = new JSONObject(b.body);
+			if(jo.getString("status").equals("0")){
+				return true;
+			}else{
+				DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskFile err --------"+jo.getString("statusmessage"));
+				return false;
+			}
+			
+		} catch (Exception e) {
+			
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskFile err --------"+e.getMessage());
+			return false;
+		}
+		
+	}
+	public static boolean uploadAssessTaskIll(Context c,String illJson,HttpProgressListener l){
+
+		DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskIll 1--------");
+		DLog.LOG(SysMng.TAG_NET,illJson);
+		try {
+			HttpRequestValue v = new HttpRequestValue();
+			v.Add("method", "synill");
+			v.Add("json", illJson);
+			String jsonStr = doHttp(mUrl,null,v,null,l);
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskIll 2--------"+jsonStr);
+			JSONBean b = JSONBean.getInstance(jsonStr);
+			if(!b.IsSuccess()){
+				return false;
+			}
+			JSONObject jo = new JSONObject(b.body);
+			if(jo.getString("status").equals("0")){
+				return true;
+			}else{
+				DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskIll err --------"+jo.getString("statusmessage"));
+				return false;
+			}
+			
+		} catch (Exception e) {
+			DLog.LOG(SysMng.TAG_NET,"uploadAssessTaskIll err --------"+e.getMessage());
+			return false;
+		}
+	}
 	
 	public static boolean uploadAssessTask(Context c,String assessJsonString,HttpProgressListener l){
 		DLog.LOG(SysMng.TAG_NET,"uploadAssessTask 1--------");
