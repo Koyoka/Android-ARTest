@@ -113,28 +113,6 @@ public class t {
 				newConn.close(); 
 			}
 		    
-		    
-			
-//			{
-//				Connection conn = getConnection(mConn);
-//				Statement stat = conn.createStatement();
-//				
-//				stat.addBatch("");
-//				
-//				stat.addBatch("");
-//				
-//				boolean res = stat.execute(sb.toString());
-////				stat.executeBatch();
-//			    conn.close(); 
-//			    
-//			    System.out.print(res?"更新成功":"更新失败");
-//			}
-//			System.out.print(sb.toString());
-		    
-		    
-		    
-		    
-		    
 		} catch (SQLException e) {
 
 			e.printStackTrace();
