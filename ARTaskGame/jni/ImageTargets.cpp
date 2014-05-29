@@ -377,7 +377,7 @@ Java_com_yrkj_artaskgame_acty_qcar_ImageTargetsRenderer_renderFrame(JNIEnv* env,
 				textureIndex = 2;
 			}
 
-			const Texture* const thisTexture = textures[textureIndex];
+			/*const Texture* const thisTexture = textures[textureIndex];
 
 			QCAR::Matrix44F modelViewProjection;
 
@@ -404,7 +404,7 @@ Java_com_yrkj_artaskgame_acty_qcar_ImageTargetsRenderer_renderFrame(JNIEnv* env,
 
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, thisTexture->mTextureID);
-			glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
+			glUniform1i(texSampler2DHandle, 0 );
 			glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE,
 							   (GLfloat*)&modelViewProjection.data[0] );
 			glDrawElements(GL_TRIANGLES, NUM_TEAPOT_OBJECT_INDEX, GL_UNSIGNED_SHORT,
@@ -412,13 +412,13 @@ Java_com_yrkj_artaskgame_acty_qcar_ImageTargetsRenderer_renderFrame(JNIEnv* env,
 
 			glDisableVertexAttribArray(vertexHandle);
 			glDisableVertexAttribArray(normalHandle);
-			glDisableVertexAttribArray(textureCoordHandle);
+			glDisableVertexAttribArray(textureCoordHandle);*/
 
 			SampleUtils::checkGlError("ImageTargets renderFrame");
         }
         else
         {
-			const Texture* const thisTexture = textures[3];
+			/*const Texture* const thisTexture = textures[3];
 
 			QCAR::Matrix44F modelViewProjection;
 
@@ -447,14 +447,14 @@ Java_com_yrkj_artaskgame_acty_qcar_ImageTargetsRenderer_renderFrame(JNIEnv* env,
 
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, thisTexture->mTextureID);
-			glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
+			glUniform1i(texSampler2DHandle, 0 );
 			glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE,
 							   (GLfloat*)&modelViewProjection.data[0] );
 			glDrawArrays(GL_TRIANGLES, 0, buildingsNumVerts);
 
 			glDisableVertexAttribArray(vertexHandle);
 			glDisableVertexAttribArray(normalHandle);
-			glDisableVertexAttribArray(textureCoordHandle);
+			glDisableVertexAttribArray(textureCoordHandle);*/
 
 			SampleUtils::checkGlError("ImageTargets renderFrame");
         }
