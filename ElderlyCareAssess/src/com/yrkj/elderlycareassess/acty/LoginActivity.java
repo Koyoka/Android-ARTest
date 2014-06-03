@@ -80,7 +80,6 @@ public class LoginActivity extends FragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-//				tc();
 				login();
 			}
 		});
@@ -137,11 +136,7 @@ public class LoginActivity extends FragmentActivity {
 	
 	public void showDialog()
     {
-    	//根据传进的参数来实例化DialogFragment.
-//    	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.ALTER_DIALOG);
     	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.DATE_PICKER_DIALOG);
-//    	MyDialogFragment newDialog = MyDialogFragment.newInstance(MyDialogFragment.TIME_PICKER_DiALOG);
-//    	getSupportFragmentManager()
     	newDialog.show(getSupportFragmentManager(), "alert msg");
     }
 	
@@ -203,60 +198,5 @@ public class LoginActivity extends FragmentActivity {
 		}
 		
 	}
-	
-	
-	
-//	private void tc(){
-////		String s = FileHelper.readAssessFile(this, "a.sql");
-////		DLog.LOG(SysMng.TAG_DB, s);
-//		
-////		if(!TestDBMng.init(this, false)){
-////			return;
-////		}
-//	synill
-//	me
-//	json
-//	
-//	synaudio
-//	cateid所属pageid
-//	assessid任务id
-//	att文件名
-//
-//	synpic
-//	cateid所属pageid
-//	assessid任务id
-//	att文件名
-//		TestDBMng mng = new TestDBMng(this);
-//		DBCondition cdt = new DBCondition();
-//		mng.open();
-//
-//		ContentValues values = new ContentValues();
-//		values.put("id","1");
-//		values.put("id","2");
-//		values.put("id","3");
-//		
-//		long r = mng.insert("Tab_a", 
-//				values);
-//		DLog.LOG("LibDBMng",r+"");
-//		Cursor cursor = mng.query("Tab_a",
-//		new String[]{
-//		"id"
-//		},cdt);
-//		if(cursor.moveToFirst()){
-//			do {
-//				
-//				DLog.LOG("LibDBMng", DBMng.GetDataString(cursor, "id"));
-//				
-//			} while (cursor.moveToNext());
-//		}
-//		cursor.close();
-//		mng.close();
-//		
-//	}
-//	
-	
-	
-	
-	
 	
 }

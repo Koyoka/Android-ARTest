@@ -39,13 +39,13 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	private Map mTaskDetailIndex;
 	private String mTaskHeaderId = "";
 	private AttachmentFragment mAf;
-	
+	View mV;
+	FragmentAssessQuestionnairellist mLayout;
 	
 	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d,CustomerData c,
 			String AssessId) {
 		super(a,d,c);
-//		mTaskDetailIndex = tdIndex;
-		mTaskHeaderId = AssessId;//(String) tdIndex.get(MainAssessActivity.INTENT_KEY_ASSESSID);
+		mTaskHeaderId = AssessId;
 	}
 
 	public static AssessQuestionnaireListFragment getInstance(
@@ -55,8 +55,6 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 				AssessId);
 	}
 	
-	View mV;
-	FragmentAssessQuestionnairellist mLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -80,7 +78,6 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		if (savedInstanceState == null) {
 				initData();
 				initFragment();
-//				initAttachment();
 		 }
 		
 			
@@ -99,12 +96,6 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		mAf.onActivityResult(requestCode, resultCode, data);
-//		List<Fragment> fragments = getChildFragmentManager().getFragments();
-//        if (fragments != null) {
-//            for (Fragment fragment : fragments) {
-//                fragment.onActivityResult(requestCode, resultCode, data);
-//            }
-//        }
 		
 	}
 	
@@ -198,25 +189,6 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		ft.commit();
 	}
 	
-//	private void initAttachment(){
-//		{
-//			AttachmentFragment f = (AttachmentFragment)
-//				getChildFragmentManager().findFragmentById(R.id.fragAttachmentView);
-//		
-//			DLog.LOG(SysMng.TAG_FRAGMENT, "1--------------"+f);
-//		}
-//		
-//		{
-//			AttachmentFragment f = (AttachmentFragment)
-//					getFragmentManager().findFragmentById(R.id.fragAttachmentView);
-//			DLog.LOG(SysMng.TAG_FRAGMENT, "2--------------"+f);
-//		}
-////		int hId = Integer.parseInt(mTaskHeaderId, 10);
-////		int cId = Integer.parseInt(mData.CateId, 10);
-////		f.setData(hId, cId);
-//		
-//		
-//	}
 	
 	private void loadData(){
 		
@@ -269,7 +241,6 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		}
 	}
 	
-//	private boolean mCheckData = true;
 	
 	@Override
 	public boolean checkData(final int page) {

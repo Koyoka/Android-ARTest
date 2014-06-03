@@ -36,6 +36,19 @@ import com.yrkj.util.log.DLog;
 
 public class SyncService extends Service {
 
+	public static int SYNC_ALL_TASK_KEY = -1;
+	private boolean mSyncAll = false;
+	private int doCount = 0;
+	
+	static String MESSAGE_KEY_TASKHEADERID = "taskheaderid";
+	static String MESSAGE_KEY_ASSESSNUM = "assessnum";
+	static String MESSAGE_KEY_PROCESSVAL = "processVal";
+	
+	
+	final int threadCount = 5;
+	ArrayList<Integer> iList = new ArrayList<Integer>();
+	
+	
 	int time = 5000;
 	SyncBroadcast b1;
 	
@@ -93,20 +106,8 @@ public class SyncService extends Service {
 		});
 	}
 	
-	public static int SYNC_ALL_TASK_KEY = -1;
 	
-////	int i = 0;
-//	private void uploadTask(final int id){
-//		
-////		SysSyncData data = new SysSyncData();
-////		data.TaskHeaderId = id;
-////		data.State = SysSyncData.SYNC_STATE_WAIT;
-////		data.startTime = DateHelper.getTodayAndTime();
-////		
-////		SysDBCtrl.addWaitingSyncTask(this,data);
-//		
-//		
-//	}
+	
 	
 	private void sendUnSyncTaskCount(){
 		int count = 
@@ -163,9 +164,8 @@ public class SyncService extends Service {
 			 
 		}
 	};
-	private boolean mSyncAll = false;
-	private int doCount = 0;
-	int ii=0;
+	
+//	int ii=0;
 	private synchronized void syncThread(){
 		if(doCount>=threadCount
 				|| iList.size()==0){
@@ -348,40 +348,7 @@ public class SyncService extends Service {
 		String assessid = "";
 		String time = "";
 		String medicate = "";
-		
-		
 	}
-//	void a(){
-//		
-//		
-//		AssessTaskHeaderData data = AssessDBCtrl.getAssessTaskById(this, mAssessId);
-//		ArrayList<AssessTaskDetailData> dataDetailList = AssessDBCtrl.getAssessTaskDetailByTaskId(this, mAssessId);
-//		TaskData td = new TaskData();
-//		td.header = data;
-//		td.detail = dataDetailList;
-//		Gson gson = new Gson();
-////		AssessTaskHeaderData d = new AssessTaskHeaderData();
-////		d.AssessNum = "111";
-////		d.AssessState = "dd";
-//		 String s = gson.toJson(td);
-//		 DLog.LOG(SysMng.TAG_DB,s);
-////		 autoRun = gson.fromJson(s, AutoRun.class);
-//
-//
-//	}
-//	
-	static String MESSAGE_KEY_TASKHEADERID = "taskheaderid";
-	static String MESSAGE_KEY_ASSESSNUM = "assessnum";
-	static String MESSAGE_KEY_PROCESSVAL = "processVal";
-	
-	
-	final int threadCount = 5;
-//	private void doAllSycn(){
-//		ArrayList<SysSyncData> items = SysDBCtrl.getWaitingSyncTask(this, threadCount);
-//		
-//		syncThread();
-//	}
-	ArrayList<Integer> iList = new ArrayList<Integer>();
 	
 	
 	
@@ -393,21 +360,5 @@ public class SyncService extends Service {
 		mTimeHandler.removeCallbacks(timeRunnable);
 	}
 	
-//	
-//	final Handler h = new Handler(){
-//		@Override
-//		public void handleMessage(Message msg) {
-//			// TODO Auto-generated method stub
-//			super.handleMessage(msg);
-//			
-//			if(i==100)
-//				return;
-//			i++;
-//			SyncBroadcast.sendUploadProcessSyncBroadcast(SyncService.this, id, i);
-//			this.sendEmptyMessageDelayed(0, 1000);
-//		}
-//	};
-//	
-//	h.sendEmptyMessageDelayed(0, 1000);
 	
 }

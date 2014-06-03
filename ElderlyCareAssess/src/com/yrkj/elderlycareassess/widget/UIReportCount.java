@@ -41,18 +41,6 @@ public class UIReportCount extends LinearLayout{
 	
 	private void initCtrl(TypedArray a){
 		this.setOrientation(LinearLayout.VERTICAL);
-//		{
-//			TextView v = new TextView(mContext);
-//			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//			
-//			lp.weight = 1;
-//			v.setGravity(Gravity.CENTER_HORIZONTAL);
-//			v.setText("m1");
-//			v.setBackgroundColor(Color.WHITE);
-//			this.addView(v);
-//			mTitle = v;
-//		}
 		{
 			int textColor = a.getColor(R.styleable.UIReportCount_vColor,  
 					 Color.parseColor("#EAFBC0")); 
@@ -149,12 +137,12 @@ public class UIReportCount extends LinearLayout{
 		
 		int c = 0;
 		c = h==0?mH-1:mH-(int)h;
-//		final int cc = c;
+
 		int g = 0;//mH-t>h?c:(mH-t<h?-c:0);
 		g = h==0?mH-t - 1:mH-t - (int)h;
 		
-		DLog.LOG(SysMng.TAG_UCTRL,"结束位置【"+h+"】移动距离["+g+"] 当前 位置【" 
-		+ (mH-t) + "】 mH["+mH+"] h["+h+"] r["+c+"]");
+//		DLog.LOG(SysMng.TAG_UCTRL,"结束位置【"+h+"】移动距离["+g+"] 当前 位置【" 
+//		+ (mH-t) + "】 mH["+mH+"] h["+h+"] r["+c+"]");
 		
 		final int r = c;
 		Animation a 

@@ -36,14 +36,11 @@ implements OnClickListener{
 	public UIAssessOptions_Base vBase;
 	
 	private String mCateId = "";
-//	private ArrayList<AssessTaskDetailData> mTaskDetailList;
 	private Map mTaskDetailIndex;
 	public AssessQuestionnaireFragment(QSubcategoryData d,String cateId,
-//			ArrayList<AssessTaskDetailData> dList,
 			Map tdIndex){
 		mCateId = cateId;
 		mSubcateData = d;
-//		mTaskDetailList = dList;
 		mTaskDetailIndex = tdIndex;
 	}
 	

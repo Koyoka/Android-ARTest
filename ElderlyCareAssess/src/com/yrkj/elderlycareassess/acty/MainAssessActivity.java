@@ -63,6 +63,8 @@ OnBtnStratClickListener
 	private AssessTaskHeaderData mTask = null;
 	private ArrayList<AssessBaseFragment> mAssessFragmentList;
 	
+	private int mCurPage = -1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -244,7 +246,7 @@ OnBtnStratClickListener
 //		fMng.popBackStack();
 //	}
 	
-	private int mCurPage = -1;
+	
 	
 	public synchronized void goFragment(boolean isGo){
 		
@@ -390,7 +392,6 @@ OnBtnStratClickListener
 					SysDBCtrl.addSubmitAssessLog(this, mTask.AssessNum);
 					
 					ToastUtil.show(mActy, "提交成功。");
-//					a();
 					setResult(RESULT_SUBMIT);
 					this.finish();
 				}
@@ -448,17 +449,6 @@ OnBtnStratClickListener
 		popup.show();
 	}
 	
-//	@Override  
-//	 public boolean onTouchEvent(MotionEvent event) {  
-//	  // TODO Auto-generated method stub  
-//	  if(event.getAction() == MotionEvent.ACTION_DOWN){  
-//	     if(getCurrentFocus()!=null && getCurrentFocus().getWindowToken()!=null){  
-//	    	 getCurrentFocus().setFocusable(false);
-////	       manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);  
-//	     }  
-//	  }  
-//	  return super.onTouchEvent(event);  
-//	 }  
 	
 
 }

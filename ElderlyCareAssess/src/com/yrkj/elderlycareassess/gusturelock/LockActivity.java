@@ -17,12 +17,6 @@ import com.yrkj.elderlycareassess.base.SysMng;
 import com.yrkj.elderlycareassess.gusturelock.LockPatternView.Cell;
 import com.yrkj.elderlycareassess.gusturelock.LockPatternView.DisplayMode;
 
-/*
- * Author: Ruils 蹇冩�浜у搧姊︾殑瀹夊崜鐮佸啘 
- * Blog: http://blog.csdn.net/ruils
- * QQ: 5452781
- * Email: 5452781@qq.com
- */
 
 public class LockActivity extends Activity implements
         LockPatternView.OnPatternListener {

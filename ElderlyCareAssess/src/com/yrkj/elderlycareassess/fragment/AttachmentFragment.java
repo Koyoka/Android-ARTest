@@ -50,6 +50,11 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	private FragmentAttachment mLayout;
 	AudioHelper mAudioHelper;
 	
+	private OnRecorLisenter mOnRecorLisenter;
+	private static final File SOUND_DIR = 
+			new File(Environment.getExternalStorageDirectory() + "/ECA_Sound");//图片的存储目录
+
+	
 	public AttachmentFragment(int taskHeaderId,int cateId){
 		mTaskHeaderId = taskHeaderId;
 		mCateId = cateId;
@@ -273,7 +278,6 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 			
 	}
 	
-	private OnRecorLisenter mOnRecorLisenter;
 	public void setOnRecorLisenter(OnRecorLisenter l){
 		mOnRecorLisenter = l;
 	}
@@ -281,8 +285,6 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		public void onStart();
 	}
 	
-	private static final File SOUND_DIR = 
-			new File(Environment.getExternalStorageDirectory() + "/ECA_Sound");//图片的存储目录
 	
 	public String getSaveSoundFileName(){
 		if(!SOUND_DIR.exists()){

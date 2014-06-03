@@ -10,38 +10,16 @@ import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 
-/*
- * Author: Ruils 蹇冩�浜у搧姊︾殑瀹夊崜鐮佸啘 
- * Blog: http://blog.csdn.net/ruils
- * QQ: 5452781
- * Email: 5452781@qq.com
- */
 
 public class MainActivity extends Activity implements OnClickListener {
-    // 12-01 18:26:09.907: I/ActivityManager(519): Displayed
-    // com.android.settings/.ChooseLockPattern: +236ms
-    // 12-01 19:35:14.870: I/ActivityManager(519): Displayed
-    // com.android.settings/.ConfirmLockPattern: +366ms (total +439ms)
 
     private static final String TAG = "MainActivity";
 
-//    public static final String LOCK = "lock";
-//    public static final String LOCK_KEY = "lock_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_main);
-
-//        SharedPreferences preferences = getSharedPreferences(LOCK, MODE_PRIVATE);
-//
-//        String lockPattenString = preferences.getString(LOCK_KEY, null);
-//
-//        if (lockPattenString != null) {
-//            Intent intent = new Intent(this, LockActivity.class);
-//            startActivity(intent);
-//
-//        }
 
     }
 

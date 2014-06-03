@@ -95,19 +95,6 @@ implements OnClickListener
 
 	private void loadData(){
 		
-//		String s = SysDBCtrl.getLastLoginDate(getActivity());
-//		
-//		mLayout.getTxtLastLoginDateView().setText(s.isEmpty()?"首次登陆":s);
-//		
-//		AssessUserData u = SysMng.getUserInfo();
-//		DLog.LOG(SysMng.TAG_DB, u+" 1 ===["+u.UserId);
-//		u = AssessUserDBCtrl.getUserData(getActivity(), u.UserId);
-//		DLog.LOG(SysMng.TAG_DB, u+" 2 ===[");
-//		if(u != null){
-//			mLayout.getTxtUserNameView().setText(u.UserName);
-//			mLayout.getTxtAddressView().setText(u.OfficeAddress);
-//			mLayout.getTxtOfficeView().setText(u.Office);
-//		}
 		
 		AssessReportCountData data = AssessDBCtrl.getAssessReportCount(getActivity());
 		mLayout.getTxtDoingTaskDescView().setText("还有"+data.doingTaskCount+"份评估未完成");

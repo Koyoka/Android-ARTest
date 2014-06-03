@@ -39,14 +39,9 @@ public class SyncActivity extends FragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		
-//		if(b1!=null){
-//			 unregisterReceiver(b1);  
-//		}
 	}
 	
 	
-	
-//	SyncBroadcast b1;
 	private void initActy(){
 		ArrayList<SysSyncData> items = SysDBCtrl.getWaitingSyncTask(this, 0);
 		
@@ -57,16 +52,7 @@ public class SyncActivity extends FragmentActivity {
 			ft.add(ActivitySync.ContainerId, f, item.Id+"");
 		}
 		ft.commit();
-//		b1 = SyncBroadcast.registUploadProcessSyncBroadcast(this, new UploadProcessSyncListener() {
-//			
-//			@Override
-//			public void onListener(Bundle bundle, int taskHeaderId, int processVal) {
-//				// TODO Auto-generated method stub
-//				mLayout.getTxtTestDescView().setText(taskHeaderId+" --  " +processVal);
-//			}
-//		});
 	}
-	
 	
 	public static class SyncTaskFragment extends Fragment{
 		

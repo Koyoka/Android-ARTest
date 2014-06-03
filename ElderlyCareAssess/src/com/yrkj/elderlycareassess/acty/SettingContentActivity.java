@@ -56,17 +56,12 @@ public class SettingContentActivity extends FragmentActivity {
 		FragmentManager fMng = getSupportFragmentManager();
 		FragmentTransaction ft = fMng.beginTransaction();
 		ContentFragment ff = new ContentFragment();
-//		AssessDoneListFragment ff = new AssessDoneListFragment();
 		ft.add(R.id.container, ff, INTENT_KEY_LOG);
 		ft.commit();
 		
 	}
 	
 	public  class ContentFragment extends ListFragment{
-//		public static ContentFragment newInstance(){
-//			ContentFragment f = new ContentFragment();
-//			return f;
-//		}
 		
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {

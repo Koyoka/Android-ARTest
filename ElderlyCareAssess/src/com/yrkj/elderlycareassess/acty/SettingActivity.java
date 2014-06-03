@@ -41,15 +41,6 @@ public class SettingActivity extends FragmentActivity implements OnClickListener
 	}
 	
 	private void initActy(){
-//		UserHeaderInfoFragment f
-//		= new UserHeaderInfoFragment();
-//
-//		FragmentManager fMng = getSupportFragmentManager();
-//		FragmentTransaction ft = fMng.beginTransaction();
-//		ft.add(ActivitySetting.LayoutUserHeaderInfoContainerViewId, 
-//				f, 
-//				UserHeaderInfoFragment.class.getName());
-//		ft.commit();
 		
 		mLayout.getBtnBackView().setOnClickListener(this);
 		mLayout.getBtnLogoutView().setOnClickListener(this);
@@ -76,13 +67,8 @@ public class SettingActivity extends FragmentActivity implements OnClickListener
 			
 			intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent3);
-//			android.os.Process.killProcess(android.os.Process.myPid()) ;   //ªÒ»°PID 
-//			  System.exit(0); 
-//			this.finish();
 			return;
 		case ActivitySetting.BtnAysnViewId:
-//			Intent intent = new Intent(this, SyncActivity.class);
-//			startActivity(intent);
 			syncAll();
 			break;
 		case ActivitySetting.BtnSetLocPwdViewId:
