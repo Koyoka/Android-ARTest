@@ -22,11 +22,12 @@ import com.yrkj.util.http.InputFileObj;
 import com.yrkj.util.log.DLog;
 
 public class HttpSync {
+	
 	static boolean  debug = false;
-	private static String host = debug?"192.168.1.101":"121.199.17.68";
+	private static String host = debug?"192.168.1.102":"121.199.17.68";
 	private static int port = debug?8080:80;
 //	private static String mUrl = "tymk/interface_getClientMessage.do";
-	public static String mVirDir = "tymk_v3/";
+	public static String mVirDir = debug?"tymk/":"tymk_v3/";
 	private static String mUrl = mVirDir+"interface_getClientMessage.do";
 ///http://121.199.17.68/tymk_v2/
 	public static String doHttp(String url, HttpRequestValue mReqGetValues,
@@ -208,7 +209,8 @@ public class HttpSync {
 						JsonAssess.convertToModule(b1.getString("assess"));
 				dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_FIRST;
 				dataAssess.AssessState = AssessTaskHeaderData.ASSESS_STATE_DOING;
-				dataAssess.NeedSync = false;
+				dataAssess.NeedSync = true;
+//				dataAssess.NeedSync = false;
 				
 				CustomerData cust = 
 						JsonCustomer.convertToModule(b1.getString("customer"));

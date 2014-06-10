@@ -11,21 +11,28 @@ import com.yrkj.elderlycareassess.R;
 public class ActivityCddMain extends BaseLayout{
 
     public static final int ContainerId = R.id.container;
+    public static final int DatePicker1Id = R.id.datePicker1;
 
     protected android.widget.FrameLayout mContainer;
+    protected android.widget.DatePicker mDatePicker1;
 
     protected Activity mCurActy;
 
     public ActivityCddMain(Activity acty){
         mCurActy = acty;
         mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mDatePicker1 = (android.widget.DatePicker) acty.findViewById(DatePicker1Id);
     }   
 
     public ActivityCddMain(android.view.View acty){
         mContainer = (android.widget.FrameLayout) acty.findViewById(ContainerId);
+        mDatePicker1 = (android.widget.DatePicker) acty.findViewById(DatePicker1Id);
     }   
     public android.widget.FrameLayout getContainer() {
         return mContainer;
+    }
+    public android.widget.DatePicker getDatePicker1() {
+        return mDatePicker1;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -46,6 +53,9 @@ public class ActivityCddMain extends BaseLayout{
                 case ContainerId:
                     setViewData(adp,getContainer(),data,joinData.formatString,joinData.data);
                     break;
+                case DatePicker1Id:
+                    setViewData(adp,getDatePicker1(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -61,6 +71,9 @@ public class ActivityCddMain extends BaseLayout{
                 switch (viewKey) {
                 case ContainerId:
                     setViewData(adp,getContainer(),data,"",path);
+                    break;
+                case DatePicker1Id:
+                    setViewData(adp,getDatePicker1(),data,"",path);
                     break;
                     
                 default:

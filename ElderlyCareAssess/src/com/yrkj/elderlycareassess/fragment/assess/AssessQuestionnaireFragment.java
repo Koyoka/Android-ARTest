@@ -38,10 +38,11 @@ implements OnClickListener{
 	private String mCateId = "";
 	private Map mTaskDetailIndex;
 	public AssessQuestionnaireFragment(QSubcategoryData d,String cateId,
-			Map tdIndex){
+			Map tdIndex,boolean e){
 		mCateId = cateId;
 		mSubcateData = d;
 		mTaskDetailIndex = tdIndex;
+		mNeedSync = e;
 	}
 	
 	@Override
@@ -49,7 +50,7 @@ implements OnClickListener{
 			Bundle savedInstanceState) {
 		mV = inflater.inflate(R.layout.fragment_assess_questionnaire, container,
 				false);
-		
+		setFrontBody(mV);
 		initFragment();
 		return mV;
 	}

@@ -57,7 +57,7 @@ public class SettingActivity extends FragmentActivity implements OnClickListener
 
 		switch (v.getId()) {
 		case ActivitySetting.BtnClearViewId:
-			ToastUtil.show(this, "清理缓存。");
+			ToastUtil.show(this, "已清理缓存。");
 			break;
 		case ActivitySetting.BtnBackViewId:
 			this.finish();

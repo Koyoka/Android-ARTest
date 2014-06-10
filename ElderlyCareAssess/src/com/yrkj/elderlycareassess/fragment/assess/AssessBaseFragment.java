@@ -2,17 +2,16 @@ package com.yrkj.elderlycareassess.fragment.assess;
 
 import java.util.ArrayList;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 
 import com.yrkj.elderlycareassess.R;
 import com.yrkj.elderlycareassess.acty.MainAssessActivity;
 import com.yrkj.elderlycareassess.bean.AssessTaskDetailData;
 import com.yrkj.elderlycareassess.bean.CustomerData;
 import com.yrkj.elderlycareassess.bean.QCategoryData;
+import com.yrkj.util.log.ToastUtil;
 
 public abstract class AssessBaseFragment extends Fragment {
 	
@@ -22,17 +21,24 @@ public abstract class AssessBaseFragment extends Fragment {
 	public AssessBaseFragment(){
 		
 	}
+	protected boolean mNeedSync = false;
 	public abstract ArrayList<AssessTaskDetailData> getSelectData();	
 	protected CustomerData mCust;
 	public AssessBaseFragment(MainAssessActivity a,CustomerData c){
 		mA = a;
 		mCust = c;
 	}
+	public AssessBaseFragment(MainAssessActivity a,CustomerData c,boolean needSync){
+		mA = a;
+		mCust = c;
+		mNeedSync = needSync;
+	}
 //	
-	public AssessBaseFragment(MainAssessActivity a,QCategoryData d,CustomerData c){
+	public AssessBaseFragment(MainAssessActivity a,QCategoryData d,CustomerData c,boolean needSync){
 		mA = a;
 		mData = d;
 		mCust = c;
+		mNeedSync = needSync;
 //		setTitle(d.CateName);
 	}
 
@@ -57,13 +63,26 @@ public abstract class AssessBaseFragment extends Fragment {
 		public void onCheck(int page,boolean check);
 	}
 	
-//		if(mA == null){
-//			return;
-//		}
-////		mA.setAssessTitle(title);
-//	}
+	protected void setFrontBody(View v){
+		if(!mNeedSync){
+			
+			if(mFrontClick == null){
+				mFrontClick = new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+//						ToastUtil.show(getActivity(), mNeedSync+"");
+					}
+				};
+				v.findViewById(R.id.layoutFrontView).setOnClickListener(mFrontClick);
+			}
+			v.findViewById(R.id.layoutFrontView).setVisibility(View.VISIBLE);
+		}else{
+			v.findViewById(R.id.layoutFrontView).setVisibility(View.GONE);
+			
+		}
+	}
+	OnClickListener mFrontClick = null;
 	
-//	public void setActy(MainAssessActivity a){
-//		mA = a;
-//	}
 }

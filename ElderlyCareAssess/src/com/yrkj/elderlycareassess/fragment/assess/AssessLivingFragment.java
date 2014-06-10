@@ -21,8 +21,8 @@ import com.yrkj.elderlycareassess.layout.FragmentAssessLiving;
 
 public class AssessLivingFragment extends AssessBaseFragment {
 
-	public AssessLivingFragment(MainAssessActivity a,CustomerData c) {
-		super(a,c);
+	public AssessLivingFragment(MainAssessActivity a,CustomerData c,boolean d) {
+		super(a,c,d);
 	}
 
 	
@@ -33,7 +33,7 @@ public class AssessLivingFragment extends AssessBaseFragment {
 		View v = inflater.inflate(R.layout.fragment_assess_living, container,
 				false);
 		mLayout = new FragmentAssessLiving(v);
-		
+		setFrontBody(v);
 		initFragment();
 		loadData();
 		return v;
@@ -142,10 +142,17 @@ public class AssessLivingFragment extends AssessBaseFragment {
 		
 	}
 	
-	int bit1 = 1;
-	int bit2 = 2;
-	int bit3 = 4;
-	int bit4 = 8;
+	int bit1 = 8;
+	int bit2 = 4;
+	int bit3 = 2;
+	int bit4 = 1;
+//	int bit1 = 1;
+//	int bit2 = 2;
+//	int bit3 = 4;
+//	int bit4 = 8;
+	
+	
+	
 	private int getQ1Data(){
 		return (mLayout.getChkQ1Item1View().isChecked() ? bit1 : 0)
 				| (mLayout.getChkQ1Item2View().isChecked() ? bit2 : 0)

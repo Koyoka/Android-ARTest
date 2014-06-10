@@ -53,6 +53,10 @@ implements OnClickListener {
 		
 		mLayout.getBtnStratView().setOnClickListener(this);
 		
+		if(mTask.AssessState.equals(AssessTaskHeaderData.ASSESS_STATE_DONE)){
+			mLayout.getBtnStratView().setText("²é¿´ÆÀ¹À");
+		}
+		
 	}
 	
 	private void loadData(){

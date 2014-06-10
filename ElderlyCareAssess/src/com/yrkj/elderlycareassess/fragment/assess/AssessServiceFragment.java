@@ -33,8 +33,8 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 	
 	FragmentAssessService mLayout;
 	private String mTaskHeaderId = "";
-	public AssessServiceFragment(MainAssessActivity a,CustomerData c,String id) {
-		super(a,c);
+	public AssessServiceFragment(MainAssessActivity a,CustomerData c,String id,boolean e) {
+		super(a,c,e);
 		mTaskHeaderId = id;
 	}
 	
@@ -47,7 +47,7 @@ public class AssessServiceFragment extends AssessBaseFragment implements OnCheck
 		mV = v;
 		mLayout = new FragmentAssessService(v);
 		
-		
+		setFrontBody(v);
 		ScrollView scroll = mLayout.getContainer();
 	    scroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 	    scroll.setFocusable(true);

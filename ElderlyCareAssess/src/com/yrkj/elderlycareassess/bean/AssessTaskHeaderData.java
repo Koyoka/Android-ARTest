@@ -12,6 +12,7 @@ public class AssessTaskHeaderData {
 
 	public static final String ASSESS_STATE_DOING = "ON";
 	public static final String ASSESS_STATE_DONE = "OFF";
+	public static final String ASSESS_STATE_SYNC = "SYNC";
 	public static final String ASSESS_STATE_RETURN = "RETURN";
 	public static final String ASSESS_TYPE_FIRST = "F";
 	public static final String ASSESS_TYPE_REVIEW = "R";

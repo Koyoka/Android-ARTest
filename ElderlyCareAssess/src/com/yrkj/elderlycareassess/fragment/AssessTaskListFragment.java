@@ -213,7 +213,7 @@ public class AssessTaskListFragment extends ListFragment implements
 		}
 	}
 	
-	private void reBind(){
+	public void reBind(){
 		mDataSource = new ArrayList<TaskData>();
 		addData();
 		mTaskAdapter.notifyDataSetChanged();

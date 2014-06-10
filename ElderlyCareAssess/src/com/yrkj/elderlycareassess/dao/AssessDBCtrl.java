@@ -87,6 +87,46 @@ public class AssessDBCtrl {
 		
 		return dataList;
 	}
+	public static int getCanSyncAssessTaskCount(Context c){
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] as h  ");
+		sb.append("where h.[AssessState] = '"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and h.[NeedSync]=1  ");
+		sb.append("and h.[Id] not in(Select s.[TaskHeaderId] From MAIN.[SysSync] as s) ");
+
+		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+		dbMng.open();
+		Cursor cursor = 
+				dbMng.rawQuery(sb.toString());
+		dbMng.close();
+		int count = 0;
+		if(cursor.moveToFirst()){
+			count = DBMng.getDataInt(cursor, "count");
+		}
+		cursor.close();
+		return count;
+//		
+//		
+//		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
+//		
+//		
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] where  ");
+//		sb.append("[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and [NeedSync]=1");
+//
+//		dbMng.open();
+//		Cursor cursor = 
+//				dbMng.rawQuery(sb.toString());
+//		dbMng.close();
+//		
+//		int count = 0;
+//		if(cursor.moveToFirst()){
+//			count = DBMng.getDataInt(cursor, "count");
+//			
+//		}
+//		cursor.close();
+//		return count;
+	}
 	
 	public static ArrayList<CustomerAssessTask> getDoingAssessTaskList(Context c){
 		
@@ -96,7 +136,8 @@ public class AssessDBCtrl {
 		sb.append("c.[customername],c.[sex],c.[mobliephone],c.[address] ");
 		sb.append("From MAIN.[AssessTaskHeader] as a ");
 		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+
-				AssessTaskHeaderData.ASSESS_STATE_DOING+"'");
+				AssessTaskHeaderData.ASSESS_STATE_DOING+"' ");
+		sb.append(" order by a.[CreateDate] desc");
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
 		dbMng.open();
 		Cursor cursor = 
@@ -136,8 +177,10 @@ public class AssessDBCtrl {
 		sb.append(",(Select count(*) as scount From MAIN.[SysSync] as sy  where sy.[TaskHeaderId] = a.[Id] ) AS scount ");
 		
 		sb.append("From MAIN.[AssessTaskHeader] as a ");
-		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"'");
-
+		sb.append("left join MAIN.[t_customer] as c where c.[id] = a.[CustId] and a.[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' ");
+		sb.append(" order by a.[CreateDate] desc");
+		
+		
 		dbMng.open();
 		Cursor cursor = 
 				dbMng.rawQuery(sb.toString());
@@ -184,46 +227,7 @@ public class AssessDBCtrl {
 		cursor.close();
 		return count;
 	}
-	public static int getCanSyncAssessTaskCount(Context c){
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] as h  ");
-		sb.append("where h.[AssessState] = '"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and h.[NeedSync]=1  ");
-		sb.append("and h.[Id] not in(Select s.[TaskHeaderId] From MAIN.[SysSync] as s) ");
-
-		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-		dbMng.open();
-		Cursor cursor = 
-				dbMng.rawQuery(sb.toString());
-		dbMng.close();
-		int count = 0;
-		if(cursor.moveToFirst()){
-			count = DBMng.getDataInt(cursor, "count");
-		}
-		cursor.close();
-		return count;
-//		
-//		
-//		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);
-//		
-//		
-//		StringBuilder sb = new StringBuilder();
-//		sb.append("Select count(*) as count From MAIN.[AssessTaskHeader] where  ");
-//		sb.append("[AssessState]='"+AssessTaskHeaderData.ASSESS_STATE_DONE+"' and [NeedSync]=1");
-//
-//		dbMng.open();
-//		Cursor cursor = 
-//				dbMng.rawQuery(sb.toString());
-//		dbMng.close();
-//		
-//		int count = 0;
-//		if(cursor.moveToFirst()){
-//			count = DBMng.getDataInt(cursor, "count");
-//			
-//		}
-//		cursor.close();
-//		return count;
-	}
+	
 	
 	public static ArrayList<AssessTaskHeaderData> getUnSyncAssessTaskList(Context c){
 		ECAQuesDBMng dbMng = new ECAQuesDBMng(c);

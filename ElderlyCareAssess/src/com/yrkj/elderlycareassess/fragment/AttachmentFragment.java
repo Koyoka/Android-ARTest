@@ -49,15 +49,17 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	private int mCateId = 0;
 	private FragmentAttachment mLayout;
 	AudioHelper mAudioHelper;
+	private boolean mNeedSync = false;
 	
 	private OnRecorLisenter mOnRecorLisenter;
 	private static final File SOUND_DIR = 
 			new File(Environment.getExternalStorageDirectory() + "/ECA_Sound");//图片的存储目录
 
 	
-	public AttachmentFragment(int taskHeaderId,int cateId){
+	public AttachmentFragment(int taskHeaderId,int cateId,boolean e){
 		mTaskHeaderId = taskHeaderId;
 		mCateId = cateId;
+		mNeedSync = e;
 	}
 	
 	@Override
@@ -67,6 +69,7 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 				false);
 		
 		mLayout = new FragmentAttachment(v);
+		setFrontBody(v);
 		initFragment();
 		return v;
 	}
@@ -240,11 +243,19 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-
 		switch (v.getId()) {
 		case FragmentAttachment.BtnShowDiseaseContentViewId:
 			mLayout.getBtnShowDiseaseView().setChecked(!mLayout.getBtnShowDiseaseView().isChecked());
 			break;
+		}
+		if(!mNeedSync){
+			return;
+		}
+		
+		switch (v.getId()) {
+//		case FragmentAttachment.BtnShowDiseaseContentViewId:
+//			mLayout.getBtnShowDiseaseView().setChecked(!mLayout.getBtnShowDiseaseView().isChecked());
+//			break;
 		case FragmentAttachment.BtnSaveDiseaseInfoViewId:
 			saveDisease();
 			break;
@@ -307,15 +318,17 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		
 		String imgPath = FragmentMediaHelper.getMedioResultPath(this,data,requestCode,mSavePath);
 //		String imgPath = MediaHelper.getMedioResultPath(getActivity(),data,requestCode,mSavePath);
-		
-		AssessTaskAttachmentImageData d = new AssessTaskAttachmentImageData();
-		d.TaskHeaderId = mTaskHeaderId;
-		d.CateId = mCateId;
-		d.ImgPath = imgPath;
-		
-		long i = AttachmentDBCtrl.addAttachmentImg(getActivity(), d);
-		
-		bindImg();
+//		ToastUtil.show(getActivity(), imgPath+"  " +new File(imgPath).exists());
+		if(new File(imgPath).exists()){
+			AssessTaskAttachmentImageData d = new AssessTaskAttachmentImageData();
+			d.TaskHeaderId = mTaskHeaderId;
+			d.CateId = mCateId;
+			d.ImgPath = imgPath;
+			
+			long i = AttachmentDBCtrl.addAttachmentImg(getActivity(), d);
+			
+			bindImg();
+		}
 	}
 	
 	private void bindImg(){
@@ -324,24 +337,26 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 				AttachmentDBCtrl.getAttachmentImgList(getActivity(),mTaskHeaderId,mCateId);
 		for (AssessTaskAttachmentImageData item : itemlist) {
 			
-			
-			
-			Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
-			int degree = MediaHelper.readPictureDegree(item.ImgPath);
-			b = MediaHelper.rotaingImageView(degree,b);
-			
-			ImageView v = new ImageView(getActivity());
-			
-			LinearLayout.LayoutParams lp =
-					new LinearLayout.LayoutParams(120, 120);
-			lp.setMargins(10, 0, 10, 0);
-			v.setLayoutParams(lp);
-			
-			v.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            v.setImageBitmap(b);
-            mLayout.getLayoutImgList().addView(v);
-            v.setOnClickListener(imgClick);
-           
+			if(new File(item.ImgPath).exists()){
+				Bitmap b = BitmapHelper.decodeSampledBitmapFromLacolPath(item.ImgPath,40,40);
+				if(b != null){
+					int degree = MediaHelper.readPictureDegree(item.ImgPath);
+					b = MediaHelper.rotaingImageView(degree,b);
+					
+					ImageView v = new ImageView(getActivity());
+					
+					LinearLayout.LayoutParams lp =
+							new LinearLayout.LayoutParams(120, 120);
+					lp.setMargins(10, 0, 10, 0);
+					v.setLayoutParams(lp);
+					
+					v.setScaleType(ImageView.ScaleType.CENTER_CROP);
+		            v.setImageBitmap(b);
+		            mLayout.getLayoutImgList().addView(v);
+		            v.setOnClickListener(imgClick);
+				}
+				
+			}
 		}
 		
 	}
@@ -402,5 +417,25 @@ public class AttachmentFragment extends Fragment implements OnClickListener {
 		}
 	};
 	
-	
+	protected void setFrontBody(View v){
+		if(!mNeedSync){
+			
+			if(mFrontClick == null){
+				mFrontClick = new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+//						ToastUtil.show(getActivity(), mNeedSync+"");
+					}
+				};
+				v.findViewById(R.id.layoutFrontView).setOnClickListener(mFrontClick);
+			}
+			v.findViewById(R.id.layoutFrontView).setVisibility(View.VISIBLE);
+		}else{
+			v.findViewById(R.id.layoutFrontView).setVisibility(View.GONE);
+			
+		}
+	}
+	OnClickListener mFrontClick = null;
 }

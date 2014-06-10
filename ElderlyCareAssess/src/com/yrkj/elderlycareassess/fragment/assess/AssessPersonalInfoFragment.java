@@ -27,8 +27,8 @@ import com.yrkj.util.date.DateHelper;
 
 public class AssessPersonalInfoFragment extends AssessBaseFragment implements OnClickListener {
 	
-	public AssessPersonalInfoFragment(MainAssessActivity a,CustomerData c) {
-		super(a,c);
+	public AssessPersonalInfoFragment(MainAssessActivity a,CustomerData c,boolean d) {
+		super(a,c,d);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -41,12 +41,14 @@ public class AssessPersonalInfoFragment extends AssessBaseFragment implements On
 				false);
 		
 		mLayout = new FragmentAssessPersonalinfo(v);
-		
+		setFrontBody(v);
 		initFragment();
 		return v;
 	}
 	
 	private void initFragment(){
+		
+		
 		setTitle(getResources().getString(R.string.assess_title_person));
 		
 		mLayout.getTxtBirthdayView().setOnClickListener(this);

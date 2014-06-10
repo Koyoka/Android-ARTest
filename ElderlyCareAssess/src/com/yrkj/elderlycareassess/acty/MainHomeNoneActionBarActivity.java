@@ -175,6 +175,8 @@ OnClickListener {
 		
 	}
 
+	
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -243,6 +245,25 @@ OnClickListener {
 			mSyncAllTask.execute();
 		}
 		
+	}
+	
+	private void refAssessTaskList(){
+		String tag = AssessTaskListFragment.class
+		.getName();
+		FragmentManager fMng = getSupportFragmentManager();
+		Fragment f= fMng.findFragmentByTag(tag);
+		
+//		ToastUtil.show(mActy, f+"");
+		
+		
+		if(f != null
+				&& f instanceof AssessTaskListFragment){
+//			ToastUtil.show(mActy, "111111111");
+			((AssessTaskListFragment)f).reBind();
+		}else{
+			
+//			ToastUtil.show(mActy, "2222222");
+		}
 	}
 	
 	private synchronized void addFragment(String className,Bundle args){
@@ -392,7 +413,14 @@ OnClickListener {
 			
 			DialogHelper.getProgressDialogInstance().close();
 			if(result != -1){
-				ToastUtil.show(mActy, "获取数据"+result+"条");
+				if(result != 0){
+					ToastUtil.show(mActy, "获取"+result+"条新的评估任务！");
+					refAssessTaskList();
+				}
+				else{
+					ToastUtil.show(mActy, "没有新的评估任务！");
+				}
+				
 			}else{
 				ToastUtil.show(mActy, "同步数据出错，联系管理员。");
 				

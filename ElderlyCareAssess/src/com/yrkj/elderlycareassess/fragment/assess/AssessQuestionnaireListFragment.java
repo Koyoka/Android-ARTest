@@ -43,16 +43,16 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 	FragmentAssessQuestionnairellist mLayout;
 	
 	public AssessQuestionnaireListFragment(MainAssessActivity a,QCategoryData d,CustomerData c,
-			String AssessId) {
-		super(a,d,c);
+			String AssessId,boolean e) {
+		super(a,d,c,e);
 		mTaskHeaderId = AssessId;
 	}
 
 	public static AssessQuestionnaireListFragment getInstance(
 			MainAssessActivity a,QCategoryData d,CustomerData c,
-			String AssessId){
+			String AssessId,boolean e){
 		return new AssessQuestionnaireListFragment(a,d,c,
-				AssessId);
+				AssessId,e);
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 				false);
 		mLayout
 		= new FragmentAssessQuestionnairellist(mV);
-		
+//		setFrontBody(mV);
 		ScrollView scroll = mLayout.getContainer();
 	    scroll.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
 	    scroll.setFocusable(true);
@@ -156,7 +156,7 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 		int hId = Integer.parseInt(mTaskHeaderId, 10);
 		int cId = Integer.parseInt(mData.CateId, 10);
 		
-		mAf = new AttachmentFragment(hId,cId);
+		mAf = new AttachmentFragment(hId,cId,mNeedSync);
 		mAf.setOnRecorLisenter(new OnRecorLisenter() {
 			
 			@Override
@@ -178,7 +178,8 @@ public class AssessQuestionnaireListFragment extends AssessBaseFragment {
 					mData.
 					CateId,
 //					mTaskDetailList,
-					mTaskDetailIndex
+					mTaskDetailIndex,
+					mNeedSync
 					);
 			
 			ft.add(FragmentAssessQuestionnairellist.LayoutBodyId, f,item.SubcateId+"");

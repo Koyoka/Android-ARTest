@@ -87,6 +87,7 @@ OnBtnStratClickListener
 //		.commit();
 	}
 	
+	
 	@Override
 	protected void onActivityResult(int arg0, int arg1, Intent arg2) {
 		// TODO Auto-generated method stub
@@ -142,12 +143,12 @@ OnBtnStratClickListener
 		}
 		
 		{
-			fList.add(new AssessPersonalInfoFragment(this,mCust));
+			fList.add(new AssessPersonalInfoFragment(this,mCust,mTask.NeedSync));
 			titleList.add(getResources().getString(R.string.assess_title_person));
 		}
 		 
 		{
-			fList.add(new AssessLivingFragment(this,mCust));
+			fList.add(new AssessLivingFragment(this,mCust,mTask.NeedSync));
 			titleList.add(getResources().getString(R.string.assess_title_living));
 		}
 		
@@ -158,14 +159,14 @@ OnBtnStratClickListener
 			for (QCategoryData qCategoryData : qitemList) {
 				AssessQuestionnaireListFragment f
 					=AssessQuestionnaireListFragment.getInstance(this,qCategoryData,mCust,
-						mAssessId);
+						mAssessId,mTask.NeedSync);
 				fList.add(f);
 				f.setOnCheckDataLisenter(mRecordCheckLisenter);
 				titleList.add(qCategoryData.CateName);
 			}
 		}
 		
-		fList.add(new AssessServiceFragment(this,mCust,mAssessId));
+		fList.add(new AssessServiceFragment(this,mCust,mAssessId,mTask.NeedSync));
 		titleList.add(getResources().getString(R.string.assess_title_service));
 		
 		mTitleList =  titleList.toArray(new String[titleList.size()]);
@@ -204,6 +205,9 @@ OnBtnStratClickListener
 		mLayout.getBtnMenuView().setOnClickListener(this);
 		
 		
+		
+			
+		
 //		FragmentManager fMng = getSupportFragmentManager();
 //		
 //		fMng.addOnBackStackChangedListener(new OnBackStackChangedListener() {
@@ -231,7 +235,12 @@ OnBtnStratClickListener
 		if(index+1 < mTitleList.length)
 			mLayout.getBtnGoView().setText("("+(index+2)+"/"+mTitleList.length+")"+mTitleList[index+1]);
 		else{
-			mLayout.getBtnGoView().setText("提交");
+			if(mTask.AssessState.equals(AssessTaskHeaderData.ASSESS_STATE_DONE)){
+				mLayout.getBtnGoView().setText("返回");
+			}else{
+				mLayout.getBtnGoView().setText("提交");
+			}
+			
 		}
 		
 		if(index-1 >= 0)
@@ -278,6 +287,8 @@ OnBtnStratClickListener
 		if(index==mCurPage){
 			return;
 		}
+		
+		
 		FragmentManager fMng = getSupportFragmentManager();
 		FragmentTransaction ft = fMng.beginTransaction();
 		
@@ -380,18 +391,20 @@ OnBtnStratClickListener
 			pageMenuPop();
 			break;
 		case ActivityMainAssess.BtnGoViewId:
-			if(mLayout.getBtnGoView().getText().equals("提交")){
+			if(mLayout.getBtnGoView().getText().equals("提交")
+					|| mLayout.getBtnGoView().getText().equals("返回")){
 				
 				mAssessFragmentList.get(mAssessFragmentList.size()-1).saveData();
 
 				if(mTask != null){
 					mTask.AssessState = AssessTaskHeaderData.ASSESS_STATE_DONE;
-					mTask.NeedSync = true;
+//					mTask.NeedSync = true;
 					AssessDBCtrl.updateAssessTaskHeaderById(this, mTask);
 					
 					SysDBCtrl.addSubmitAssessLog(this, mTask.AssessNum);
-					
-					ToastUtil.show(mActy, "提交成功。");
+					if(mTask.NeedSync){
+						ToastUtil.show(mActy, "提交成功。");
+					}
 					setResult(RESULT_SUBMIT);
 					this.finish();
 				}

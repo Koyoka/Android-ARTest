@@ -226,20 +226,23 @@ public class SyncService extends Service {
 					DLog.LOG(SysMng.TAG_SERVICE,"2.1.1-------- upload ill ");
 					ArrayList<AssessTaskAttachmentDiseaseData> dlist =
 							AttachmentDBCtrl.getAttachmentDiseaseList(SyncService.this, id);
-					ArrayList<IllData> illList  = new ArrayList<IllData>();
-					for (AssessTaskAttachmentDiseaseData d : dlist) {
-						IllData item = new IllData();
-						item.name = d.DiseaseName;
-						item.content = d.DiseaseDesc;
-						item.cateid = d.CateId+"";
-						item.assessid = data.NetTaskHeaderId;
-						item.time = d.SickDate;
-						item.medicate = d.IsMedication?"1":"0";
-						illList.add(item);
+					
+					if(dlist.size() != 0){
+						ArrayList<IllData> illList  = new ArrayList<IllData>();
+						for (AssessTaskAttachmentDiseaseData d : dlist) {
+							IllData item = new IllData();
+							item.name = d.DiseaseName;
+							item.content = d.DiseaseDesc;
+							item.cateid = d.CateId+"";
+							item.assessid = data.NetTaskHeaderId;
+							item.time = d.SickDate;
+							item.medicate = d.IsMedication?"1":"0";
+							illList.add(item);
+						}
+						String illJsonStr = gson.toJson(illList);
+						DLog.LOG(SysMng.TAG_SERVICE,"2.1.2-------- illJsonStr " + illJsonStr);
+						result = HttpSync.uploadAssessTaskIll(SyncService.this, illJsonStr, null);
 					}
-					String illJsonStr = gson.toJson(illList);
-					DLog.LOG(SysMng.TAG_SERVICE,"2.1.2-------- illJsonStr " + illJsonStr);
-					result = HttpSync.uploadAssessTaskIll(SyncService.this, illJsonStr, null);
 				}
 				
 				HttpProgressListener fileUploadListener = new HttpProgressListener() {
@@ -264,51 +267,56 @@ public class SyncService extends Service {
 					DLog.LOG(SysMng.TAG_SERVICE,"2.2.1-------- upload sound ");
 					ArrayList<AssessTaskAttachmentSoundData> dlist =
 							AttachmentDBCtrl.getAttachmentSoundList(SyncService.this, id);
-					
-					for (AssessTaskAttachmentSoundData d : dlist) {
-						FileInputStream fi;
-						InputFileObj fileObj = null;
-						File f = new File(d.SoundPath);
-						DLog.LOG(SysMng.TAG_SERVICE,"2.2.2-------- upload sound "+d.SoundPath);
-						try {
-							fi = new FileInputStream(f);
-							fileObj = new InputFileObj(f.getName(), fi);
-							
-							HttpSync.uploadAssessTaskFile(SyncService.this, "synaudio", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
-							
-							fi.close();
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						
-					};
+					if(dlist.size() != 0){
+						for (AssessTaskAttachmentSoundData d : dlist) {
+							if(new File(d.SoundPath).exists()){
+								FileInputStream fi;
+								InputFileObj fileObj = null;
+								File f = new File(d.SoundPath);
+								DLog.LOG(SysMng.TAG_SERVICE,"2.2.2-------- upload sound "+d.SoundPath);
+								try {
+									fi = new FileInputStream(f);
+									fileObj = new InputFileObj(f.getName(), fi);
+									
+									HttpSync.uploadAssessTaskFile(SyncService.this, "synaudio", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
+									
+									fi.close();
+								} catch (FileNotFoundException e) {
+									e.printStackTrace();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						};
+					}
 				}
 				if(result){
 					DLog.LOG(SysMng.TAG_SERVICE,"2.3.1-------- upload pic ");
 					ArrayList<AssessTaskAttachmentImageData> dlist =
 							AttachmentDBCtrl.getAttachmentImgList(SyncService.this, id);
+					if(dlist.size() != 0){
+						for (AssessTaskAttachmentImageData d : dlist) {
+							if(new File(d.ImgPath).exists()){
+								FileInputStream fi;
+								InputFileObj fileObj = null;
+								File f = new File(d.ImgPath);
+								DLog.LOG(SysMng.TAG_SERVICE,"2.3.2-------- upload pic "+d.ImgPath);
+								try {
+									fi = new FileInputStream(f);
+									fileObj = new InputFileObj(f.getName(), fi);
+									
+									HttpSync.uploadAssessTaskFile(SyncService.this, "synpic", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
+									
+									fi.close();
+								} catch (FileNotFoundException e) {
+									e.printStackTrace();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						};
+					}
 					
-					for (AssessTaskAttachmentImageData d : dlist) {
-						FileInputStream fi;
-						InputFileObj fileObj = null;
-						File f = new File(d.ImgPath);
-						DLog.LOG(SysMng.TAG_SERVICE,"2.3.2-------- upload pic "+d.ImgPath);
-						try {
-							fi = new FileInputStream(f);
-							fileObj = new InputFileObj(f.getName(), fi);
-							
-							HttpSync.uploadAssessTaskFile(SyncService.this, "synpic", data.NetTaskHeaderId, d.CateId+"", fileObj, fileUploadListener);
-							
-							fi.close();
-						} catch (FileNotFoundException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						
-					};
 				}
 				
 				if(result){
