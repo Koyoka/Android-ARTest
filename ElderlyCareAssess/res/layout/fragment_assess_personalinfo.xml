@@ -145,8 +145,7 @@
                             android:gravity="center"
                             android:text="女" />
                     </RadioGroup>
-                    <!--
-                 <TextView
+                    <!-- <TextView
                 android:id="@+id/txtSexView"
                 style="@style/fragment_assess_personal_tabcell_edit"
                 android:layout_width="match_parent"
@@ -154,8 +153,7 @@
                 android:layout_marginLeft="@dimen/fragment_assess_personal_tabcell_margin"
                 android:layout_marginRight="@dimen/fragment_assess_personal_tabcell_margin"
                 
-                android:singleLine="true" />
-                    -->
+                android:singleLine="true" /> -->
 
                     <EditText
                         android:id="@+id/txtSocialSecurityView"
@@ -381,6 +379,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
+                        android:editable="false"
                         android:id="@+id/txtHouseHoldAddrView"
                         style="@style/fragment_assess_personal_tabcell_edit"
                         android:layout_width="match_parent"
@@ -393,6 +392,7 @@
                         android:singleLine="false" />
 
                     <EditText
+                        android:editable="false"
                         android:id="@+id/txtAddressView"
                         style="@style/fragment_assess_personal_tabcell_edit"
                         android:layout_width="match_parent"
@@ -618,6 +618,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
+                        android:editable="false"
                         android:id="@+id/txtProxyAddrView"
                         style="@style/fragment_assess_personal_tabcell_edit"
                         android:layout_width="match_parent"

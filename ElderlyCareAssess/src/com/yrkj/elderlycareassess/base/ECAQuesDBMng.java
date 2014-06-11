@@ -35,8 +35,8 @@ public class ECAQuesDBMng extends DBMng {
 		// TODO Auto-generated method stub
 //		return 4;
 //		return 3;
-//		return 2;
-		return 1;
+		return 2;
+//		return 1;
 	}
 
 }

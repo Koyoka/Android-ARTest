@@ -23,7 +23,7 @@ public class AssessTaskHeaderData {
 		if(s.equals(ASSESS_TYPE_FIRST)){
 			defineS = "Ê×´ÎÆÀ¹À"; 
 		}else if(s.equals(ASSESS_TYPE_REVIEW)){
-			defineS = "·ûºÏÆÀ¹À"; 
+			defineS = "¸´ºËÆÀ¹À"; 
 		}else if(s.equals(ASSESS_TYPE_CONTINUE)){
 			defineS = "³ÖÐøÆÀ¹À"; 
 		}

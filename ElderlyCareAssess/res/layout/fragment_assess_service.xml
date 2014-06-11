@@ -907,7 +907,7 @@
                   style="@style/fragment_assess_service_txt"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="每周次数" />
+                  android:text="每月次数" />
               <Button
                   android:layout_marginLeft="10dip"
                   android:id="@+id/txtService12Item2ValView"

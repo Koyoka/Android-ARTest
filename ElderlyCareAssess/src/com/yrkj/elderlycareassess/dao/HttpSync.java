@@ -24,7 +24,7 @@ import com.yrkj.util.log.DLog;
 public class HttpSync {
 	
 	static boolean  debug = false;
-	private static String host = debug?"192.168.1.102":"121.199.17.68";
+	private static String host = debug?"192.168.1.103":"121.199.17.68";
 	private static int port = debug?8080:80;
 //	private static String mUrl = "tymk/interface_getClientMessage.do";
 	public static String mVirDir = debug?"tymk/":"tymk_v3/";
@@ -207,7 +207,15 @@ public class HttpSync {
 				JSONObject b1 = jay.getJSONObject(i);
 				AssessTaskHeaderData dataAssess =
 						JsonAssess.convertToModule(b1.getString("assess"));
-				dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_FIRST;
+				if(dataAssess.AssessType.equals("1")){
+					dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_FIRST;
+				}else if(dataAssess.AssessType.equals("2")){
+					dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_REVIEW;
+				}else if(dataAssess.AssessType.equals("3")){
+					dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_CONTINUE;
+				}else{
+					dataAssess.AssessType = AssessTaskHeaderData.ASSESS_TYPE_FIRST;
+				}
 				dataAssess.AssessState = AssessTaskHeaderData.ASSESS_STATE_DOING;
 				dataAssess.NeedSync = true;
 //				dataAssess.NeedSync = false;
