@@ -383,7 +383,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="20dip"
             android:padding="20dip"
-            android:text="如厕及排便"/>
+            android:text="如厕及排泄"/>
         
         <TableLayout 
             android:id="@+id/layoutService6ContentView" android:visibility="gone"

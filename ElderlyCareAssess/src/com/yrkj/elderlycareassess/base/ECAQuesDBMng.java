@@ -34,8 +34,8 @@ public class ECAQuesDBMng extends DBMng {
 	protected int getDBVersion() {
 		// TODO Auto-generated method stub
 //		return 4;
-//		return 3;
-		return 2;
+		return 3;
+//		return 2;
 //		return 1;
 	}
 

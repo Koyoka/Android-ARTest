@@ -24,7 +24,7 @@ import com.yrkj.util.log.DLog;
 public class HttpSync {
 	
 	static boolean  debug = false;
-	private static String host = debug?"192.168.1.103":"121.199.17.68";
+	private static String host = debug?"192.168.1.102":"121.199.17.68";
 	private static int port = debug?8080:80;
 //	private static String mUrl = "tymk/interface_getClientMessage.do";
 	public static String mVirDir = debug?"tymk/":"tymk_v3/";
