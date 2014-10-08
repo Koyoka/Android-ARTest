@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.R.integer;
+
 public class t {
 
 	static final String mConn = "E:/document/db/a.db";
@@ -21,6 +23,12 @@ public class t {
 	
 	
 	public static void main(String[] args) {
+		
+		float a = 1f;
+		float b = 2f;
+		int c = (int)( (a/b)*100);
+		System.out.println(c);         
+		
 //		String s = " [aa] [bbb] [cc]";
 ////		String regEx = "\\[(.*?)\\]"; //±Ì æaªÚF  
 //		Pattern pat = Pattern.compile(regEx);  
@@ -31,7 +39,7 @@ public class t {
 //			
 //			System.out.println(mat.group(0));            
 //        } 
-		t();
+//		t();
 //		String sql = "Select * From [QItem] where itemid in(Select itemid From [QSubcategoryDetail] where subcateid = {0} and itemtype = ''{1}'')";
 //        
 ////		MessageFormat s = new MessageFormat(sql);
@@ -60,9 +68,6 @@ public class t {
 ////		System.out.println(i&7);
 ////		System.out.println(i&15);
 	}
-	
-	
-	
 	
 	private static void t(){
 		

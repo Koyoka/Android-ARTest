@@ -32,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper{
 		// TODO Auto-generated method stub
 		if(newVersion > oldVersion){
 			NeedUpdate = true;
+			
 		}
 	}
 	

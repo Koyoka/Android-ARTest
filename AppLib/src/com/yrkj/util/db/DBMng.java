@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.yrkj.util.file.FileHelper;
-import com.yrkj.util.log.DLog;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.yrkj.util.db.DBUpdate.OnDBUpdateListen;
+import com.yrkj.util.file.FileHelper;
+import com.yrkj.util.log.DLog;
 
 
 
@@ -49,17 +50,25 @@ public abstract class DBMng {
 	protected abstract String getDBName();
 	protected abstract int getDBVersion();
 	
- 	public boolean initDB(boolean reCreate){
+	public boolean initDB2(OnDBUpdateListen l){
+		
 		String DATABASEDIR = "/data/data/" + mContext.getPackageName() + "/databases";
 		String destPath = 
 				DATABASEDIR+"/"
 				+DB_NAME+DB_EXPNAme;
 		
 		File f = new File(destPath);
-		DLog.LOG("exists");
-		if(!f.exists() || reCreate){
-			InputStream inputStream;
-			OutputStream outputStream;
+		if(f.exists()){
+			this.open();
+			this.close();
+			if(mDBHelper.NeedUpdate){
+				DBUpdate dbupdate = new DBUpdate(mContext, getDBName(), getDBVersion(),l);
+				dbupdate.update();
+			}
+		}else{
+			
+			InputStream inputStream = null;
+			FileOutputStream outputStream = null;
 			try {
 				File dir = new File(DATABASEDIR);
             	if(!dir.exists()){
@@ -69,7 +78,8 @@ public abstract class DBMng {
 				inputStream = mContext.getAssets().open(DB_NAME);
 				outputStream = new FileOutputStream(destPath);
 				
-				if(!FileHelper.CopyFile(inputStream, new FileOutputStream(destPath))){
+				if(!FileHelper.CopyFile(inputStream, outputStream)){
+//				if(!FileHelper.CopyFile(inputStream, new FileOutputStream(destPath))){
 					DLog.LOG("CopyFile err");
 					return false;
 				}
@@ -79,7 +89,67 @@ public abstract class DBMng {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
+			}finally{
+//				if(inputStream != null){
+				try {
+					inputStream.close();
+					outputStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				}
+				
 			}
+		}
+		
+		
+		return true;
+	}
+	
+ 	public boolean initDB(boolean reCreate){
+		String DATABASEDIR = "/data/data/" + mContext.getPackageName() + "/databases";
+		String destPath = 
+				DATABASEDIR+"/"
+				+DB_NAME+DB_EXPNAme;
+		
+		File f = new File(destPath);
+		DLog.LOG("exists");
+		if(!f.exists() || reCreate){
+			InputStream inputStream = null;
+			OutputStream outputStream = null;
+			try {
+				File dir = new File(DATABASEDIR);
+            	if(!dir.exists()){
+            		dir.mkdir(); 
+            	}
+				
+				inputStream = mContext.getAssets().open(DB_NAME);
+				outputStream = new FileOutputStream(destPath);
+				
+				if(!FileHelper.CopyFile(inputStream, outputStream)){
+//				if(!FileHelper.CopyFile(inputStream, new FileOutputStream(destPath))){
+					DLog.LOG("CopyFile err");
+					return false;
+				}
+				DLog.LOG(DB_NAME+DB_EXPNAme + " Creat DB Done");
+//				MessageBox.getInstance(context).Show("Creat DB Done!!");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}finally{
+//				if(inputStream != null){
+				try {
+					inputStream.close();
+					outputStream.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+//			}
+			
 		}else{
 			DLog.LOG("DBMng.getInstance");
 			CheckDBVersion(mContext);
