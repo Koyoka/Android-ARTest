@@ -213,6 +213,9 @@ public abstract class DBMng {
 	public void execSQL(String sql,Object[] bindArgs){
 		mDB.execSQL(sql, bindArgs);
 	}
+	public void execSQL(String sql){
+		mDB.execSQL(sql);
+	}
 	
 	public  Cursor query(String tabName,String[] columns,DBCondition condition){
 		if(!mIsOpen){

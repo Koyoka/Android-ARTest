@@ -17,10 +17,14 @@ import com.yrkj.util.log.DLog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Message;
 
 public class DBUpdate {
 
 	public interface OnDBUpdateListen{
+		public void begin();
+		public void end();
 		public void l(String s);
 	}
 	private OnDBUpdateListen mOnDBUpdateListen = null;
@@ -43,36 +47,83 @@ public class DBUpdate {
 		mOnDBUpdateListen = l;
 	}
 	
+	Handler mH = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			if(msg.what == 0){
+				String s = msg.obj.toString();
+				if(mOnDBUpdateListen!= null)
+					mOnDBUpdateListen.l(s);
+			}else if(msg.what == 1){
+				if(mOnDBUpdateListen!= null)
+					mOnDBUpdateListen.end();
+			}else if(msg.what == 2){
+				if(mOnDBUpdateListen!= null)
+					mOnDBUpdateListen.begin();
+			}
+			
+		}
+	};
+	
 	public boolean update(){
 		
-		mTempDBName = mDBName + TEMP_DBEXNAME+mDBVer;
-		printListen("初始化数据");
-		if(!createNewDBTempFile()){
-			printListen("初始化数据错误");			
-			return false;
-		}
-		printListen("初始化数据完成");
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		printListen("开始数据更新");
-		if(!updateDBData()){
-			printListen("数据更新失败");			
-			return false;
-		}
-		printListen("数据更新完成");
-//		if(!delTempDB())
-//			return false;
 		
+		
+		new Thread() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				beginListen();
+				mTempDBName = mDBName + TEMP_DBEXNAME + mDBVer;
+				printListen("初始化数据");
+				if (!createNewDBTempFile()) {
+					printListen("初始化数据错误");
+					// return false;
+				}
+				printListen("初始化数据完成");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				printListen("开始数据更新");
+				if (!updateDBData()) {
+					printListen("数据更新失败");
+					// return false;
+				}
+				printListen("数据更新完成");
+				finishListen();
+//				mOnDBUpdateListen.l("", true);
+				// if(!delTempDB())
+				// return false;
+			}
+		}.start();
 		return true;
 	}
 	
 	private void printListen(String s){
-		if(mOnDBUpdateListen!= null)
-			mOnDBUpdateListen.l(s);
+		
+		Message msg = new Message();      
+		msg.what = 0;
+		msg.obj = s;
+		mH.sendMessage(msg);
+		
+//		if(mOnDBUpdateListen!= null)
+//			mOnDBUpdateListen.l(s,false);
+	}
+	private void beginListen(){
+		Message msg = new Message();      
+		msg.what = 2;
+		mH.sendMessage(msg);
+	}
+	private void finishListen(){
+		Message msg = new Message();      
+		msg.what = 1;
+		mH.sendMessage(msg);
 	}
 	
 	private String mTempDBFile = "";
