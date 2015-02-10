@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/com/dtr/zxing/activity/CaptureActivity.java=UTF-8
+encoding//src/com/dtr/zxing/camera/CameraConfigurationManager.java=UTF-8
+encoding//src/com/dtr/zxing/decode/DecodeFormatManager.java=UTF-8
+encoding//src/com/dtr/zxing/decode/DecodeHandler.java=UTF-8
