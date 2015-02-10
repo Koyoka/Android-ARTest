@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="17" />
-    
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -15,19 +15,16 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    	<uses-feature android:name="android.hardware.camera" />  
-		<uses-feature android:name="android.hardware.camera.autofocus"  />
-    
-		
-		<uses-permission android:name="android.permission.CAMERA" />  
-	    <uses-permission android:name="android.permission.FLASHLIGHT" />
-	    <uses-permission android:name="android.permission.WAKE_LOCK" />
-		
-		
-		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-		<uses-permission android:name="android.permission.INTERNET" />
-		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	  	<uses-permission android:name="android.permission.VIBRATE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -43,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.dtr.zxing.activity.CaptureActivity"
             android:screenOrientation="portrait"
@@ -53,7 +49,14 @@
             android:name="com.dtr.zxing.activity.ResultActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
-        
+        <activity
+            android:name="com.yrkj.mwrmobile.RecoverActivity"
+            android:label="@string/title_activity_recover" >
+        </activity>
+        <activity
+            android:name="com.yrkj.mwrmobile.RecoverDetailActivity"
+            android:label="@string/title_activity_recover_detail" >
+        </activity>
     </application>
 
 </manifest>

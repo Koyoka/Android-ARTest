@@ -3,5 +3,8 @@
 
     <string name="app_name">医废回收手机终端</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_recover">RecoverActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_recover_detail">RecoverDetailActivity</string>
 
 </resources>

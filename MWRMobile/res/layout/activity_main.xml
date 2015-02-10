@@ -1,26 +1,109 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="${packageName}.${activityClass}" >
 
     <LinearLayout 
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-        
-        <Button 
-            android:id="@+id/btnTest"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <LinearLayout 
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="test click"/>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_main_itemmargin"
+           android:gravity="center_vertical"
+            android:layout_weight="1">
+             <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="终端号：MWS001" />
+              <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="跟车员：张三" />
+               <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="跟车员：张三" />
+               <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="车辆：00000" />
+               <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="货箱记录：5个" />
+                <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="总重量：13KG" />
+              <Button 
+	            android:id="@+id/btnTest"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="test click"/>
+        </LinearLayout>
+        
+		<Button 
+		    android:id="@+id/btnRecoverCrate"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_margin="@dimen/activity_main_itemmargin"
+		    android:text="货箱回收"/>
         
     </LinearLayout>
     
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <Button 
+            android:id="@+id/btnRecoverToInventroy"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_margin="@dimen/activity_main_itemmargin"
+		    android:text="提交入库"/>
+        
+		<Button 
+		    android:id="@+id/btnRecoverToDestroy"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_margin="@dimen/activity_main_itemmargin"
+		    android:text="提交处置"/>
+        
+    </LinearLayout>
+     <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+        <Button 
+            android:id="@+id/btnSetting"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_margin="@dimen/activity_main_itemmargin"
+		    android:text="设置"/>
+        
+		<Button 
+		    android:id="@+id/btnLogout"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_margin="@dimen/activity_main_itemmargin"
+		    android:text="退出"/>
+        
+    </LinearLayout>
+  
+    
     
 
-</RelativeLayout>
+</LinearLayout>
