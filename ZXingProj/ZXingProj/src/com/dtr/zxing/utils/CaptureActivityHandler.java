@@ -59,26 +59,20 @@ public class CaptureActivityHandler extends Handler {
 
 	@Override
 	public void handleMessage(Message message) {
-		switch (message.what) {
-		case R.id.restart_preview:
+		if (message.what == R.id.restart_preview) {
 			restartPreviewAndDecode();
-			break;
-		case R.id.decode_succeeded:
+		} else if (message.what == R.id.decode_succeeded) {
 			state = State.SUCCESS;
 			Bundle bundle = message.getData();
-
 			activity.handleDecode((Result) message.obj, bundle);
-			break;
-		case R.id.decode_failed:
+		} else if (message.what == R.id.decode_failed) {
 			// We're decoding as fast as possible, so when one decode fails,
 			// start another.
 			state = State.PREVIEW;
 			cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
-			break;
-		case R.id.return_scan_result:
+		} else if (message.what == R.id.return_scan_result) {
 			activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
 			activity.finish();
-			break;
 		}
 	}
 

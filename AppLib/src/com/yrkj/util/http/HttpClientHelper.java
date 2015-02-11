@@ -26,11 +26,13 @@ import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -64,11 +66,29 @@ public class HttpClientHelper {
         public void pushProgress(int progress, int max);
     }
 
+	public HttpClientHelper(){
+		HttpParams params = new BasicHttpParams();
+		{
+			ConnManagerParams.setMaxTotalConnections(params, 50);
+			 /* 从连接池中取连接的超时时间 */
+			ConnManagerParams.setTimeout(params, 15000);
+			 /* 连接超时 */
+            HttpConnectionParams.setConnectionTimeout(params, 15000);
+            /* 请求超时 */
+            HttpConnectionParams.setSoTimeout(params, 15000);
+            
+			HttpProtocolParams.setContentCharset(params, CHARSET);
+			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+			
+			
+			HttpProtocolParams.setUseExpectContinue(params, true);
+		}
+		_httpclient = new DefaultHttpClient(params);
+		
+	}
 	public HttpClientHelper(String host,int port) {
 		_port = port;
 		_host = host;
-//		_port = Config.SERVICE_HTTP_PORT;
-		//prepare httpclient params
 		HttpParams params = new BasicHttpParams();
 		{
 			
@@ -91,11 +111,6 @@ public class HttpClientHelper {
 		{
 			SchemeRegistry schemeRegistry = new SchemeRegistry();
 			{
-				
-//				Scheme http80 = new Scheme("http",
-//						PlainSocketFactory.getSocketFactory(), 80);
-//				schemeRegistry.register(http80);
-				
 				Scheme http = new Scheme("http",
 						PlainSocketFactory.getSocketFactory(), _port);
 				schemeRegistry.register(http);
@@ -115,12 +130,6 @@ public class HttpClientHelper {
 //		_imgHttpClient = new DefaultHttpClient(_connMng, params);
 		
 	}
-	
-//	public HttpClientHelper(String host,int port)  
-//	{
-//		this(host);
-//		_port = port;	
-//	}
 	
 	public static ByteArrayOutputStream getHttpFileStream2ByteOutStream(String httpPath, DownloadListener l) {
 		try {
@@ -171,10 +180,9 @@ public class HttpClientHelper {
 		byte[] buf = new byte[1444];
 		int len = -1;
 		int bytesum = 0;
-//		int byteread = 0;
 
 		while ((len = is.read(buf)) != -1) {
-			bytesum += len;//byteread;
+			bytesum += len;
 			os.write(buf, 0, len);
 			if (l != null && byteTotal > 0 ) {
 				
@@ -183,67 +191,6 @@ public class HttpClientHelper {
 		}
 	}
 	
-	
-//	private BasicManagedEntity GetHttpFileStream(String httpPath)
-//			throws Exception{
-//
-////		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,
-////				URLEncodedUtils.format(qparams, CHARSET), null);
-//		URI uri = new URI(httpPath);
-//		HttpGet httpget = new HttpGet(uri);
-//
-//		HttpResponse response;
-//		try {
-//			response = _httpclient.execute(httpget);
-////			response = _imgHttpClient.execute(httpget);
-//		} catch (ClientProtocolException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			String s = e.getMessage();
-//			if(s!=null){
-//				throw new Exception(s);
-//			}
-//			return null;
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			String s = e.getMessage();
-//			if(s!=null){
-//				throw new Exception(s);
-//			}
-//			return null;
-//		}
-//		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-////			InputStream is = response.getEntity().getContent();
-////			response.getEntity().get
-//			BasicManagedEntity e = (BasicManagedEntity) response.getEntity();
-////			org.apache.http.conn.BasicManagedEntity ee;
-////			response.getEntity().
-//			return e;
-////			return Drawable.createFromStream(is,"src");
-//			
-////			ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-////	        byte[] buf = new byte[1024];  
-////	        int len = -1;  
-////	        while ((len = is.read(buf)) != -1) { 
-//////	        	DebugTrace.Print("load img----- " + len + "  " +httpPath);
-////	            baos.write(buf, 0, len);  
-////	        }  
-////	        Bitmap b = MediaUtil.decodeSampledBitmapFromByte(baos.toByteArray(), 40, 40);
-////	        
-////	        if(is != null){
-////	        	is.close();
-////	        }
-////	        
-////	        if(baos != null){
-////	        	baos.close();
-////	        }
-////	        
-////	        return b;
-//		}
-//		return null;
-//
-//	}
 	
 	public String GetRequest(String operatorPath, List<NameValuePair> qparams)
 			throws Exception{
@@ -287,6 +234,7 @@ public class HttpClientHelper {
 		return result;
 
 	}
+	
 	public JSONObject GetRequestJsonResult(String operatorPath, List<NameValuePair> qparams)
 			throws Exception{
 		String outResStr = GetRequest(operatorPath,qparams);
@@ -299,7 +247,6 @@ public class HttpClientHelper {
 			}
 			DLog.LOG(TAG,s);
 			throw new Exception("err:return josn is empty!");
-//			return null;
 		}else{
 			String s = "";
 			for(NameValuePair item : qparams){
@@ -313,7 +260,6 @@ public class HttpClientHelper {
 	public JSONObject GetRequestJsonResult(String operatorPath,  HttpRequestValue getValue)
 			throws Exception{
 		String outResStr = GetRequest(operatorPath,getValue.GetValus());
-//		DebugTrace.Print(TAG,"1.----"+outResStr);
 		if(outResStr.length() == 0){
 			DLog.LOG(TAG,operatorPath);
 			String s = "";
@@ -351,7 +297,6 @@ public class HttpClientHelper {
 		}
 		return new JSONObject(outResStr);
 	}
-	
 	public String PostRequest(String operatorPath, List<NameValuePair> getQparams,List<NameValuePair> postQparams)
 	throws Exception{
 		return httpRequest(operatorPath,getQparams,postQparams,null,null);
@@ -393,7 +338,6 @@ public class HttpClientHelper {
 	    		 multipartEntity = new CustomMultipartEntity(l);
 	    	}
 	    	
-	    	
 	    	if(postQparams != null){
 	    		for(NameValuePair item : postQparams){
 	    			multipartEntity.addPart(item.getName(), 
@@ -422,13 +366,56 @@ public class HttpClientHelper {
 			result = inStream2String(is);
 		}
 		
-//		if(fileQparams != null){
-//			for (Map.Entry<String, InputFileObj> entry : fileQparams.entrySet()) {
-//				entry.getValue().FileIS.close();
-//			}
-//		}
-		
 		DLog.LOG(result);
+		return result;
+		
+	}
+	
+	public String httpSignatureRequestURL(String url,String accessKey,String secretKey,
+			String requestBody)throws Exception{
+		URI uri = new URI(url);
+		
+	    HttpPost post = new HttpPost(uri);  
+		
+	    post.setEntity(new StringEntity(requestBody.toString()));
+	    
+	    SignatureBuilder sb = new SignatureBuilder();
+	    post.setHeader(new BasicHeader("Date", org.apache.http.impl.cookie.DateUtils.formatDate(new java.util.Date()).replaceFirst("[+]00:00$", "")));
+	    post.setHeader(new BasicHeader("Content-Type", "application/json"));
+	    post.setHeader("Authorization", "MWR " + accessKey + ":" + sb.tmsSignature(post, secretKey));
+	    
+	    HttpResponse response = _httpclient.execute(post);
+		String result = "";
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			InputStream is = response.getEntity().getContent();
+			result = inStream2String(is);
+		}
+		
+//		DLog.LOG(result);
+		return result;
+		
+	}
+	public String httpSignatureRequest(String operatorPath,String accessKey,String secretKey,
+			String requestBody)throws Exception{
+		URI uri = URIUtils.createURI("http", _host, _port, "/"+operatorPath,null, null);
+		
+	    HttpPost post = new HttpPost(uri);  
+		
+	    post.setEntity(new StringEntity(requestBody.toString()));
+	    
+	    SignatureBuilder sb = new SignatureBuilder();
+	    post.setHeader(new BasicHeader("Date", org.apache.http.impl.cookie.DateUtils.formatDate(new java.util.Date()).replaceFirst("[+]00:00$", "")));
+	    post.setHeader(new BasicHeader("Content-Type", "application/json"));
+	    post.setHeader("Authorization", "MWR " + accessKey + ":" + sb.tmsSignature(post, secretKey));
+	    
+	    HttpResponse response = _httpclient.execute(post);
+		String result = "";
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			InputStream is = response.getEntity().getContent();
+			result = inStream2String(is);
+		}
+		
+//		DLog.LOG(result);
 		return result;
 		
 	}
