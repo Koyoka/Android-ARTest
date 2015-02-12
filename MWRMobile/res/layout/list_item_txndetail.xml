@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+	    <TextView 
+	        android:id="@+id/txtVendor"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="收集医院：xxx"/>
+	    <TextView 
+	        android:id="@+id/txtWaste"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="废料类型：xxx"/>
+    </LinearLayout>
+
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+	    <TextView 
+	        android:id="@+id/txtCrateCode"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="货箱编号：HX001"/>
+	    <TextView 
+	        android:id="@+id/txtWeight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="10.5 kg"/>
+    </LinearLayout>
+</LinearLayout>

@@ -43,6 +43,7 @@
 		        android:text="总重量：13KG" />
               <Button 
 	            android:id="@+id/btnTest"
+	            android:visibility="gone"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:text="test click"/>

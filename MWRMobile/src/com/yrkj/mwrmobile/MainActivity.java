@@ -1,5 +1,7 @@
 package com.yrkj.mwrmobile;
 
+import java.util.ArrayList;
+
 import com.dtr.zxing.activity.CaptureActivity;
 
 import android.app.Activity;
@@ -12,10 +14,17 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.yrkj.mwrmobile.R;
+import com.yrkj.mwrmobile.bean.TxnDetailData;
+import com.yrkj.mwrmobile.dao.TxnDao;
+import com.yrkj.mwrmobile.fragment.EntryCrateDialogFragment;
+import com.yrkj.mwrmobile.layout.ActivityMain;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class MainActivity extends Activity implements OnClickListener {
 
+	private ActivityMain mLayout = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,7 +34,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	
 	private void initActy(){
+		mLayout = new ActivityMain(this);
 		
+		mLayout.getBtnRecoverToInventroy().setOnClickListener(this);
+		
+		ArrayList<TxnDetailData> ds =
+		 TxnDao.getTxnDetail(this);
+		 DLog.LOGD(ds + " size:" + ds.size());
 		findViewById(R.id.btnRecoverCrate).setOnClickListener(this);
 	}
 	
@@ -35,11 +50,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.btnRecoverCrate:
-			
 			Intent intent = new Intent(this, RecoverActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.result_image:
+		case ActivityMain.BtnRecoverToInventroyId:
+			EntryCrateDialogFragment.getInstance().show(getFragmentManager(), "dialog");
 			
 			break;
 		default:

@@ -52,13 +52,21 @@ import com.google.zxing.Result;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public /*final*/ class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
-	public static final String INTENT_KEY_ResultType = "ResultType";
-	public static final String INTENT_VAL_ResultType_SetResult = "setResult";
-	public static final String INTENT_VAL_ResultType_NewActy = "newActy";
-	public static final String INTENT_KEY_PKG = "packageName";
-	public static final String INTENT_KEY_CLZName = "className";
+//	public static final String INTENT_KEY_ResultType = "ResultType";
+//	public static final String INTENT_VAL_ResultType_SetResult = "setResult";
+//	public static final String INTENT_VAL_ResultType_NewActy = "newActy";
+//	public static final String INTENT_KEY_PKG = "packageName";
+//	public static final String INTENT_KEY_CLZName = "className";
+	
+	public interface OnCaptureListen{
+		public void onCapture(int width,int height,String result);
+	}
+	private OnCaptureListen onCaptureListen = null;
+	protected void setOnCaptureListen(OnCaptureListen l){
+		onCaptureListen = l;
+	}
 	
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
@@ -192,36 +200,41 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	public void handleDecode(Result rawResult, Bundle bundle) {
 		inactivityTimer.onActivity();
 		beepManager.playBeepSoundAndVibrate();
+//		
+//		if(onCaptureListen != null){
+//			onCaptureListen.onCapture(mCropRect.width(),mCropRect.height(),rawResult.getText());
+//			return;
+//		}
 
 		bundle.putInt("width", mCropRect.width());
 		bundle.putInt("height", mCropRect.height());
 		bundle.putString("result", rawResult.getText());
 		
-		Intent intent = getIntent();
-		if(intent != null){
-			String resultType = intent.getStringExtra(INTENT_KEY_ResultType);
-			if(resultType == null){
-				finish();
-				return;
-			}
+//		Intent intent = getIntent();
+//		if(intent != null){
+//			String resultType = intent.getStringExtra(INTENT_KEY_ResultType);
+//			if(resultType == null){
+//				finish();
+//				return;
+//			}
 			
-			Intent data=new Intent();  
-			if(resultType.equals(INTENT_VAL_ResultType_SetResult)){
-				data.putExtras(bundle);
-		        setResult(1, data);  
-			}else if(resultType.equals(INTENT_VAL_ResultType_NewActy)){
-				String pkg = intent.getStringExtra(INTENT_KEY_PKG);
-				String clzName = intent.getStringExtra(INTENT_KEY_CLZName);
-				
-				if(pkg != null && clzName != null){
-					data.setClassName(pkg,clzName);
-					data.putExtras(bundle);
-					startActivity(data);
-				}
-			}
+//			Intent data=new Intent();  
+//			if(resultType.equals(INTENT_VAL_ResultType_SetResult)){
+//				data.putExtras(bundle);
+//		        setResult(1, data);  
+//			}else if(resultType.equals(INTENT_VAL_ResultType_NewActy)){
+//				String pkg = intent.getStringExtra(INTENT_KEY_PKG);
+//				String clzName = intent.getStringExtra(INTENT_KEY_CLZName);
+//				
+//				if(pkg != null && clzName != null){
+//					data.setClassName(pkg,clzName);
+//					data.putExtras(bundle);
+//					startActivity(data);
+//				}
+//			}
 			
-			this.finish();
-		}
+//			this.finish();
+//		}
 		
 //		if(false){
 //			

@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS MWRData.MWTxnRecoverHeader (
+  RecoHeaderId INT NOT NULL,
+  TxnNum VARCHAR(20) NULL ,-- '交易流水号',
+  CarCode VARCHAR(20) NULL ,-- '车辆编号',
+  Driver VARCHAR(45) NULL ,-- '司机姓名',
+  DriverCode VARCHAR(20) NULL ,-- '司机编号',
+  Inspector VARCHAR(45) NULL ,-- '跟车员姓名',
+  InspectorCode VARCHAR(20) NULL ,-- '跟车员编号',
+  RecoMWSCode VARCHAR(20) NULL ,-- '回收使用的手机终端',
+  RecoWSCode VARCHAR(20) NULL ,-- '回收交易处理的回收站',
+  RecoEmpyName VARCHAR(45) NULL ,-- '回收交易处理员工姓名',
+  RecoEmpyCode VARCHAR(20) NULL ,-- '回收交易处理的员工',
+  StartDate DATETIME NULL ,-- '开始时间',
+  EndDate DATETIME NULL ,-- '结束时间',
+  OperateType VARCHAR(2) NULL ,-- '处理类型-\n1.回收入库  I\n2.直接处置  D',
+  TotalCrateQty INT NULL ,-- '交易中箱子的总重量',
+  TotalSubWeight DECIMAL(10,2) NULL ,-- '回收提交的总重量',
+  TotalTxnWeight DECIMAL(10,2) NULL ,-- '交易完成的实际总重量',
+  CarDisId INT NULL ,-- '回收交易的车辆考勤记录',
+  Status VARCHAR(2) NULL ,-- '当前交易状态\n1.处理中 P process\n2.完成 C complete\n3.审核中 A authorize',
+  PRIMARY KEY (RecoHeaderId))
+ENGINE = InnoDB
+,-- = '回收计划信息表-记录提交的回收计划 \n回收入' /* ,-- truncated */ /*库交易表*/

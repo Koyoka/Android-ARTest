@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class DLog
 {
-    public static final String LOGTAG = "ARTaskGame";
+    public static String LOGTAG = "ARTaskGame";
     
     public static final void LOG(String nMessage)
     {
