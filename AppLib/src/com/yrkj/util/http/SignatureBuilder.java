@@ -8,6 +8,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -51,7 +52,11 @@ public class SignatureBuilder {
 			System.out.println("ERROR: IOException caught when writing Content MD5 hash");
 			e.printStackTrace();
 		}
-		return DigestUtils.md5Hex(requestOutputStream.toByteArray()).toLowerCase();
+		
+//		String s = new String(Hex.encodeHex(DigestUtils.md5(data)));
+		return new String(Hex.encodeHex(DigestUtils.md5(requestOutputStream.toByteArray()))).toLowerCase();
+		
+//		return DigestUtils.md5Hex(requestOutputStream.toByteArray()).toLowerCase();
 	}
 
 	public static String calculateRFC2104HMAC(String key, String data) throws java.security.SignatureException {

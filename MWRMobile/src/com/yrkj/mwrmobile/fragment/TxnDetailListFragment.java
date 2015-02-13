@@ -17,6 +17,7 @@ import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.ListItemTxndetail;
 import com.yrkj.mwrmobile.util.view.ListViewMng;
 import com.yrkj.util.log.DLog;
+import com.yrkj.util.log.ToastUtil;
 
 public class TxnDetailListFragment extends ListFragment {
 
@@ -47,6 +48,13 @@ public class TxnDetailListFragment extends ListFragment {
 		ListViewMng.setListView(lv);
 		
 		mTxnDetailAdapter.notifyDataSetChanged();
+	}
+	
+	public void reload(){
+		ToastUtil.show(getActivity(), "TxnDetailListFragment reload");
+		mDataSource = TxnDao.getTxnDetail(getActivity());
+		mTxnDetailAdapter.notifyDataSetChanged();
+		
 	}
 	
 	class TxnDetailAdapter extends BaseAdapter{

@@ -6,6 +6,7 @@ import android.os.Message;
 
 import com.dtr.zxing.activity.CaptureActivity;
 import com.google.zxing.Result;
+import com.yrkj.mwrmobile.dao.TxnMng;
 import com.yrkj.util.log.ToastUtil;
 
 public class MWRCaptureActivity extends CaptureActivity {
@@ -41,7 +42,8 @@ public class MWRCaptureActivity extends CaptureActivity {
 		super.handleDecode(rawResult, bundle);
 		
 		String result = rawResult.getText();
-		if(result.equals("HX020"))
+//		if(result.equals("HX020"))
+		if(TxnMng.ValidCrateCodeMask(result))	
 		{
 			ToastUtil.show(this, "success");
 			Intent intent = new Intent();
@@ -55,7 +57,7 @@ public class MWRCaptureActivity extends CaptureActivity {
 			getHandler().sendMessageDelayed(msg, 500);
 			
 		}else{
-			ToastUtil.show(this, "failed");
+			ToastUtil.show(this, "无效的货箱编号");
 			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 			
 		}

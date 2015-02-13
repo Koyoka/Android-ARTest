@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.yrkj.mwrmobile.fragment.EntryCrateDialogFragment;
+import com.yrkj.mwrmobile.fragment.EntryCrateDialogFragment.OnConfirmTxnListener;
+import com.yrkj.mwrmobile.fragment.TxnDetailListFragment;
 import com.yrkj.mwrmobile.layout.ActivityRecover;
 import com.yrkj.mwrmobile.layout.FragmentHeaderLayout;
 import com.yrkj.mwrmobile.util.scanner.CaptureHelper;
 import com.yrkj.util.log.ToastUtil;
 
-public class RecoverActivity extends Activity implements OnClickListener {
+public class RecoverActivity extends Activity implements OnClickListener, OnConfirmTxnListener {
 
 	public final String Tag = "com.yrkj.mwrmobile.RecoverActivity";
 	
@@ -46,6 +48,7 @@ public class RecoverActivity extends Activity implements OnClickListener {
 			mHeaderLayout.getBtnActionOps().setOnClickListener(this);
 		}
 		
+		
 //		{
 //			View v = this.findViewById(R.id.fmtTxnDetail);
 //			mTxnDetailLayout = new FragmentTxndetailLayout(v);
@@ -74,11 +77,19 @@ public class RecoverActivity extends Activity implements OnClickListener {
 		
 		if(resultCode == Activity.RESULT_OK){
 				String crateCode = data.getExtras().getString("cratecode");
-				String result = data.getExtras().getString("result");
-				ToastUtil.show(this, crateCode+" "+ result);
-				EntryCrateDialogFragment.getInstance().show(getFragmentManager(), "dialog");
+//				String result = data.getExtras().getString("result");
+//				ToastUtil.show(this, crateCode+" "+ result);
+				EntryCrateDialogFragment.getInstance(crateCode,this).show(getFragmentManager(), "dialog");
 			
 		}
+	}
+
+	@Override
+	public void onConfirmTxn() {
+		
+		TxnDetailListFragment v = 
+				(TxnDetailListFragment) this.getFragmentManager().findFragmentById(R.id.fmtTxnDetail);
+		v.reload();
 	}
 
 	

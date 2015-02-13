@@ -66,7 +66,7 @@ public class TxnDetailData {
 		public String InvRecordId = "";
 		public String InvAuthId = "";
 		public String Status = "";
-
+		public String Unit = "";
 		
 		public static TxnDetailData convertDataToModule(Cursor c){
 			TxnDetailData item = new TxnDetailData();
@@ -113,5 +113,8 @@ public class TxnDetailData {
 
 			return values;
 		}
+		
+		public final static String STATUS_Process = "P";
+		public final static String STATUS_Complete = "C";
 
 }

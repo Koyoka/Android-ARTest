@@ -125,7 +125,8 @@ public class TxnHeaderData {
 		return values;
 	}
 
-	
+	public final static String STATUS_Precess = "P";
+	public final static String STATUS_Complete = "C";
 	
 	
 }
