@@ -11,30 +11,24 @@ import com.yrkj.util.log.ToastUtil;
 
 public class MWRCaptureActivity extends CaptureActivity {
 
-	public final String INTENT_KEY_ScannerType = "scannertype";
-	public final String SCANNERTYPE_KEY_CrateCode = "CrateCode";
+	public static final String INTENT_KEY_ScannerType = "scannertype";
+	public static final int SCANNERTYPE_KEY_RecoverCrate = 1;
+	public static final int SCANNERTYPE_KEY_InitSystem = 2;
+	public static final int SCANNERTYPE_KEY_Login = 3;
+	
+	private int mScannerType = SCANNERTYPE_KEY_RecoverCrate;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		
-//		setOnCaptureListen(this);
 		super.onCreate(savedInstanceState);
 		initActy();
 	}
 	
 	private void initActy(){
+		mScannerType = getIntent().getIntExtra(INTENT_KEY_ScannerType, SCANNERTYPE_KEY_RecoverCrate);
 	}
 
-//	@Override
-//	public void onCapture(int width, int height, String result) {
-//		ToastUtil.show(this, result);
-//		if(result.equals("HX020")){
-//			finish();
-//		}
-////		finish();
-//		EntryCrateDialogFragment.getInstance().show(getFragmentManager(), "dialog1");
-//		
-//	}
 	
 	@Override
 	public void handleDecode(Result rawResult, Bundle bundle) {
@@ -42,15 +36,33 @@ public class MWRCaptureActivity extends CaptureActivity {
 		super.handleDecode(rawResult, bundle);
 		
 		String result = rawResult.getText();
-//		if(result.equals("HX020"))
+		
+		if(mScannerType == SCANNERTYPE_KEY_RecoverCrate){
+			doRecoverCrate(result,bundle);
+		}else if(mScannerType == SCANNERTYPE_KEY_InitSystem){
+			doInitSystem(result,bundle);
+		}else if(mScannerType == SCANNERTYPE_KEY_Login){
+			doLogin(result,bundle);
+		}
+		
+	}
+	
+	private void doInitSystem(String result, Bundle bundle){
+		
+		
+	}
+	
+	private void doLogin(String result, Bundle bundle){
+		
+	}
+	
+	private void doRecoverCrate(String result, Bundle bundle){
+		Intent intent = new Intent();
+		bundle.putString("cratecode", result);
+		intent.putExtras(bundle);
+		
 		if(TxnMng.ValidCrateCodeMask(result))	
 		{
-			ToastUtil.show(this, "success");
-			Intent intent = new Intent();
-			bundle.putString("cratecode", result);
-			intent.putExtras(bundle);
-//			bundle.putString("result", rawResult.getText());
-			
 			Message msg = new Message();
 			msg.obj = intent;
 			msg.what = com.dtr.zxing.R.id.return_scan_result;
@@ -61,7 +73,7 @@ public class MWRCaptureActivity extends CaptureActivity {
 			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 			
 		}
-		
 	}
+	
 }
 //getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.return_scan_result, 500);

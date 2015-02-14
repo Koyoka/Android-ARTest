@@ -38,12 +38,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		mLayout = new ActivityMain(this);
 		
+		mLayout.getBtnLogout().setOnClickListener(this);
+		mLayout.getBtnRecoverCrate().setOnClickListener(this);
+		mLayout.getBtnRecoverToDestroy().setOnClickListener(this);
+		mLayout.getBtnSetting().setOnClickListener(this);
 		mLayout.getBtnRecoverToInventroy().setOnClickListener(this);
 		
-		ArrayList<TxnDetailData> ds =
-		 TxnDao.getTxnDetail(this);
-		 DLog.LOGD(ds + " size:" + ds.size());
-		findViewById(R.id.btnRecoverCrate).setOnClickListener(this);
+//		ArrayList<TxnDetailData> ds =
+//		 TxnDao.getTxnDetail(this);
+//		 DLog.LOGD(ds + " size:" + ds.size());
+//		findViewById(R.id.btnRecoverCrate).setOnClickListener(this);
 	}
 	
 
@@ -51,10 +55,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.btnRecoverCrate:
+		case ActivityMain.BtnRecoverCrateId:
 			Intent intent = new Intent(this, RecoverActivity.class);
 			startActivity(intent);
 			break;
+		case ActivityMain.BtnLogoutId:
+			finish();
+			break;
+		case ActivityMain.BtnSettingId:
+			
+			break;
+		case ActivityMain.BtnRecoverToDestroyId:
+			
+			break;
+		
 		case ActivityMain.BtnRecoverToInventroyId:
 //			EntryCrateDialogFragment.getInstance().show(getFragmentManager(), "dialog");
 			doTask();

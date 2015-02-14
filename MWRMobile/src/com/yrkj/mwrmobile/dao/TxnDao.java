@@ -13,6 +13,8 @@ import android.os.Message;
 
 import com.google.gson.Gson;
 import com.yrkj.mwrmobile.base.MWRDBMng;
+import com.yrkj.mwrmobile.base.SysMng;
+import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.bean.RequestBody;
 import com.yrkj.mwrmobile.bean.RequestTxnBean;
@@ -164,15 +166,18 @@ public class TxnDao {
 		
 		ArrayList<TxnDetailData> detailList =  getTxnDetail(c);
 		
+		TxnInfo txnInfo = new TxnInfo();
 		WSInfo wsInfo = new WSInfo();
+		txnInfo = SysMng.getTxnInfo();
+		wsInfo = SysMng.getWSInfo();
 		
 		RequestTxnBean txn = new RequestTxnBean();
 		txn.txndetaillist = detailList;
-		txn.carcode = wsInfo.CarCode;
-		txn.drivercode = wsInfo.DriverCode;
-		txn.drvier =wsInfo.DriverName;
-		txn.inspectorcode = wsInfo.InspectorCode;
-		txn.inspector = wsInfo.InspectroName;
+		txn.carcode = txnInfo.CarCode;
+		txn.drivercode = txnInfo.DriverCode;
+		txn.drvier =txnInfo.DriverName;
+		txn.inspectorcode = txnInfo.InspectorCode;
+		txn.inspector = txnInfo.InspectroName;
 		txn.mwscode = wsInfo.WSCode;
 		
 		RequestBody rBody = new RequestBody();

@@ -34,7 +34,7 @@ public class BaseApplication extends Application {
 		}
 			
 		
-		SysMng.saveTxnInfo("HX###");
+		
 		
 		String carCode, driver, driverName, inspector, inspectorName, wsCode;
 		//YG0001 YG0005 MWS001 ¶õA00001
@@ -44,7 +44,8 @@ public class BaseApplication extends Application {
 		inspector = "YG0005";
 		inspectorName = "Àî3-¸ú³µ";
 		wsCode = "MWS001";
-		SysMng.saveWSInfo(carCode,driver, driverName, inspector, inspectorName, wsCode);
+		SysMng.saveWSInfo(wsCode,"HX###");
+		SysMng.saveTxnInfo(carCode,driver, driverName, inspector, inspectorName);
 //		SysMng.Launch(this);
 	}
 	

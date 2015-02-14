@@ -41,9 +41,17 @@ public class SysMng {
 		return mPrefs;
 	}
 	
-	public static void saveWSInfo(String carCode,String driver,String driverName,String inspector,String inspectorName,String wsCode){
+	public static void saveWSInfo(String wsCode,String crateMask){
 		SharedPreferences.Editor editor = getPrefs().edit();
 		
+		editor.putString(PREF_KEY_CrateMask, crateMask);
+		
+		editor.putString(PREF_KEY_WSCode, wsCode);
+		editor.commit();
+	}
+	
+	public static void saveTxnInfo(String carCode,String driver,String driverName,String inspector,String inspectorName){
+		SharedPreferences.Editor editor = getPrefs().edit();
 		
 		editor.putString(PREF_KEY_CarCode, carCode);
 		
@@ -52,32 +60,25 @@ public class SysMng {
 		
 		editor.putString(PREF_KEY_Inspector, inspector);
 		editor.putString(PREF_Key_InspectorName, inspectorName);
-		
-		editor.putString(PREF_KEY_WSCode, wsCode);
-		editor.commit();
-	}
-	
-	public static void saveTxnInfo(String crateMask){
-		SharedPreferences.Editor editor = getPrefs().edit();
-		editor.putString(PREF_KEY_CrateMask, crateMask);
 		editor.commit();
 	}
 	
 	public static WSInfo getWSInfo(){
 		
-		WSInfo wsinfo = new WSInfo();
-		wsinfo.DriverCode = getPrefs().getString(PREF_KEY_Driver, "");
-		wsinfo.DriverName = getPrefs().getString(PREF_KEY_DriverName, "");
-		wsinfo.InspectorCode = getPrefs().getString(PREF_KEY_Inspector, "");
-		wsinfo.InspectroName = getPrefs().getString(PREF_Key_InspectorName, "");
-		wsinfo.WSCode = getPrefs().getString(PREF_KEY_WSCode, "");
+		WSInfo txnInfo = new WSInfo();
+		txnInfo.CrateMask = getPrefs().getString(PREF_KEY_CrateMask, "");
+		txnInfo.WSCode = getPrefs().getString(PREF_KEY_WSCode, "");
 		
-		return wsinfo;
+		return txnInfo;
 	}
 	public static TxnInfo getTxnInfo(){
-		TxnInfo txnInfo = new TxnInfo();
-		txnInfo.CrateMask = getPrefs().getString(PREF_KEY_CrateMask, "");
-		return txnInfo;
+		
+		TxnInfo txninfo = new TxnInfo();
+		txninfo.DriverCode = getPrefs().getString(PREF_KEY_Driver, "");
+		txninfo.DriverName = getPrefs().getString(PREF_KEY_DriverName, "");
+		txninfo.InspectorCode = getPrefs().getString(PREF_KEY_Inspector, "");
+		txninfo.InspectroName = getPrefs().getString(PREF_Key_InspectorName, "");
+		return txninfo;
 	}
 	
 	

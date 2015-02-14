@@ -18,48 +18,48 @@ public class ActivityMain extends BaseLayout{
     public static final int BtnLogoutId = R.id.btnLogout;
 
     protected android.widget.Button mBtnTest;
-    protected android.widget.Button mBtnRecoverCrate;
-    protected android.widget.Button mBtnRecoverToInventroy;
-    protected android.widget.Button mBtnRecoverToDestroy;
-    protected android.widget.Button mBtnSetting;
-    protected android.widget.Button mBtnLogout;
+    protected android.widget.RelativeLayout mBtnRecoverCrate;
+    protected android.widget.RelativeLayout mBtnRecoverToInventroy;
+    protected android.widget.RelativeLayout mBtnRecoverToDestroy;
+    protected android.widget.RelativeLayout mBtnSetting;
+    protected android.widget.RelativeLayout mBtnLogout;
 
     protected Activity mCurActy;
 
     public ActivityMain(Activity acty){
         mCurActy = acty;
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
-        mBtnRecoverCrate = (android.widget.Button) acty.findViewById(BtnRecoverCrateId);
-        mBtnRecoverToInventroy = (android.widget.Button) acty.findViewById(BtnRecoverToInventroyId);
-        mBtnRecoverToDestroy = (android.widget.Button) acty.findViewById(BtnRecoverToDestroyId);
-        mBtnSetting = (android.widget.Button) acty.findViewById(BtnSettingId);
-        mBtnLogout = (android.widget.Button) acty.findViewById(BtnLogoutId);
+        mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
+        mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
+        mBtnRecoverToDestroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToDestroyId);
+        mBtnSetting = (android.widget.RelativeLayout) acty.findViewById(BtnSettingId);
+        mBtnLogout = (android.widget.RelativeLayout) acty.findViewById(BtnLogoutId);
     }   
 
     public ActivityMain(android.view.View acty){
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
-        mBtnRecoverCrate = (android.widget.Button) acty.findViewById(BtnRecoverCrateId);
-        mBtnRecoverToInventroy = (android.widget.Button) acty.findViewById(BtnRecoverToInventroyId);
-        mBtnRecoverToDestroy = (android.widget.Button) acty.findViewById(BtnRecoverToDestroyId);
-        mBtnSetting = (android.widget.Button) acty.findViewById(BtnSettingId);
-        mBtnLogout = (android.widget.Button) acty.findViewById(BtnLogoutId);
+        mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
+        mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
+        mBtnRecoverToDestroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToDestroyId);
+        mBtnSetting = (android.widget.RelativeLayout) acty.findViewById(BtnSettingId);
+        mBtnLogout = (android.widget.RelativeLayout) acty.findViewById(BtnLogoutId);
     }   
     public android.widget.Button getBtnTest() {
         return mBtnTest;
     }
-    public android.widget.Button getBtnRecoverCrate() {
+    public android.widget.RelativeLayout getBtnRecoverCrate() {
         return mBtnRecoverCrate;
     }
-    public android.widget.Button getBtnRecoverToInventroy() {
+    public android.widget.RelativeLayout getBtnRecoverToInventroy() {
         return mBtnRecoverToInventroy;
     }
-    public android.widget.Button getBtnRecoverToDestroy() {
+    public android.widget.RelativeLayout getBtnRecoverToDestroy() {
         return mBtnRecoverToDestroy;
     }
-    public android.widget.Button getBtnSetting() {
+    public android.widget.RelativeLayout getBtnSetting() {
         return mBtnSetting;
     }
-    public android.widget.Button getBtnLogout() {
+    public android.widget.RelativeLayout getBtnLogout() {
         return mBtnLogout;
     }
 

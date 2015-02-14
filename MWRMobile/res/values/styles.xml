@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -25,4 +25,22 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
+    
+    
+     <style name="font_main_information">
+         <item name="android:textColor">#ffffff</item>
+         <item name="android:textSize">15sp</item>
+         <item name="android:padding">2dip</item>
+     </style>
+     <style name="font_main_txt">
+         <item name="android:textColor">#ffffff</item>
+         <item name="android:textSize">20dip</item>
+         <item name="android:paddingTop">5dip</item>
+         <item name="android:gravity">right</item>
+     </style>
+     
+     <style name="layout_main_btn">
+       
+         <item name="android:padding">12dip</item>
+     </style>
 </resources>

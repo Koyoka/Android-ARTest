@@ -4,14 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.yrkj.mwrmobile.base.SysMng;
-import com.yrkj.mwrmobile.base.TxnInfo;
+import com.yrkj.mwrmobile.base.WSInfo;
 
 public class TxnMng {
 
 	public static boolean ValidCrateCodeMask(String crateCode){
 		
-		TxnInfo txnInfo = SysMng.getTxnInfo();
-		String crateMask = txnInfo.CrateMask;
+		WSInfo wsInfo = SysMng.getWSInfo();
+		String crateMask = wsInfo.CrateMask;
 		return validCodeMask(crateMask,crateCode);
 		
 	}
