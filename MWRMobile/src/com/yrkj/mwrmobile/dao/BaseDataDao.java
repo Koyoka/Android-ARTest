@@ -4,11 +4,17 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Message;
 
+import com.google.gson.Gson;
 import com.yrkj.mwrmobile.base.MWRBaseDBMng;
+import com.yrkj.mwrmobile.bean.InitWSBody;
+import com.yrkj.mwrmobile.bean.RequestBody;
 import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
 import com.yrkj.util.db.DBCondition;
+import com.yrkj.util.http.HttpMng;
 
 
 public class BaseDataDao {
@@ -55,6 +61,27 @@ public class BaseDataDao {
 		}
 		cursor.close();
 		return itemList;
+	}
+	
+	public static String RegistWS(Context c,String url,String wsCode,String accessKey,String secretKey,Handler handler){
+		
+		Message msg = new Message();
+		
+		InitWSBody mBody = new InitWSBody();
+		mBody.wsCode = wsCode;
+		mBody.accessKey = accessKey;
+		mBody.secretKey = secretKey;
+		
+		RequestBody rBody = new RequestBody();
+		rBody.action = "InitMWSSubmit";
+		rBody.value = mBody;
+		
+		Gson gson = new Gson();
+		String body =  gson.toJson(rBody);
+		
+		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
+		
+		return resultStr;
 	}
 	
 	

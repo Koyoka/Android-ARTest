@@ -1,8 +1,10 @@
 package com.yrkj.mwrmobile.util.scanner;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Base64;
 
 import com.dtr.zxing.activity.CaptureActivity;
 import com.google.zxing.Result;
@@ -49,7 +51,48 @@ public class MWRCaptureActivity extends CaptureActivity {
 	
 	private void doInitSystem(String result, Bundle bundle){
 		
-		
+//		BASE64Decoder.
+//		(new BASE64Decoder()).decodeBuffer(result)
+		try
+		{
+			String data = new String(Base64.decode(result,Base64.DEFAULT));
+			
+			String[] array = data.split(" ");
+			if(array.length != 4){
+				ToastUtil.show(this, "无效的初始化数据");
+				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+				return;
+			}
+			String tag = array[0].trim();
+			if(!tag.equals("MWR-INITMOBILE")){
+				ToastUtil.show(this, "无效的初始化数据");
+				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+				return;
+			}
+			
+			String wsCode = array[1].trim();
+			String ak = array[2].trim();
+			String sk = array[3].trim();
+			
+			Intent intent = new Intent();
+			bundle.putString("wsCode", wsCode);
+			bundle.putString("ak", ak);
+			bundle.putString("sk", sk);
+			intent.putExtras(bundle);
+			
+			Message msg = new Message();
+			msg.obj = intent;
+			msg.what = com.dtr.zxing.R.id.return_scan_result;
+			getHandler().sendMessageDelayed(msg, 500);
+			
+		}
+		catch(Exception ex)
+		{
+			ToastUtil.show(this, "无效的初始化数据");
+			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+			
+		}
+//		String result = "";
 	}
 	
 	private void doLogin(String result, Bundle bundle){

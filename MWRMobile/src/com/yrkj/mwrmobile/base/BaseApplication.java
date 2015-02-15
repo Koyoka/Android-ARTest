@@ -8,6 +8,8 @@ import android.app.Application;
 
 public class BaseApplication extends Application {
 	
+	public static final String Service_URL = "http://192.168.1.201/Services/MWMobileWSHandler.ashx";
+	
 	private static BaseApplication mApplication = null;
 	
 	public static BaseApplication getInstance(){

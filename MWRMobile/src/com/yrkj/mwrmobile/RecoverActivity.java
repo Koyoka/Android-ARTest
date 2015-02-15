@@ -13,6 +13,7 @@ import com.yrkj.mwrmobile.fragment.TxnDetailListFragment;
 import com.yrkj.mwrmobile.layout.ActivityRecover;
 import com.yrkj.mwrmobile.layout.FragmentHeaderLayout;
 import com.yrkj.mwrmobile.util.scanner.CaptureHelper;
+import com.yrkj.mwrmobile.util.scanner.MWRCaptureActivity;
 import com.yrkj.util.log.ToastUtil;
 
 public class RecoverActivity extends Activity implements OnClickListener, OnConfirmTxnListener {
@@ -65,7 +66,7 @@ public class RecoverActivity extends Activity implements OnClickListener, OnConf
 			finish();
 		}else if(v.getId() == FragmentHeaderLayout.BtnActionOpsId){
 			
-			CaptureHelper.ShowCapture(this);
+			CaptureHelper.ShowCapture(this,MWRCaptureActivity.SCANNERTYPE_KEY_RecoverCrate);
 		}
 			
 	}
