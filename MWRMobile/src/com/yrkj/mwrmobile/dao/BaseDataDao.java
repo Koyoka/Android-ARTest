@@ -9,12 +9,14 @@ import android.os.Message;
 
 import com.google.gson.Gson;
 import com.yrkj.mwrmobile.base.MWRBaseDBMng;
-import com.yrkj.mwrmobile.bean.InitWSBody;
-import com.yrkj.mwrmobile.bean.RequestBody;
 import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
+import com.yrkj.mwrmobile.bean.request.RequestBody;
+import com.yrkj.mwrmobile.bean.request.RequestInitWSBody;
+import com.yrkj.mwrmobile.bean.request.RequestStartCarRecoverBody;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.http.HttpMng;
+import com.yrkj.util.log.DLog;
 
 
 public class BaseDataDao {
@@ -63,12 +65,12 @@ public class BaseDataDao {
 		return itemList;
 	}
 	
-	public static String RegistWS(Context c,String url,String wsCode,String accessKey,String secretKey,Handler handler){
+	public static String RegistWS(Context c,String url,String wsCode,String accessKey,String secretKey){
 		
 		Message msg = new Message();
 		
-		InitWSBody mBody = new InitWSBody();
-		mBody.wsCode = wsCode;
+		RequestInitWSBody mBody = new RequestInitWSBody();
+		mBody.mwsCode = wsCode;
 		mBody.accessKey = accessKey;
 		mBody.secretKey = secretKey;
 		
@@ -80,9 +82,29 @@ public class BaseDataDao {
 		String body =  gson.toJson(rBody);
 		
 		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
-		
 		return resultStr;
 	}
 	
+	public static String StartCarRecover(Context c,String url,String wsCode,String accessKey,String secretKey,
+			String carCode,String driverCode,String inspectorCode){
+		Message msg = new Message();
+		
+		RequestStartCarRecoverBody mBody = new RequestStartCarRecoverBody();
+		mBody.mwsCode = wsCode;
+		mBody.carCode = carCode;
+		mBody.driverCode = driverCode;
+		mBody.inspectorCode = inspectorCode;
+		
+		RequestBody rBody = new RequestBody();
+		rBody.action = "StartCarRecoverShift";
+		rBody.value = mBody;
+		DLog.LOG("-----carCode " + carCode);
+		Gson gson = new Gson();
+		String body =  gson.toJson(rBody);
+		DLog.LOG("-----body " + body);
+		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
+		DLog.LOG("-----resultStr " + resultStr);
+		return resultStr;
+	}
 	
 }

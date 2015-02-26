@@ -377,7 +377,7 @@ public class HttpClientHelper {
 		
 	    HttpPost post = new HttpPost(uri);  
 		
-	    post.setEntity(new StringEntity(requestBody.toString()));
+	    post.setEntity(new StringEntity(requestBody.toString(),CHARSET));
 	    
 	    SignatureBuilder sb = new SignatureBuilder();
 	    post.setHeader(new BasicHeader("Date", org.apache.http.impl.cookie.DateUtils.formatDate(new java.util.Date()).replaceFirst("[+]00:00$", "")));
@@ -401,7 +401,7 @@ public class HttpClientHelper {
 		
 	    HttpPost post = new HttpPost(uri);  
 		
-	    post.setEntity(new StringEntity(requestBody.toString()));
+	    post.setEntity(new StringEntity(requestBody.toString(),CHARSET));
 	    
 	    SignatureBuilder sb = new SignatureBuilder();
 	    post.setHeader(new BasicHeader("Date", org.apache.http.impl.cookie.DateUtils.formatDate(new java.util.Date()).replaceFirst("[+]00:00$", "")));

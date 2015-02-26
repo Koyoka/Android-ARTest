@@ -8,7 +8,7 @@ import android.app.Application;
 
 public class BaseApplication extends Application {
 	
-	public static final String Service_URL = "http://192.168.1.201/Services/MWMobileWSHandler.ashx";
+	public static final String Service_URL = "http://192.168.1.104/Services/MWMobileWSHandler.ashx";
 	
 	private static BaseApplication mApplication = null;
 	
@@ -38,16 +38,16 @@ public class BaseApplication extends Application {
 		
 		
 		
-		String carCode, driver, driverName, inspector, inspectorName, wsCode;
-		//YG0001 YG0005 MWS001 ¶õA00001
-		carCode = "A00001";
-		driver = "YG0001";
-		driverName = "ÕÅ3-Ë¾»ú";
-		inspector = "YG0005";
-		inspectorName = "Àî3-¸ú³µ";
-		wsCode = "MWS001";
-		SysMng.saveWSInfo(wsCode,"HX###");
-		SysMng.saveTxnInfo(carCode,driver, driverName, inspector, inspectorName);
+//		String carCode, driver, driverName, inspector, inspectorName, wsCode;
+//		//YG0001 YG0005 MWS001 ï¿½ï¿½A00001
+//		carCode = "A00001";
+//		driver = "YG0001";
+//		driverName = "ï¿½ï¿½3-Ë¾ï¿½ï¿½";
+//		inspector = "YG0005";
+//		inspectorName = "ï¿½ï¿½3-ï¿½ï¿½";
+//		wsCode = "MWS001";
+//		SysMng.saveWSInfo(wsCode,"HX###");
+//		SysMng.saveTxnInfo(carCode,driver, driverName, inspector, inspectorName);
 //		SysMng.Launch(this);
 	}
 	

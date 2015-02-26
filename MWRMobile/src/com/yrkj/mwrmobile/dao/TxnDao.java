@@ -16,12 +16,12 @@ import com.yrkj.mwrmobile.base.MWRDBMng;
 import com.yrkj.mwrmobile.base.SysMng;
 import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
-import com.yrkj.mwrmobile.bean.RequestBody;
-import com.yrkj.mwrmobile.bean.RequestTxnBean;
 import com.yrkj.mwrmobile.bean.TxnDetailData;
 import com.yrkj.mwrmobile.bean.TxnHeaderData;
 import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
+import com.yrkj.mwrmobile.bean.request.RequestBody;
+import com.yrkj.mwrmobile.bean.request.RequestTxnBody;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.http.HttpMng;
@@ -171,7 +171,7 @@ public class TxnDao {
 		txnInfo = SysMng.getTxnInfo();
 		wsInfo = SysMng.getWSInfo();
 		
-		RequestTxnBean txn = new RequestTxnBean();
+		RequestTxnBody txn = new RequestTxnBody();
 		txn.txndetaillist = detailList;
 		txn.carcode = txnInfo.CarCode;
 		txn.drivercode = txnInfo.DriverCode;

@@ -23,29 +23,41 @@
            	android:background="@drawable/infomation_bg"
             android:layout_weight="1">
              <TextView
+                 android:id="@+id/txtWSCode"
                 style="@style/font_main_information"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/icon_txt_wscode"
                 android:drawablePadding="4dip"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:text="终端号：MWS001" />
+		        android:text="终端号：" />
               <TextView
+                  android:id="@+id/txtInspector"
                 style="@style/font_main_information"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/icon_txt_inspector"
                 android:drawablePadding="4dip"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:text="跟车员：张三" />
+		        android:text="跟车员：" />
+              <TextView
+                  android:id="@+id/txtDriver"
+                style="@style/font_main_information"
+                android:gravity="center_vertical"
+                android:drawableLeft="@drawable/icon_txt_inspector"
+                android:drawablePadding="4dip"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="驾驶员：" />
                <TextView
+                   android:id="@+id/txtCarCode"
                 style="@style/font_main_information"
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/icon_txt_carcode"
                 android:drawablePadding="4dip"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:text="车辆号：00000" />
+		        android:text="车辆号：" />
                <TextView
                 style="@style/font_main_information"
                 android:gravity="center_vertical"

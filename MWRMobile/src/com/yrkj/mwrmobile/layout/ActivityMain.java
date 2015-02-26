@@ -10,6 +10,10 @@ import com.yrkj.mwrmobile.R;
 
 public class ActivityMain extends BaseLayout{
 
+    public static final int TxtWSCodeId = R.id.txtWSCode;
+    public static final int TxtInspectorId = R.id.txtInspector;
+    public static final int TxtDriverId = R.id.txtDriver;
+    public static final int TxtCarCodeId = R.id.txtCarCode;
     public static final int BtnTestId = R.id.btnTest;
     public static final int BtnRecoverCrateId = R.id.btnRecoverCrate;
     public static final int BtnRecoverToInventroyId = R.id.btnRecoverToInventroy;
@@ -17,6 +21,10 @@ public class ActivityMain extends BaseLayout{
     public static final int BtnSettingId = R.id.btnSetting;
     public static final int BtnLogoutId = R.id.btnLogout;
 
+    protected android.widget.TextView mTxtWSCode;
+    protected android.widget.TextView mTxtInspector;
+    protected android.widget.TextView mTxtDriver;
+    protected android.widget.TextView mTxtCarCode;
     protected android.widget.Button mBtnTest;
     protected android.widget.RelativeLayout mBtnRecoverCrate;
     protected android.widget.RelativeLayout mBtnRecoverToInventroy;
@@ -28,6 +36,10 @@ public class ActivityMain extends BaseLayout{
 
     public ActivityMain(Activity acty){
         mCurActy = acty;
+        mTxtWSCode = (android.widget.TextView) acty.findViewById(TxtWSCodeId);
+        mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
+        mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
+        mTxtCarCode = (android.widget.TextView) acty.findViewById(TxtCarCodeId);
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
         mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
         mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
@@ -37,6 +49,10 @@ public class ActivityMain extends BaseLayout{
     }   
 
     public ActivityMain(android.view.View acty){
+        mTxtWSCode = (android.widget.TextView) acty.findViewById(TxtWSCodeId);
+        mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
+        mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
+        mTxtCarCode = (android.widget.TextView) acty.findViewById(TxtCarCodeId);
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
         mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
         mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
@@ -44,6 +60,18 @@ public class ActivityMain extends BaseLayout{
         mBtnSetting = (android.widget.RelativeLayout) acty.findViewById(BtnSettingId);
         mBtnLogout = (android.widget.RelativeLayout) acty.findViewById(BtnLogoutId);
     }   
+    public android.widget.TextView getTxtWSCode() {
+        return mTxtWSCode;
+    }
+    public android.widget.TextView getTxtInspector() {
+        return mTxtInspector;
+    }
+    public android.widget.TextView getTxtDriver() {
+        return mTxtDriver;
+    }
+    public android.widget.TextView getTxtCarCode() {
+        return mTxtCarCode;
+    }
     public android.widget.Button getBtnTest() {
         return mBtnTest;
     }
@@ -78,6 +106,18 @@ public class ActivityMain extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
+                case TxtWSCodeId:
+                    setViewData(adp,getTxtWSCode(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtInspectorId:
+                    setViewData(adp,getTxtInspector(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtDriverId:
+                    setViewData(adp,getTxtDriver(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtCarCodeId:
+                    setViewData(adp,getTxtCarCode(),data,joinData.formatString,joinData.data);
+                    break;
                 case BtnTestId:
                     setViewData(adp,getBtnTest(),data,joinData.formatString,joinData.data);
                     break;
@@ -109,6 +149,18 @@ public class ActivityMain extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
+                case TxtWSCodeId:
+                    setViewData(adp,getTxtWSCode(),data,"",path);
+                    break;
+                case TxtInspectorId:
+                    setViewData(adp,getTxtInspector(),data,"",path);
+                    break;
+                case TxtDriverId:
+                    setViewData(adp,getTxtDriver(),data,"",path);
+                    break;
+                case TxtCarCodeId:
+                    setViewData(adp,getTxtCarCode(),data,"",path);
+                    break;
                 case BtnTestId:
                     setViewData(adp,getBtnTest(),data,"",path);
                     break;

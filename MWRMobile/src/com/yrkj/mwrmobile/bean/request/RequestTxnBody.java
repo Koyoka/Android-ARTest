@@ -1,10 +1,11 @@
-package com.yrkj.mwrmobile.bean;
+package com.yrkj.mwrmobile.bean.request;
 
 import java.util.ArrayList;
 
 import com.yrkj.mwrmobile.DemoMWTxnDetail;
+import com.yrkj.mwrmobile.bean.TxnDetailData;
 
-public class RequestTxnBean {
+public class RequestTxnBody {
 	  public String drvier = "";
 	  public String drivercode = "";
 	  public String inspector = "";

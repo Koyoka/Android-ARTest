@@ -43,7 +43,7 @@ public class RecoverActivity extends Activity implements OnClickListener, OnConf
 			View v = this.findViewById(R.id.fmtHeader);
 			mHeaderLayout = new FragmentHeaderLayout(v);
 		
-			mHeaderLayout.getTxtActionBarTitle().setText("·ÏÁÏ»ØÊÕ");
+			mHeaderLayout.getTxtActionBarTitle().setText("è´§ç®±å›žæ”¶");
 			
 			mHeaderLayout.getBtnActionBarBack().setOnClickListener(this);
 			mHeaderLayout.getBtnActionOps().setOnClickListener(this);

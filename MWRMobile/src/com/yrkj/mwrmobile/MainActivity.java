@@ -1,22 +1,22 @@
 package com.yrkj.mwrmobile;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.AsyncTask.Status;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.yrkj.mwrmobile.bean.TxnDetailData;
+import com.yrkj.mwrmobile.base.BaseApplication;
+import com.yrkj.mwrmobile.base.SysMng;
+import com.yrkj.mwrmobile.base.TxnInfo;
+import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.ActivityMain;
-import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
@@ -43,6 +43,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLayout.getBtnRecoverToDestroy().setOnClickListener(this);
 		mLayout.getBtnSetting().setOnClickListener(this);
 		mLayout.getBtnRecoverToInventroy().setOnClickListener(this);
+		
+		WSInfo wsInfo = SysMng.getWSInfo();
+		TxnInfo txnInfo = SysMng.getTxnInfo();
+		mLayout.getTxtWSCode().setText(mLayout.getTxtWSCode().getText()+wsInfo.WSCode);
+		mLayout.getTxtDriver().setText(mLayout.getTxtDriver().getText()+txnInfo.DriverName);
+		mLayout.getTxtInspector().setText(mLayout.getTxtInspector().getText() + txnInfo.InspectroName);
+		mLayout.getTxtCarCode().setText(mLayout.getTxtCarCode().getText() + txnInfo.CarCode);
 		
 //		ArrayList<TxnDetailData> ds =
 //		 TxnDao.getTxnDetail(this);
@@ -97,7 +104,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			mTask.execute();
 		}
 	}
-	class SendTask extends AsyncTask<Object, Object, Boolean>{
+	class SendTask extends AsyncTask<Object, Object, String>{
 
 		Handler handler = new Handler(){
 			@Override
@@ -111,16 +118,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		protected void onPreExecute() {
 			// TODO Auto-generated method stub
 			super.onPreExecute();
-//			DialogHelper.getProgressDialogInstance().show(mContext, "Êý¾ÝÌá½»ÖÐ");
+//			DialogHelper.getProgressDialogInstance().show(mContext, "ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½");
 		}
 		
 		@Override
-		protected Boolean doInBackground(Object... params) {
+		protected String doInBackground(Object... params) {
 			// TODO Auto-generated method stub
-			
-			String url = "http://192.168.1.201/Services/MWMobileWSHandler.ashx";
-			String accessKey = "9e15f4f7d6fdc178eeab8caf79d863054bdfea78";
-			String secretKey = "ae46214f1ee0269f7eb5126895ff166f02ede4f1";
+			WSInfo ws = SysMng.getWSInfo();
+			String url = BaseApplication.Service_URL;
+			String accessKey = ws.AccessKey;//"9e15f4f7d6fdc178eeab8caf79d863054bdfea78";
+			String secretKey = ws.SecretKey;//"ae46214f1ee0269f7eb5126895ff166f02ede4f1";
 			
 			String s = TxnDao.sendTxnToInventory(mContext, url, accessKey, secretKey, handler);
 //			ToastUtil.show(mContext,"request result : "+s);
@@ -129,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			return null;
 		}
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 //			if(result){
 ////				AssessDBCtrl

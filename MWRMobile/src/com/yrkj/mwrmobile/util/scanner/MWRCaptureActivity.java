@@ -1,6 +1,8 @@
 package com.yrkj.mwrmobile.util.scanner;
 
 
+import java.io.UnsupportedEncodingException;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -9,6 +11,8 @@ import android.util.Base64;
 import com.dtr.zxing.activity.CaptureActivity;
 import com.google.zxing.Result;
 import com.yrkj.mwrmobile.dao.TxnMng;
+import com.yrkj.util.basedao.common.ComFn;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class MWRCaptureActivity extends CaptureActivity {
@@ -59,13 +63,13 @@ public class MWRCaptureActivity extends CaptureActivity {
 			
 			String[] array = data.split(" ");
 			if(array.length != 4){
-				ToastUtil.show(this, "无效的初始化数据");
+				ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
 				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 				return;
 			}
 			String tag = array[0].trim();
 			if(!tag.equals("MWR-INITMOBILE")){
-				ToastUtil.show(this, "无效的初始化数据");
+				ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
 				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 				return;
 			}
@@ -88,7 +92,7 @@ public class MWRCaptureActivity extends CaptureActivity {
 		}
 		catch(Exception ex)
 		{
-			ToastUtil.show(this, "无效的初始化数据");
+			ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
 			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 			
 		}
@@ -96,7 +100,45 @@ public class MWRCaptureActivity extends CaptureActivity {
 	}
 	
 	private void doLogin(String result, Bundle bundle){
+		String data = "";
+		data = ComFn.DecryptStringBy64_GB2312(result);
+		if(data==null){
+			ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
+			return;
+		}
 		
+		
+		DLog.LOG("=========data "+data);
+		DLog.LOG("=========result "+result);
+		String[] array = data.split(" ");
+		if(array.length != 4){
+			ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
+			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+			return;
+		}// "MWR-STARTSHIFT {0} {1} {2}";
+		String tag = array[0].trim();
+		if(!tag.equals("MWR-STARTSHIFT")){
+			ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
+			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+			return;
+		}
+		
+		String carCode, driverCode, inspectorCode;
+		
+		carCode = array[1].trim();
+		driverCode = array[2].trim();
+		inspectorCode = array[3].trim();
+		
+		Intent intent = new Intent();
+		bundle.putString("carCode", carCode);
+		bundle.putString("driverCode", driverCode);
+		bundle.putString("inspectorCode", inspectorCode);
+		intent.putExtras(bundle);
+		
+		Message msg = new Message();
+		msg.obj = intent;
+		msg.what = com.dtr.zxing.R.id.return_scan_result;
+		getHandler().sendMessageDelayed(msg, 500);
 	}
 	
 	private void doRecoverCrate(String result, Bundle bundle){
@@ -112,7 +154,7 @@ public class MWRCaptureActivity extends CaptureActivity {
 			getHandler().sendMessageDelayed(msg, 500);
 			
 		}else{
-			ToastUtil.show(this, "无效的货箱编号");
+			ToastUtil.show(this, "鏃犳晥鐨勬潯褰㈢爜鏍煎紡");
 			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
 			
 		}

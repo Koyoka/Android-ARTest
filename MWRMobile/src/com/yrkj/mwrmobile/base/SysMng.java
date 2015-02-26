@@ -30,6 +30,8 @@ public class SysMng {
 	private final static String PREF_KEY_Inspector = "inspector";
 	private final static String PREF_Key_InspectorName = "inspectorname";
 	private final static String PREF_KEY_WSCode = "wscode";
+	private final static String PREF_KEY_ASSESSKEY = "assesskey";
+	private final static String PREF_KEY_SECRETKEY = "secretkey";
 	private final static String PREF_KEY_CrateMask = "HX###";
 	private final static String PREF_KEY_CarCode = "carCode";
 	
@@ -41,12 +43,14 @@ public class SysMng {
 		return mPrefs;
 	}
 	
-	public static void saveWSInfo(String wsCode,String crateMask){
+	public static void saveWSInfo(String wsCode,String accessKey,String secretKey,String crateMask){
 		SharedPreferences.Editor editor = getPrefs().edit();
 		
 		editor.putString(PREF_KEY_CrateMask, crateMask);
-		
 		editor.putString(PREF_KEY_WSCode, wsCode);
+		editor.putString(PREF_KEY_ASSESSKEY, accessKey);
+		editor.putString(PREF_KEY_SECRETKEY, secretKey);
+		
 		editor.commit();
 	}
 	
@@ -68,12 +72,15 @@ public class SysMng {
 		WSInfo txnInfo = new WSInfo();
 		txnInfo.CrateMask = getPrefs().getString(PREF_KEY_CrateMask, "");
 		txnInfo.WSCode = getPrefs().getString(PREF_KEY_WSCode, "");
+		txnInfo.AccessKey = getPrefs().getString(PREF_KEY_ASSESSKEY, "");
+		txnInfo.SecretKey = getPrefs().getString(PREF_KEY_SECRETKEY, "");
 		
 		return txnInfo;
 	}
 	public static TxnInfo getTxnInfo(){
 		
 		TxnInfo txninfo = new TxnInfo();
+		txninfo.CarCode =  getPrefs().getString(PREF_KEY_CarCode, "");
 		txninfo.DriverCode = getPrefs().getString(PREF_KEY_Driver, "");
 		txninfo.DriverName = getPrefs().getString(PREF_KEY_DriverName, "");
 		txninfo.InspectorCode = getPrefs().getString(PREF_KEY_Inspector, "");
