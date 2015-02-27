@@ -4,10 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_1"
-    android:paddingTop="10dip"
     android:paddingBottom="25dip"
     tools:context="${packageName}.${activityClass}" >
 
+   
+        
+      <TextView 
+          android:padding="2dip"
+		android:gravity="right"
+          android:id="@+id/txtNetState"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="#ffffff"
+          android:text=""/>
+   
     <LinearLayout 
         android:orientation="horizontal"
         android:layout_width="match_parent"

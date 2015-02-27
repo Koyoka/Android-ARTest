@@ -9,5 +9,6 @@
     <string name="spinner_vendor">请选择姻缘</string>
     <string name="spinner_waster">请选择废料类型</string>
     <string name="title_activity_launch">医废回收</string>
+    <string name="title_activity_function">FunctionActivity</string>
 
 </resources>

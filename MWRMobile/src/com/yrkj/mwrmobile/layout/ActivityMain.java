@@ -10,6 +10,7 @@ import com.yrkj.mwrmobile.R;
 
 public class ActivityMain extends BaseLayout{
 
+    public static final int TxtNetStateId = R.id.txtNetState;
     public static final int TxtWSCodeId = R.id.txtWSCode;
     public static final int TxtInspectorId = R.id.txtInspector;
     public static final int TxtDriverId = R.id.txtDriver;
@@ -23,6 +24,7 @@ public class ActivityMain extends BaseLayout{
     public static final int BtnSettingId = R.id.btnSetting;
     public static final int BtnLogoutId = R.id.btnLogout;
 
+    protected android.widget.TextView mTxtNetState;
     protected android.widget.TextView mTxtWSCode;
     protected android.widget.TextView mTxtInspector;
     protected android.widget.TextView mTxtDriver;
@@ -40,6 +42,7 @@ public class ActivityMain extends BaseLayout{
 
     public ActivityMain(Activity acty){
         mCurActy = acty;
+        mTxtNetState = (android.widget.TextView) acty.findViewById(TxtNetStateId);
         mTxtWSCode = (android.widget.TextView) acty.findViewById(TxtWSCodeId);
         mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
         mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
@@ -55,6 +58,7 @@ public class ActivityMain extends BaseLayout{
     }   
 
     public ActivityMain(android.view.View acty){
+        mTxtNetState = (android.widget.TextView) acty.findViewById(TxtNetStateId);
         mTxtWSCode = (android.widget.TextView) acty.findViewById(TxtWSCodeId);
         mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
         mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
@@ -68,6 +72,9 @@ public class ActivityMain extends BaseLayout{
         mBtnSetting = (android.widget.RelativeLayout) acty.findViewById(BtnSettingId);
         mBtnLogout = (android.widget.RelativeLayout) acty.findViewById(BtnLogoutId);
     }   
+    public android.widget.TextView getTxtNetState() {
+        return mTxtNetState;
+    }
     public android.widget.TextView getTxtWSCode() {
         return mTxtWSCode;
     }
@@ -120,6 +127,9 @@ public class ActivityMain extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
+                case TxtNetStateId:
+                    setViewData(adp,getTxtNetState(),data,joinData.formatString,joinData.data);
+                    break;
                 case TxtWSCodeId:
                     setViewData(adp,getTxtWSCode(),data,joinData.formatString,joinData.data);
                     break;
@@ -169,6 +179,9 @@ public class ActivityMain extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
+                case TxtNetStateId:
+                    setViewData(adp,getTxtNetState(),data,"",path);
+                    break;
                 case TxtWSCodeId:
                     setViewData(adp,getTxtWSCode(),data,"",path);
                     break;

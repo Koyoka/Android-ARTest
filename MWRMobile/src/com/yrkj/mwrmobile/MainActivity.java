@@ -17,6 +17,9 @@ import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.ActivityMain;
+import com.yrkj.mwrmobile.service.BackWorkSerive;
+import com.yrkj.mwrmobile.service.CommonBroadcast;
+import com.yrkj.mwrmobile.service.CommonBroadcast.BroadcastListener;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
@@ -35,6 +38,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		initData();
 		initActy();
+	}
+	
+	CommonBroadcast b1 = null;
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if(b1!=null){
+			 unregisterReceiver(b1);  
+		}
+		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+		stopService(intent);
 	}
 	
 	private void initData(){
@@ -63,7 +78,27 @@ public class MainActivity extends Activity implements OnClickListener {
 		mLayout.getTxtInspector().setText(mLayout.getTxtInspector().getText() + txnInfo.InspectroName);
 		mLayout.getTxtCarCode().setText(mLayout.getTxtCarCode().getText() + txnInfo.CarCode);
 		
-		
+		b1 = CommonBroadcast.regist(this, new BroadcastListener() {
+			
+			@Override
+			public void onListener(Bundle extras) {
+				int state = extras.getInt(BackWorkSerive.INTENT_KEY_APNType);
+				if(state == 1){
+//					mLayout.getBtnScan().setEnabled(true);
+					mLayout.getTxtNetState().setText("在线");
+					mLayout.getBtnRecoverToInventroy().setEnabled(true);
+					mLayout.getBtnRecoverToDestroy().setEnabled(true);
+				}else{
+					mLayout.getBtnRecoverToInventroy().setEnabled(false);
+					mLayout.getBtnRecoverToDestroy().setEnabled(false);
+//					mLayout.getBtnScan().setEnabled(false);
+					mLayout.getTxtNetState().setText("离线");
+				}
+				
+			}
+		});
+		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+    	startService(intent);
 		
 	}
 	
@@ -134,7 +169,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	};
 	
-	class SendTask extends AsyncTask<Object, Object, String>{
+	class SendTask extends AsyncTask<Object, Object, Boolean>{
 		int mSendType = 0;
 		public SendTask(int sendType){
 			mSendType = sendType;
@@ -149,7 +184,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		
 		@Override
-		protected String doInBackground(Object... params) {
+		protected Boolean doInBackground(Object... params) {
 			// TODO Auto-generated method stub
 			WSInfo ws = SysMng.getWSInfo();
 			String url = BaseApplication.Service_URL;
@@ -160,17 +195,20 @@ public class MainActivity extends Activity implements OnClickListener {
 //			ToastUtil.show(mContext,"request result : "+s);
 //			DLog.LOG(s+" main task");
 			
-			return null;
+			return result;
 		}
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
 //			if(result){
 ////				AssessDBCtrl
 ////				.deletAssessTaskHeaderById(getActivity(), mLocTaskHeaderId);
 ////				reBind();
 //			}
-			
+			if(result){
+				mLayout.getTxtTotalCount().setText("总数量：0");
+				mLayout.getTxtTotalWeight().setText("总重量：0 kg");
+			}
 			DialogHelper.getProgressDialogInstance().close();
 			
 		}

@@ -16,12 +16,13 @@ import com.yrkj.mwrmobile.base.SysMng;
 import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.bean.response.ResponseBody;
-import com.yrkj.mwrmobile.bean.response.ResponseInitMWSSubmitBody;
 import com.yrkj.mwrmobile.bean.response.ResponseStartCarRecoverShiftBody;
 import com.yrkj.mwrmobile.dao.BaseDataDao;
 import com.yrkj.mwrmobile.dao.ResJsonHelper;
-import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.ActivityLaunch;
+import com.yrkj.mwrmobile.service.BackWorkSerive;
+import com.yrkj.mwrmobile.service.CommonBroadcast;
+import com.yrkj.mwrmobile.service.CommonBroadcast.BroadcastListener;
 import com.yrkj.mwrmobile.util.scanner.CaptureHelper;
 import com.yrkj.mwrmobile.util.scanner.MWRCaptureActivity;
 import com.yrkj.util.dialog.DialogHelper;
@@ -45,15 +46,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.activity_launch);
-		initData();
-		initActy();
-	}
-	
-	private void initData(){
 		mContext = this;
-		
 		WSInfo ws = SysMng.getWSInfo();
 		
 		if(ws.WSCode.length() == 0
@@ -75,8 +68,29 @@ public class LaunchActivity extends Activity implements OnClickListener {
 			finish();
 		}
 		
-//		DLog.LOG("mHasBeenInit " + mHasBeenInit);
+		setContentView(R.layout.activity_launch);
+		
+		
+//		initData();
+		initActy();
 	}
+	CommonBroadcast b1 = null;
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if(b1!=null){
+			 unregisterReceiver(b1);  
+		}
+		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+//		stopService(intent);
+
+	}
+	
+//	private void initData(){
+//		
+////		DLog.LOG("mHasBeenInit " + mHasBeenInit);
+//	}
 	
 	private void initActy(){
 		mLayout = new ActivityLaunch(this);
@@ -94,6 +108,23 @@ public class LaunchActivity extends Activity implements OnClickListener {
 			info = "系统没有初始化，请扫描注册";
 		}
 		mLayout.getTxtLoginInfo().setText(title+"\n"+info);
+		b1 = CommonBroadcast.regist(this, new BroadcastListener() {
+			
+			@Override
+			public void onListener(Bundle extras) {
+				int state = extras.getInt(BackWorkSerive.INTENT_KEY_APNType);
+				if(state == 1){
+					mLayout.getBtnScan().setEnabled(true);
+					mLayout.getTxtNetState().setText("在线");
+				}else{
+					mLayout.getBtnScan().setEnabled(false);
+					mLayout.getTxtNetState().setText("离线");
+				}
+				
+			}
+		});
+		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+    	startService(intent);
 	}
 
 	@Override

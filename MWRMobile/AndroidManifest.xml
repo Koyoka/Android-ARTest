@@ -35,11 +35,14 @@
         <activity
             android:name="com.yrkj.mwrmobile.MainActivity"
             android:label="@string/app_name" >
-           <!--  <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name="com.dtr.zxing.activity.CaptureActivity"
@@ -65,12 +68,20 @@
         <activity
             android:name="com.yrkj.mwrmobile.LaunchActivity"
             android:label="@string/title_activity_launch" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.yrkj.mwrmobile.FunctionActivity"
+            android:label="@string/title_activity_function" >
+        </activity>
+        
+        <service
+            android:name="com.yrkj.mwrmobile.service.BackWorkSerive"
+            android:exported="true" />
     </application>
 
 </manifest>
