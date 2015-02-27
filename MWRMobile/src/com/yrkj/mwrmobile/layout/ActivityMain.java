@@ -14,6 +14,8 @@ public class ActivityMain extends BaseLayout{
     public static final int TxtInspectorId = R.id.txtInspector;
     public static final int TxtDriverId = R.id.txtDriver;
     public static final int TxtCarCodeId = R.id.txtCarCode;
+    public static final int TxtTotalCountId = R.id.txtTotalCount;
+    public static final int TxtTotalWeightId = R.id.txtTotalWeight;
     public static final int BtnTestId = R.id.btnTest;
     public static final int BtnRecoverCrateId = R.id.btnRecoverCrate;
     public static final int BtnRecoverToInventroyId = R.id.btnRecoverToInventroy;
@@ -25,6 +27,8 @@ public class ActivityMain extends BaseLayout{
     protected android.widget.TextView mTxtInspector;
     protected android.widget.TextView mTxtDriver;
     protected android.widget.TextView mTxtCarCode;
+    protected android.widget.TextView mTxtTotalCount;
+    protected android.widget.TextView mTxtTotalWeight;
     protected android.widget.Button mBtnTest;
     protected android.widget.RelativeLayout mBtnRecoverCrate;
     protected android.widget.RelativeLayout mBtnRecoverToInventroy;
@@ -40,6 +44,8 @@ public class ActivityMain extends BaseLayout{
         mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
         mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
         mTxtCarCode = (android.widget.TextView) acty.findViewById(TxtCarCodeId);
+        mTxtTotalCount = (android.widget.TextView) acty.findViewById(TxtTotalCountId);
+        mTxtTotalWeight = (android.widget.TextView) acty.findViewById(TxtTotalWeightId);
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
         mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
         mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
@@ -53,6 +59,8 @@ public class ActivityMain extends BaseLayout{
         mTxtInspector = (android.widget.TextView) acty.findViewById(TxtInspectorId);
         mTxtDriver = (android.widget.TextView) acty.findViewById(TxtDriverId);
         mTxtCarCode = (android.widget.TextView) acty.findViewById(TxtCarCodeId);
+        mTxtTotalCount = (android.widget.TextView) acty.findViewById(TxtTotalCountId);
+        mTxtTotalWeight = (android.widget.TextView) acty.findViewById(TxtTotalWeightId);
         mBtnTest = (android.widget.Button) acty.findViewById(BtnTestId);
         mBtnRecoverCrate = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverCrateId);
         mBtnRecoverToInventroy = (android.widget.RelativeLayout) acty.findViewById(BtnRecoverToInventroyId);
@@ -71,6 +79,12 @@ public class ActivityMain extends BaseLayout{
     }
     public android.widget.TextView getTxtCarCode() {
         return mTxtCarCode;
+    }
+    public android.widget.TextView getTxtTotalCount() {
+        return mTxtTotalCount;
+    }
+    public android.widget.TextView getTxtTotalWeight() {
+        return mTxtTotalWeight;
     }
     public android.widget.Button getBtnTest() {
         return mBtnTest;
@@ -118,6 +132,12 @@ public class ActivityMain extends BaseLayout{
                 case TxtCarCodeId:
                     setViewData(adp,getTxtCarCode(),data,joinData.formatString,joinData.data);
                     break;
+                case TxtTotalCountId:
+                    setViewData(adp,getTxtTotalCount(),data,joinData.formatString,joinData.data);
+                    break;
+                case TxtTotalWeightId:
+                    setViewData(adp,getTxtTotalWeight(),data,joinData.formatString,joinData.data);
+                    break;
                 case BtnTestId:
                     setViewData(adp,getBtnTest(),data,joinData.formatString,joinData.data);
                     break;
@@ -160,6 +180,12 @@ public class ActivityMain extends BaseLayout{
                     break;
                 case TxtCarCodeId:
                     setViewData(adp,getTxtCarCode(),data,"",path);
+                    break;
+                case TxtTotalCountId:
+                    setViewData(adp,getTxtTotalCount(),data,"",path);
+                    break;
+                case TxtTotalWeightId:
+                    setViewData(adp,getTxtTotalWeight(),data,"",path);
                     break;
                 case BtnTestId:
                     setViewData(adp,getBtnTest(),data,"",path);

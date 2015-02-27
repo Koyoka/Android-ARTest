@@ -21,13 +21,14 @@ import java.lang.reflect.Field;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -114,6 +115,17 @@ public /*final*/ class CaptureActivity extends Activity implements SurfaceHolder
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.RESTART);
 		scanLine.startAnimation(animation);
+		
+		View v = getView();
+		if(v != null){
+			ViewGroup vg =
+			((ViewGroup)findViewById(R.id.capture_container));
+			vg.addView(v);
+		}
+	}
+	
+	protected View getView(){
+		return null;
 	}
 
 	@Override

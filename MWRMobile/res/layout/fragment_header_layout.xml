@@ -3,25 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#11000000"
+    android:background="@drawable/titlebar_bg"
     android:gravity="center_vertical" >
     <Button 
         android:id="@+id/btnActionBarBack"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="返回"/>
-
+        android:layout_height="48dip"
+        android:textColor="#ffffff"
+        android:text="返回"
+        android:background="@drawable/btn_todestroy_x" />
+	
     <TextView 
         android:layout_weight="1"
         android:id="@+id/txtActionBarTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:textSize="26sp"
+        android:textColor="#ffffff"
         android:text="title"/>
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/titlebar_line"/>
     <Button 
         android:id="@+id/btnActionOps"
+        android:background="@null"
+	android:textColor="#ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="更多"
+        android:text="扫描"
         />
 </LinearLayout>

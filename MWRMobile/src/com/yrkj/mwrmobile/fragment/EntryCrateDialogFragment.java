@@ -115,14 +115,14 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 			mVendorList = 
 					BaseDataDao.getVendorList(getActivity());
 			VendorData vendor = new VendorData();
-			vendor.Vendor = "∆‰À˚";
+			vendor.Vendor = "ÂÖ∂‰ªñ";
 			vendor.VendorCode = "-1";
 			mVendorList.add(vendor);
 			
 			mWasterList = 
 					BaseDataDao.getWasterList(getActivity());
 			WasteCategoryData waste = new WasteCategoryData();
-			waste.Waste = "∆‰À˚";
+			waste.Waste = "ÂÖ∂‰ªñ";
 			waste.WasteCode = "-1";
 			mWasterList.add(waste);
 			
@@ -161,7 +161,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 		                new OnItemSelectedListener() {
 		                    public void onItemSelected(
 		                            AdapterView<?> parent, View view, int position, long id) {
-		                    	ToastUtil.show(getActivity(), mVendorList.get(position).Vendor);
+//		                    	ToastUtil.show(getActivity(), mVendorList.get(position).Vendor);
 		                    	mTxnDetailData.Vendor = mVendorList.get(position).Vendor;
 		                    	mTxnDetailData.VendorCode = mVendorList.get(position).VendorCode;
 		                    	mCurVendor = mVendorList.get(position);	
@@ -183,7 +183,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 		                new OnItemSelectedListener() {
 		                    public void onItemSelected(
 		                            AdapterView<?> parent, View view, int position, long id) {
-		                    	ToastUtil.show(getActivity(), mWasterList.get(position).Waste);
+//		                    	ToastUtil.show(getActivity(), mWasterList.get(position).Waste);
 		                    	mTxnDetailData.Waste = mWasterList.get(position).Waste;
 		                    	mTxnDetailData.WasteCode = mWasterList.get(position).WasteCode;
 		                    	mCurWaste = mWasterList.get(position);
@@ -201,11 +201,10 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 		if(v.getId() == FragmentEntryCrateDialog.BtnCloseDialogId){
 			dismiss();
 		}else if(v.getId() == FragmentEntryCrateDialog.BtnConfirmDialogId){
-			ToastUtil.show(this.getActivity(), "confirm");
 			String weight = mLayout.getTxtWeight().getText().toString();
 			if(weight.trim().length() == 0
 					|| weight.equals("0")){
-				ToastUtil.show(getActivity(), "«Î ‰»Îªıœ‰≥∆÷ÿ÷ÿ¡ø°£");
+				ToastUtil.show(getActivity(), "ËØ∑ËæìÂÖ•Ë¥ßÁÆ±Áß∞ÈáçÈáçÈáè„ÄÇ");
 				return;
 			}
 			
@@ -214,7 +213,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 //			}
 			
 			if(mCurVendor == null || mCurWaste == null){
-				ToastUtil.show(getActivity(), "«Î—°‘Ò“Ω‘∫∫Õ∑œ¡œ¿‡–Õ°£");
+				ToastUtil.show(getActivity(), "ËØ∑ÈÄâÊã©ÂåªÈô¢ÂíåÂ∫üÊñôÁ±ªÂûã„ÄÇ");
 			}
 			
 			mTxnDetailData.SubWeight = weight;
@@ -245,5 +244,54 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 		
 	}
 	
+//	@Override
+//	public void onClick(View v) {
+//		if(v.getId() == FragmentEntryCrateDialog.BtnCloseDialogId){
+//			dismiss();
+//		}else if(v.getId() == FragmentEntryCrateDialog.BtnConfirmDialogId){
+//			ToastUtil.show(this.getActivity(), "confirm");
+//			String weight = mLayout.getTxtWeight().getText().toString();
+//			if(weight.trim().length() == 0
+//					|| weight.equals("0")){
+//				ToastUtil.show(getActivity(), "ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ");
+//				return;
+//			}
+//			
+////			if(true){
+////				return;
+////			}
+//			
+//			if(mCurVendor == null || mCurWaste == null){
+//				ToastUtil.show(getActivity(), "ÔøΩÔøΩ—°ÔøΩÔøΩ“Ω‘∫ÔøΩÕ∑ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÕ°ÔøΩ");
+//			}
+//			
+//			mTxnDetailData.SubWeight = weight;
+//			
+//			Handler handler = new Handler(){
+//				
+//				@Override
+//				public void handleMessage(Message msg) {
+//					if(msg.what == TxnDao.Txn_failed){
+//						ToastUtil.show(getActivity(), msg.obj.toString());
+//					}
+//					
+//				}
+//			};
+//			
+//			long result = TxnDao.AddTxn(getActivity(), mTxnDetailData.CrateCode, 
+//					mTxnDetailData.SubWeight, 
+//					mCurVendor, mCurWaste,handler);
+//			
+//			if(result !=0){
+//				if(mOnConfirmTxnListener != null){
+//					mOnConfirmTxnListener.onConfirmTxn();
+//				}
+//			}
+//			dismiss();
+//			
+//		}
+//		
+//	}
+//	
 	
 }

@@ -1,11 +1,10 @@
 package com.yrkj.mwrmobile.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Handler;
@@ -22,6 +21,7 @@ import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
 import com.yrkj.mwrmobile.bean.request.RequestBody;
 import com.yrkj.mwrmobile.bean.request.RequestTxnBody;
+import com.yrkj.mwrmobile.bean.response.ResponseBody;
 import com.yrkj.util.date.DateHelper;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.http.HttpMng;
@@ -54,6 +54,16 @@ public class TxnDao {
 	
 	public final static int Txn_Sucess = 0;
 	public final static int Txn_failed = 1;
+	public final static int SendTxn_To_Inventory = 1;
+	public final static int SendTxn_To_Destroy = 2;
+	
+	public static void delTxnDetail(Context c,String txnDetailId){
+		MWRDBMng dbMng = new MWRDBMng(c);
+		dbMng.open();
+		String condition = TxnDetailData.Col_TxnDetailId + " = '"+txnDetailId+"'";
+		dbMng.delete(TxnDetailData.TblName, condition);
+		dbMng.close();
+	}
 	
 	public static long AddTxn(Context c,String crateCode,String weight,VendorData vendor,WasteCategoryData waster,Handler handler){
 		MWRDBMng dbMng = new MWRDBMng(c);
@@ -79,7 +89,7 @@ public class TxnDao {
 			
 			if(validTxnDetail != null){
 				msg.what = Txn_failed;
-				msg.obj = "µ±Ç°»õÏäÒÑÌí¼Ó¡£";
+				msg.obj = "å½“å‰è´§ç®±å·²æ·»åŠ ã€‚";
 				handler.sendMessage(msg);
 				return 0;
 			}
@@ -111,7 +121,7 @@ public class TxnDao {
 		// add txn detail
 		if(curHeader == null){
 			msg.what = Txn_failed;
-			msg.obj = "½»Ò×ĞÅÏ¢Éú³É´íÎó¡£";
+			msg.obj = "äº¤æ˜“ä¿¡æ¯ç”Ÿæˆé”™è¯¯ã€‚";
 			handler.sendMessage(msg);
 			return 0;
 		}else{
@@ -137,9 +147,24 @@ public class TxnDao {
 		
 	}
 
-	public static String sendTxnToInventory(Context c,String url,String accessKey,String secretKey,Handler handler){
+	public static boolean sendTxn(Context c,String url,String accessKey,String secretKey
+			,int sendType
+			,Handler handler){
 		
 		Message msg = new Message();
+		String sendActionType = "";
+		if(sendType == SendTxn_To_Inventory){
+			sendActionType = "RecoverInventorySubmit";
+		}else if(sendType == SendTxn_To_Destroy){
+			sendActionType = "RecoverDestroySubmit";
+		}else{
+			msg.what = Txn_failed;
+			msg.obj = "coding error[invalid sendtype]";
+			handler.sendMessage(msg);
+			return false;
+		}
+		
+		
 		
 		TxnHeaderData header = null;
 		{
@@ -159,12 +184,20 @@ public class TxnDao {
 		
 		if(header == null){
 			msg.what = Txn_failed;
-			msg.obj = "½»Ò×ĞÅÏ¢Éú³É´íÎó";
+			msg.obj = "æ²¡æœ‰å¯ç”¨æ•°æ®æäº¤";
 			handler.sendMessage(msg);
-			return null;
+			return false;
 		}
 		
 		ArrayList<TxnDetailData> detailList =  getTxnDetail(c);
+		
+		
+		if(detailList.size() == 0){
+			msg.what = Txn_failed;
+			msg.obj = "æ²¡æœ‰å¯ç”¨æ•°æ®æäº¤";
+			handler.sendMessage(msg);
+			return false;
+		}
 		
 		TxnInfo txnInfo = new TxnInfo();
 		WSInfo wsInfo = new WSInfo();
@@ -181,7 +214,7 @@ public class TxnDao {
 		txn.mwscode = wsInfo.WSCode;
 		
 		RequestBody rBody = new RequestBody();
-		rBody.action = "RecoverInventorySubmit";
+		rBody.action = sendActionType;//"RecoverInventorySubmit";
 		rBody.value = txn;
 		
 		Gson gson = new Gson();
@@ -190,33 +223,69 @@ public class TxnDao {
 		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
 		DLog.LOG(resultStr+"----------aaa "+ body);
 		
-		try {
-			JSONObject jo = new JSONObject(resultStr);
-			boolean error = jo.getBoolean("Error");
-			String errMsg = jo.getString("ErrMsg");
-			String result = jo.getString("Result");
-			if(error){
-				msg.what = Txn_failed;
-				msg.obj = errMsg;
-				handler.sendMessage(msg);
-				return null;
-			}else{
-				return result;
+		ResponseBody resBody = 
+				ResJsonHelper.getBodyFromJson(resultStr);
+		
+		if(body == null){
+			msg.what = Txn_failed;
+			msg.obj = "ç½‘ç»œè¿æ¥é”™è¯¯";
+			handler.sendMessage(msg);
+			return false;
+		}else if(resBody.Error){
+			msg.what = Txn_failed;
+			msg.obj = resBody.ErrMsg;
+			handler.sendMessage(msg);
+			return false;
+		}else{// if(!resBody.Error){
+			MWRDBMng dbMng = new MWRDBMng(c);
+			dbMng.open();
+			
+			{
+				ContentValues values = new ContentValues();
+				values.put(TxnHeaderData.Col_Status,TxnHeaderData.STATUS_Complete);
+				
+				String condition = TxnHeaderData.Col_TxnNum + " = '"+header.TxnNum+"'";
+				dbMng.update(TxnHeaderData.TblName, values, condition);
+			}
+			{
+				ContentValues values = new ContentValues();
+				values.put(TxnDetailData.Col_Status,TxnDetailData.STATUS_Complete);
+				
+				String condition = TxnDetailData.Col_TxnNum + " = '"+header.TxnNum+"'";
+				dbMng.update(TxnDetailData.TblName, values, condition);
 			}
 			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			msg.what = Txn_failed;
-			msg.obj = e.getMessage();
+			dbMng.close();
+			
+			msg.what = Txn_Sucess;
+//			msg.obj = resBody.ErrMsg;
 			handler.sendMessage(msg);
-			e.printStackTrace();
-			return null;
+			return true;
 		}
 	}
 	
-	public static void sendTxnToDestroy(Handler handler){
+	public static String[] getTxnReport(Context c){
+		
+		String[] report = new String[]{"0","0"};
+		ArrayList<TxnDetailData> detailList =  getTxnDetail(c);
+		
+		if(detailList.size() == 0)
+			return report;
+		
+		BigDecimal defineWeight = new BigDecimal(0);
+		for(TxnDetailData data : detailList){
+			BigDecimal d = new BigDecimal(data.SubWeight);
+			defineWeight = defineWeight.add(d);
+		}
+		report[0] = detailList.size()+"";
+		report[1] = defineWeight.toString();
+		return report;
 		
 	}
+	
+//	public static void sendTxnToDestroy(Handler handler){
+//		
+//	}
 	
 	
 }

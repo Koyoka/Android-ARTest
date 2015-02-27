@@ -15,7 +15,10 @@
         android:id="@+id/txtTxnHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="111"
+        android:text=""
+        android:padding="1dip"
+        android:textSize="1dip"
+        android:background="#22000000"
         android:gravity="right"/>
     
     <fragment 

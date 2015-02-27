@@ -1,21 +1,23 @@
 package com.yrkj.mwrmobile.util.scanner;
 
 
-import java.io.UnsupportedEncodingException;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Base64;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 import com.dtr.zxing.activity.CaptureActivity;
 import com.google.zxing.Result;
+import com.yrkj.mwrmobile.R;
 import com.yrkj.mwrmobile.dao.TxnMng;
 import com.yrkj.util.basedao.common.ComFn;
-import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
-public class MWRCaptureActivity extends CaptureActivity {
+public class MWRCaptureActivity extends CaptureActivity implements OnClickListener {
 
 	public static final String INTENT_KEY_ScannerType = "scannertype";
 	public static final int SCANNERTYPE_KEY_RecoverCrate = 1;
@@ -23,6 +25,8 @@ public class MWRCaptureActivity extends CaptureActivity {
 	public static final int SCANNERTYPE_KEY_Login = 3;
 	
 	private int mScannerType = SCANNERTYPE_KEY_RecoverCrate;
+	
+	TextView mTitleView = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +37,25 @@ public class MWRCaptureActivity extends CaptureActivity {
 	
 	private void initActy(){
 		mScannerType = getIntent().getIntExtra(INTENT_KEY_ScannerType, SCANNERTYPE_KEY_RecoverCrate);
+		if(mScannerType == SCANNERTYPE_KEY_RecoverCrate){
+			mTitleView.setText("扫描货箱");
+		}else if(mScannerType == SCANNERTYPE_KEY_InitSystem){
+			mTitleView.setText("扫描初始化");
+		}else if(mScannerType == SCANNERTYPE_KEY_Login){
+			mTitleView.setText("扫描回收任务");
+		}
 	}
 
+	@Override
+	protected View getView() {
+		// TODO Auto-generated method stub
+		View v = LayoutInflater.from(this).inflate(R.layout.view_scanner,
+				null);
+		v.findViewById(R.id.btnScannerBack).setOnClickListener(this);
+		mTitleView = (TextView) v.findViewById(R.id.txtScannerTitle);
+		
+		return v;
+	}
 	
 	@Override
 	public void handleDecode(Result rawResult, Bundle bundle) {
@@ -108,8 +129,8 @@ public class MWRCaptureActivity extends CaptureActivity {
 		}
 		
 		
-		DLog.LOG("=========data "+data);
-		DLog.LOG("=========result "+result);
+//		DLog.LOG("=========data "+data);
+//		DLog.LOG("=========result "+result);
 		String[] array = data.split(" ");
 		if(array.length != 4){
 			ToastUtil.show(this, "无效的条形码格式");
@@ -159,6 +180,14 @@ public class MWRCaptureActivity extends CaptureActivity {
 			
 		}
 	}
+
+	@Override
+	public void onClick(View v) {
+		if(v.getId() == R.id.btnScannerBack){
+			finish();
+		}
+		
+	}
 	
 }
-//getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.return_scan_result, 500);
+//getHandler().sen

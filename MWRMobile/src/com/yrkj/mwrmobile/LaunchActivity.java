@@ -39,16 +39,12 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	private ActivityLaunch mLayout = null;
 	private Context mContext = null;
 	
-	private boolean mHasBeenInit = true;
+	private boolean mHasBeenInit = false;
 	 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
-		
-		
 		
 		setContentView(R.layout.activity_launch);
 		initData();
@@ -74,12 +70,12 @@ public class LaunchActivity extends Activity implements OnClickListener {
 				&& txnInfo.DriverCode.length() != 0
 				&& txnInfo.InspectorCode.length() != 0)
 		{
-			finish();
 			Intent intent = new Intent(mContext, MainActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		
-		DLog.LOG("mHasBeenInit " + mHasBeenInit);
+//		DLog.LOG("mHasBeenInit " + mHasBeenInit);
 	}
 	
 	private void initActy(){
@@ -124,7 +120,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 				String ak = data.getExtras().getString("ak");
 				String sk = data.getExtras().getString("sk");
 				
-				ToastUtil.show(this, wsCode+" " + ak + " " + sk);
+//				ToastUtil.show(this, wsCode+" " + ak + " " + sk);
 				doInitTask(wsCode,ak,sk);
 			}
 		}
@@ -186,7 +182,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	Handler handler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
-			if(msg.what == TxnDao.Txn_failed){
+			if(msg.what == BaseDataDao.Opt_failed){
 				ToastUtil.show(mContext, msg.obj.toString());
 			}
 		}
@@ -275,19 +271,16 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		
 	}
 	
-	class InitTask extends AsyncTask<Object, Object, String>{
+	class InitTask extends AsyncTask<Object, Object, Boolean>{
 		private String accessKey = "";
 		private String secretKey = "";
 		private String wsCode = "";
-		
-
 		
 		public InitTask(String code,String ak,String sk){
 			wsCode = code;
 			accessKey = ak;
 			secretKey = sk;
 		}
-		
 
 		@Override
 		protected void onPreExecute() {
@@ -295,41 +288,47 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		}
 		
 		@Override
-		protected String doInBackground(Object... params) {
+		protected Boolean doInBackground(Object... params) {
 			
 			String url = BaseApplication.Service_URL;
-			String s = BaseDataDao.RegistWS(mContext, url,wsCode, accessKey, secretKey);//TxnDao.sendTxnToInventory(mContext, url, accessKey, secretKey, handler);
-			return s;
+			return BaseDataDao.RegistWS(mContext, url,wsCode, accessKey, secretKey,handler);//TxnDao.sendTxnToInventory(mContext, url, accessKey, secretKey, handler);
 		}
 		
 		@Override
-		protected void onPostExecute(String result) {
-			ResponseBody body = 
-			ResJsonHelper.getBodyFromJson(result);
-			if(body == null){
-				ToastUtil.show(mContext, "网络连接错误");
-			}else if(body.Error){
-				ToastUtil.show(mContext, body.ErrMsg);
-			}else if(!body.Error){
-//				ToastUtil.show(mContext, "ע��ɹ�" );
-//				ToastUtil.show(mContext, body.Result+" ע��ɹ�" );
-			}
-			
-			ResponseInitMWSSubmitBody initBody = 
-					ResJsonHelper.getInitBodyFromJson(body.Result);
-			
-			if(initBody == null){
-				ToastUtil.show(mContext, "网络连接错误");
-			}else{
-				SysMng.saveWSInfo(initBody.WSCode, initBody.AssessKey, initBody.SecretKey, initBody.CrateMask);
-				
-				finish();
-			
+		protected void onPostExecute(Boolean result) {
+			if(result){
 				Intent intent = new Intent(mContext, LaunchActivity.class);
 				startActivity(intent);
-				
+				finish();
 			}
 			DialogHelper.getProgressDialogInstance().close();
+			
+//			ResponseBody body = 
+//			ResJsonHelper.getBodyFromJson(result);
+//			if(body == null){
+//				ToastUtil.show(mContext, "网络连接错误");
+//			}else if(body.Error){
+//				ToastUtil.show(mContext, body.ErrMsg);
+//			}else if(!body.Error){
+////				ToastUtil.show(mContext, "ע��ɹ�" );
+////				ToastUtil.show(mContext, body.Result+" ע��ɹ�" );
+//			}
+//			
+//			ResponseInitMWSSubmitBody initBody = 
+//					ResJsonHelper.getInitBodyFromJson(body.Result);
+//			
+//			if(initBody == null){
+//				ToastUtil.show(mContext, "网络连接错误");
+//			}else{
+//				SysMng.saveWSInfo(initBody.WSCode, initBody.AssessKey, initBody.SecretKey, initBody.CrateMask);
+//				
+//				finish();
+//			
+//				Intent intent = new Intent(mContext, LaunchActivity.class);
+//				startActivity(intent);
+//				
+//			}
+			
 //			WSInfo ws = SysMng.getWSInfo();
 //			StringBuilder sb = new StringBuilder();
 			

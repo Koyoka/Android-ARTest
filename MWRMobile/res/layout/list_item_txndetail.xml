@@ -2,18 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/service_bg_5"
+    android:padding="8dip"
     android:orientation="vertical" >
     <LinearLayout 
+        android:padding="4dip"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 	    <TextView 
+	        style="@style/font_list_txt"
 	        android:id="@+id/txtVendor"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="收集医院：xxx"/>
 	    <TextView 
+	        style="@style/font_list_txt"
 	        android:id="@+id/txtWaste"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -21,19 +26,31 @@
     </LinearLayout>
 
     <LinearLayout 
+        android:padding="4dip"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 	    <TextView 
+	        style="@style/font_list_txt"
 	        android:id="@+id/txtCrateCode"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="货箱编号：HX001"/>
 	    <TextView 
+	        style="@style/font_list_txt"
 	        android:id="@+id/txtWeight"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="10.5 kg"/>
     </LinearLayout>
+    <Button 
+        android:id="@+id/btnDelTxnDetail"
+        android:layout_width="match_parent"
+        android:layout_height="32dip"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:background="@drawable/btn_out_bg_x"
+        android:visibility="gone"
+        android:text="删除"/>
 </LinearLayout>

@@ -14,11 +14,13 @@ public class ListItemTxndetail extends BaseLayout{
     public static final int TxtWasteId = R.id.txtWaste;
     public static final int TxtCrateCodeId = R.id.txtCrateCode;
     public static final int TxtWeightId = R.id.txtWeight;
+    public static final int BtnDelTxnDetailId = R.id.btnDelTxnDetail;
 
     protected android.widget.TextView mTxtVendor;
     protected android.widget.TextView mTxtWaste;
     protected android.widget.TextView mTxtCrateCode;
     protected android.widget.TextView mTxtWeight;
+    protected android.widget.Button mBtnDelTxnDetail;
 
     protected Activity mCurActy;
 
@@ -28,6 +30,7 @@ public class ListItemTxndetail extends BaseLayout{
         mTxtWaste = (android.widget.TextView) acty.findViewById(TxtWasteId);
         mTxtCrateCode = (android.widget.TextView) acty.findViewById(TxtCrateCodeId);
         mTxtWeight = (android.widget.TextView) acty.findViewById(TxtWeightId);
+        mBtnDelTxnDetail = (android.widget.Button) acty.findViewById(BtnDelTxnDetailId);
     }   
 
     public ListItemTxndetail(android.view.View acty){
@@ -35,6 +38,7 @@ public class ListItemTxndetail extends BaseLayout{
         mTxtWaste = (android.widget.TextView) acty.findViewById(TxtWasteId);
         mTxtCrateCode = (android.widget.TextView) acty.findViewById(TxtCrateCodeId);
         mTxtWeight = (android.widget.TextView) acty.findViewById(TxtWeightId);
+        mBtnDelTxnDetail = (android.widget.Button) acty.findViewById(BtnDelTxnDetailId);
     }   
     public android.widget.TextView getTxtVendor() {
         return mTxtVendor;
@@ -47,6 +51,9 @@ public class ListItemTxndetail extends BaseLayout{
     }
     public android.widget.TextView getTxtWeight() {
         return mTxtWeight;
+    }
+    public android.widget.Button getBtnDelTxnDetail() {
+        return mBtnDelTxnDetail;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -76,6 +83,9 @@ public class ListItemTxndetail extends BaseLayout{
                 case TxtWeightId:
                     setViewData(adp,getTxtWeight(),data,joinData.formatString,joinData.data);
                     break;
+                case BtnDelTxnDetailId:
+                    setViewData(adp,getBtnDelTxnDetail(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -100,6 +110,9 @@ public class ListItemTxndetail extends BaseLayout{
                     break;
                 case TxtWeightId:
                     setViewData(adp,getTxtWeight(),data,"",path);
+                    break;
+                case BtnDelTxnDetailId:
+                    setViewData(adp,getBtnDelTxnDetail(),data,"",path);
                     break;
                     
                 default:

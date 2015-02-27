@@ -9,14 +9,20 @@ import android.os.Message;
 
 import com.google.gson.Gson;
 import com.yrkj.mwrmobile.base.MWRBaseDBMng;
+import com.yrkj.mwrmobile.base.MWRDBMng;
+import com.yrkj.mwrmobile.base.SysMng;
+import com.yrkj.mwrmobile.bean.TxnDetailData;
 import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
 import com.yrkj.mwrmobile.bean.request.RequestBody;
 import com.yrkj.mwrmobile.bean.request.RequestInitWSBody;
 import com.yrkj.mwrmobile.bean.request.RequestStartCarRecoverBody;
+import com.yrkj.mwrmobile.bean.response.ResponseBody;
+import com.yrkj.mwrmobile.bean.response.ResponseInitMWSSubmitBody;
 import com.yrkj.util.db.DBCondition;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.log.DLog;
+import com.yrkj.util.log.ToastUtil;
 
 
 public class BaseDataDao {
@@ -65,7 +71,10 @@ public class BaseDataDao {
 		return itemList;
 	}
 	
-	public static String RegistWS(Context c,String url,String wsCode,String accessKey,String secretKey){
+	public final static int Opt_Sucess = 0;
+	public final static int Opt_failed = 1;
+	public static boolean RegistWS(Context c,String url,String wsCode,String accessKey,String secretKey
+			,Handler handler){
 		
 		Message msg = new Message();
 		
@@ -82,7 +91,61 @@ public class BaseDataDao {
 		String body =  gson.toJson(rBody);
 		
 		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
-		return resultStr;
+		
+		ResponseBody resBody = 
+				ResJsonHelper.getBodyFromJson(resultStr);
+		if(resBody == null){
+//			ToastUtil.show(mContext, "网络连接错误");
+			msg.what = Opt_failed;
+			msg.obj = "网络连接错误";
+			handler.sendMessage(msg);
+			return false;
+		}else if(resBody.Error){
+			msg.what = Opt_failed;
+			msg.obj = resBody.ErrMsg;
+			handler.sendMessage(msg);
+			return false;
+//			ToastUtil.show(mContext, body.ErrMsg);
+		}else if(!resBody.Error){
+			
+			ResponseInitMWSSubmitBody initBody = 
+					ResJsonHelper.getInitBodyFromJson(resBody.Result);
+//			DLog.LOG("resBody.Result  " + resBody.Result);
+//			DLog.LOG("VendorList  " + initBody.VendorList);
+//			DLog.LOG("WasteList " + initBody.WasteList);
+
+			if(initBody == null){
+//				ToastUtil.show(mContext, "网络连接错误");
+				msg.what = Opt_failed;
+				msg.obj = "网络连接错误";
+				handler.sendMessage(msg);
+				return false;
+			}else{
+				SysMng.saveWSInfo(initBody.WSCode, initBody.AssessKey, initBody.SecretKey, initBody.CrateMask);
+			
+				MWRBaseDBMng dbMng = new MWRBaseDBMng(c);
+				dbMng.open();
+				
+				if(initBody.VendorList != null){
+					dbMng.delete(VendorData.TblName, "");
+					for(VendorData data : initBody.VendorList){
+						dbMng.insert(VendorData.TblName, 
+								VendorData.getContentValues(data));
+					}
+				}
+				if(initBody.WasteList != null){
+					dbMng.delete(WasteCategoryData.TblName, "");
+					for(WasteCategoryData data : initBody.WasteList){
+						dbMng.insert(WasteCategoryData.TblName, 
+								WasteCategoryData.getContentValues(data));
+					}
+				}
+				dbMng.close();
+			}
+		}
+		
+		
+		return true;
 	}
 	
 	public static String StartCarRecover(Context c,String url,String wsCode,String accessKey,String secretKey,

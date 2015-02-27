@@ -37,7 +37,7 @@ public class RecoverActivity extends Activity implements OnClickListener, OnConf
 	
 	private void initActy(){
 		mLayout = new ActivityRecover(this);
-		mLayout.getTxtTxnHeader().setText("eleven");
+//		mLayout.getTxtTxnHeader().setText("eleven");
 		
 		{
 			View v = this.findViewById(R.id.fmtHeader);
@@ -62,7 +62,6 @@ public class RecoverActivity extends Activity implements OnClickListener, OnConf
 	public void onClick(View v) {
 
 		if(v.getId() == FragmentHeaderLayout.BtnActionBarBackId){
-			ToastUtil.show(this, "back");
 			finish();
 		}else if(v.getId() == FragmentHeaderLayout.BtnActionOpsId){
 			
