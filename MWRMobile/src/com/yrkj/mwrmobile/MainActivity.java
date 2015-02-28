@@ -208,6 +208,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			if(result){
 				mLayout.getTxtTotalCount().setText("总数量：0");
 				mLayout.getTxtTotalWeight().setText("总重量：0 kg");
+				SysMng.saveTxnInfo("", "", "", "", "");
 			}
 			DialogHelper.getProgressDialogInstance().close();
 			
