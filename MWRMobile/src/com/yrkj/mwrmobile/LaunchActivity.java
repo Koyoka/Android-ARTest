@@ -47,6 +47,8 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
+		
+		setContentView(R.layout.activity_launch);
 		WSInfo ws = SysMng.getWSInfo();
 		
 		if(ws.WSCode.length() == 0
@@ -57,18 +59,6 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		}else{
 			mHasBeenInit = true;
 		}
-		
-		TxnInfo txnInfo = SysMng.getTxnInfo();
-		if(mHasBeenInit && txnInfo.CarCode.length() != 0
-				&& txnInfo.DriverCode.length() != 0
-				&& txnInfo.InspectorCode.length() != 0)
-		{
-			Intent intent = new Intent(mContext, MainActivity.class);
-			startActivity(intent);
-			finish();
-		}
-		
-		setContentView(R.layout.activity_launch);
 		
 		
 //		initData();
@@ -82,7 +72,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		if(b1!=null){
 			 unregisterReceiver(b1);  
 		}
-		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
 //		stopService(intent);
 
 	}
@@ -123,8 +113,8 @@ public class LaunchActivity extends Activity implements OnClickListener {
 				
 			}
 		});
-		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-    	startService(intent);
+//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+//    	startService(intent);
 	}
 
 	@Override
@@ -161,6 +151,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if(v.getId() == ActivityLaunch.BtnExitId){
 			finish();
+			EmptyActivity.getInstance().finish();
 		}else if(v.getId() == ActivityLaunch.BtnScanId){
 			boolean hasInit = mHasBeenInit;
 			CaptureHelper.ShowCapture(this,

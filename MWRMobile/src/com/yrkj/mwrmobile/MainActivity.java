@@ -48,8 +48,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		if(b1!=null){
 			 unregisterReceiver(b1);  
 		}
-		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-		stopService(intent);
+//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+//		stopService(intent);
 	}
 	
 	private void initData(){
@@ -97,8 +97,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				
 			}
 		});
-		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-    	startService(intent);
+//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+//    	startService(intent);
 		
 	}
 	
@@ -121,6 +121,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case ActivityMain.BtnLogoutId:
 			finish();
+			EmptyActivity.getInstance().finish();
+			
+//			BaseApplication.getInstance().mLocationClient.start();
+			
 			break;
 		case ActivityMain.BtnSettingId:
 			
