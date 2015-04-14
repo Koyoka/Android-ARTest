@@ -45,6 +45,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		EmptyActivity.getInstance().finish();
 		if(b1!=null){
 			 unregisterReceiver(b1);  
 		}

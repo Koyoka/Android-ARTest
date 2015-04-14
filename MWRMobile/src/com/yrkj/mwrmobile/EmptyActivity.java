@@ -17,10 +17,18 @@ public class EmptyActivity extends Activity {
 	private Context mContext = null;
 	private boolean mHasBeenInit = false;
 	
-	private static Activity mActy = null;
-	public static Activity getInstance(){
+	private static EmptyActivity mActy = null;
+	public static EmptyActivity getInstance(){
+		DLog.LOG("getInstance--------[mActy="+mActy+"]");
 			return mActy;
 		
+	}
+	public  void _finish(){
+		
+		if(mActy != null){
+			
+			mActy.finish();
+		}
 	}
 	
 	@Override

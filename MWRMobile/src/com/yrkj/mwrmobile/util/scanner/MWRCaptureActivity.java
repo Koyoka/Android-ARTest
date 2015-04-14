@@ -121,45 +121,54 @@ public class MWRCaptureActivity extends CaptureActivity implements OnClickListen
 	}
 	
 	private void doLogin(String result, Bundle bundle){
-		String data = "";
-		data = ComFn.DecryptStringBy64_GB2312(result);
-		if(data==null){
-			ToastUtil.show(this, "无效的条形码格式");
-			return;
+		try
+		{
+			String data = "";
+			data = ComFn.DecryptStringBy64_GB2312(result);
+			if(data==null){
+				ToastUtil.show(this, "无效的条形码格式");
+				return;
+			}
+			
+			
+	//		DLog.LOG("=========data "+data);
+	//		DLog.LOG("=========result "+result);
+			String[] array = data.split(" ");
+			if(array.length != 4){
+				ToastUtil.show(this, "无效的条形码格式");
+				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+				return;
+			}// "MWR-STARTSHIFT {0} {1} {2}";
+			String tag = array[0].trim();
+			if(!tag.equals("MWR-STARTSHIFT")){
+				ToastUtil.show(this, "无效的条形码格式");
+				getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
+				return;
+			}
+			
+			String carCode, driverCode, inspectorCode;
+			
+			carCode = array[1].trim();
+			driverCode = array[2].trim();
+			inspectorCode = array[3].trim();
+			
+			Intent intent = new Intent();
+			bundle.putString("carCode", carCode);
+			bundle.putString("driverCode", driverCode);
+			bundle.putString("inspectorCode", inspectorCode);
+			intent.putExtras(bundle);
+			
+			Message msg = new Message();
+			msg.obj = intent;
+			msg.what = com.dtr.zxing.R.id.return_scan_result;
+			getHandler().sendMessageDelayed(msg, 500);
 		}
-		
-		
-//		DLog.LOG("=========data "+data);
-//		DLog.LOG("=========result "+result);
-		String[] array = data.split(" ");
-		if(array.length != 4){
+		catch(Exception ex)
+		{
 			ToastUtil.show(this, "无效的条形码格式");
 			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
-			return;
-		}// "MWR-STARTSHIFT {0} {1} {2}";
-		String tag = array[0].trim();
-		if(!tag.equals("MWR-STARTSHIFT")){
-			ToastUtil.show(this, "无效的条形码格式");
-			getHandler().sendEmptyMessageDelayed(com.dtr.zxing.R.id.decode_failed, 2000);
-			return;
+			
 		}
-		
-		String carCode, driverCode, inspectorCode;
-		
-		carCode = array[1].trim();
-		driverCode = array[2].trim();
-		inspectorCode = array[3].trim();
-		
-		Intent intent = new Intent();
-		bundle.putString("carCode", carCode);
-		bundle.putString("driverCode", driverCode);
-		bundle.putString("inspectorCode", inspectorCode);
-		intent.putExtras(bundle);
-		
-		Message msg = new Message();
-		msg.obj = intent;
-		msg.what = com.dtr.zxing.R.id.return_scan_result;
-		getHandler().sendMessageDelayed(msg, 500);
 	}
 	
 	private void doRecoverCrate(String result, Bundle bundle){

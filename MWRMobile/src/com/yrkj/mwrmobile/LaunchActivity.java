@@ -69,6 +69,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
+		EmptyActivity.getInstance().finish();
 		if(b1!=null){
 			 unregisterReceiver(b1);  
 		}
@@ -150,8 +151,9 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == ActivityLaunch.BtnExitId){
+			
 			finish();
-			EmptyActivity.getInstance().finish();
+			
 		}else if(v.getId() == ActivityLaunch.BtnScanId){
 			boolean hasInit = mHasBeenInit;
 			CaptureHelper.ShowCapture(this,
