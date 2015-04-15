@@ -1,23 +1,17 @@
 package com.yrkj.mwrmobile;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
-import java.nio.charset.Charset;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
-import org.json.JSONObject;
 
-
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.yrkj.mwrmobile.bean.TxnDetailData;
 import com.yrkj.mwrmobile.bean.request.RequestBody;
 import com.yrkj.mwrmobile.bean.request.RequestTxnBody;
-import com.yrkj.mwrmobile.bean.request.RequestTxnDetailBody;
 import com.yrkj.mwrmobile.bean.response.ResponseBody;
 import com.yrkj.util.http.HttpMng;
 
@@ -77,8 +71,53 @@ public class Test {
 //        _pattern = pattern;
     }
 	
-	public static void main(String[] args) {
+	private final static double PI = 3.14159265358979323; // 圆周率
+    private final static double R = 6371229; //
+    public static double getDistance(double lat1,double longt1,double lat2,  double longt2) {
+        double x, y, distance;
+        x = (longt2 - longt1) * PI * R
+                * Math.cos(((lat1 + lat2) / 2) * PI / 180) / 180;
+        y = (lat2 - lat1) * PI * R / 180;
+        distance = Math.hypot(x, y);
+        return distance;
+    }
+	public static double MathLatLngDistance(double lat1,double lng1,double lat2,double lng2){
+		double EARTH_RADIUS = 6378.137;
+		double radLat1 = rad(lat1);
+		double radLat2 = rad(lat2);
 		
+		double a = radLat1 - radLat2;
+		double b = rad(lng1) - rad(lng2);
+		
+		double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+		Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+	    s = s * EARTH_RADIUS;
+	    s = Math.round(s * 10000) / 10000;
+	    return s;
+		
+	}
+
+	private static double rad(double d) {
+		return d * Math.PI / 180.0;
+	}
+	public static void main(String[] args) {
+
+		{
+			double lat,lng,lat1,lng1;
+			lat = 30.667336;
+			lng = 114.325566;
+			lat1 = 30.559046;
+			lng1 = 114.322443;
+			double d = 
+					getDistance(lat,lng,lat1,lng1);
+			BigDecimal bg = new BigDecimal(d);
+	        double f1 = bg.setScale(0, BigDecimal.ROUND_HALF_UP).doubleValue();
+			System.out.println(f1);
+			if(true)
+				return;
+		}
+		
+		if(false)
 		{
 			
 			

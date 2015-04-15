@@ -16,13 +16,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 
+import com.baidu.location.BDLocation;
 import com.yrkj.mwrmobile.R;
+import com.yrkj.mwrmobile.base.BaseApplication;
 import com.yrkj.mwrmobile.bean.TxnDetailData;
 import com.yrkj.mwrmobile.bean.VendorData;
 import com.yrkj.mwrmobile.bean.WasteCategoryData;
 import com.yrkj.mwrmobile.dao.BaseDataDao;
 import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.FragmentEntryCrateDialog;
+import com.yrkj.util.basedao.common.ComFn;
 import com.yrkj.util.log.ToastUtil;
 
 public class EntryCrateDialogFragment extends DialogFragment implements OnClickListener {
@@ -134,17 +137,65 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 		
 	}
 	
-	
+	private double[] getVendorLoctionAddress(String s){
+		if(s!=null 
+				&& s.length()!=0
+				&& s.split(",").length ==2){
+			try{
+				String[] defineAds = s.split(",");
+				double lng = Double.parseDouble(defineAds[0].trim());
+				double lat = Double.parseDouble(defineAds[1].trim());
+				return new double[]{lat,lng};
+			}catch(Exception ex){
+				return null;
+			}
+		}
+		return null;
+	}
 	private void initFragment(View v){
+		BDLocation mLocation = 
+		BaseApplication.getInstance().mLocation;
+		double lat = -1,lng = -1;
+		if(mLocation != null){
+			lat =
+			mLocation.getLatitude();
+			lng =
+			mLocation.getLongitude();
+			
+		}
+		
 		mLayout = new FragmentEntryCrateDialog(v);
 		mLayout.getBtnCloseDialog().setOnClickListener(this);
 		mLayout.getBtnConfirmDialog().setOnClickListener(this);
 		mLayout.getTxtCrateCode().setText(mCrateCode);
+		mLayout.getTxtLocation().setText(lat+","+lng);
+		
 		
 		ArrayList<String> mVendors = new ArrayList<String>();
 		ArrayList<String> mWasters = new ArrayList<String>();
-		for(VendorData item : mVendorList){
-			mVendors.add(item.Vendor);
+	
+		int defaultVendorPosition = 0;
+		double defineDistance = -1;
+		for(int i=0;i<mVendorList.size();i++){
+			VendorData item  = mVendorList.get(i);
+			double[] locationAds = getVendorLoctionAddress(item.Address);
+			
+			double distance = 0;
+			if(locationAds != null){
+				
+				double lat1 = locationAds[0],lng1 = locationAds[1];
+				distance = ComFn.MathLatLngDistance(lat, lng, lat1, lng1 ,0);
+				
+				if(//distance<=minDistance && 
+						(distance < defineDistance || defineDistance == -1)){
+					defineDistance = distance;
+					defaultVendorPosition = i;
+				}
+			}
+			
+			
+			
+			mVendors.add(item.Vendor+" 距离" + distance+"米" );
 		}
 		
 		for(WasteCategoryData item : mWasterList){
@@ -155,8 +206,9 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 			ArrayAdapter<String> adapter = null;
 			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mVendors);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	     
 			mLayout.getSpnVendor().setAdapter(adapter);
+			
+			mLayout.getSpnVendor().setSelection(defaultVendorPosition, true);
 			mLayout.getSpnVendor().setOnItemSelectedListener(
 		                new OnItemSelectedListener() {
 		                    public void onItemSelected(

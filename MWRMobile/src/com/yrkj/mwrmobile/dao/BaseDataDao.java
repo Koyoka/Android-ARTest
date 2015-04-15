@@ -148,6 +148,81 @@ public class BaseDataDao {
 		return true;
 	}
 	
+	public static boolean AsynWSData(Context c,String url,String wsCode,String accessKey,String secretKey
+			,Handler handler){
+		
+		Message msg = new Message();
+		
+		RequestInitWSBody mBody = new RequestInitWSBody();
+		mBody.mwsCode = wsCode;
+		mBody.accessKey = accessKey;
+		mBody.secretKey = secretKey;
+		
+		RequestBody rBody = new RequestBody();
+		rBody.action = "AysnMoblieData";
+		rBody.value = mBody;
+		
+		Gson gson = new Gson();
+		String body =  gson.toJson(rBody);
+		
+		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
+		
+		ResponseBody resBody = 
+				ResJsonHelper.getBodyFromJson(resultStr);
+		if(resBody == null){
+//			ToastUtil.show(mContext, "网络连接错误");
+			msg.what = Opt_failed;
+			msg.obj = "网络连接错误";
+			handler.sendMessage(msg);
+			return false;
+		}else if(resBody.Error){
+			msg.what = Opt_failed;
+			msg.obj = resBody.ErrMsg;
+			handler.sendMessage(msg);
+			return false;
+//			ToastUtil.show(mContext, body.ErrMsg);
+		}else if(!resBody.Error){
+			
+			ResponseInitMWSSubmitBody initBody = 
+					ResJsonHelper.getInitBodyFromJson(resBody.Result);
+//			DLog.LOG("resBody.Result  " + resBody.Result);
+//			DLog.LOG("VendorList  " + initBody.VendorList);
+//			DLog.LOG("WasteList " + initBody.WasteList);
+
+			if(initBody == null){
+//				ToastUtil.show(mContext, "网络连接错误");
+				msg.what = Opt_failed;
+				msg.obj = "网络连接错误";
+				handler.sendMessage(msg);
+				return false;
+			}else{
+				SysMng.saveAysnWSInfo(initBody.CrateMask);
+			
+				MWRBaseDBMng dbMng = new MWRBaseDBMng(c);
+				dbMng.open();
+				
+				if(initBody.VendorList != null){
+					dbMng.delete(VendorData.TblName, "");
+					for(VendorData data : initBody.VendorList){
+						dbMng.insert(VendorData.TblName, 
+								VendorData.getContentValues(data));
+					}
+				}
+				if(initBody.WasteList != null){
+					dbMng.delete(WasteCategoryData.TblName, "");
+					for(WasteCategoryData data : initBody.WasteList){
+						dbMng.insert(WasteCategoryData.TblName, 
+								WasteCategoryData.getContentValues(data));
+					}
+				}
+				dbMng.close();
+			}
+		}
+		
+		
+		return true;
+	}
+	
 	public static String StartCarRecover(Context c,String url,String wsCode,String accessKey,String secretKey,
 			String carCode,String driverCode,String inspectorCode){
 		Message msg = new Message();

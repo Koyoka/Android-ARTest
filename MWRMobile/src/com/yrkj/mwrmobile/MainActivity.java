@@ -114,10 +114,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-
+		Intent intent;
 		switch (v.getId()) {
 		case ActivityMain.BtnRecoverCrateId:
-			Intent intent = new Intent(this, RecoverActivity.class);
+			intent = new Intent(this, RecoverActivity.class);
 			startActivity(intent);
 			break;
 		case ActivityMain.BtnLogoutId:
@@ -128,7 +128,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			break;
 		case ActivityMain.BtnSettingId:
-			
+			intent = new Intent(this,SettingsActivity.class);
+			startActivity(intent);
 			break;
 		case ActivityMain.BtnRecoverToDestroyId:
 			doTask(TxnDao.SendTxn_To_Destroy);

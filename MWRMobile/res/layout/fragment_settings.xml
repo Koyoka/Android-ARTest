@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yrkj.mwrmobile.SettingsActivity$PlaceholderFragment" >
+    <Button 
+        android:id="@+id/btnSettingAysnData"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/service_bg_5"
+	    android:gravity="left|center_vertical"
+	    android:padding="15dip"
+	    android:textSize="20sp"
+	    android:text="服务器数据同步" />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+</LinearLayout>

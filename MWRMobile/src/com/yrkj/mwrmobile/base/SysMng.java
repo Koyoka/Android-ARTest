@@ -53,6 +53,11 @@ public class SysMng {
 		
 		editor.commit();
 	}
+	public static void saveAysnWSInfo(String crateMask){
+		SharedPreferences.Editor editor = getPrefs().edit();
+		editor.putString(PREF_KEY_CrateMask, crateMask);
+		editor.commit();
+	}
 	
 	public static void saveTxnInfo(String carCode,String driver,String driverName,String inspector,String inspectorName){
 		SharedPreferences.Editor editor = getPrefs().edit();

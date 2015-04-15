@@ -10,6 +10,7 @@ import com.yrkj.mwrmobile.R;
 
 public class FragmentEntryCrateDialog extends BaseLayout{
 
+    public static final int TxtLocationId = R.id.txtLocation;
     public static final int TxtCrateCodeId = R.id.txtCrateCode;
     public static final int TxtWeightId = R.id.txtWeight;
     public static final int SpnVendorId = R.id.spnVendor;
@@ -17,6 +18,7 @@ public class FragmentEntryCrateDialog extends BaseLayout{
     public static final int BtnConfirmDialogId = R.id.btnConfirmDialog;
     public static final int BtnCloseDialogId = R.id.btnCloseDialog;
 
+    protected android.widget.TextView mTxtLocation;
     protected android.widget.TextView mTxtCrateCode;
     protected android.widget.EditText mTxtWeight;
     protected android.widget.Spinner mSpnVendor;
@@ -28,6 +30,7 @@ public class FragmentEntryCrateDialog extends BaseLayout{
 
     public FragmentEntryCrateDialog(Activity acty){
         mCurActy = acty;
+        mTxtLocation = (android.widget.TextView) acty.findViewById(TxtLocationId);
         mTxtCrateCode = (android.widget.TextView) acty.findViewById(TxtCrateCodeId);
         mTxtWeight = (android.widget.EditText) acty.findViewById(TxtWeightId);
         mSpnVendor = (android.widget.Spinner) acty.findViewById(SpnVendorId);
@@ -37,6 +40,7 @@ public class FragmentEntryCrateDialog extends BaseLayout{
     }   
 
     public FragmentEntryCrateDialog(android.view.View acty){
+        mTxtLocation = (android.widget.TextView) acty.findViewById(TxtLocationId);
         mTxtCrateCode = (android.widget.TextView) acty.findViewById(TxtCrateCodeId);
         mTxtWeight = (android.widget.EditText) acty.findViewById(TxtWeightId);
         mSpnVendor = (android.widget.Spinner) acty.findViewById(SpnVendorId);
@@ -44,6 +48,9 @@ public class FragmentEntryCrateDialog extends BaseLayout{
         mBtnConfirmDialog = (android.widget.Button) acty.findViewById(BtnConfirmDialogId);
         mBtnCloseDialog = (android.widget.Button) acty.findViewById(BtnCloseDialogId);
     }   
+    public android.widget.TextView getTxtLocation() {
+        return mTxtLocation;
+    }
     public android.widget.TextView getTxtCrateCode() {
         return mTxtCrateCode;
     }
@@ -78,6 +85,9 @@ public class FragmentEntryCrateDialog extends BaseLayout{
                 LayoutDataAdapter.JoinData joinData = (LayoutDataAdapter.JoinData) val;
                 
                 switch (viewKey) {
+                case TxtLocationId:
+                    setViewData(adp,getTxtLocation(),data,joinData.formatString,joinData.data);
+                    break;
                 case TxtCrateCodeId:
                     setViewData(adp,getTxtCrateCode(),data,joinData.formatString,joinData.data);
                     break;
@@ -109,6 +119,9 @@ public class FragmentEntryCrateDialog extends BaseLayout{
                 int viewKey = (Integer) key;
                 String path = (String) val;
                 switch (viewKey) {
+                case TxtLocationId:
+                    setViewData(adp,getTxtLocation(),data,"",path);
+                    break;
                 case TxtCrateCodeId:
                     setViewData(adp,getTxtCrateCode(),data,"",path);
                     break;
