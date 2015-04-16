@@ -11,5 +11,6 @@
     <string name="title_activity_launch">医废回收</string>
     <string name="title_activity_function">FunctionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

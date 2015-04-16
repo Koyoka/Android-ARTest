@@ -46,6 +46,23 @@ public class HttpMng {
 		}
 		return "";
 	}
+	public static String doHttpURL(String url,String body){
+		
+		try {
+			return GetHttpClientHelper().httpRequestURL(url,  body);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	public static String doHttpReadFileURL(String url){
+		try {
+			return GetHttpClientHelper().httpReadFileURL(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	public static HttpClientHelper GetHttpClientHelper(String host,int port){
 		if(mHttpCHelper == null){

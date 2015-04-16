@@ -151,7 +151,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 			@Override
 			protected Boolean doInBackground(Object... params) {
 				
-				String url = BaseApplication.Service_URL;
+				String url = BaseApplication.getServiceUrl();
 				return BaseDataDao.AsynWSData(mContext, url,wsCode, accessKey, secretKey,handler);//TxnDao.sendTxnToInventory(mContext, url, accessKey, secretKey, handler);
 			}
 			

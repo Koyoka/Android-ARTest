@@ -1,19 +1,10 @@
-package com.yrkj.mwrmobile;
+package com.yrkj.mwrmobile.fragment;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
-
+import com.yrkj.mwrmobile.LaunchActivity;
+import com.yrkj.mwrmobile.MainActivity;
+import com.yrkj.mwrmobile.R;
 import com.yrkj.mwrmobile.base.BaseApplication;
 import com.yrkj.mwrmobile.base.SysMng;
-import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.bean.response.ResponseBody;
 import com.yrkj.mwrmobile.bean.response.ResponseStartCarRecoverShiftBody;
@@ -29,28 +20,66 @@ import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
-public class LaunchActivity extends Activity implements OnClickListener {
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.AsyncTask.Status;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 
-	public final static String Tag = "com.yrkj.mwrmobile.LaunchActivity";
-	
-	private final static int SysStatus_NoInit = 1;
-	private final static int SysStatus_NoLogin = 2;
-//	private final static int SysStatus_
+public class InitFragment extends Fragment implements OnClickListener {
 	
 	private ActivityLaunch mLayout = null;
 	private Context mContext = null;
-	
+	private CommonBroadcast b1 = null;
 	private boolean mHasBeenInit = false;
-	 
+	
+	public InitFragment() {
+		// Required empty public constructor
+		
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		DLog.LOG("InitFragment--------[onCreateView]");
+		View rootView = inflater.inflate(R.layout.activity_launch,
+				container, false);
+		initActy(rootView);
+		return rootView;
+	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		mContext = this;
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		DLog.LOG("InitFragment--------[onDestroy]");
+		if(b1!=null){
+			this.getActivity().
+			 unregisterReceiver(b1);  
+		}
+	}
+	
+	private void initActy(View v){
+		mContext = this.getActivity();
+		mLayout = new ActivityLaunch(v);
 		
-		setContentView(R.layout.activity_launch);
+		mLayout.getBtnExit().setOnClickListener(this);
+		mLayout.getBtnScan().setOnClickListener(this);
+		
+		String title = "系统信息:";
+		String info = "";
+		
 		WSInfo ws = SysMng.getWSInfo();
-		
 		if(ws.WSCode.length() == 0
 				|| ws.AccessKey.length() == 0
 				|| ws.SecretKey.length() == 0
@@ -59,38 +88,6 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		}else{
 			mHasBeenInit = true;
 		}
-		
-		
-//		initData();
-		initActy();
-	}
-	CommonBroadcast b1 = null;
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		EmptyActivity.getInstance().finish();
-		if(b1!=null){
-			 unregisterReceiver(b1);  
-		}
-//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-//		stopService(intent);
-
-	}
-	
-//	private void initData(){
-//		
-////		DLog.LOG("mHasBeenInit " + mHasBeenInit);
-//	}
-	
-	private void initActy(){
-		mLayout = new ActivityLaunch(this);
-		
-		mLayout.getBtnExit().setOnClickListener(this);
-		mLayout.getBtnScan().setOnClickListener(this);
-		
-		String title = "系统信息:";
-		String info = "";
 		if(mHasBeenInit){
 			info = "没有回收任务，请扫描获取任务";
 			WSInfo wsInfo = SysMng.getWSInfo();
@@ -99,7 +96,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 			info = "系统没有初始化，请扫描注册";
 		}
 		mLayout.getTxtLoginInfo().setText(title+"\n"+info);
-		b1 = CommonBroadcast.regist(this, new BroadcastListener() {
+		b1 = CommonBroadcast.regist(mContext, new BroadcastListener() {
 			
 			@Override
 			public void onListener(Bundle extras) {
@@ -114,14 +111,22 @@ public class LaunchActivity extends Activity implements OnClickListener {
 				
 			}
 		});
-//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-//    	startService(intent);
 	}
 
+	
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+//		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode == Activity.RESULT_OK){
+//			{
+//				String wsCode = data.getExtras().getString("wsCode");
+//				String ak = data.getExtras().getString("ak");
+//				String sk = data.getExtras().getString("sk");
+//				ToastUtil.show(mContext, wsCode+ " " + ak + " " + sk);
+//			}
+//			if(true)
+//				return;
 			
 			if(mHasBeenInit){//login start recover{}
 				String ws, car, ak, sk, driver, inspector;
@@ -142,7 +147,6 @@ public class LaunchActivity extends Activity implements OnClickListener {
 				String ak = data.getExtras().getString("ak");
 				String sk = data.getExtras().getString("sk");
 				
-//				ToastUtil.show(this, wsCode+" " + ak + " " + sk);
 				doInitTask(wsCode,ak,sk);
 			}
 		}
@@ -151,10 +155,11 @@ public class LaunchActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == ActivityLaunch.BtnExitId){
-			
+			this.getActivity().
 			finish();
 			
 		}else if(v.getId() == ActivityLaunch.BtnScanId){
+			
 			boolean hasInit = mHasBeenInit;
 			CaptureHelper.ShowCapture(this,
 					hasInit ? MWRCaptureActivity.SCANNERTYPE_KEY_Login :
@@ -163,6 +168,24 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		
 	}
 	
+	private void openMainFrag(){
+		FragmentManager fm = this.getActivity().getFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();  
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        MainFragment mainFragment = new MainFragment();
+        transaction.replace(R.id.container, mainFragment);  
+        transaction.commit();  
+	}
+	
+	private void openInitFrag(){
+		FragmentManager fm = this.getActivity().getFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();  
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		InitFragment initFragment = new InitFragment();
+        transaction.replace(R.id.container, initFragment,"carOut");  
+        transaction.commit();  
+	}
+
 	private InitTask mInitTask = null;
 	private StartCarRecoverTask mStartTask = null;
 	
@@ -233,6 +256,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPreExecute() {
+			
 			DialogHelper.getProgressDialogInstance().show(mContext, "数据提交中");
 		}
 		
@@ -240,6 +264,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		protected String doInBackground(Object... params) {
 			// TODO Auto-generated method stub
 			String url = BaseApplication.getServiceUrl();
+			
 			String result = BaseDataDao.StartCarRecover(mContext, 
 					url, wsCode, accessKey, secretKey, 
 					carCode, driverCode, inspectorCode);
@@ -285,10 +310,7 @@ public class LaunchActivity extends Activity implements OnClickListener {
 					DLog.LOG("-----txninfo " + sb.toString());
 					
 				}
-				finish();
-				
-				Intent intent = new Intent(mContext, MainActivity.class);
-				startActivity(intent);
+				openMainFrag();
 			}
 			DialogHelper.getProgressDialogInstance().close();
 		}
@@ -315,58 +337,18 @@ public class LaunchActivity extends Activity implements OnClickListener {
 		protected Boolean doInBackground(Object... params) {
 			
 			String url = BaseApplication.getServiceUrl();
+			DLog.LOG("doInBackground--------[url] " + url);
 			return BaseDataDao.RegistWS(mContext, url,wsCode, accessKey, secretKey,handler);//TxnDao.sendTxnToInventory(mContext, url, accessKey, secretKey, handler);
 		}
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if(result){
-				Intent intent = new Intent(mContext, LaunchActivity.class);
-				startActivity(intent);
-				finish();
+				openInitFrag();
 			}
 			DialogHelper.getProgressDialogInstance().close();
-			
-//			ResponseBody body = 
-//			ResJsonHelper.getBodyFromJson(result);
-//			if(body == null){
-//				ToastUtil.show(mContext, "网络连接错误");
-//			}else if(body.Error){
-//				ToastUtil.show(mContext, body.ErrMsg);
-//			}else if(!body.Error){
-////				ToastUtil.show(mContext, "ע��ɹ�" );
-////				ToastUtil.show(mContext, body.Result+" ע��ɹ�" );
-//			}
-//			
-//			ResponseInitMWSSubmitBody initBody = 
-//					ResJsonHelper.getInitBodyFromJson(body.Result);
-//			
-//			if(initBody == null){
-//				ToastUtil.show(mContext, "网络连接错误");
-//			}else{
-//				SysMng.saveWSInfo(initBody.WSCode, initBody.AssessKey, initBody.SecretKey, initBody.CrateMask);
-//				
-//				finish();
-//			
-//				Intent intent = new Intent(mContext, LaunchActivity.class);
-//				startActivity(intent);
-//				
-//			}
-			
-//			WSInfo ws = SysMng.getWSInfo();
-//			StringBuilder sb = new StringBuilder();
-			
-//			sb.append(ws.AccessKey+"\n");
-//			sb.append(ws.SecretKey+"\n");
-//			sb.append(ws.CrateMask+"\n");
-//			sb.append(ws.WSCode+"\n");
-//			DLog.LOG("-----wsinfo " + sb.toString());
-			
-//			SysMng.saveWSInfo(), crateMask)
 			
 		}
 		
 	}
-	
-	
 }

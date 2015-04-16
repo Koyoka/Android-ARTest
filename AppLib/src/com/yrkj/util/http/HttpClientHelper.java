@@ -371,6 +371,42 @@ public class HttpClientHelper {
 		
 	}
 	
+	public String httpReadFileURL(String url)throws Exception{
+		URI uri = new URI(url);
+		
+		HttpGet get = new HttpGet(uri);
+		
+		HttpResponse response = _httpclient.execute(get);
+		String result = "";
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			InputStream is = response.getEntity().getContent();
+			result = inStream2String(is);
+		}
+		return result;
+	}
+	public String httpRequestURL(String url,String requestBody)throws Exception{
+		
+		URI uri = new URI(url);
+		
+	    HttpPost post = new HttpPost(uri);  
+		
+	    post.setEntity(new StringEntity(requestBody.toString(),CHARSET));
+	    
+	    SignatureBuilder sb = new SignatureBuilder();
+//	    post.setHeader(new BasicHeader("Date", org.apache.http.impl.cookie.DateUtils.formatDate(new java.util.Date()).replaceFirst("[+]00:00$", "")));
+//	    post.setHeader(new BasicHeader("Content-Type", "application/json"));
+//	    post.setHeader("Authorization", "MWR " + accessKey + ":" + sb.tmsSignature(post, secretKey));
+	    
+	    HttpResponse response = _httpclient.execute(post);
+		String result = "";
+		if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+			InputStream is = response.getEntity().getContent();
+			result = inStream2String(is);
+		}
+		
+		return result;
+		
+	}
 	public String httpSignatureRequestURL(String url,String accessKey,String secretKey,
 			String requestBody)throws Exception{
 		URI uri = new URI(url);

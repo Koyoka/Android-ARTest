@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 
+import com.yrkj.mwrmobile.base.BaseApplication;
+import com.yrkj.mwrmobile.bean.response.ResponseConfigBody;
+import com.yrkj.mwrmobile.dao.ResJsonHelper;
+import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.http.NetHelper;
 import com.yrkj.util.log.DLog;
 
@@ -77,10 +81,30 @@ public class BackWorkSerive extends Service {
 		public void run() {
 			
 			int state = NetHelper.getAPNType(mContext);
-			DLog.LOG("test thread-------------------- " + state);
+			
+			if(state == NetHelper.WIFI){
+				String url = BaseApplication.getServiceConfig();
+				String cfgJson = HttpMng.doHttpReadFileURL(url);
+				if(cfgJson == null){
+					return;
+				}else{
+					ResponseConfigBody body = ResJsonHelper.getConfigBodyFromJson(cfgJson);
+					if(body != null){
+						BaseApplication.setSerciverUrlHandler(body.MWR_Moblie_Service);
+						
+						Bundle extras = new Bundle();
+						extras.putInt(INTENT_KEY_APNType, state);
+						CommonBroadcast.send(mContext, extras);
+						return ;
+					}
+					
+				}
+			}
+			
 			Bundle extras = new Bundle();
-			extras.putInt(INTENT_KEY_APNType, state);
+			extras.putInt(INTENT_KEY_APNType, 0);
 			CommonBroadcast.send(mContext, extras);
+			
 		
 		}
 	}
