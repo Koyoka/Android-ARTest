@@ -100,8 +100,65 @@ public class Test {
 	private static double rad(double d) {
 		return d * Math.PI / 180.0;
 	}
+	
+	private static void fooCharLengh(){
+		RequestBody rBody = new RequestBody();
+		rBody.action="RecoverInventorySubmit";
+		RequestTxnBody txn = new RequestTxnBody();
+		ArrayList<TxnDetailData> detailList  = new ArrayList<TxnDetailData>();
+		for(int i = 0; i<100;i++){
+			TxnDetailData item = new TxnDetailData();
+			
+			item.TxnDetailId = "100";
+			item.TxnType = "100";
+			item.TxnNum = "100";
+			item.WSCode = "ws00001";
+			item.EmpyName = "哈哈哈哈";
+			item.EmpyCode = "YG0001";
+			item.CrateCode = "HX0001";
+			item.Vendor = "哈哈哈哈哈哈哈哈哈哈哈哈";
+			item.VendorCode = "HX0001";
+			item.Waste = "哈哈哈哈哈哈哈哈哈哈哈哈";
+			item.WasteCode = "HX0001";
+			item.SubWeight = "100.00";
+			item.TxnWeight = "100.00";
+			item.EntryDate = "2015-01-01 23:59:59";
+			item.InvRecordId = "";
+			item.InvAuthId = "1";
+			item.Status = "1";
+			item.Unit = "1";
+			detailList.add(item);
+		}
+		txn.txndetaillist = detailList;
+		txn.carcode = "哈a010101";
+		txn.drivercode = "YG0001";
+		txn.drvier = "哈哈哈哈";
+		txn.inspectorcode = "YG0001";
+		txn.inspector = "哈哈哈哈";
+		txn.mwscode = "ws00001";
+		rBody.value = txn;
+		Gson gson = new Gson();
+		String body =  gson.toJson(rBody);
+		
+		byte[] a = body.getBytes();
+		
+		System.out.println("byte length: "+a.length);
+		System.out.println("kb byte/1024: "+(a.length/1024));
+		System.out.println("次数  length/128: "+(a.length/128));
+	
+		byte[] enStr = Base64.encodeBase64(a);
+		System.out.println("byte length: "+enStr.length);
+	}
+	
 	public static void main(String[] args) {
 
+		{
+			fooCharLengh();
+			if(true)
+				return;
+			
+		}
+		if(false)
 		{
 			double lat,lng,lat1,lng1;
 			lat = 30.667336;

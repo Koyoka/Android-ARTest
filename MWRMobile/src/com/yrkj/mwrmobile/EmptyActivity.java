@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.AsyncTask.Status;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.yrkj.mwrmobile.LaunchActivity.InitTask;
@@ -16,21 +17,25 @@ import com.yrkj.mwrmobile.base.TxnInfo;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.bean.response.ResponseConfigBody;
 import com.yrkj.mwrmobile.dao.ResJsonHelper;
+import com.yrkj.mwrmobile.layout.ActivityEmpy;
 import com.yrkj.mwrmobile.service.BackWorkSerive;
 import com.yrkj.mwrmobile.service.CommonBroadcast;
 import com.yrkj.util.dialog.DialogHelper;
 import com.yrkj.util.http.HttpMng;
 import com.yrkj.util.log.DLog;
 
-public class EmptyActivity extends Activity {
+public class EmptyActivity extends Activity implements OnClickListener {
 	private Context mContext = null;
 	private boolean mHasBeenInit = false;
 	private TextView mTextView = null;
-	
 	private static EmptyActivity mActy = null;
+	private ActivityEmpy mLayout = null;
+	private InitSystem mInitTask= null;
+
 	public static EmptyActivity getInstance(){
 		return mActy;
 	}
+	
 	public  void _finish(){
 		if(mActy != null){
 			mActy.finish();
@@ -42,6 +47,8 @@ public class EmptyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_empy);
 //		DLog.LOG("EmptyActivity--------[onCreate]");
+		mLayout = new ActivityEmpy(this);
+		mLayout.getBtnSetHostView().setOnClickListener(this);
 		mContext = this;
 //		Intent intent1 = new Intent(mContext, MainActivity.class);
 //		startActivity(intent1);
@@ -60,6 +67,9 @@ public class EmptyActivity extends Activity {
 		}else{
 			mHasBeenInit = true;
 		}
+		
+		String host = SysMng.getSysInfo().SerciveHost;
+		BaseApplication.Servive_Host = host;
 		doInitTask();
 //		initActy();
 
@@ -71,31 +81,31 @@ public class EmptyActivity extends Activity {
 		
 	}
 	
-	private void initActy(){
-//		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
-//    	startService(intent);
+//	private void initActy(){
+////		Intent intent = new Intent(getBaseContext(), BackWorkSerive.class);
+////    	startService(intent);
+////    	
+////    	BaseApplication.getInstance().mLocationClient.start();
 //    	
-//    	BaseApplication.getInstance().mLocationClient.start();
-    	
-		
-		TxnInfo txnInfo = SysMng.getTxnInfo();
-		if(mHasBeenInit && txnInfo.CarCode.length() != 0
-				&& txnInfo.DriverCode.length() != 0
-				&& txnInfo.InspectorCode.length() != 0)
-		{
-			Intent intent1 = new Intent(mContext, MainActivity.class);
-			intent1.putExtra(MainActivity.INTENT_KEY_SHOW, MainActivity.INTENT_VAL_SHOW_ShowMain);
-			startActivity(intent1);
-		}else{
-			
-			Intent intent1 = new Intent(mContext, MainActivity.class);
-			intent1.putExtra(MainActivity.INTENT_KEY_SHOW, MainActivity.INTENT_VAL_SHOW_ShowInit);
-			startActivity(intent1);
-		}
-		this.finish();
-//    	mTextView = (TextView) findViewById(R.id.txtTextView);
-//    	BaseApplication.getInstance().locationTextView = mTextView;
-	}
+//		
+//		TxnInfo txnInfo = SysMng.getTxnInfo();
+//		if(mHasBeenInit && txnInfo.CarCode.length() != 0
+//				&& txnInfo.DriverCode.length() != 0
+//				&& txnInfo.InspectorCode.length() != 0)
+//		{
+//			Intent intent1 = new Intent(mContext, MainActivity.class);
+//			intent1.putExtra(MainActivity.INTENT_KEY_SHOW, MainActivity.INTENT_VAL_SHOW_ShowMain);
+//			startActivity(intent1);
+//		}else{
+//			
+//			Intent intent1 = new Intent(mContext, MainActivity.class);
+//			intent1.putExtra(MainActivity.INTENT_KEY_SHOW, MainActivity.INTENT_VAL_SHOW_ShowInit);
+//			startActivity(intent1);
+//		}
+//		this.finish();
+////    	mTextView = (TextView) findViewById(R.id.txtTextView);
+////    	BaseApplication.getInstance().locationTextView = mTextView;
+//	}
 
 //	@Override
 //	protected void onDestroy() {
@@ -132,14 +142,14 @@ public class EmptyActivity extends Activity {
 			mInitTask.execute();
 		}
 	}
-	InitSystem mInitTask= null;
+	
 	class InitSystem extends AsyncTask<Object, Object, Boolean>{
 
 		@Override
 		protected void onPreExecute() {
 //			DialogHelper.getProgressDialogInstance().show(mContext, "系统初始化据提交中");
 			mTextView = (TextView) findViewById(R.id.txtTextView);
-			mTextView.setText("系统初始化配置");
+			mTextView.setText("系统正在初始化配置。。。");
 		}
 		@Override
 		protected Boolean doInBackground(Object... params) {
@@ -187,6 +197,24 @@ public class EmptyActivity extends Activity {
 			}
 			
 			
+		}
+	}
+	
+	@Override
+	public void onClick(View v) {
+
+		if(v.getId() == ActivityEmpy.BtnSetHostViewId){
+			Intent intent = new Intent(this,EditActivity.class);
+			this.startActivityForResult(intent, 1);
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(resultCode == Activity.RESULT_OK){
+			doInitTask();
 		}
 	}
 }

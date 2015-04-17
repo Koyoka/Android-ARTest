@@ -2,11 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_1"
     android:orientation="vertical" >
-    <TextView 
+   
+	<LinearLayout 
+	        android:padding="2dip"
+	        android:orientation="horizontal"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+	        <TextView 
+	            android:id="@+id/txtWSCode"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#ffffff"
+	            android:layout_weight="1"
+	            android:text=""/>
+	        <TextView 
+	            android:id="@+id/btnSetHostView"
+	            android:drawablePadding="4dip"
+	             android:padding="10dip"
+	        	android:drawableLeft="@drawable/btn_setting_1_n"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="#ffffff"
+	            android:text="设置"/>
+	       
+	 </LinearLayout>
+     <LinearLayout 
+	        android:orientation="vertical"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="top|center_horizontal">
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/logo"/>
+	        <TextView 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center"
+	            android:textSize="26sp"
+	            android:textColor="#ffffff"
+	            android:text="医疗废物回收终端"/>
+	        
+	    </LinearLayout>
+	     <TextView 
+            android:id="@+id/txtTextView"
+            android:layout_margin="@dimen/activity_main_itemmargin"
+            android:textColor="#ffffff"
+            android:padding="15dip"
+            android:textSize="20sp"
+            android:background="@drawable/launch_info_bg"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text=""/>
+	    <LinearLayout 
+        android:padding="2dip"
+        android:paddingTop="10dip"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/txtTextView"
-        />
-
+        android:layout_height="wrap_content">
+        <TextView 
+            android:id="@+id/txtWSCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:text="@string/mw_copyright"/>
+        <TextView 
+        
+            android:id="@+id/txtNetState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:text="@string/mw_version"/>
+    </LinearLayout>
 </LinearLayout>

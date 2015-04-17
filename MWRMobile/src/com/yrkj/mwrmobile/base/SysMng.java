@@ -34,6 +34,7 @@ public class SysMng {
 	private final static String PREF_KEY_SECRETKEY = "secretkey";
 	private final static String PREF_KEY_CrateMask = "HX###";
 	private final static String PREF_KEY_CarCode = "carCode";
+	public final static String PREF_KEY_ServiceHost = "ServiceHost";
 	
 	private static SharedPreferences mPrefs;
 	private static SharedPreferences getPrefs(){
@@ -58,6 +59,12 @@ public class SysMng {
 		editor.putString(PREF_KEY_CrateMask, crateMask);
 		editor.commit();
 	}
+	public static void savePrefValue(String key,String val){
+		
+		SharedPreferences.Editor editor = getPrefs().edit();
+		editor.putString(key, val);
+		editor.commit();
+	} 
 	
 	public static void saveTxnInfo(String carCode,String driver,String driverName,String inspector,String inspectorName){
 		SharedPreferences.Editor editor = getPrefs().edit();
@@ -70,6 +77,13 @@ public class SysMng {
 		editor.putString(PREF_KEY_Inspector, inspector);
 		editor.putString(PREF_Key_InspectorName, inspectorName);
 		editor.commit();
+	}
+	
+	public static SysInfo getSysInfo(){
+		SysInfo sysInfo = new SysInfo();
+		sysInfo.SerciveHost = getPrefs().getString(PREF_KEY_ServiceHost, "192.168.1.105");
+		return sysInfo;
+		
 	}
 	
 	public static WSInfo getWSInfo(){

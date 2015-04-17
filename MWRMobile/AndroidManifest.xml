@@ -55,7 +55,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
         <activity
@@ -88,7 +88,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>
             -->
         </activity>
         <activity
@@ -107,7 +107,6 @@
         <activity
             android:name="com.yrkj.mwrmobile.SettingsActivity"
             android:label="@string/title_activity_settings" >
-            
         </activity>
 
         <service
@@ -123,7 +122,10 @@
             </intent-filter>
         </service>
 
-     
+        <activity
+            android:name="com.yrkj.mwrmobile.EditActivity"
+            android:label="@string/title_activity_edit" >
+        </activity>
     </application>
 
 </manifest>

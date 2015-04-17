@@ -12,5 +12,8 @@
     <string name="title_activity_function">FunctionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mw_copyright">MateWare 友睿科技   copyright 2012-2015</string>
+    <string name="mw_version">v1.0</string>
+    <string name="title_activity_edit">EditActivity</string>
 
 </resources>

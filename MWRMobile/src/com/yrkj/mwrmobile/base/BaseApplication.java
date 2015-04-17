@@ -16,7 +16,7 @@ import com.yrkj.util.log.DLog;
 
 public class BaseApplication extends Application {
 	
-	public static final String Servive_Host = "192.168.1.105";
+	public static String Servive_Host = "";
 //	public static final String Service_UR1L = "http://192.168.1.201/Services/MWMobileWSHandler.ashx";
 	public static void setSerciverUrlHandler(String s){
 		
@@ -24,7 +24,6 @@ public class BaseApplication extends Application {
 	}
 	private static String mUrl = null;//"/Services/MWMobileWSHandler.ashx";
 	public static String getServiceUrl(){
-		
 		return "http://" + Servive_Host +"/"+ (mUrl==null?"":mUrl);
 	}
 	public static String getServiceConfig(){

@@ -104,13 +104,13 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_weight="1"
-            android:text="MateWare 友睿科技   copyright 2012-2015"/>
+            android:text="@string/mw_copyright"/>
         <TextView 
         
             android:id="@+id/txtNetState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
-            android:text="v1.0"/>
+            android:text="@string/mw_version"/>
     </LinearLayout>
 </LinearLayout>
