@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.yrkj.mwrmobile.SettingsActivity$PlaceholderFragment" >
+    tools:context="com.yrkj.mwrmobile.SettingsFragment" >
     <Button 
         android:id="@+id/btnSettingAysnData"
         android:layout_width="match_parent"
@@ -13,6 +13,19 @@
 	    android:padding="15dip"
 	    android:textSize="20sp"
 	    android:text="服务器数据同步" />
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#eeeeee"/>
+    <Button 
+        android:id="@+id/btnSettingEditHost"
+        android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/service_bg_5"
+	    android:gravity="left|center_vertical"
+	    android:padding="15dip"
+	    android:textSize="20sp"
+	    android:text="编辑服务器地址" />
     <View 
         android:layout_width="match_parent"
         android:layout_height="1dip"

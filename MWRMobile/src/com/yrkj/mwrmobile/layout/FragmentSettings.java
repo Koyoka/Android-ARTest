@@ -11,21 +11,28 @@ import com.yrkj.mwrmobile.R;
 public class FragmentSettings extends BaseLayout{
 
     public static final int BtnSettingAysnDataId = R.id.btnSettingAysnData;
+    public static final int BtnSettingEditHostId = R.id.btnSettingEditHost;
 
     protected android.widget.Button mBtnSettingAysnData;
+    protected android.widget.Button mBtnSettingEditHost;
 
     protected Activity mCurActy;
 
     public FragmentSettings(Activity acty){
         mCurActy = acty;
         mBtnSettingAysnData = (android.widget.Button) acty.findViewById(BtnSettingAysnDataId);
+        mBtnSettingEditHost = (android.widget.Button) acty.findViewById(BtnSettingEditHostId);
     }   
 
     public FragmentSettings(android.view.View acty){
         mBtnSettingAysnData = (android.widget.Button) acty.findViewById(BtnSettingAysnDataId);
+        mBtnSettingEditHost = (android.widget.Button) acty.findViewById(BtnSettingEditHostId);
     }   
     public android.widget.Button getBtnSettingAysnData() {
         return mBtnSettingAysnData;
+    }
+    public android.widget.Button getBtnSettingEditHost() {
+        return mBtnSettingEditHost;
     }
 
     public void bindData(LayoutDataAdapter adp,BaseBean data){
@@ -46,6 +53,9 @@ public class FragmentSettings extends BaseLayout{
                 case BtnSettingAysnDataId:
                     setViewData(adp,getBtnSettingAysnData(),data,joinData.formatString,joinData.data);
                     break;
+                case BtnSettingEditHostId:
+                    setViewData(adp,getBtnSettingEditHost(),data,joinData.formatString,joinData.data);
+                    break;
                 }
             }
         }
@@ -61,6 +71,9 @@ public class FragmentSettings extends BaseLayout{
                 switch (viewKey) {
                 case BtnSettingAysnDataId:
                     setViewData(adp,getBtnSettingAysnData(),data,"",path);
+                    break;
+                case BtnSettingEditHostId:
+                    setViewData(adp,getBtnSettingEditHost(),data,"",path);
                     break;
                     
                 default:

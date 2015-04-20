@@ -22,6 +22,7 @@ import com.yrkj.mwrmobile.base.SysMng;
 import com.yrkj.mwrmobile.base.WSInfo;
 import com.yrkj.mwrmobile.dao.BaseDataDao;
 import com.yrkj.mwrmobile.layout.FragmentHeaderLayout;
+import com.yrkj.mwrmobile.layout.FragmentSettings;
 import com.yrkj.mwrmobile.util.scanner.CaptureHelper;
 import com.yrkj.mwrmobile.util.scanner.MWRCaptureActivity;
 import com.yrkj.util.dialog.DialogHelper;
@@ -39,7 +40,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		initActy();
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+					.add(R.id.container, new SettingsFragment()).commit();
 		}
 	}
 	
@@ -64,11 +65,12 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment implements OnClickListener {
+	public static class SettingsFragment extends Fragment implements OnClickListener {
 
 		private Context mContext = null;
+		private FragmentSettings mLayout = null;
 		
-		public PlaceholderFragment() {
+		public SettingsFragment() {
 		}
 
 		@Override
@@ -82,14 +84,19 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		}
 		
 		private void initFrm(View v){
-			v.findViewById(R.id.btnSettingAysnData).setOnClickListener(this);
-			
+			mLayout = new FragmentSettings(v);
+//			v.findViewById(R.id.btnSettingAysnData).setOnClickListener(this);
+			mLayout.getBtnSettingAysnData().setOnClickListener(this);
+			mLayout.getBtnSettingEditHost().setOnClickListener(this);
 		}
 
+		
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(v.getId() == R.id.btnSettingAysnData){
+			int viewId = v.getId();
+			if(viewId == //R.id.btnSettingAysnData
+					FragmentSettings.BtnSettingAysnDataId){
 				String wsCode,ak,sk;
 				
 				WSInfo wsInfo = SysMng.getWSInfo();
@@ -99,6 +106,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 				
 				doInitTask(wsCode,ak,sk);
 				
+			}else if(viewId == FragmentSettings.BtnSettingEditHostId){
+				Intent intent = new Intent(this.getActivity(),EditActivity.class);
+//				this.startActivityForResult(intent, 1);
+				startActivity(intent);
 			}
 			
 		}
