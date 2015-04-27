@@ -79,7 +79,7 @@ public class EditActivity extends Activity implements OnClickListener {
 
 			if(v.getId() == FragmentEditHost.BtnConfirmViewId){
 				String host = mLayout.getTxtEditView().getText()+"";
-				BaseApplication.Servive_Host = host;
+//				BaseApplication.Servive_Host = host;
 				SysMng.savePrefValue(SysMng.PREF_KEY_ServiceHost, host);
 				getActivity().setResult(Activity.RESULT_OK);
 				getActivity().finish();

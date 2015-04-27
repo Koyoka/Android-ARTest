@@ -69,7 +69,7 @@ public class EmptyActivity extends Activity implements OnClickListener {
 		}
 		
 		String host = SysMng.getSysInfo().SerciveHost;
-		BaseApplication.Servive_Host = host;
+//		BaseApplication.Servive_Host = host;
 		doInitTask();
 //		initActy();
 

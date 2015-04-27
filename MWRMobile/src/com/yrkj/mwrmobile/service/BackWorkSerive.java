@@ -84,6 +84,7 @@ public class BackWorkSerive extends Service {
 			
 			if(state == NetHelper.WIFI){
 				String url = BaseApplication.getServiceConfig();
+				DLog.LOG("ccc-------"+url);
 				String cfgJson = HttpMng.doHttpReadFileURL(url);
 				if(cfgJson == null){
 					return;

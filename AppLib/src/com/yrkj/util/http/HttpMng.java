@@ -57,7 +57,8 @@ public class HttpMng {
 	}
 	public static String doHttpReadFileURL(String url){
 		try {
-			return GetHttpClientHelper().httpReadFileURL(url);
+//			return GetHttpClientHelper().httpReadFileURL(url);
+			return new HttpClientHelper().httpReadFileURL(url);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -26,6 +26,7 @@ import com.yrkj.mwrmobile.dao.BaseDataDao;
 import com.yrkj.mwrmobile.dao.TxnDao;
 import com.yrkj.mwrmobile.layout.FragmentEntryCrateDialog;
 import com.yrkj.util.basedao.common.ComFn;
+import com.yrkj.util.log.DLog;
 import com.yrkj.util.log.ToastUtil;
 
 public class EntryCrateDialogFragment extends DialogFragment implements OnClickListener {
@@ -209,6 +210,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 			mLayout.getSpnVendor().setAdapter(adapter);
 			
 			mLayout.getSpnVendor().setSelection(defaultVendorPosition, true);
+//			mCurVendor = mVendorList.get(defaultVendorPosition);	
 			mLayout.getSpnVendor().setOnItemSelectedListener(
 		                new OnItemSelectedListener() {
 		                    public void onItemSelected(
@@ -223,13 +225,14 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 	//	                        showToast("Spinner1: unselected");
 		                    }
 		                });
+			mCurVendor = mVendorList.get(mLayout.getSpnVendor().getSelectedItemPosition());	
 		}
 		{
 			
 			ArrayAdapter<String> adapter = null;
 			adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mWasters);
 			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	     
+			
 			mLayout.getSpnWaster().setAdapter(adapter);
 			mLayout.getSpnWaster().setOnItemSelectedListener(
 		                new OnItemSelectedListener() {
@@ -245,6 +248,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 	//	                        showToast("Spinner1: unselected");
 		                    }
 		                });
+			mCurWaste = mWasterList.get(mLayout.getSpnWaster().getSelectedItemPosition());
 		}
 	}
 
@@ -266,6 +270,7 @@ public class EntryCrateDialogFragment extends DialogFragment implements OnClickL
 			
 			if(mCurVendor == null || mCurWaste == null){
 				ToastUtil.show(getActivity(), "请选择医院和废料类型。");
+				return;
 			}
 			
 			mTxnDetailData.SubWeight = weight;
