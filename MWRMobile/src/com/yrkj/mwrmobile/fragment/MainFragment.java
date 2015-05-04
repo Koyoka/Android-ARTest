@@ -14,9 +14,12 @@ import com.yrkj.mwrmobile.service.BackWorkSerive;
 import com.yrkj.mwrmobile.service.CommonBroadcast;
 import com.yrkj.mwrmobile.service.CommonBroadcast.BroadcastListener;
 import com.yrkj.util.dialog.DialogHelper;
+import com.yrkj.util.dialog.DialogHelper.ConfirmDialogListener;
 import com.yrkj.util.log.ToastUtil;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -115,6 +118,15 @@ public class MainFragment extends Fragment implements OnClickListener {
 		});
 	}
 	
+	private void openInitFrag(){
+		FragmentManager fm = this.getActivity().getFragmentManager();
+		FragmentTransaction transaction = fm.beginTransaction();  
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		InitFragment initFragment = new InitFragment();
+        transaction.replace(R.id.container, initFragment,"carOut");  
+        transaction.commit();  
+	}
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -167,6 +179,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		}
 	}
 	
+	
 	Handler handler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -207,13 +220,26 @@ public class MainFragment extends Fragment implements OnClickListener {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			super.onPostExecute(result);
+			DialogHelper.getProgressDialogInstance().close();
 			if(result){
 				mLayout.getTxtTotalCount().setText("总数量：0");
 				mLayout.getTxtTotalWeight().setText("总重量：0 kg");
 				SysMng.saveTxnInfo("", "", "", "", "");
+				
+				
+				DialogHelper.createTextDialog(getActivity(), "班次完成", "请于管理中心提交终端，或重新接受任务",new ConfirmDialogListener() {
+					
+					@Override
+					public void onClickListener(boolean result) {
+						// TODO Auto-generated method stub
+						openInitFrag();
+					}
+				});
 			}
-			DialogHelper.getProgressDialogInstance().close();
+			
 			
 		}
+		
+		
 	}
 }

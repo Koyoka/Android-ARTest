@@ -83,6 +83,18 @@ public class DialogHelper {
 	      .show();
 	}
 	
+	public static void createTextDialog(final Activity acty,String title,String message,final ConfirmDialogListener l){
+		new AlertDialog.Builder(acty).setTitle(title).setMessage(message)
+				.setPositiveButton("х╥хо", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						if (l != null) {
+							l.onClickListener(true);
+						}
+					}
+				}).show();
+		
+	}
+	
 	private static void userSelectPhotoDialog(final Activity acty,final OnClickListener l){
 		final Dialog d = new Dialog(acty, R.style.UserDialog);
 		d.setContentView(R.layout.comm_dialog_selectphoto_view);
