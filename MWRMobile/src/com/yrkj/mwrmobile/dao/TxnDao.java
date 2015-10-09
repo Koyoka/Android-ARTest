@@ -147,6 +147,56 @@ public class TxnDao {
 		
 	}
 
+	private static boolean sendEmptyTxn(Context c,String url,String accessKey,String secretKey,
+			String sendActionType,
+			Handler handler){
+		TxnInfo txnInfo = new TxnInfo();
+		WSInfo wsInfo = new WSInfo();
+		txnInfo = SysMng.getTxnInfo();
+		wsInfo = SysMng.getWSInfo();
+		
+		
+		RequestTxnBody txn = new RequestTxnBody();
+		txn.txndetaillist = new ArrayList<TxnDetailData>();
+		txn.carcode = txnInfo.CarCode;
+		txn.drivercode = txnInfo.DriverCode;
+		txn.drvier =txnInfo.DriverName;
+		txn.inspectorcode = txnInfo.InspectorCode;
+		txn.inspector = txnInfo.InspectroName;
+		txn.mwscode = wsInfo.WSCode;
+		
+		
+		RequestBody rBody = new RequestBody();
+		rBody.action = sendActionType;//"RecoverInventorySubmit";
+		rBody.value = txn;
+		
+		Gson gson = new Gson();
+		String body =  gson.toJson(rBody);
+		
+		String resultStr = HttpMng.doHttpSignatureURL(url, accessKey, secretKey, body);
+		
+		Message msg = new Message();
+		
+		ResponseBody resBody = 
+				ResJsonHelper.getBodyFromJson(resultStr);
+		if(body == null){
+			msg.what = Txn_failed;
+			msg.obj = "网络连接错误";
+			handler.sendMessage(msg);
+			return false;
+		}else if(resBody.Error){
+			msg.what = Txn_failed;
+			msg.obj = resBody.ErrMsg;
+			handler.sendMessage(msg);
+			return false;
+		}else{
+			msg.what = Txn_Sucess;
+//			msg.obj = resBody.ErrMsg;
+			handler.sendMessage(msg);
+			return true;
+		}
+	}
+	
 	public static boolean sendTxn(Context c,String url,String accessKey,String secretKey
 			,int sendType
 			,Handler handler){
@@ -183,20 +233,25 @@ public class TxnDao {
 		}
 		
 		if(header == null){
-			msg.what = Txn_failed;
-			msg.obj = "没有可用数据提交";
-			handler.sendMessage(msg);
-			return false;
+//			msg.what = Txn_failed;
+//			msg.obj = "没有可用数据提交";
+//			handler.sendMessage(msg);
+//			return false;
+			//Context c,String url,String accessKey,String secretKey
+//			,int sendType
+//			,Handler handler
+			return sendEmptyTxn(c,url,accessKey,secretKey,sendActionType,handler);
 		}
 		
 		ArrayList<TxnDetailData> detailList =  getTxnDetail(c);
 		
 		
 		if(detailList.size() == 0){
-			msg.what = Txn_failed;
-			msg.obj = "没有可用数据提交";
-			handler.sendMessage(msg);
-			return false;
+//			msg.what = Txn_failed;
+//			msg.obj = "没有可用数据提交";
+//			handler.sendMessage(msg);
+//			return false;
+			return sendEmptyTxn(c,url,accessKey,secretKey,sendActionType,handler);
 		}
 		
 		TxnInfo txnInfo = new TxnInfo();
