@@ -63,7 +63,7 @@ public class MWRCaptureActivity extends CaptureActivity implements OnClickListen
 		super.handleDecode(rawResult, bundle);
 		
 		String result = rawResult.getText();
-		
+		ToastUtil.show(this, result);
 		if(mScannerType == SCANNERTYPE_KEY_RecoverCrate){
 			doRecoverCrate(result,bundle);
 		}else if(mScannerType == SCANNERTYPE_KEY_InitSystem){

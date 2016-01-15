@@ -81,14 +81,14 @@ public class SyncService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
+		 
 		if(b1!=null){
 			 unregisterReceiver(b1);  
 		}
 		stopTimeHandler();
 	}
 	
-	private void initService(){
+	private void initService(){ 
 		b1 = SyncBroadcast.registUploadSyncBroadcast(this, new UploadSyncListener() {
 			
 			@Override
