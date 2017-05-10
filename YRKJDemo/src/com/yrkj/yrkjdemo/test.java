@@ -14,8 +14,8 @@ public class test {
 	}
 	
 	private static void initOSS(){
-		String accessKeyId = "Rru0fC84n5OWyew0";
-		String accessKeySecret = "6smSECdwPWNZ0m9pHrOzFtQMQU8wAJ";
+		String accessKeyId = "";
+		String accessKeySecret = "";
 		mClient = new OSSClient(accessKeyId, accessKeySecret);
 		
 	}
@@ -23,13 +23,13 @@ public class test {
 
 		//http://eleven-bucket.oss-cn-hangzhou.aliyuncs.com/video_creator.mp4
 		//http://eleven-bucket.oss-cn-hangzhou.aliyuncs.com/1.m4v
-	    // 初始化OSSClient
+	    // 鍒濆鍖朞SSClient
 	    OSSClient client = mClient;
 
-	    // 获取指定bucket下的所有Object信息
+	    // 鑾峰彇鎸囧畾bucket涓嬬殑鎵�鏈塐bject淇℃伅
 	    ObjectListing listing = client.listObjects(bucketName);
 
-	    // 遍历所有Object
+	    // 閬嶅巻鎵�鏈塐bject
 	    for (OSSObjectSummary objectSummary : listing.getObjectSummaries()) {
 	    	
 	        System.out.println(objectSummary.getKey() + " " +objectSummary.getETag() + " " 
